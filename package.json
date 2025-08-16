@@ -35,7 +35,7 @@
     "@types/node": "^16.18.126",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
-    "@types/react-icons": "^2.2.7",
+    "@types/react-icons": "^3.0.0",
     "@types/three": "^0.179.0",
     "aos": "^2.3.4",
     "framer-motion": "^12.23.12",
