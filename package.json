@@ -1,7 +1,31 @@
 {
-  "name": "portfolio-website",
-  "version": "0.1.0",
-  "private": true,
+  "name": "muhammad-umair-portfolio",
+  "version": "1.0.0",
+  "description": "Modern React portfolio website showcasing software engineering expertise with stunning animations and professional design",
+  "author": {
+    "name": "Muhammad Umair",
+    "email": "umair.leo17@gmail.com",
+    "url": "https://github.com/umairleo1"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umairleo1/portfolio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/umairleo1/portfolio/issues"
+  },
+  "keywords": [
+    "portfolio",
+    "react",
+    "typescript",
+    "software-engineer",
+    "responsive",
+    "modern-design",
+    "animations",
+    "glassmorphism"
+  ],
+  "private": false,
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.6.4",
@@ -11,17 +35,48 @@
     "@types/node": "^16.18.126",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
+    "@types/react-icons": "^2.2.7",
+    "@types/three": "^0.179.0",
+    "aos": "^2.3.4",
+    "framer-motion": "^12.23.12",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-icons": "^5.5.0",
+    "react-intersection-observer": "^9.16.0",
     "react-scripts": "5.0.1",
+    "three": "^0.179.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
+  "homepage": "https://umairleo1.github.io/portfolio",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build && npm run build:optimize",
+    "build:analyze": "npm run build && npx bundle-analyzer build/static/js/*.js",
+    "build:optimize": "npm run compress:gzip",
+    "compress:gzip": "gzip -k build/static/js/*.js build/static/css/*.css",
+    "test": "react-app-rewired test",
+    "test:ci": "react-app-rewired test --coverage --silent --watchAll=false --passWithNoTests",
+    "test:watch": "npm run test -- --watchAll=false --passWithNoTests",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build && npm run validate",
+    "deploy": "gh-pages -d build",
+    "validate": "npm run lint && npm run type-check && npm run test:ci",
+    "dev": "npm run start:all",
+    "start:all": "./scripts/start-services.sh",
+    "stop:all": "./scripts/stop-services.sh",
+    "services:start": "concurrently --names \"DEV,TEST\" --prefix-colors \"blue,green\" \"npm start\" \"npm run test:watch\"",
+    "services:stop": "pkill -f \"react-scripts start\" && pkill -f \"react-scripts test\"",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md}",
+    "format:check": "prettier --check src/**/*.{js,jsx,ts,tsx,css,md}",
+    "type-check": "tsc --noEmit",
+    "analyze": "npm run build && npx bundle-analyzer build/static/js/*.js",
+    "clean": "rm -rf build node_modules/.cache",
+    "clean:install": "npm run clean && npm ci",
+    "security:audit": "npm audit --audit-level=moderate",
+    "security:fix": "npm audit fix"
   },
   "eslintConfig": {
     "extends": [
@@ -40,5 +95,23 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/aos": "^3.0.7",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "concurrently": "^9.2.0",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "gh-pages": "^6.3.0",
+    "prettier": "^3.0.0",
+    "react-app-alias": "^2.2.2",
+    "react-app-rewired": "^2.2.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }
