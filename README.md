@@ -7,8 +7,6 @@
 
 A modern, responsive portfolio website showcasing professional software engineering experience. Built with React 19, TypeScript, and cutting-edge web technologies featuring stunning animations, glassmorphism design, and optimized performance.
 
-![Portfolio Preview](./docs/images/preview.png)
-
 ## 🚀 Live Demo
 
 [**View Live Portfolio →**](https://umairleo1.github.io/portfolio) ✨ **Now Live!**
@@ -262,20 +260,29 @@ Customize the visual appearance:
 
 ## 🚢 Deployment
 
-### GitHub Pages (Recommended)
+### Fully Automated GitHub Pages Deployment
 
-1. **Update package.json homepage**
+**Zero manual work required!** The portfolio uses a professional CI/CD pipeline that automatically deploys when you push to the main branch.
 
-   ```json
-   {
-     "homepage": "https://your-username.github.io/portfolio"
-   }
-   ```
+#### How it works:
 
-2. **Deploy to GitHub Pages**
-   ```bash
-   npm run deploy
-   ```
+```bash
+# Simply push your changes
+git add .
+git commit -m "feat: update portfolio content"
+git push origin main
+
+# That's it! Your portfolio deploys automatically in ~3 minutes
+```
+
+#### What happens automatically:
+
+1. ✅ **Quality Validation** - TypeScript, ESLint, Prettier, Tests
+2. ✅ **Security Audit** - Vulnerability scanning
+3. ✅ **Production Build** - Optimized React build
+4. ✅ **Live Deployment** - Automatic GitHub Pages deployment
+
+**Result:** Your portfolio is live at https://umairleo1.github.io/portfolio
 
 ### Custom Domain
 
@@ -314,6 +321,18 @@ We welcome contributions! Please read our [Contributing Guidelines](./docs/CONTR
 3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
 4. **Push** to the branch (`git push origin feature/amazing-feature`)
 5. **Open** a Pull Request
+
+#### Automated Quality Assurance
+
+When you create a PR, the CI/CD pipeline automatically:
+
+- ✅ Runs all tests and quality checks
+- ✅ Validates TypeScript compilation
+- ✅ Checks code formatting and linting
+- ✅ Performs security audit
+- ❌ **Does NOT deploy** (only validates)
+
+Once merged, automatic deployment to live site occurs!
 
 ### Code Standards
 
