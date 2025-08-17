@@ -12,7 +12,8 @@ const ThreeBackground: React.FC = () => {
   } | null>(null);
 
   useEffect(() => {
-    if (!mountRef.current) return;
+    const currentMountRef = mountRef.current;
+    if (!currentMountRef) return;
 
     // Scene setup
     const scene = new THREE.Scene();
@@ -31,7 +32,7 @@ const ThreeBackground: React.FC = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0);
-    mountRef.current.appendChild(renderer.domElement);
+    currentMountRef.appendChild(renderer.domElement);
 
     // Create grid of cubes
     const cubes: THREE.Mesh[] = [];
@@ -189,7 +190,6 @@ const ThreeBackground: React.FC = () => {
         scene.clear();
         renderer.dispose();
 
-        const currentMountRef = mountRef.current;
         if (currentMountRef && renderer.domElement) {
           currentMountRef.removeChild(renderer.domElement);
         }
