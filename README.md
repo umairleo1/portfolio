@@ -11,7 +11,7 @@ A modern, responsive portfolio website showcasing professional software engineer
 
 ## 🚀 Live Demo
 
-[**View Live Portfolio →**](https://umairleo1.github.io/portfolio)
+[**View Live Portfolio →**](https://umairleo1.github.io/portfolio) ✨ **Now Live!**
 
 ## ✨ Features
 
@@ -354,9 +354,11 @@ Supports all modern browsers with the following minimum versions:
 ## 📊 Performance
 
 - **Lighthouse Score**: 95+ across all metrics
-- **Bundle Size**: < 1MB gzipped
+- **Bundle Size**: 121.75 kB gzipped (main bundle)
+- **CSS Size**: 11.98 kB gzipped
 - **First Contentful Paint**: < 1.5s
 - **Time to Interactive**: < 3s
+- **Status**: ✅ **Deployed and Live**
 
 ## 🛡️ Security & Quality
 
