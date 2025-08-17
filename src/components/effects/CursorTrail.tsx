@@ -7,16 +7,17 @@ const CursorTrail: React.FC = () => {
   const dots = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
-    const createDots = () => {
-      if (!trailRef.current) return;
+    const currentTrailRef = trailRef.current;
+    if (!currentTrailRef) return;
 
+    const createDots = () => {
       // Create trail dots
       for (let i = 0; i < 12; i++) {
         const dot = document.createElement('div');
         dot.className = 'cursor-dot';
         dot.style.left = '-10px';
         dot.style.top = '-10px';
-        trailRef.current.appendChild(dot);
+        currentTrailRef.appendChild(dot);
         dots.current.push(dot);
       }
     };
@@ -63,7 +64,6 @@ const CursorTrail: React.FC = () => {
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
-      const currentTrailRef = trailRef.current;
       if (currentTrailRef) {
         currentTrailRef.innerHTML = '';
       }

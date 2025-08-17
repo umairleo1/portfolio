@@ -325,20 +325,22 @@ We welcome contributions! Please read our [Contributing Guidelines](./docs/CONTR
 
 ## 📋 Available Scripts
 
-| Script                 | Description                                 |
-| ---------------------- | ------------------------------------------- |
-| `npm start`            | Start development server                    |
-| `npm run build`        | Create production build                     |
-| `npm test`             | Run test suite                              |
-| `npm run deploy`       | Deploy to GitHub Pages                      |
-| `npm run lint`         | Run ESLint                                  |
-| `npm run lint:fix`     | Auto-fix ESLint issues                      |
-| `npm run format`       | Format code with Prettier                   |
-| `npm run format:check` | Check Prettier formatting                   |
-| `npm run type-check`   | Run TypeScript type checking                |
-| `npm run validate`     | Run all quality checks (lint + type + test) |
-| `npm run start:all`    | Start all development services              |
-| `npm run stop:all`     | Stop all running services                   |
+| Script                        | Description                                 |
+| ----------------------------- | ------------------------------------------- |
+| `npm start`                   | Start development server                    |
+| `npm run build`               | Create production build                     |
+| `npm test`                    | Run test suite                              |
+| `npm run deploy`              | Deploy to GitHub Pages                      |
+| `npm run lint`                | Run ESLint                                  |
+| `npm run lint:fix`            | Auto-fix ESLint issues                      |
+| `npm run format`              | Format code with Prettier                   |
+| `npm run format:check`        | Check Prettier formatting                   |
+| `npm run type-check`          | Run TypeScript type checking                |
+| `npm run validate`            | Run all quality checks (lint + type + test) |
+| `npm run security:audit`      | Security audit (shows dev warnings)         |
+| `npm run security:audit:prod` | Security audit (production only)            |
+| `npm run start:all`           | Start all development services              |
+| `npm run stop:all`            | Stop all running services                   |
 
 ## 🔧 Browser Compatibility
 
@@ -372,6 +374,7 @@ Supports all modern browsers with the following minimum versions:
 - **Linting** - ESLint with React/TypeScript rules
 - **Type safety** - Full TypeScript coverage
 - **Testing** - Jest + React Testing Library
+- **Security auditing** - npm audit with professional configuration
 - **CI/CD validation** - All checks run on GitHub Actions
 
 ## 📄 License
