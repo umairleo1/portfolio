@@ -47,7 +47,8 @@ export const validateEnv = (): void => {
   );
 
   if (missingVars.length > 0 && env.isProduction()) {
-    console.warn(
+    // Only warn in development, throw error in production
+    throw new Error(
       `Missing required environment variables in production: ${missingVars.join(', ')}`
     );
   }

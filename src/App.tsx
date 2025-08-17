@@ -12,7 +12,7 @@ import {
   Experience,
   Contact,
   FloatingElements,
-  CursorTrail
+  CursorTrail,
 } from '@/components';
 import '@/styles/base/globals.css';
 import '@/styles/base/App.css';
@@ -23,12 +23,12 @@ function App() {
       duration: 800,
       easing: 'ease-out',
       once: true,
-      disable: 'mobile'
+      disable: 'mobile',
     });
   }, []);
 
   return (
-    <div className="App">
+    <div className='App'>
       <CursorTrail />
       <FloatingElements />
       <Header />
