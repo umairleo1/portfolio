@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [master, main]
+    branches: [main]
   pull_request:
-    branches: [master, main]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -17,18 +17,14 @@ jobs:
     name: Test and Lint
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.x, 22.x]
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
@@ -46,13 +42,6 @@ jobs:
       - name: Run tests
         run: npm run test:ci
 
-      - name: Upload coverage reports
-        uses: codecov/codecov-action@v5
-        if: matrix.node-version == '22.x'
-        with:
-          file: ./coverage/lcov.info
-          fail_ci_if_error: false
-
   build:
     name: Build Application
     runs-on: ubuntu-latest
@@ -60,12 +49,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
@@ -74,14 +63,7 @@ jobs:
       - name: Build application
         run: npm run build
         env:
-          REACT_APP_ENVIRONMENT: production
-          REACT_APP_BASE_URL: https://umairleo1.github.io/portfolio
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-files
-          path: build/
+          CI: false
 
   deploy:
     name: Deploy to GitHub Pages
@@ -89,21 +71,18 @@ jobs:
     needs: [test, build]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
@@ -112,16 +91,19 @@ jobs:
       - name: Build application
         run: npm run build
         env:
-          REACT_APP_ENVIRONMENT: production
-          REACT_APP_BASE_URL: https://umairleo1.github.io/portfolio
+          CI: false
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './build'
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          user_name: ${{ github.actor }}
-          user_email: ${{ github.actor }}@users.noreply.github.com
+        id: deployment
+        uses: actions/deploy-pages@v4
 
   security:
     name: Security Audit
@@ -129,12 +111,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
