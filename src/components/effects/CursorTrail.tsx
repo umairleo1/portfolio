@@ -63,8 +63,9 @@ const CursorTrail: React.FC = () => {
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
-      if (trailRef.current) {
-        trailRef.current.innerHTML = '';
+      const currentTrailRef = trailRef.current;
+      if (currentTrailRef) {
+        currentTrailRef.innerHTML = '';
       }
       dots.current = [];
     };
