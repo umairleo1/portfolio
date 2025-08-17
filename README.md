@@ -1,9 +1,12 @@
 # Muhammad Umair - Software Engineer Portfolio
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![React](https://img.shields.io/badge/React-19.0-blue.svg)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-4.9-blue.svg)](https://www.typescriptlang.org/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge&logo=github&logoColor=white)](https://umairleo1.github.io/portfolio)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/features/actions)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge)](http://makeapullrequest.com)
 
 A modern, responsive portfolio website showcasing professional software engineering experience. Built with React 19, TypeScript, and cutting-edge web technologies featuring stunning animations, glassmorphism design, and optimized performance.
 
@@ -40,16 +43,31 @@ A modern, responsive portfolio website showcasing professional software engineer
 
 ### Tech Stack
 
+<div align="center">
+
+[![My Skills](https://skillicons.dev/icons?i=react,typescript,css,html,js,nodejs,npm,webpack,github,githubactions,vscode,git,jest,prettier,eslint&theme=dark)](https://skillicons.dev)
+
+</div>
+
 | Category        | Technologies                                               |
 | --------------- | ---------------------------------------------------------- |
-| **Frontend**    | React 19, TypeScript 4.9, CSS3                             |
+| **Frontend**    | React 19, TypeScript 4.9, CSS3, HTML5                      |
 | **Icons**       | React Icons with custom wrapper for React 19 compatibility |
 | **Animations**  | AOS (Animate On Scroll), Custom CSS animations             |
 | **Build Tools** | react-app-rewired, Create React App, Webpack               |
-| **Development** | ESLint 8.57, Prettier, Husky, lint-staged, Hot Reloading   |
-| **Deployment**  | GitHub Pages, GitHub Actions                               |
+| **Development** | ESLint 8.57, Prettier, Husky, lint-staged, VS Code         |
+| **Deployment**  | GitHub Pages, GitHub Actions, CI/CD Pipeline               |
 
 ### Browser Support
+
+<div align="center">
+
+![Chrome](https://img.shields.io/badge/Google%20Chrome-4285F4?style=for-the-badge&logo=GoogleChrome&logoColor=white)
+![Firefox](https://img.shields.io/badge/Firefox-FF7139?style=for-the-badge&logo=Firefox-Browser&logoColor=white)
+![Safari](https://img.shields.io/badge/Safari-000000?style=for-the-badge&logo=Safari&logoColor=white)
+![Edge](https://img.shields.io/badge/Edge-0078D7?style=for-the-badge&logo=Microsoft-edge&logoColor=white)
+
+</div>
 
 | Browser | Version   |
 | ------- | --------- |
@@ -372,6 +390,14 @@ Supports all modern browsers with the following minimum versions:
 
 ## 📊 Performance
 
+<div align="center">
+
+![Lighthouse](https://img.shields.io/badge/Lighthouse-F44B21?style=for-the-badge&logo=lighthouse&logoColor=white)
+![Web Vitals](https://img.shields.io/badge/Web_Vitals-4285F4?style=for-the-badge&logo=google&logoColor=white)
+![Performance](https://img.shields.io/badge/Performance-95+-00d26a?style=for-the-badge)
+
+</div>
+
 - **Lighthouse Score**: 95+ across all metrics
 - **Bundle Size**: 121.75 kB gzipped (main bundle)
 - **CSS Size**: 11.98 kB gzipped
@@ -380,6 +406,16 @@ Supports all modern browsers with the following minimum versions:
 - **Status**: ✅ **Deployed and Live**
 
 ## 🛡️ Security & Quality
+
+<div align="center">
+
+![Security](https://img.shields.io/badge/Security-Audit_Passing-00d26a?style=for-the-badge&logo=githubactions&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black)
+![Jest](https://img.shields.io/badge/Jest-323330?style=for-the-badge&logo=jest&logoColor=white)
+![Husky](https://img.shields.io/badge/Husky-000000?style=for-the-badge&logo=git&logoColor=white)
+
+</div>
 
 ### Security
 
