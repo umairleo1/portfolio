@@ -18,12 +18,14 @@ export const env = {
   GITHUB_TOKEN: process.env.REACT_APP_GITHUB_TOKEN || '',
 
   // Social Media Links
-  GITHUB_URL: process.env.REACT_APP_GITHUB_URL || 'https://github.com/umairleo1',
+  GITHUB_URL:
+    process.env.REACT_APP_GITHUB_URL || 'https://github.com/umairleo1',
   LINKEDIN_URL: process.env.REACT_APP_LINKEDIN_URL || '',
   EMAIL: process.env.REACT_APP_EMAIL || 'umair.leo17@gmail.com',
 
   // Deployment
-  BASE_URL: process.env.REACT_APP_BASE_URL || 'https://umairleo1.github.io/portfolio',
+  BASE_URL:
+    process.env.REACT_APP_BASE_URL || 'https://umairleo1.github.io/portfolio',
 
   // Helper functions
   isDevelopment: () => process.env.NODE_ENV === 'development',

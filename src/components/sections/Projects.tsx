@@ -2,7 +2,18 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { projects } from '@/data/portfolio';
-import { FaHospital, FaGlobe, FaPrint, FaCar, FaChartLine, FaLaptopCode, FaFilter, FaAward, FaExternalLinkAlt, FaCode } from 'react-icons/fa';
+import {
+  FaHospital,
+  FaGlobe,
+  FaPrint,
+  FaCar,
+  FaChartLine,
+  FaLaptopCode,
+  FaFilter,
+  FaAward,
+  FaExternalLinkAlt,
+  FaCode,
+} from 'react-icons/fa';
 import { renderIcon } from '@/utils/IconWrapper';
 import '@/styles/components/Projects.css';
 
@@ -36,25 +47,36 @@ const Projects: React.FC = () => {
     },
   };
 
-  const categories = ['All', 'Healthcare', 'AI/ML', 'E-commerce', 'Fintech', 'Mobile'];
+  const categories = [
+    'All',
+    'Healthcare',
+    'AI/ML',
+    'E-commerce',
+    'Fintech',
+    'Mobile',
+  ];
 
-  const filteredProjects = filter === 'All' 
-    ? projects 
-    : projects.filter(project => {
-        const category = getProjectCategory(project.title);
-        return category === filter;
-      });
+  const filteredProjects =
+    filter === 'All'
+      ? projects
+      : projects.filter((project) => {
+          const category = getProjectCategory(project.title);
+          return category === filter;
+        });
 
   function getProjectCategory(title: string): string {
-    if (title.includes('BioMark') || title.includes('Vincere Health')) return 'Healthcare';
+    if (title.includes('BioMark') || title.includes('Vincere Health'))
+      return 'Healthcare';
     if (title.includes('LetzChat') || title.includes('AI')) return 'AI/ML';
-    if (title.includes('Desert Sign') || title.includes('London Riders')) return 'E-commerce';
+    if (title.includes('Desert Sign') || title.includes('London Riders'))
+      return 'E-commerce';
     if (title.includes('Path Signals')) return 'Fintech';
     return 'Web App';
   }
 
   function getProjectIcon(title: string): React.ReactNode {
-    if (title.includes('BioMark') || title.includes('Vincere Health')) return renderIcon(FaHospital);
+    if (title.includes('BioMark') || title.includes('Vincere Health'))
+      return renderIcon(FaHospital);
     if (title.includes('LetzChat')) return renderIcon(FaGlobe);
     if (title.includes('Desert Sign')) return renderIcon(FaPrint);
     if (title.includes('London Riders')) return renderIcon(FaCar);
@@ -63,23 +85,23 @@ const Projects: React.FC = () => {
   }
 
   return (
-    <section id="projects" className="projects section">
-      <div className="container">
+    <section id='projects' className='projects section'>
+      <div className='container'>
         <motion.div
           ref={ref}
           variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          initial='hidden'
+          animate={inView ? 'visible' : 'hidden'}
         >
-          <motion.div className="projects__header" variants={itemVariants}>
-            <h2 className="section-title text-center">Featured Projects</h2>
-            <p className="section-subtitle text-center">
+          <motion.div className='projects__header' variants={itemVariants}>
+            <h2 className='section-title text-center'>Featured Projects</h2>
+            <p className='section-subtitle text-center'>
               Showcasing my technical expertise through real-world applications
             </p>
           </motion.div>
 
-          <motion.div className="projects__filters" variants={itemVariants}>
-            <div className="filter-tabs">
+          <motion.div className='projects__filters' variants={itemVariants}>
+            <div className='filter-tabs'>
               {renderIcon(FaFilter, { className: 'filter-icon' })}
               {categories.map((category) => (
                 <button
@@ -93,40 +115,40 @@ const Projects: React.FC = () => {
             </div>
           </motion.div>
 
-          <motion.div className="projects__grid" variants={containerVariants}>
+          <motion.div className='projects__grid' variants={containerVariants}>
             {filteredProjects.map((project, index) => (
               <motion.div
                 key={index}
-                className="project-card"
+                className='project-card'
                 variants={itemVariants}
                 whileHover={{ y: -10, scale: 1.02 }}
                 transition={{ duration: 0.3 }}
                 layout
               >
-                <div className="project-card__header">
-                  <div className="project-card__icon">
+                <div className='project-card__header'>
+                  <div className='project-card__icon'>
                     {getProjectIcon(project.title)}
                   </div>
-                  <div className="project-card__category">
+                  <div className='project-card__category'>
                     {getProjectCategory(project.title)}
                   </div>
                 </div>
 
-                <div className="project-card__content">
-                  <h3 className="project-card__title">{project.title}</h3>
-                  <p className="project-card__description">
+                <div className='project-card__content'>
+                  <h3 className='project-card__title'>{project.title}</h3>
+                  <p className='project-card__description'>
                     {project.description}
                   </p>
 
-                  <div className="project-card__technologies">
+                  <div className='project-card__technologies'>
                     {project.technologies.map((tech) => (
-                      <span key={tech} className="tech-tag">
+                      <span key={tech} className='tech-tag'>
                         {tech}
                       </span>
                     ))}
                   </div>
 
-                  <div className="project-card__achievements">
+                  <div className='project-card__achievements'>
                     <h4>
                       {renderIcon(FaAward, { className: 'achievements-icon' })}
                       Key Achievements
@@ -139,13 +161,13 @@ const Projects: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="project-card__footer">
-                  {project.link && project.link !== "[App Link]" && (
+                <div className='project-card__footer'>
+                  {project.link && project.link !== '[App Link]' && (
                     <motion.a
                       href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-card__link"
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='project-card__link'
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -154,7 +176,7 @@ const Projects: React.FC = () => {
                     </motion.a>
                   )}
                   <motion.button
-                    className="project-card__code"
+                    className='project-card__code'
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => {
@@ -170,12 +192,15 @@ const Projects: React.FC = () => {
             ))}
           </motion.div>
 
-          <motion.div className="projects__cta" variants={itemVariants}>
-            <div className="projects__cta-content">
+          <motion.div className='projects__cta' variants={itemVariants}>
+            <div className='projects__cta-content'>
               <h3>Interested in working together?</h3>
-              <p>I'm always open to discussing new opportunities and interesting projects.</p>
+              <p>
+                I'm always open to discussing new opportunities and interesting
+                projects.
+              </p>
               <motion.button
-                className="btn btn-primary"
+                className='btn btn-primary'
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {

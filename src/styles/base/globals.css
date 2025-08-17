@@ -10,15 +10,15 @@
   --text-secondary: #888;
   --text-muted: #666;
   --accent-gradient: linear-gradient(45deg, #ff006e, #3a86ff, #ffd60a, #8338ec);
-  
+
   /* Typography */
   --font-mono: 'Roboto Mono', monospace;
-  
+
   /* Spacing */
   --section-padding: 80px 0;
   --container-padding: 0 20px;
   --max-width: 1200px;
-  
+
   /* Transitions */
   --transition: all 0.3s ease;
 }
@@ -51,7 +51,12 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 600;
   line-height: 1.2;
 }
@@ -169,7 +174,12 @@ section {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(102, 217, 237, 0.3), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(102, 217, 237, 0.3),
+    transparent
+  );
   transition: left 0.6s ease;
   z-index: 1;
 }
@@ -206,13 +216,21 @@ section {
 }
 
 .btn-filled {
-  background: linear-gradient(135deg, var(--primary-cyan), rgba(102, 217, 237, 0.8));
+  background: linear-gradient(
+    135deg,
+    var(--primary-cyan),
+    rgba(102, 217, 237, 0.8)
+  );
   color: var(--dark-bg);
   box-shadow: 0 4px 15px rgba(102, 217, 237, 0.3);
 }
 
 .btn-filled::after {
-  background: linear-gradient(135deg, rgba(102, 217, 237, 0.9), var(--primary-cyan));
+  background: linear-gradient(
+    135deg,
+    rgba(102, 217, 237, 0.9),
+    var(--primary-cyan)
+  );
 }
 
 .btn-filled:hover {
@@ -238,7 +256,12 @@ section {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(102, 217, 237, 0.1), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(102, 217, 237, 0.1),
+    transparent
+  );
   transition: left 0.6s ease;
 }
 
@@ -249,7 +272,7 @@ section {
 .card:hover {
   transform: translateY(-8px) scale(1.02);
   border-color: rgba(102, 217, 237, 0.3);
-  box-shadow: 
+  box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.3),
     0 0 0 1px rgba(102, 217, 237, 0.1);
 }
@@ -312,7 +335,8 @@ section {
 }
 
 @keyframes morphShape {
-  0%, 100% {
+  0%,
+  100% {
     border-radius: 50% 30% 40% 60%;
   }
   25% {
@@ -336,7 +360,8 @@ section {
 }
 
 @keyframes glow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 5px rgba(102, 217, 237, 0.2);
   }
   50% {
@@ -345,7 +370,8 @@ section {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -369,7 +395,12 @@ section {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(102, 217, 237, 0.3), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(102, 217, 237, 0.3),
+    transparent
+  );
   animation: shimmer 2s infinite;
 }
 
@@ -432,11 +463,11 @@ section {
     --section-padding: 60px 0;
     --container-padding: 0 16px;
   }
-  
+
   body {
     font-size: 13px;
   }
-  
+
   .grid-2,
   .grid-3 {
     grid-template-columns: 1fr;

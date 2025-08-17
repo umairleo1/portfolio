@@ -8,28 +8,29 @@ const ScrollToBottom: React.FC = () => {
   useEffect(() => {
     const toggleVisibility = () => {
       const scrolled = document.documentElement.scrollTop;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      
+      const maxScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
+
       // Show button after scrolling down 300px
       setIsVisible(scrolled > 300);
-      
+
       // Check if at bottom (within 100px)
       setIsAtBottom(maxScroll - scrolled < 100);
     };
 
     window.addEventListener('scroll', toggleVisibility);
-    
+
     return () => window.removeEventListener('scroll', toggleVisibility);
   }, []);
 
   const scrollToBottom = () => {
     const footerElement = document.getElementById('footer');
     if (footerElement) {
-      footerElement.scrollIntoView({ 
+      footerElement.scrollIntoView({
         behavior: 'smooth',
-        block: 'start'
+        block: 'start',
       });
-      
+
       // Trigger fade-in animation for final section
       setTimeout(() => {
         const finalSection = document.querySelector('.footer');
@@ -46,17 +47,17 @@ const ScrollToBottom: React.FC = () => {
 
   return (
     <button
-      className="scroll-to-bottom"
+      className='scroll-to-bottom'
       onClick={scrollToBottom}
-      aria-label="Scroll to bottom"
+      aria-label='Scroll to bottom'
     >
-      <div className="scroll-to-bottom__icon">
-        <div className="chevron-down">
+      <div className='scroll-to-bottom__icon'>
+        <div className='chevron-down'>
           <span></span>
           <span></span>
         </div>
       </div>
-      <div className="scroll-to-bottom__pulse"></div>
+      <div className='scroll-to-bottom__pulse'></div>
     </button>
   );
 };

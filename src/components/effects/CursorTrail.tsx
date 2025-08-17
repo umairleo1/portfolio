@@ -32,24 +32,24 @@ const CursorTrail: React.FC = () => {
       dots.current.forEach((dot, index) => {
         // Center the dot on the cursor position
         dot.style.left = `${x - 4}px`; // Offset by half the dot width (4px)
-        dot.style.top = `${y - 4}px`;  // Offset by half the dot height (4px)
-        
+        dot.style.top = `${y - 4}px`; // Offset by half the dot height (4px)
+
         // Create delay effect for trailing
         if (index > 0) {
           const prevDot = dots.current[index - 1];
           if (prevDot) {
             const prevX = parseFloat(prevDot.style.left) + 4; // Add back the offset
             const prevY = parseFloat(prevDot.style.top) + 4;
-            
+
             x = x + (prevX - x) * 0.8; // Smooth trailing effect
             y = y + (prevY - y) * 0.8;
           }
         }
-        
+
         // Scale and opacity based on position in trail
         const scale = Math.max(0.1, (15 - index) / 15);
         const opacity = scale * 0.6;
-        
+
         dot.style.transform = `translate(-50%, -50%) scale(${scale})`;
         dot.style.opacity = opacity.toString();
       });
@@ -71,7 +71,7 @@ const CursorTrail: React.FC = () => {
     };
   }, []);
 
-  return <div ref={trailRef} className="cursor-trail-container"></div>;
+  return <div ref={trailRef} className='cursor-trail-container'></div>;
 };
 
 export default CursorTrail;

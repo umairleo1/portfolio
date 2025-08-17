@@ -132,15 +132,15 @@
     gap: 24px;
     margin-bottom: 60px;
   }
-  
+
   .expertise__category {
     padding: 24px;
   }
-  
+
   .expertise__category-icon {
     font-size: 40px;
   }
-  
+
   .expertise__stats {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
@@ -151,7 +151,7 @@
   .expertise__stats {
     grid-template-columns: 1fr;
   }
-  
+
   .expertise__category {
     padding: 20px;
   }
