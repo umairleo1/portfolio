@@ -3,7 +3,8 @@ export * from './paths';
 // App constants
 export const APP_CONFIG = {
   NAME: 'Muhammad Umair Portfolio',
-  DESCRIPTION: 'Modern React portfolio website showcasing software engineering expertise',
+  DESCRIPTION:
+    'Modern React portfolio website showcasing software engineering expertise',
   VERSION: '1.0.0',
   AUTHOR: 'Muhammad Umair',
 } as const;

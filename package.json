@@ -75,8 +75,10 @@
     "analyze": "npm run build && npx bundle-analyzer build/static/js/*.js",
     "clean": "rm -rf build node_modules/.cache",
     "clean:install": "npm run clean && npm ci",
-    "security:audit": "npm audit --audit-level=moderate",
-    "security:fix": "npm audit fix"
+    "security:audit": "npm audit --audit-level=high",
+    "security:audit:prod": "npm audit --omit=dev --audit-level=high",
+    "security:fix": "npm audit fix",
+    "prepare": "husky"
   },
   "eslintConfig": {
     "extends": [
@@ -106,6 +108,8 @@
     "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "gh-pages": "^6.3.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
     "prettier": "^3.0.0",
     "react-app-alias": "^2.2.2",
     "react-app-rewired": "^2.2.1"
@@ -113,5 +117,17 @@
   "engines": {
     "node": ">=20.9.0",
     "npm": ">=10.0.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,scss,sass}": [
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
   }
 }

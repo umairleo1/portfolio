@@ -1,0 +1,12 @@
+# Development-only vulnerabilities that don't affect production builds
+# These are in react-scripts dependencies used only during development
+
+# nth-check vulnerability - development build tool only
+https://github.com/advisories/GHSA-rp65-9cf3-cjxr
+
+# PostCSS vulnerability - development build tool only  
+https://github.com/advisories/GHSA-7fh5-64p2-3v2j
+
+# webpack-dev-server vulnerabilities - development server only
+https://github.com/advisories/GHSA-9jgg-88mc-972h
+https://github.com/advisories/GHSA-4v9v-hfq4-rm2v

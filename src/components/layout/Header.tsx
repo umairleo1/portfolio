@@ -8,7 +8,7 @@ const navItems: NavItem[] = [
   { label: 'expertise', href: '#expertise' },
   { label: 'work', href: '#work' },
   { label: 'experience', href: NAVIGATION_PATHS.EXPERIENCE },
-  { label: 'contact', href: NAVIGATION_PATHS.CONTACT }
+  { label: 'contact', href: NAVIGATION_PATHS.CONTACT },
 ];
 
 const Header: React.FC = () => {
@@ -21,10 +21,10 @@ const Header: React.FC = () => {
       // Handle scroll background blur effect
       const scrollTop = window.pageYOffset;
       setIsScrolled(scrollTop > 50);
-      
+
       // Handle active section
-      const sections = navItems.map(item => item.href.substring(1));
-      const currentSection = sections.find(section => {
+      const sections = navItems.map((item) => item.href.substring(1));
+      const currentSection = sections.find((section) => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
         }
         return false;
       });
-      
+
       if (currentSection) {
         setActiveSection(currentSection);
       }
@@ -52,27 +52,40 @@ const Header: React.FC = () => {
 
   return (
     <header className={`header ${isScrolled ? 'header--scrolled' : ''}`}>
-      <div className="container">
-        <div className="header__content">
-          <div className="header__logo">
-            <a href="#about" onClick={(e) => { e.preventDefault(); handleNavClick('#about'); }}>
-              <div className="header__profile">
-                <div className="header__profile-image">
-                  <img src={ASSET_PATHS.PROFILE_AVATAR} alt="Muhammad Umair" className="header__profile-pic" />
+      <div className='container'>
+        <div className='header__content'>
+          <div className='header__logo'>
+            <a
+              href='#about'
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('#about');
+              }}
+            >
+              <div className='header__profile'>
+                <div className='header__profile-image'>
+                  <img
+                    src={ASSET_PATHS.PROFILE_AVATAR}
+                    alt='Muhammad Umair'
+                    className='header__profile-pic'
+                  />
                 </div>
-                <span className="header__profile-text">mu</span>
+                <span className='header__profile-text'>mu</span>
               </div>
             </a>
           </div>
 
-          <nav className="header__nav">
-            <ul className="header__nav-list">
+          <nav className='header__nav'>
+            <ul className='header__nav-list'>
               {navItems.map((item) => (
-                <li key={item.label} className="header__nav-item">
+                <li key={item.label} className='header__nav-item'>
                   <a
                     href={item.href}
                     className={`header__nav-link ${activeSection === item.href.substring(1) ? 'header__nav-link--active' : ''}`}
-                    onClick={(e) => { e.preventDefault(); handleNavClick(item.href); }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(item.href);
+                    }}
                   >
                     {item.label}
                   </a>
@@ -82,23 +95,26 @@ const Header: React.FC = () => {
           </nav>
 
           <button
-            className="header__menu-toggle"
+            className='header__menu-toggle'
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
+            aria-label='Toggle menu'
           >
             ☰
           </button>
         </div>
 
         {isMenuOpen && (
-          <div className="header__mobile-menu">
-            <ul className="header__mobile-nav">
+          <div className='header__mobile-menu'>
+            <ul className='header__mobile-nav'>
               {navItems.map((item) => (
-                <li key={item.label} className="header__mobile-nav-item">
+                <li key={item.label} className='header__mobile-nav-item'>
                   <a
                     href={item.href}
                     className={`header__mobile-nav-link ${activeSection === item.href.substring(1) ? 'header__mobile-nav-link--active' : ''}`}
-                    onClick={(e) => { e.preventDefault(); handleNavClick(item.href); }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(item.href);
+                    }}
                   >
                     {item.label}
                   </a>

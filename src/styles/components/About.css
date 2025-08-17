@@ -1,8 +1,16 @@
 .about {
-  background: 
+  background:
     linear-gradient(135deg, var(--dark-bg) 0%, rgba(26, 26, 26, 0.9) 100%),
-    radial-gradient(ellipse at top left, rgba(102, 217, 237, 0.05) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+    radial-gradient(
+      ellipse at top left,
+      rgba(102, 217, 237, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at bottom right,
+      rgba(139, 92, 246, 0.05) 0%,
+      transparent 50%
+    );
   position: relative;
   overflow: hidden;
 }
@@ -14,7 +22,12 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.3),
+    transparent
+  );
 }
 
 .about__header {
@@ -26,7 +39,11 @@
   font-weight: 800;
   margin-bottom: var(--spacing-lg);
   font-family: var(--font-display);
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-cyan) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--text-primary) 0%,
+    var(--primary-cyan) 100%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -90,7 +107,12 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--primary-cyan), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--primary-cyan),
+    transparent
+  );
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -113,7 +135,11 @@
   margin-bottom: var(--spacing-sm);
   font-family: var(--font-mono);
   line-height: 1;
-  background: linear-gradient(135deg, var(--primary-cyan), rgba(102, 217, 237, 0.7));
+  background: linear-gradient(
+    135deg,
+    var(--primary-cyan),
+    rgba(102, 217, 237, 0.7)
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -188,7 +214,12 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
 }
 
 .skill-category::after {
@@ -336,7 +367,12 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
 }
 
 .education-item:hover,
@@ -383,26 +419,26 @@
   .section-title {
     font-size: 2rem;
   }
-  
+
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-md);
   }
-  
+
   .skills-grid {
     grid-template-columns: 1fr;
     gap: var(--spacing-md);
   }
-  
+
   .skill-category {
     padding: var(--spacing-lg);
   }
-  
+
   .about__credentials {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
   }
-  
+
   .education-item,
   .certification-item {
     padding: var(--spacing-md);
@@ -413,20 +449,20 @@
   .section-title {
     font-size: 1.75rem;
   }
-  
+
   .stats-grid {
     grid-template-columns: 1fr;
     max-width: 300px;
   }
-  
+
   .stat-item {
     padding: var(--spacing-lg);
   }
-  
+
   .skill-category {
     padding: var(--spacing-md);
   }
-  
+
   .education-item,
   .certification-item {
     padding: var(--spacing-sm);

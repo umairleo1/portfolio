@@ -91,7 +91,8 @@
 }
 
 @keyframes geometricFloat1 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(0deg);
     opacity: 0.3;
   }
@@ -102,7 +103,8 @@
 }
 
 @keyframes geometricFloat2 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0) rotate(45deg) scale(1);
     opacity: 0.2;
   }
@@ -113,7 +115,8 @@
 }
 
 @keyframes geometricFloat3 {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) translateX(0) rotate(0deg);
     opacity: 0.2;
   }
@@ -154,7 +157,8 @@
 }
 
 @keyframes gradientPulse1 {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1) translateX(0);
     opacity: 0.3;
   }
@@ -165,7 +169,8 @@
 }
 
 @keyframes gradientPulse2 {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1) translateY(0);
     opacity: 0.2;
   }
@@ -183,27 +188,27 @@
     width: 60px;
     height: 60px;
   }
-  
+
   .geometric-shape--2 {
     width: 40px;
     height: 40px;
   }
-  
+
   .geometric-shape--3 {
     width: 50px;
     height: 50px;
   }
-  
+
   .gradient-orb--1 {
     width: 120px;
     height: 120px;
   }
-  
+
   .gradient-orb--2 {
     width: 100px;
     height: 100px;
   }
-  
+
   .grid-overlay {
     background-size: 30px 30px;
   }

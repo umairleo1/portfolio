@@ -1,8 +1,21 @@
 .projects {
-  background: 
-    linear-gradient(135deg, var(--dark-bg) 0%, rgba(26, 26, 26, 0.9) 50%, var(--dark-bg) 100%),
-    radial-gradient(ellipse at top left, rgba(102, 217, 237, 0.05) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+  background:
+    linear-gradient(
+      135deg,
+      var(--dark-bg) 0%,
+      rgba(26, 26, 26, 0.9) 50%,
+      var(--dark-bg) 100%
+    ),
+    radial-gradient(
+      ellipse at top left,
+      rgba(102, 217, 237, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at bottom right,
+      rgba(139, 92, 246, 0.05) 0%,
+      transparent 50%
+    );
   position: relative;
   overflow: hidden;
 }
@@ -14,7 +27,12 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.3),
+    transparent
+  );
 }
 
 .projects__header {
@@ -48,7 +66,12 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
 }
 
 .filter-icon {
@@ -119,7 +142,12 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(102, 217, 237, 0.8), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(102, 217, 237, 0.8),
+    transparent
+  );
 }
 
 .project-card::after {
@@ -182,7 +210,12 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   transition: left 0.5s;
 }
 
@@ -298,7 +331,12 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.3),
+    transparent
+  );
 }
 
 .project-card__achievements h4 {
@@ -391,7 +429,12 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   transition: left 0.5s;
 }
 
@@ -448,9 +491,17 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%
+    );
   pointer-events: none;
 }
 
@@ -461,7 +512,12 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
 }
 
 .projects__cta-content h3 {
@@ -511,25 +567,25 @@
     grid-template-columns: 1fr;
     gap: var(--spacing-xl);
   }
-  
+
   .filter-tabs {
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--spacing-sm);
   }
-  
+
   .project-card {
     padding: var(--spacing-xl);
   }
-  
+
   .project-card__footer {
     flex-direction: column;
   }
-  
+
   .projects__cta {
     padding: var(--spacing-2xl);
   }
-  
+
   .projects__cta-content h3 {
     font-size: 1.5rem;
   }
@@ -539,26 +595,26 @@
   .projects__grid {
     grid-template-columns: 1fr;
   }
-  
+
   .project-card {
     padding: var(--spacing-lg);
   }
-  
+
   .project-card__title {
     font-size: 1.25rem;
   }
-  
+
   .project-card__header {
     flex-direction: column;
     gap: var(--spacing-md);
     align-items: flex-start;
   }
-  
+
   .filter-tabs {
     padding: var(--spacing-xs);
     gap: var(--spacing-xs);
   }
-  
+
   .filter-tab {
     padding: var(--spacing-xs) var(--spacing-sm);
     font-size: 0.8rem;

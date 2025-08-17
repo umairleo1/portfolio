@@ -72,7 +72,9 @@
   height: 300px;
   top: 20%;
   right: 10%;
-  animation: float 8s ease-in-out infinite, morphShape 12s ease-in-out infinite;
+  animation:
+    float 8s ease-in-out infinite,
+    morphShape 12s ease-in-out infinite;
   background: radial-gradient(circle, rgba(102, 217, 237, 0.05), transparent);
   animation-delay: 0s;
 }
@@ -82,7 +84,9 @@
   height: 200px;
   bottom: 30%;
   left: 15%;
-  animation: float 10s ease-in-out infinite, morphShape 15s ease-in-out infinite;
+  animation:
+    float 10s ease-in-out infinite,
+    morphShape 15s ease-in-out infinite;
   background: radial-gradient(circle, rgba(139, 92, 246, 0.05), transparent);
   animation-delay: 2s, 5s;
 }
@@ -93,7 +97,9 @@
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  animation: float 12s ease-in-out infinite, morphShape 20s ease-in-out infinite;
+  animation:
+    float 12s ease-in-out infinite,
+    morphShape 20s ease-in-out infinite;
   background: radial-gradient(circle, rgba(74, 144, 226, 0.05), transparent);
   animation-delay: 4s, 8s;
 }
@@ -143,8 +149,10 @@
   backdrop-filter: blur(20px);
   border: 2px solid rgba(102, 217, 237, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
-  box-shadow: 
+  animation:
+    float 3s ease-in-out infinite,
+    glow 2s ease-in-out infinite alternate;
+  box-shadow:
     0 0 20px rgba(102, 217, 237, 0.2),
     0 8px 32px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -153,7 +161,7 @@
 .hero__scroll-indicator:hover {
   transform: translateX(-50%) scale(1.1) translateY(-5px);
   border-color: rgba(102, 217, 237, 0.6);
-  box-shadow: 
+  box-shadow:
     0 0 30px rgba(102, 217, 237, 0.4),
     0 20px 40px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -169,10 +177,10 @@
   height: calc(100% + 6px);
   border-radius: 50%;
   background: conic-gradient(
-    from 0deg, 
-    transparent, 
-    rgba(102, 217, 237, 0.8), 
-    rgba(139, 92, 246, 0.8), 
+    from 0deg,
+    transparent,
+    rgba(102, 217, 237, 0.8),
+    rgba(139, 92, 246, 0.8),
     transparent
   );
   animation: borderRotate 3s linear infinite;
@@ -189,8 +197,8 @@
   height: calc(100% - 6px);
   border-radius: 50%;
   background: radial-gradient(
-    circle at 30% 30%, 
-    rgba(102, 217, 237, 0.1), 
+    circle at 30% 30%,
+    rgba(102, 217, 237, 0.1),
     transparent 70%
   );
   z-index: -1;
@@ -209,7 +217,11 @@
 .arrow-line {
   width: 2px;
   height: 12px;
-  background: linear-gradient(to bottom, var(--primary-cyan), rgba(102, 217, 237, 0.6));
+  background: linear-gradient(
+    to bottom,
+    var(--primary-cyan),
+    rgba(102, 217, 237, 0.6)
+  );
   border-radius: 1px;
   margin-bottom: 2px;
 }
@@ -224,7 +236,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(-50%) translateY(0px);
   }
   50% {
@@ -248,13 +261,13 @@
 
 @keyframes glow {
   0% {
-    box-shadow: 
+    box-shadow:
       0 0 20px rgba(102, 217, 237, 0.2),
       0 8px 32px rgba(0, 0, 0, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
   100% {
-    box-shadow: 
+    box-shadow:
       0 0 30px rgba(102, 217, 237, 0.4),
       0 8px 32px rgba(0, 0, 0, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.15);
@@ -271,7 +284,11 @@
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
   40% {
@@ -283,7 +300,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
@@ -318,39 +336,39 @@
     padding: 80px 0 60px;
     min-height: 90vh;
   }
-  
+
   .hero__name {
     font-size: 3rem;
     margin-bottom: 20px;
   }
-  
+
   .hero__title {
     font-size: 1.5rem;
     margin-bottom: 24px;
   }
-  
+
   .hero__description {
     font-size: 15px;
     margin-bottom: 32px;
   }
-  
+
   .hero__scroll-indicator {
     bottom: 30px;
     width: 70px;
     height: 70px;
     border-radius: 50%;
   }
-  
+
   .hero__scroll-indicator::before,
   .hero__scroll-indicator::after {
     border-radius: 50%;
   }
-  
+
   .arrow-line {
     height: 10px;
     width: 2px;
   }
-  
+
   .arrow-head {
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
@@ -362,32 +380,32 @@
   .hero__name {
     font-size: 2.5rem;
   }
-  
+
   .hero__title {
     font-size: 1.25rem;
   }
-  
+
   .hero__description {
     font-size: 14px;
   }
-  
+
   .hero__scroll-indicator {
     bottom: 20px;
     width: 60px;
     height: 60px;
     border-radius: 50%;
   }
-  
+
   .hero__scroll-indicator::before,
   .hero__scroll-indicator::after {
     border-radius: 50%;
   }
-  
+
   .arrow-line {
     height: 8px;
     width: 1px;
   }
-  
+
   .arrow-head {
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;

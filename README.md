@@ -16,6 +16,7 @@ A modern, responsive portfolio website showcasing professional software engineer
 ## ✨ Features
 
 ### 🎨 Design & UX
+
 - **Modern Glassmorphism UI** - Professional design with backdrop filters and transparency effects
 - **Responsive Design** - Seamlessly adapts to all devices and screen sizes
 - **Interactive Animations** - Smooth AOS (Animate On Scroll) with floating elements
@@ -23,6 +24,7 @@ A modern, responsive portfolio website showcasing professional software engineer
 - **Custom Favicon** - Unique "MU" branded SVG favicon
 
 ### 🛠️ Technical Excellence
+
 - **React 19** - Latest React with enhanced performance and concurrent features
 - **TypeScript** - Full type safety and enhanced developer experience
 - **Modern CSS** - CSS Grid, Flexbox, custom properties, and advanced animations
@@ -30,6 +32,7 @@ A modern, responsive portfolio website showcasing professional software engineer
 - **SEO Optimized** - Semantic HTML, proper meta tags, and structured data
 
 ### 📱 User Experience
+
 - **Intuitive Navigation** - Smooth scrolling with active section highlighting
 - **Contact Form** - Functional form with validation and user feedback
 - **Professional Sections** - Hero, Expertise, Work, Experience, and Contact
@@ -39,23 +42,23 @@ A modern, responsive portfolio website showcasing professional software engineer
 
 ### Tech Stack
 
-| Category | Technologies |
-|----------|-------------|
-| **Frontend** | React 19, TypeScript 4.9, CSS3 |
-| **Icons** | React Icons with custom wrapper for React 19 compatibility |
-| **Animations** | AOS (Animate On Scroll), Custom CSS animations |
-| **Build Tools** | react-app-rewired, Create React App, Webpack |
-| **Development** | ESLint 8.57, Prettier, Hot Reloading |
-| **Deployment** | GitHub Pages, GitHub Actions |
+| Category        | Technologies                                               |
+| --------------- | ---------------------------------------------------------- |
+| **Frontend**    | React 19, TypeScript 4.9, CSS3                             |
+| **Icons**       | React Icons with custom wrapper for React 19 compatibility |
+| **Animations**  | AOS (Animate On Scroll), Custom CSS animations             |
+| **Build Tools** | react-app-rewired, Create React App, Webpack               |
+| **Development** | ESLint 8.57, Prettier, Husky, lint-staged, Hot Reloading   |
+| **Deployment**  | GitHub Pages, GitHub Actions                               |
 
 ### Browser Support
 
-| Browser | Version |
-|---------|---------|
-| Chrome | Latest ✅ |
+| Browser | Version   |
+| ------- | --------- |
+| Chrome  | Latest ✅ |
 | Firefox | Latest ✅ |
-| Safari | Latest ✅ |
-| Edge | Latest ✅ |
+| Safari  | Latest ✅ |
+| Edge    | Latest ✅ |
 
 ## 📁 Project Structure
 
@@ -123,17 +126,20 @@ Before you begin, ensure you have the following installed:
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/umairleo1/portfolio.git
    cd portfolio
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Start development server**
+
    ```bash
    npm start
    ```
@@ -150,12 +156,40 @@ npm run start:all
 # Run tests in watch mode
 npm run test:watch
 
+# Check code quality (before committing)
+npm run validate
+
 # Build for production
 npm run build
 
 # Deploy to GitHub Pages
 npm run deploy
 ```
+
+### Code Quality Automation
+
+The project includes **automatic pre-commit hooks** that ensure code quality:
+
+```bash
+# These run automatically before every commit:
+- ESLint auto-fix for TypeScript/JavaScript files
+- Prettier formatting for all supported files
+- Only processes staged files (fast and efficient)
+
+# Manual quality checks (also available):
+npm run lint          # Check for linting errors
+npm run lint:fix       # Auto-fix linting issues
+npm run format         # Format all files
+npm run format:check   # Verify formatting
+npm run type-check     # TypeScript validation
+```
+
+**Benefits:**
+
+- ✅ **Never commit unformatted code**
+- ✅ **Automatic error fixing**
+- ✅ **Consistent code style across team**
+- ✅ **Faster code reviews**
 
 ## 🎨 Customization Guide
 
@@ -165,14 +199,14 @@ Update your details in `src/data/portfolio.ts`:
 
 ```typescript
 export const personalInfo = {
-  name: "Your Name",
-  title: "Your Professional Title",
-  location: "Your Location",
-  email: "your.email@example.com",
-  linkedin: "https://linkedin.com/in/your-profile",
-  github: "https://github.com/your-username",
-  twitter: "https://twitter.com/your-handle",
-  objective: "Your professional objective..."
+  name: 'Your Name',
+  title: 'Your Professional Title',
+  location: 'Your Location',
+  email: 'your.email@example.com',
+  linkedin: 'https://linkedin.com/in/your-profile',
+  github: 'https://github.com/your-username',
+  twitter: 'https://twitter.com/your-handle',
+  objective: 'Your professional objective...',
 };
 ```
 
@@ -182,9 +216,9 @@ Customize your technical skills:
 
 ```typescript
 export const skills = {
-  frontEnd: ["React", "TypeScript", "CSS3", "..."],
-  backEnd: ["Node.js", "Python", "Java", "..."],
-  cloudAndIaC: ["AWS", "Terraform", "Docker", "..."],
+  frontEnd: ['React', 'TypeScript', 'CSS3', '...'],
+  backEnd: ['Node.js', 'Python', 'Java', '...'],
+  cloudAndIaC: ['AWS', 'Terraform', 'Docker', '...'],
   // ... other categories
 };
 ```
@@ -196,15 +230,15 @@ Add your professional experience:
 ```typescript
 export const experience = [
   {
-    title: "Your Job Title",
-    company: "Company Name",
-    location: "Location",
-    period: "Start - End",
+    title: 'Your Job Title',
+    company: 'Company Name',
+    location: 'Location',
+    period: 'Start - End',
     achievements: [
-      "Achievement 1 with measurable impact",
-      "Achievement 2 with specific technologies"
-    ]
-  }
+      'Achievement 1 with measurable impact',
+      'Achievement 2 with specific technologies',
+    ],
+  },
 ];
 ```
 
@@ -213,11 +247,12 @@ export const experience = [
 Customize the visual appearance:
 
 1. **Colors** - Update CSS custom properties in `src/styles/globals.css`:
+
    ```css
    :root {
-     --primary-cyan: #66D9ED;
+     --primary-cyan: #66d9ed;
      --dark-bg: #171620;
-     --text-primary: #FFFFFF;
+     --text-primary: #ffffff;
      /* ... other variables */
    }
    ```
@@ -230,6 +265,7 @@ Customize the visual appearance:
 ### GitHub Pages (Recommended)
 
 1. **Update package.json homepage**
+
    ```json
    {
      "homepage": "https://your-username.github.io/portfolio"
@@ -244,6 +280,7 @@ Customize the visual appearance:
 ### Custom Domain
 
 1. **Add CNAME file**
+
    ```bash
    echo "yourdomain.com" > public/CNAME
    ```
@@ -282,21 +319,26 @@ We welcome contributions! Please read our [Contributing Guidelines](./docs/CONTR
 
 - **TypeScript** - All code must be properly typed
 - **ESLint** - Follow the established linting rules
-- **Prettier** - Code must be formatted consistently
+- **Prettier** - Code must be formatted consistently (automated via pre-commit)
 - **Testing** - New features require appropriate tests
+- **Pre-commit hooks** - Automatic formatting and linting before commits
 
 ## 📋 Available Scripts
 
-| Script | Description |
-|--------|-------------|
-| `npm start` | Start development server |
-| `npm run build` | Create production build |
-| `npm test` | Run test suite |
-| `npm run deploy` | Deploy to GitHub Pages |
-| `npm run lint` | Run ESLint |
-| `npm run format` | Format code with Prettier |
-| `npm run start:all` | Start all development services |
-| `npm run stop:all` | Stop all running services |
+| Script                 | Description                                 |
+| ---------------------- | ------------------------------------------- |
+| `npm start`            | Start development server                    |
+| `npm run build`        | Create production build                     |
+| `npm test`             | Run test suite                              |
+| `npm run deploy`       | Deploy to GitHub Pages                      |
+| `npm run lint`         | Run ESLint                                  |
+| `npm run lint:fix`     | Auto-fix ESLint issues                      |
+| `npm run format`       | Format code with Prettier                   |
+| `npm run format:check` | Check Prettier formatting                   |
+| `npm run type-check`   | Run TypeScript type checking                |
+| `npm run validate`     | Run all quality checks (lint + type + test) |
+| `npm run start:all`    | Start all development services              |
+| `npm run stop:all`     | Stop all running services                   |
 
 ## 🔧 Browser Compatibility
 
@@ -314,18 +356,30 @@ Supports all modern browsers with the following minimum versions:
 - **First Contentful Paint**: < 1.5s
 - **Time to Interactive**: < 3s
 
-## 🛡️ Security
+## 🛡️ Security & Quality
+
+### Security
 
 - **No sensitive data** in repository
 - **Environment variables** for configuration
 - **CSP headers** for security
 - **Regular dependency updates**
 
+### Code Quality
+
+- **Pre-commit hooks** - Husky + lint-staged
+- **Automatic formatting** - Prettier with industry standards
+- **Linting** - ESLint with React/TypeScript rules
+- **Type safety** - Full TypeScript coverage
+- **Testing** - Jest + React Testing Library
+- **CI/CD validation** - All checks run on GitHub Actions
+
 ## 📄 License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 ### What this means:
+
 - ✅ Commercial use
 - ✅ Modification
 - ✅ Distribution
