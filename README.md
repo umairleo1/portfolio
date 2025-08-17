@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![React](https://img.shields.io/badge/React-19.0-blue.svg)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-4.9-blue.svg)](https://www.typescriptlang.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
 A modern, responsive portfolio website showcasing professional software engineering experience. Built with React 19, TypeScript, and cutting-edge web technologies featuring stunning animations, glassmorphism design, and optimized performance.
@@ -11,7 +11,7 @@ A modern, responsive portfolio website showcasing professional software engineer
 
 ## 🚀 Live Demo
 
-[**View Live Portfolio →**](https://umairleo1.github.io/portfolio-website)
+[**View Live Portfolio →**](https://umairleo1.github.io/portfolio)
 
 ## ✨ Features
 
@@ -41,11 +41,11 @@ A modern, responsive portfolio website showcasing professional software engineer
 
 | Category | Technologies |
 |----------|-------------|
-| **Frontend** | React 19, TypeScript, CSS3 |
+| **Frontend** | React 19, TypeScript 4.9, CSS3 |
 | **Icons** | React Icons with custom wrapper for React 19 compatibility |
 | **Animations** | AOS (Animate On Scroll), Custom CSS animations |
-| **Build Tools** | Create React App, Webpack |
-| **Development** | ESLint, Prettier, Hot Reloading |
+| **Build Tools** | react-app-rewired, Create React App, Webpack |
+| **Development** | ESLint 8.57, Prettier, Hot Reloading |
 | **Deployment** | GitHub Pages, GitHub Actions |
 
 ### Browser Support
@@ -60,41 +60,53 @@ A modern, responsive portfolio website showcasing professional software engineer
 ## 📁 Project Structure
 
 ```
-portfolio-website/
+portfolio/
 ├── 📁 public/                    # Static assets
-│   ├── 🎨 favicon.svg           # Custom MU favicon
-│   ├── 📄 index.html            # HTML template
-│   └── 📋 manifest.json         # PWA manifest
+│   ├── 📁 assets/               # Organized assets
+│   │   ├── 🎨 favicons/        # Favicon files
+│   │   ├── 🖼️ images/          # Profile pictures
+│   │   ├── 🎯 icons/           # App icons
+│   │   └── 🎨 svg/             # SVG graphics
+│   ├── 📄 index.html           # HTML template
+│   └── 📋 manifest.json        # PWA manifest
 ├── 📁 src/
-│   ├── 📁 components/           # React components
-│   │   ├── 📁 common/          # Reusable components
+│   ├── 📁 components/          # React components
+│   │   ├── 📁 layout/          # Layout components
 │   │   │   ├── 🧭 Header/      # Navigation with profile picture
 │   │   │   └── 🦶 Footer/      # Footer with tech stack icons
 │   │   ├── 📁 sections/        # Main page sections
 │   │   │   ├── 🏠 Hero/        # Landing section with animations
+│   │   │   ├── 👤 About/       # About section
 │   │   │   ├── 💼 Expertise/   # Skills and technologies
-│   │   │   ├── 🚀 Work/        # Projects portfolio
+│   │   │   ├── 🚀 Work/        # Work showcase
+│   │   │   ├── 📁 Projects/    # Projects portfolio
 │   │   │   ├── 📈 Experience/  # Professional experience
 │   │   │   └── 📞 Contact/     # Contact form
-│   │   └── 📁 effects/         # Animation components
-│   │       └── ✨ FloatingElements/ # Hero section animations
+│   │   ├── 📁 effects/         # Animation components
+│   │   │   ├── ✨ FloatingElements/ # Hero section animations
+│   │   │   ├── 🎯 CursorTrail/  # Mouse cursor trail
+│   │   │   └── 🌌 ThreeBackground/ # 3D background
+│   │   └── 📁 ui/              # UI components
 │   ├── 📁 data/                # Static content
 │   │   └── 📊 portfolio.ts     # Portfolio data and content
-│   ├── 📁 styles/              # Global styles
-│   │   └── 🎨 globals.css      # CSS variables and base styles
+│   ├── 📁 styles/              # Component styles
+│   │   └── 📁 components/      # Component-specific CSS
 │   ├── 📁 types/               # TypeScript definitions
 │   │   └── 📝 index.ts         # Common type definitions
+│   ├── 📁 lib/                 # Utilities and constants
+│   │   └── 📁 constants/       # Asset paths and config
+│   ├── 📁 contexts/            # React contexts
+│   ├── 📁 hooks/               # Custom React hooks
 │   ├── 📁 utils/               # Utility functions
-│   │   └── 🔧 IconWrapper.tsx  # React 19 icon compatibility
+│   ├── 📁 config/              # Configuration files
 │   └── 📱 App.tsx              # Main application component
 ├── 📁 docs/                    # Documentation
-│   ├── 📖 CONTRIBUTING.md      # Contribution guidelines
-│   ├── 📜 CODE_OF_CONDUCT.md   # Code of conduct
-│   └── 📁 images/              # Documentation assets
+├── 📁 scripts/                 # Development scripts
 ├── 🚫 .gitignore              # Git ignore patterns
 ├── 📄 LICENSE                 # MIT License
 ├── 📦 package.json           # Dependencies and scripts
 ├── ⚙️ tsconfig.json          # TypeScript configuration
+├── ⚙️ config-overrides.js    # react-app-rewired config
 └── 📚 README.md              # Project documentation
 ```
 
@@ -104,7 +116,7 @@ portfolio-website/
 
 Before you begin, ensure you have the following installed:
 
-- **Node.js** (v18 or higher) - [Download here](https://nodejs.org/)
+- **Node.js** (v20.9 or higher) - [Download here](https://nodejs.org/)
 - **npm** (comes with Node.js) or **yarn**
 - **Git** - [Download here](https://git-scm.com/)
 
@@ -112,8 +124,8 @@ Before you begin, ensure you have the following installed:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/umairleo1/portfolio-website.git
-   cd portfolio-website
+   git clone https://github.com/umairleo1/portfolio.git
+   cd portfolio
    ```
 
 2. **Install dependencies**
@@ -220,7 +232,7 @@ Customize the visual appearance:
 1. **Update package.json homepage**
    ```json
    {
-     "homepage": "https://your-username.github.io/portfolio-website"
+     "homepage": "https://your-username.github.io/portfolio"
    }
    ```
 
