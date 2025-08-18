@@ -110,7 +110,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "gh-pages": "^6.3.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.5.2",
+    "lint-staged": "^16.1.5",
     "prettier": "^3.0.0",
     "react-app-alias": "^2.2.2",
     "react-app-rewired": "^2.2.1"
