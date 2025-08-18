@@ -1,11 +1,5 @@
-// Asset paths constants
-// For GitHub Pages deployment, we use the base path from package.json homepage
+// Asset paths constants using React's built-in PUBLIC_URL handling
 const getAssetPath = (path: string) => {
-  // In production (GitHub Pages), use /portfolio prefix
-  if (process.env.NODE_ENV === 'production') {
-    return `/portfolio${path}`;
-  }
-  // In development, use process.env.PUBLIC_URL or fallback to root
   return `${process.env.PUBLIC_URL || ''}${path}`;
 };
 
