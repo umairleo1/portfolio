@@ -2,7 +2,7 @@
 
 This document outlines the fully automated deployment system for the portfolio website.
 
-## 🚀 Automated GitHub Pages Deployment (Current)
+## Automated GitHub Pages Deployment (Current)
 
 The portfolio uses a **professional CI/CD pipeline** that automatically handles deployment with zero manual intervention.
 
@@ -52,7 +52,7 @@ The deployment is managed by `.github/workflows/ci-cd.yml`:
 - **Optimized performance** - Minimal, efficient pipeline
 - **Enterprise standards** - Same as React, Next.js
 
-## 🔧 Manual Deployment (Backup)
+## Manual Deployment (Backup)
 
 If automation fails, manual deployment via GitHub Actions:
 
@@ -139,8 +139,8 @@ This deployment setup follows **enterprise-grade practices** used by:
 
 **Benefits:**
 
-- 🤖 **Zero manual work** - Fully automated
-- 🛡️ **Quality assurance** - No broken code goes live
-- 👥 **Contributor friendly** - Professional PR workflow
-- ⚡ **Fast deployment** - ~3 minutes to live
-- 🔒 **Secure** - Enterprise security standards
+- **Zero manual work** - Fully automated
+- **Quality assurance** - No broken code goes live
+- **Contributor friendly** - Professional PR workflow
+- **Fast deployment** - ~3 minutes to live
+- **Secure** - Enterprise security standards

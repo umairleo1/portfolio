@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing to this portfolio project! This document provides guidelines for contributing to the codebase.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -14,17 +14,20 @@ Thank you for your interest in contributing to this portfolio project! This docu
 ### Development Setup
 
 1. **Fork the repository**
+
    ```bash
    git clone https://github.com/your-username/portfolio-website.git
    cd portfolio-website
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Start development server**
+
    ```bash
    npm start
    ```
@@ -34,7 +37,7 @@ Thank you for your interest in contributing to this portfolio project! This docu
    git checkout -b feature/your-feature-name
    ```
 
-## 📋 Contribution Guidelines
+## Contribution Guidelines
 
 ### Code Style
 
@@ -58,7 +61,7 @@ interface ComponentNameProps {
 
 const ComponentName: React.FC<ComponentNameProps> = ({ props }) => {
   // Component logic here
-  
+
   return (
     <div className="component-name">
       {/* JSX content */}
@@ -91,6 +94,7 @@ refactor(utils): simplify icon wrapper function
 ```
 
 **Types:**
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation changes
@@ -121,7 +125,7 @@ For feature requests, please include:
 3. **Alternatives**: Any alternative solutions considered
 4. **Additional context**: Screenshots, mockups, references
 
-## 📝 Pull Request Process
+## Pull Request Process
 
 ### Before Submitting
 
@@ -145,9 +149,11 @@ For feature requests, please include:
 
 ```markdown
 ## Changes Made
+
 - Brief description of changes
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Documentation update
@@ -155,6 +161,7 @@ For feature requests, please include:
 - [ ] Style improvement
 
 ## Testing
+
 - [ ] Tested on Chrome
 - [ ] Tested on Firefox
 - [ ] Tested on Safari
@@ -162,13 +169,15 @@ For feature requests, please include:
 - [ ] All existing functionality works
 
 ## Screenshots (if applicable)
+
 [Add screenshots here]
 
 ## Additional Notes
+
 [Any additional information]
 ```
 
-## 🎨 Design Guidelines
+## Design Guidelines
 
 ### Visual Design
 
@@ -191,7 +200,7 @@ For feature requests, please include:
 - **Touch Targets**: Ensure adequate touch target sizes
 - **Performance**: Optimize for various device capabilities
 
-## 🔍 Code Review Process
+## Code Review Process
 
 ### What We Look For
 
@@ -208,7 +217,7 @@ For feature requests, please include:
 - **Follow-up**: Within 1-2 days for revisions
 - **Merge**: After approval and all checks pass
 
-## 🛡️ Security
+## Security
 
 ### Reporting Security Issues
 
@@ -253,7 +262,7 @@ Please do **NOT** report security issues in public issues. Instead:
 
 This project adheres to the [Contributor Covenant Code of Conduct](./CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
-## 🙏 Recognition
+## Recognition
 
 Contributors will be recognized in the following ways:
 
@@ -261,7 +270,7 @@ Contributors will be recognized in the following ways:
 2. **Release Notes**: Mentioned in relevant release notes
 3. **Social Media**: Acknowledged on social platforms
 
-## 📞 Questions?
+## Questions?
 
 If you have any questions about contributing:
 
@@ -269,4 +278,4 @@ If you have any questions about contributing:
 - **Email**: umair.leo17@gmail.com
 - **Twitter**: [@UmairLeo7](https://x.com/UmairLeo7)
 
-Thank you for contributing to making this portfolio better! 🚀
+Thank you for contributing to making this portfolio better!

@@ -10,13 +10,13 @@
 
 A modern, responsive portfolio website showcasing professional software engineering experience. Built with React 19, TypeScript, and cutting-edge web technologies featuring stunning animations, glassmorphism design, and optimized performance.
 
-## 🚀 Live Demo
+## Live Demo
 
 [**View Live Portfolio →**](https://umairleo1.github.io/portfolio) ✨ **Now Live!**
 
-## ✨ Features
+## Features
 
-### 🎨 Design & UX
+### Design & UX
 
 - **Modern Glassmorphism UI** - Professional design with backdrop filters and transparency effects
 - **Responsive Design** - Seamlessly adapts to all devices and screen sizes
@@ -24,7 +24,7 @@ A modern, responsive portfolio website showcasing professional software engineer
 - **Professional Typography** - Carefully selected fonts and spacing for optimal readability
 - **Custom Favicon** - Unique "MU" branded SVG favicon
 
-### 🛠️ Technical Excellence
+### Technical Excellence
 
 - **React 19** - Latest React with enhanced performance and concurrent features
 - **TypeScript** - Full type safety and enhanced developer experience
@@ -32,14 +32,14 @@ A modern, responsive portfolio website showcasing professional software engineer
 - **Performance Optimized** - Code splitting, lazy loading, and optimized bundle size
 - **SEO Optimized** - Semantic HTML, proper meta tags, and structured data
 
-### 📱 User Experience
+### User Experience
 
 - **Intuitive Navigation** - Smooth scrolling with active section highlighting
 - **Contact Form** - Functional form with validation and user feedback
 - **Professional Sections** - Hero, Expertise, Work, Experience, and Contact
 - **Accessibility** - WCAG compliant with keyboard navigation and screen reader support
 
-## 🏗️ Architecture
+## Architecture
 
 ### Tech Stack
 
@@ -76,60 +76,60 @@ A modern, responsive portfolio website showcasing professional software engineer
 | Safari  | Latest ✅ |
 | Edge    | Latest ✅ |
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 portfolio/
-├── 📁 public/                    # Static assets
-│   ├── 📁 assets/               # Organized assets
-│   │   ├── 🎨 favicons/        # Favicon files
-│   │   ├── 🖼️ images/          # Profile pictures
-│   │   ├── 🎯 icons/           # App icons
-│   │   └── 🎨 svg/             # SVG graphics
-│   ├── 📄 index.html           # HTML template
-│   └── 📋 manifest.json        # PWA manifest
-├── 📁 src/
-│   ├── 📁 components/          # React components
-│   │   ├── 📁 layout/          # Layout components
-│   │   │   ├── 🧭 Header/      # Navigation with profile picture
-│   │   │   └── 🦶 Footer/      # Footer with tech stack icons
-│   │   ├── 📁 sections/        # Main page sections
-│   │   │   ├── 🏠 Hero/        # Landing section with animations
-│   │   │   ├── 👤 About/       # About section
-│   │   │   ├── 💼 Expertise/   # Skills and technologies
-│   │   │   ├── 🚀 Work/        # Work showcase
-│   │   │   ├── 📁 Projects/    # Projects portfolio
-│   │   │   ├── 📈 Experience/  # Professional experience
-│   │   │   └── 📞 Contact/     # Contact form
-│   │   ├── 📁 effects/         # Animation components
-│   │   │   ├── ✨ FloatingElements/ # Hero section animations
-│   │   │   ├── 🎯 CursorTrail/  # Mouse cursor trail
-│   │   │   └── 🌌 ThreeBackground/ # 3D background
-│   │   └── 📁 ui/              # UI components
-│   ├── 📁 data/                # Static content
-│   │   └── 📊 portfolio.ts     # Portfolio data and content
-│   ├── 📁 styles/              # Component styles
-│   │   └── 📁 components/      # Component-specific CSS
-│   ├── 📁 types/               # TypeScript definitions
-│   │   └── 📝 index.ts         # Common type definitions
-│   ├── 📁 lib/                 # Utilities and constants
-│   │   └── 📁 constants/       # Asset paths and config
-│   ├── 📁 contexts/            # React contexts
-│   ├── 📁 hooks/               # Custom React hooks
-│   ├── 📁 utils/               # Utility functions
-│   ├── 📁 config/              # Configuration files
-│   └── 📱 App.tsx              # Main application component
-├── 📁 docs/                    # Documentation
-├── 📁 scripts/                 # Development scripts
-├── 🚫 .gitignore              # Git ignore patterns
-├── 📄 LICENSE                 # MIT License
-├── 📦 package.json           # Dependencies and scripts
-├── ⚙️ tsconfig.json          # TypeScript configuration
-├── ⚙️ config-overrides.js    # react-app-rewired config
-└── 📚 README.md              # Project documentation
+├── public/                     # Static assets
+│   ├── assets/                # Organized assets
+│   │   ├── favicons/          # Favicon files
+│   │   ├── images/            # Profile pictures
+│   │   ├── icons/             # App icons
+│   │   └── svg/               # SVG graphics
+│   ├── index.html             # HTML template
+│   └── manifest.json          # PWA manifest
+├── src/
+│   ├── components/            # React components
+│   │   ├── layout/            # Layout components
+│   │   │   ├── Header/        # Navigation with profile picture
+│   │   │   └── Footer/        # Footer with tech stack icons
+│   │   ├── sections/          # Main page sections
+│   │   │   ├── Hero/          # Landing section with animations
+│   │   │   ├── About/         # About section
+│   │   │   ├── Expertise/     # Skills and technologies
+│   │   │   ├── Work/          # Work showcase
+│   │   │   ├── Projects/      # Projects portfolio
+│   │   │   ├── Experience/    # Professional experience
+│   │   │   └── Contact/       # Contact form
+│   │   ├── effects/           # Animation components
+│   │   │   ├── FloatingElements/ # Hero section animations
+│   │   │   ├── CursorTrail/   # Mouse cursor trail
+│   │   │   └── ThreeBackground/ # 3D background
+│   │   └── ui/                # UI components
+│   ├── data/                  # Static content
+│   │   └── portfolio.ts       # Portfolio data and content
+│   ├── styles/                # Component styles
+│   │   └── components/        # Component-specific CSS
+│   ├── types/                 # TypeScript definitions
+│   │   └── index.ts           # Common type definitions
+│   ├── lib/                   # Utilities and constants
+│   │   └── constants/         # Asset paths and config
+│   ├── contexts/              # React contexts
+│   ├── hooks/                 # Custom React hooks
+│   ├── utils/                 # Utility functions
+│   ├── config/                # Configuration files
+│   └── App.tsx                # Main application component
+├── docs/                      # Documentation
+├── scripts/                   # Development scripts
+├── .gitignore                 # Git ignore patterns
+├── LICENSE                    # MIT License
+├── package.json               # Dependencies and scripts
+├── tsconfig.json              # TypeScript configuration
+├── config-overrides.js        # react-app-rewired config
+└── README.md                  # Project documentation
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -207,7 +207,7 @@ npm run type-check     # TypeScript validation
 - ✅ **Consistent code style across team**
 - ✅ **Faster code reviews**
 
-## 🎨 Customization Guide
+## Customization Guide
 
 ### Personal Information
 
@@ -276,7 +276,7 @@ Customize the visual appearance:
 2. **Typography** - Modify font imports and declarations
 3. **Animations** - Adjust AOS settings in `src/App.tsx`
 
-## 🚢 Deployment
+## Deployment
 
 ### Fully Automated GitHub Pages Deployment
 
@@ -328,7 +328,7 @@ REACT_APP_CONTACT_EMAIL=your-email@example.com
 REACT_APP_ANALYTICS_ID=your-analytics-id
 ```
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please read our [Contributing Guidelines](./docs/CONTRIBUTING.md) for details.
 
@@ -360,7 +360,7 @@ Once merged, automatic deployment to live site occurs!
 - **Testing** - New features require appropriate tests
 - **Pre-commit hooks** - Automatic formatting and linting before commits
 
-## 📋 Available Scripts
+## Available Scripts
 
 | Script                        | Description                                 |
 | ----------------------------- | ------------------------------------------- |
@@ -379,7 +379,7 @@ Once merged, automatic deployment to live site occurs!
 | `npm run start:all`           | Start all development services              |
 | `npm run stop:all`            | Stop all running services                   |
 
-## 🔧 Browser Compatibility
+## Browser Compatibility
 
 Supports all modern browsers with the following minimum versions:
 
@@ -388,7 +388,7 @@ Supports all modern browsers with the following minimum versions:
 - **Safari**: 14+
 - **Edge**: 88+
 
-## 📊 Performance
+## Performance
 
 <div align="center">
 
@@ -405,7 +405,7 @@ Supports all modern browsers with the following minimum versions:
 - **Time to Interactive**: < 3s
 - **Status**: ✅ **Deployed and Live**
 
-## 🛡️ Security & Quality
+## Security & Quality
 
 <div align="center">
 
@@ -434,7 +434,7 @@ Supports all modern browsers with the following minimum versions:
 - **Security auditing** - npm audit with professional configuration
 - **CI/CD validation** - All checks run on GitHub Actions
 
-## 📄 License
+## License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
@@ -445,7 +445,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - ✅ Distribution
 - ✅ Private use
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **React Team** - For the incredible React framework
 - **TypeScript Team** - For enhanced JavaScript development
@@ -453,7 +453,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - **AOS Library** - For smooth scroll animations
 - **Create React App** - For zero-configuration setup
 
-## 📞 Contact & Support
+## Contact & Support
 
 **Muhammad Umair** - Software Engineer
 
@@ -468,7 +468,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - 💡 **Feature Requests**: [Start a discussion](https://github.com/umairleo1/portfolio-website/discussions)
 - 💬 **Questions**: [Ask in discussions](https://github.com/umairleo1/portfolio-website/discussions)
 
-## ⭐ Show Your Support
+## Show Your Support
 
 If this project helped you or you found it interesting:
 
