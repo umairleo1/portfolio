@@ -55,7 +55,7 @@ pids
 
 # Gatsby
 .cache/
-public
+# public - NOTE: For React apps, public folder should be committed
 
 # Storybook
 .out
@@ -101,4 +101,4 @@ TODO.txt
 .claude
 
 # NPM configuration
-.npmrc
+# .npmrc - NOTE: Commit .npmrc for consistent dependency resolution
