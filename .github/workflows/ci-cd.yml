@@ -92,6 +92,7 @@ jobs:
         run: npm run build
         env:
           CI: false
+          PUBLIC_URL: /portfolio
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
