@@ -15,7 +15,7 @@ const Hero: React.FC = () => {
       <div className='container'>
         <div className='hero__content' data-aos='fade-up' data-aos-delay='200'>
           <p className='hero__greeting' data-aos='fade-up' data-aos-delay='300'>
-            Hey, i'm
+            hey, i'm
           </p>
           <h1 className='hero__name' data-aos='fade-up' data-aos-delay='400'>
             {personalInfo.name}
