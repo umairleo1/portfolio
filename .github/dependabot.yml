@@ -1,39 +1,43 @@
 version: 2
 updates:
   # Enable version updates for npm
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "04:00"
+      interval: 'weekly'
+      day: 'monday'
+      time: '04:00'
     open-pull-requests-limit: 10
+    ignore:
+      # Ignore ESLint major version updates due to breaking changes
+      - dependency-name: 'eslint'
+        update-types: ['version-update:semver-major']
     reviewers:
-      - "umairleo1"
+      - 'umairleo1'
     assignees:
-      - "umairleo1"
+      - 'umairleo1'
     commit-message:
-      prefix: "chore"
-      include: "scope"
+      prefix: 'chore'
+      include: 'scope'
     labels:
-      - "dependencies"
-      - "automated"
-    
+      - 'dependencies'
+      - 'automated'
+
   # Enable version updates for GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "04:00"
+      interval: 'weekly'
+      day: 'monday'
+      time: '04:00'
     open-pull-requests-limit: 5
     reviewers:
-      - "umairleo1"
+      - 'umairleo1'
     assignees:
-      - "umairleo1"
+      - 'umairleo1'
     commit-message:
-      prefix: "chore"
-      include: "scope"
+      prefix: 'chore'
+      include: 'scope'
     labels:
-      - "github-actions"
-      - "automated"
+      - 'github-actions'
+      - 'automated'
