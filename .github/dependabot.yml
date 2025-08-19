@@ -8,10 +8,6 @@ updates:
       day: 'monday'
       time: '04:00'
     open-pull-requests-limit: 10
-    ignore:
-      # Ignore ESLint major version updates due to breaking changes
-      - dependency-name: 'eslint'
-        update-types: ['version-update:semver-major']
     reviewers:
       - 'umairleo1'
     assignees:
