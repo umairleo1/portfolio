@@ -1,77 +1,98 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '@/styles/components/CursorTrail.css';
 
+interface DotPosition {
+  x: number;
+  y: number;
+  scale: number;
+  opacity: number;
+}
+
 const CursorTrail: React.FC = () => {
-  const trailRef = useRef<HTMLDivElement>(null);
+  const [dots, setDots] = useState<DotPosition[]>([]);
   const mousePosition = useRef({ x: 0, y: 0 });
-  const dots = useRef<HTMLDivElement[]>([]);
+  const animationFrameRef = useRef<number | null>(null);
+  const dotPositions = useRef<{ x: number; y: number }[]>([]);
+
+  // Reduced dot count for better performance
+  const DOT_COUNT = 8;
+  const TRAIL_SPEED = 0.15;
 
   useEffect(() => {
-    const currentTrailRef = trailRef.current;
-    if (!currentTrailRef) return;
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (prefersReducedMotion) return;
 
-    const createDots = () => {
-      // Create trail dots
-      for (let i = 0; i < 12; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'cursor-dot';
-        dot.style.left = '-10px';
-        dot.style.top = '-10px';
-        currentTrailRef.appendChild(dot);
-        dots.current.push(dot);
-      }
-    };
+    // Initialize dot positions
+    dotPositions.current = Array(DOT_COUNT)
+      .fill(null)
+      .map(() => ({ x: 0, y: 0 }));
 
     const handleMouseMove = (e: MouseEvent) => {
       mousePosition.current = { x: e.clientX, y: e.clientY };
     };
 
     const animateTrail = () => {
-      let x = mousePosition.current.x;
-      let y = mousePosition.current.y;
+      const { x: targetX, y: targetY } = mousePosition.current;
 
-      dots.current.forEach((dot, index) => {
-        // Center the dot on the cursor position
-        dot.style.left = `${x - 4}px`; // Offset by half the dot width (4px)
-        dot.style.top = `${y - 4}px`; // Offset by half the dot height (4px)
+      // Update first dot to mouse position
+      if (dotPositions.current[0]) {
+        dotPositions.current[0].x = targetX;
+        dotPositions.current[0].y = targetY;
+      }
 
-        // Create delay effect for trailing
-        if (index > 0) {
-          const prevDot = dots.current[index - 1];
-          if (prevDot) {
-            const prevX = parseFloat(prevDot.style.left) + 4; // Add back the offset
-            const prevY = parseFloat(prevDot.style.top) + 4;
+      // Smooth trailing effect for other dots
+      for (let i = 1; i < DOT_COUNT; i++) {
+        const current = dotPositions.current[i];
+        const target = dotPositions.current[i - 1];
 
-            x = x + (prevX - x) * 0.8; // Smooth trailing effect
-            y = y + (prevY - y) * 0.8;
-          }
+        if (current && target) {
+          current.x += (target.x - current.x) * TRAIL_SPEED;
+          current.y += (target.y - current.y) * TRAIL_SPEED;
         }
+      }
 
-        // Scale and opacity based on position in trail
-        const scale = Math.max(0.1, (15 - index) / 15);
-        const opacity = scale * 0.6;
+      // Calculate visual properties
+      const newDots: DotPosition[] = dotPositions.current.map((pos, index) => ({
+        x: pos.x,
+        y: pos.y,
+        scale: Math.max(0.2, (DOT_COUNT - index) / DOT_COUNT),
+        opacity: Math.max(0.1, (DOT_COUNT - index) / DOT_COUNT) * 0.8,
+      }));
 
-        dot.style.transform = `translate(-50%, -50%) scale(${scale})`;
-        dot.style.opacity = opacity.toString();
-      });
-
-      requestAnimationFrame(animateTrail);
+      setDots(newDots);
+      animationFrameRef.current = requestAnimationFrame(animateTrail);
     };
 
-    createDots();
-    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
     animateTrail();
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
-      if (currentTrailRef) {
-        currentTrailRef.innerHTML = '';
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
       }
-      dots.current = [];
     };
   }, []);
 
-  return <div ref={trailRef} className='cursor-trail-container'></div>;
+  return (
+    <div className='cursor-trail-container'>
+      {dots.map((dot, index) => (
+        <div
+          key={index}
+          className='cursor-dot'
+          style={{
+            left: `${dot.x}px`,
+            top: `${dot.y}px`,
+            transform: `translate(-50%, -50%) scale(${dot.scale})`,
+            opacity: dot.opacity,
+          }}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default CursorTrail;
