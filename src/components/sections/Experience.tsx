@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { experience } from '@/data/portfolio';
+import { experience, companies } from '@/data/portfolio';
 import { HiLocationMarker, HiExternalLink } from 'react-icons/hi';
 import { renderIcon } from '@/utils/IconWrapper';
 import '@/styles/components/Experience.css';
 
 const Experience: React.FC = () => {
-  const [expandedItems, setExpandedItems] = useState<number[]>([0]); // First item expanded by default
+  const [expandedItems, setExpandedItems] = useState<number[]>([0]);
 
   const toggleExpanded = (index: number) => {
     setExpandedItems((prev) =>
@@ -14,45 +14,15 @@ const Experience: React.FC = () => {
   };
 
   const getTechSkills = (company: string) => {
-    const skillMap: { [key: string]: string[] } = {
-      'UNICEF UK': [
-        'Python',
-        'SQL',
-        'AWS Lambda',
-        'Salesforce',
-        'Snowflake',
-        'GitLab CI',
-      ],
-      'University of Greenwich': [
-        'Python',
-        'LangGraph',
-        'Machine Learning',
-        'SQL',
-        'Data Mining',
-      ],
-      SprintX: [
-        'React 18',
-        'React Query',
-        'CircleCI',
-        'Jenkins',
-        'SonarQube',
-        'Jest',
-      ],
-      Frizhub: ['React Native', 'AWS', 'GCP', 'Docker', 'Jenkins', 'Terraform'],
-    };
+    const companyData = companies.find((c) => c.name === company);
     return (
-      skillMap[company] || ['JavaScript', 'TypeScript', 'React', 'Node.js']
+      companyData?.skills || ['JavaScript', 'TypeScript', 'React', 'Node.js']
     );
   };
 
   const getCompanyWebsite = (company: string) => {
-    const websiteMap: { [key: string]: string } = {
-      'UNICEF UK': 'https://www.unicef.org.uk',
-      'University of Greenwich': 'https://www.gre.ac.uk',
-      SprintX: '#',
-      Frizhub: '#',
-    };
-    return websiteMap[company] || '#';
+    const companyData = companies.find((c) => c.name === company);
+    return companyData?.website || '#';
   };
 
   return (

@@ -6,10 +6,10 @@ Thank you for your interest in contributing to this portfolio project! This docu
 
 ### Prerequisites
 
-- **Node.js** (v18 or higher)
-- **npm** or **yarn**
+- **Node.js** (v20.9 or higher) - See package.json engines
+- **npm** (v10.0 or higher)
 - **Git**
-- Basic knowledge of React, TypeScript, and CSS
+- Basic knowledge of React 19, TypeScript, and CSS
 
 ### Development Setup
 

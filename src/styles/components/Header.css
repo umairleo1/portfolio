@@ -238,6 +238,10 @@
 
 @media (max-width: 480px) {
   .header__content {
+    padding: 16px 0;
+  }
+
+  .header--scrolled .header__content {
     padding: 12px 0;
   }
 

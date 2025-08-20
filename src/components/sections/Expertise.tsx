@@ -1,101 +1,187 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import { skills } from '@/data/portfolio';
-import { FaReact, FaServer, FaCloud, FaTools } from 'react-icons/fa';
+import {
+  FaCode,
+  FaReact,
+  FaServer,
+  FaCloud,
+  FaTools,
+  FaRobot,
+  FaDatabase,
+  FaShieldAlt,
+} from 'react-icons/fa';
 import { renderIcon } from '@/utils/IconWrapper';
 import '@/styles/components/Expertise.css';
 
 const Expertise: React.FC = () => {
-  const categories = [
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: { y: 0, opacity: 1 },
+  };
+
+  const skillCategories = [
     {
+      title: 'Languages',
+      items: skills.languages,
+      icon: renderIcon(FaCode),
+      color: 'var(--primary-cyan)',
+      description: 'Core programming languages and markup',
+    },
+    {
+      title: 'Frontend',
+      items: skills.frontEnd,
       icon: renderIcon(FaReact),
-      title: 'Frontend Development',
-      description:
-        'Creating responsive and interactive user interfaces with modern technologies',
-      skills: skills.frontEnd,
+      color: '#06B6D4',
+      description: 'Modern UI frameworks and libraries',
     },
     {
+      title: 'Backend',
+      items: skills.backEnd,
       icon: renderIcon(FaServer),
-      title: 'Backend Development',
-      description: 'Building scalable server-side applications and APIs',
-      skills: skills.backEnd,
+      color: '#10B981',
+      description: 'Server-side technologies and frameworks',
     },
     {
+      title: 'Cloud & IaC',
+      items: skills.cloudAndIaC,
       icon: renderIcon(FaCloud),
-      title: 'Cloud & Infrastructure',
-      description: 'Managing cloud infrastructure and deployment',
-      skills: skills.cloudAndIaC,
+      color: '#0EA5E9',
+      description: 'Cloud platforms and infrastructure as code',
     },
     {
+      title: 'DevOps & Observability',
+      items: skills.devOpsAndObservability,
       icon: renderIcon(FaTools),
-      title: 'DevOps & Monitoring',
-      description: 'CI/CD pipelines and system observability',
-      skills: skills.devOpsAndObservability,
+      color: '#F59E0B',
+      description: 'CI/CD, monitoring, and automation tools',
+    },
+    {
+      title: 'Data & Messaging',
+      items: skills.dataAndMessaging,
+      icon: renderIcon(FaDatabase),
+      color: '#EF4444',
+      description: 'Databases and message queue systems',
+    },
+    {
+      title: 'Generative AI',
+      items: skills.generativeAI,
+      icon: renderIcon(FaRobot),
+      color: '#8B5CF6',
+      description: 'AI/ML platforms and integration tools',
+    },
+    {
+      title: 'Security',
+      items: skills.security,
+      icon: renderIcon(FaShieldAlt),
+      color: '#F97316',
+      description: 'Security tools and best practices',
     },
   ];
 
   const stats = [
-    { value: '3+', label: 'years experience' },
-    { value: '20+', label: 'projects completed' },
-    { value: '10+', label: 'technologies mastered' },
-    { value: '100%', label: 'client satisfaction' },
+    { value: '5+', label: 'Years Experience' },
+    { value: '20+', label: 'Projects Completed' },
+    { value: '15+', label: 'Technologies' },
+    { value: '2', label: "Master's Degrees" },
   ];
 
   return (
-    <section id='expertise' className='expertise'>
+    <section id='skills' className='expertise section'>
       <div className='container'>
-        <div className='expertise__header' data-aos='fade-up'>
-          <h2 className='expertise__title'>expertise</h2>
-          <p className='expertise__subtitle'>
-            specialized in modern web technologies and full-stack development
-          </p>
-        </div>
-
-        <div className='expertise__content'>
-          {categories.map((category, index) => (
-            <div
-              key={index}
-              className='expertise__category'
-              data-aos='fade-up'
-              data-aos-delay={index * 100}
-            >
-              <span className='expertise__category-icon'>{category.icon}</span>
-              <h3 className='expertise__category-title'>{category.title}</h3>
-              <p className='expertise__category-description'>
-                {category.description}
-              </p>
-              <div className='expertise__skills'>
-                {category.skills.map((skill, skillIndex) => (
-                  <span
-                    key={skillIndex}
-                    className='skill-tag'
-                    data-aos='fade-in'
-                    data-aos-delay={index * 100 + skillIndex * 50}
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div
-          className='expertise__stats'
-          data-aos='fade-up'
-          data-aos-delay='200'
+        <motion.div
+          ref={ref}
+          variants={containerVariants}
+          initial='hidden'
+          animate={inView ? 'visible' : 'hidden'}
         >
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className='stat-item'
-              data-aos='zoom-in'
-              data-aos-delay={index * 100}
-            >
-              <div className='stat-item__value'>{stat.value}</div>
-              <div className='stat-item__label'>{stat.label}</div>
+          <motion.div className='expertise__header' variants={itemVariants}>
+            <h2 className='section-title chunky-underline'>
+              skills & expertise
+            </h2>
+            <p className='section-subtitle'>
+              comprehensive technology stack and specialized competencies
+            </p>
+          </motion.div>
+
+          <motion.div className='expertise__skills' variants={itemVariants}>
+            <div className='skills-grid'>
+              {skillCategories.map((category, index) => (
+                <motion.div
+                  key={category.title}
+                  className='skill-category card'
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02, y: -8 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className='skill-category__header'>
+                    <div
+                      className='skill-category__icon'
+                      style={{ color: category.color }}
+                    >
+                      {category.icon}
+                    </div>
+                    <div className='skill-category__info'>
+                      <h3 className='skill-category__title'>
+                        {category.title}
+                      </h3>
+                      <p className='skill-category__description'>
+                        {category.description}
+                      </p>
+                    </div>
+                  </div>
+                  <div className='skill-category__items'>
+                    {category.items.map((skill, skillIndex) => (
+                      <motion.span
+                        key={skill}
+                        className='skill-tag'
+                        variants={itemVariants}
+                        transition={{ delay: index * 0.1 + skillIndex * 0.05 }}
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          ))}
-        </div>
+          </motion.div>
+
+          <motion.div className='expertise__stats' variants={itemVariants}>
+            <div className='stats-grid'>
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  className='stat-item'
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className='stat-value'>{stat.value}</div>
+                  <div className='stat-label'>{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

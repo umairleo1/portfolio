@@ -5,8 +5,8 @@ import {
   Header,
   Footer,
   Hero,
-  About,
   Expertise,
+  Education,
   Work,
   Projects,
   Experience,
@@ -34,8 +34,8 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <About />
         <Expertise />
+        <Education />
         <Work />
         <Projects />
         <Experience />
