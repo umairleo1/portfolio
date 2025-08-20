@@ -6,78 +6,83 @@ const FloatingElements: React.FC = () => {
   const [isHeroVisible, setIsHeroVisible] = useState(true);
 
   useEffect(() => {
-    // Scroll detection for hero visibility
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (prefersReducedMotion) return;
+
+    // Scroll detection for hero visibility (throttled)
+    let scrollTimeout: NodeJS.Timeout;
     const handleScroll = () => {
-      const heroSection = document.getElementById('about');
-      if (heroSection) {
-        const heroRect = heroSection.getBoundingClientRect();
-        const isVisible = heroRect.bottom > 100; // Hide when hero is mostly scrolled past
-        setIsHeroVisible(isVisible);
-      }
+      if (scrollTimeout) return;
+      scrollTimeout = setTimeout(() => {
+        const heroSection = document.getElementById('about');
+        if (heroSection) {
+          const heroRect = heroSection.getBoundingClientRect();
+          const isVisible = heroRect.bottom > 100;
+          setIsHeroVisible(isVisible);
+        }
+        scrollTimeout = null as any;
+      }, 100);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     const createFloatingElement = () => {
-      if (!containerRef.current) return;
+      if (!containerRef.current || !isHeroVisible) return;
 
       const element = document.createElement('div');
       element.className = 'floating-orb';
 
-      // Random properties
-      const size = Math.random() * 60 + 20; // 20-80px
-      const opacity = Math.random() * 0.3 + 0.1; // 0.1-0.4
-      const duration = Math.random() * 20 + 15; // 15-35s
-      const delay = Math.random() * 5; // 0-5s
+      // Reduced random properties for better performance
+      const size = Math.random() * 40 + 15; // Smaller: 15-55px
+      const opacity = Math.random() * 0.2 + 0.05; // More subtle: 0.05-0.25
+      const duration = Math.random() * 15 + 20; // Longer: 20-35s
 
       // Random starting position
       const startX = Math.random() * window.innerWidth;
       const startY = window.innerHeight + size;
 
-      // Styling
-      element.style.width = `${size}px`;
-      element.style.height = `${size}px`;
-      element.style.left = `${startX}px`;
-      element.style.top = `${startY}px`;
-      element.style.opacity = opacity.toString();
-      element.style.animationDuration = `${duration}s`;
-      element.style.animationDelay = `${delay}s`;
-
-      // Random color variation
-      const colors = [
-        'rgba(102, 217, 237, 0.3)',
-        'rgba(74, 144, 226, 0.2)',
-        'rgba(139, 92, 246, 0.2)',
-        'rgba(255, 255, 255, 0.1)',
-      ];
-      element.style.background = `radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]}, transparent)`;
+      element.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        left: ${startX}px;
+        top: ${startY}px;
+        opacity: ${opacity};
+        animation-duration: ${duration}s;
+        background: radial-gradient(circle, rgba(102, 217, 237, 0.15), transparent);
+      `;
 
       containerRef.current.appendChild(element);
 
       // Remove element after animation
-      setTimeout(
-        () => {
-          if (element.parentNode) {
-            element.parentNode.removeChild(element);
-          }
-        },
-        (duration + delay) * 1000
-      );
+      setTimeout(() => {
+        if (element.parentNode) {
+          element.parentNode.removeChild(element);
+        }
+      }, duration * 1000);
     };
 
-    // Create initial elements
-    for (let i = 0; i < 3; i++) {
-      setTimeout(() => createFloatingElement(), i * 2000);
-    }
+    // Delayed startup - don't run immediately
+    let interval: NodeJS.Timeout;
+    const startDelay = setTimeout(() => {
+      // Create fewer initial elements
+      for (let i = 0; i < 2; i++) {
+        setTimeout(() => createFloatingElement(), i * 3000);
+      }
 
-    // Continue creating elements
-    const interval = setInterval(createFloatingElement, 6000);
+      // Less frequent creation
+      interval = setInterval(createFloatingElement, 8000);
+    }, 2000); // 2 second delay for startup
 
     return () => {
-      clearInterval(interval);
+      clearTimeout(startDelay);
+      if (interval) clearInterval(interval);
       window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
     };
-  }, []);
+  }, [isHeroVisible]);
 
   return (
     <div ref={containerRef} className='floating-elements-container'>
