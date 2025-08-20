@@ -1,52 +1,73 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import type { NavItem } from '@/types';
-import { ASSET_PATHS, NAVIGATION_PATHS } from '@/lib/constants';
+import { NAVIGATION_PATHS } from '@/lib/constants';
+import { appConfig } from '@/data/portfolio';
+import { useThrottle } from '@/hooks';
 import '@/styles/components/Header.css';
 
-const navItems: NavItem[] = [
-  { label: 'about', href: NAVIGATION_PATHS.ABOUT },
-  { label: 'expertise', href: '#expertise' },
-  { label: 'work', href: '#work' },
-  { label: 'experience', href: NAVIGATION_PATHS.EXPERIENCE },
-  { label: 'contact', href: NAVIGATION_PATHS.CONTACT },
-];
+const navItems: NavItem[] = appConfig.navigation.items.map((item) => ({
+  label: item.label,
+  href: item.href.startsWith('#')
+    ? item.href
+    : item.href === '/experience'
+      ? NAVIGATION_PATHS.EXPERIENCE
+      : item.href === '/contact'
+        ? NAVIGATION_PATHS.CONTACT
+        : item.href,
+}));
 
-const Header: React.FC = () => {
+const Header: React.FC = memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('about');
+  const [activeSection, setActiveSection] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      // Handle scroll background blur effect
-      const scrollTop = window.pageYOffset;
-      setIsScrolled(scrollTop > 50);
+  const handleScroll = useThrottle(() => {
+    // Handle scroll background blur effect
+    const scrollTop = window.pageYOffset;
+    setIsScrolled(scrollTop > 50);
 
-      // Handle active section
-      const sections = navItems.map((item) => item.href.substring(1));
-      const currentSection = sections.find((section) => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
+    // Handle active section
+    const sections = navItems.map((item) => item.href.substring(1));
+    const headerHeight = 80; // Standard header height
+    const offset = headerHeight + 50; // Extra offset for better UX
 
-      if (currentSection) {
-        setActiveSection(currentSection);
+    // Check if we're at the top (Hero section)
+    if (scrollTop < 200) {
+      setActiveSection('');
+      return;
+    }
+
+    const currentSection = sections.find((section) => {
+      const element = document.getElementById(section);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        return rect.top <= offset && rect.bottom >= offset;
       }
-    };
+      return false;
+    });
 
+    if (currentSection) {
+      setActiveSection(currentSection);
+    }
+  }, 16); // ~60fps throttling
+
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [handleScroll]);
 
   const handleNavClick = (href: string) => {
     setIsMenuOpen(false);
     const element = document.getElementById(href.substring(1));
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerHeight = 80;
+      const offset = headerHeight + 20;
+      const elementPosition = element.offsetTop - offset;
+
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth',
+      });
     }
   };
 
@@ -56,22 +77,12 @@ const Header: React.FC = () => {
         <div className='header__content'>
           <div className='header__logo'>
             <a
-              href='#about'
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('#about');
-              }}
+              href={appConfig.resume.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='header__resume-link'
             >
-              <div className='header__profile'>
-                <div className='header__profile-image'>
-                  <img
-                    src={ASSET_PATHS.PROFILE_AVATAR}
-                    alt='Muhammad Umair'
-                    className='header__profile-pic'
-                  />
-                </div>
-                <span className='header__profile-text'>mu</span>
-              </div>
+              Resume
             </a>
           </div>
 
@@ -126,6 +137,8 @@ const Header: React.FC = () => {
       </div>
     </header>
   );
-};
+});
+
+Header.displayName = 'Header';
 
 export default Header;

@@ -7,8 +7,9 @@ export const personalInfo = {
   linkedin: 'https://www.linkedin.com/in/muhammad-umair-amin/',
   github: 'https://github.com/umairleo1',
   twitter: 'https://x.com/UmairLeo7',
+  profileImage: '/assets/images/profile-picture.jpg',
   objective:
-    "Software engineer with extensive experience in Python, React (+ React Query) and AWS/Terraform, eager to build Barclays' Application Health Analytics platform. Proven at turning telemetry into insight, enforcing GitLab CI/SonarQube quality gates and delivering secure, high throughput micro-services that elevate reliability and user experience.",
+    'passionate about building scalable, high-performance applications and turning innovative ideas into robust software solutions.',
 };
 
 export const skills = {
@@ -123,7 +124,7 @@ export const projects = [
     achievements: [
       'Established GitLab CI pipelines with SonarQube quality gates, trimming release defects 30% and cutting deployment time from 90 min to under 20 min.',
     ],
-    link: '[App Link]',
+    link: '',
   },
   {
     title: 'LetzChat Real Time Translator',
@@ -133,7 +134,7 @@ export const projects = [
     achievements: [
       'Codified AWS infrastructure in Terraform with GitLab CI / SonarQube gates and CloudWatch→Grafana health dashboards, sustaining 99.9% uptime while cutting localisation spend 80%.',
     ],
-    link: '[App Link]',
+    link: '',
   },
   {
     title: 'Desert Sign Trading LLC',
@@ -143,7 +144,7 @@ export const projects = [
     achievements: [
       "Integrated Twilio's communication services to streamline interactions between customers and the company, improving service responsiveness and customer satisfaction.",
     ],
-    link: '[App Link]',
+    link: '',
   },
   {
     title: 'Vincere Health',
@@ -153,7 +154,7 @@ export const projects = [
     achievements: [
       'Utilized AWS for backend infrastructure, ensuring scalable and reliable service delivery, and implemented advanced JavaScript solutions for real-time data processing.',
     ],
-    link: '[App Link]',
+    link: '',
   },
   {
     title: 'London Riders (PCO car hire and rent)',
@@ -163,7 +164,7 @@ export const projects = [
     achievements: [
       'Implemented a seamless booking system and user management features, optimizing the rental process and enhancing the overall customer experience.',
     ],
-    link: '[App Link]',
+    link: '',
   },
   {
     title: 'Path Signals',
@@ -181,19 +182,19 @@ export const certifications = [
   {
     title: 'Advanced Learning Algorithms',
     issuer: 'Coursera',
-    link: 'View Certificate',
+    link: '',
   },
   {
     title: 'Developer of the Month Award',
     issuer: 'SprintX',
     date: 'September, 2022',
-    link: 'View Award',
+    link: '',
   },
   {
     title: 'Team of the Month Award',
     issuer: 'SprintX',
     date: 'October, 2022',
-    link: 'View Award',
+    link: '',
   },
 ];
 
@@ -205,4 +206,95 @@ export const interests = {
     'Travelling',
   ],
   languages: ['English', 'Chinese (HSK 1)', 'Urdu', 'Punjabi'],
+};
+
+export const companies = [
+  {
+    name: 'UNICEF UK',
+    logo: '/assets/images/work/UNICEF.png',
+    alt: 'UNICEF UK Logo',
+    website: 'https://www.unicef.org.uk',
+    skills: [
+      'Python',
+      'SQL',
+      'AWS Lambda',
+      'Salesforce',
+      'Snowflake',
+      'GitLab CI',
+    ],
+  },
+  {
+    name: 'University of Greenwich',
+    logo: '/assets/images/work/uog.png',
+    alt: 'University of Greenwich Logo',
+    website: 'https://www.gre.ac.uk',
+    skills: ['Python', 'LangGraph', 'Machine Learning', 'SQL', 'Data Mining'],
+  },
+  {
+    name: 'SprintX',
+    logo: '/assets/images/work/sprintx.jpeg',
+    alt: 'SprintX Logo',
+    website: '#',
+    skills: [
+      'React 18',
+      'React Query',
+      'CircleCI',
+      'Jenkins',
+      'SonarQube',
+      'Jest',
+    ],
+  },
+  {
+    name: 'Frizhub',
+    logo: '/assets/images/work/frizhub.webp',
+    alt: 'Frizhub Logo',
+    website: '#',
+    skills: ['React Native', 'AWS', 'GCP', 'Docker', 'Jenkins', 'Terraform'],
+  },
+];
+
+// Application configuration
+export const appConfig = {
+  resume: {
+    url: 'https://www.overleaf.com/read/bcmmnbtyxhjp#424e70',
+    downloadUrl: '/resume.pdf',
+  },
+  navigation: {
+    items: [
+      { label: 'skills', href: '#skills' },
+      { label: 'education', href: '#education' },
+      { label: 'work', href: '#work' },
+      { label: 'projects', href: '#projects' },
+      { label: 'experience', href: '#experience' },
+      { label: 'contact', href: '#contact' },
+    ],
+  },
+  social: {
+    github: personalInfo.github,
+    linkedin: personalInfo.linkedin,
+    twitter: personalInfo.twitter,
+    email: personalInfo.email,
+  },
+  seo: {
+    title: `${personalInfo.name} - ${personalInfo.title}`,
+    description: personalInfo.objective,
+    keywords: [
+      'Software Engineer',
+      'React Developer',
+      'Python Developer',
+      'AWS',
+      'TypeScript',
+      'Full Stack Developer',
+    ],
+  },
+};
+
+// Project categories for better organization
+export const projectCategories = {
+  BioMark: 'Healthcare',
+  'LetzChat Real Time Translator': 'AI/Translation',
+  'Desert Sign Trading LLC': 'E-commerce',
+  'Vincere Health': 'Healthcare',
+  'London Riders (PCO car hire and rent)': 'Transportation',
+  'Path Signals': 'Fintech',
 };

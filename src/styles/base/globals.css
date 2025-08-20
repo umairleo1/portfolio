@@ -101,6 +101,7 @@ a:hover {
 section {
   position: relative;
   overflow: hidden;
+  scroll-margin-top: 100px; /* Account for header height + extra space */
 }
 
 /* Navigation underlines (Tamal's signature style) */

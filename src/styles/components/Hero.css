@@ -7,11 +7,30 @@
   position: relative;
   background: var(--dark-bg);
   overflow: hidden;
+  padding-top: 80px; /* Account for header height */
+}
+
+/* Main Layout */
+.hero__main {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+}
+
+.hero__logos {
+  grid-column: 1 / -1;
+  margin-top: 3rem;
 }
 
 .hero__content {
-  max-width: 800px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
 }
 
 .hero__greeting {
@@ -330,7 +349,91 @@
   }
 }
 
+/* Profile Image */
+.hero__image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--primary-cyan);
+  box-shadow:
+    0 0 0 6px rgba(102, 217, 237, 0.1),
+    0 20px 40px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, var(--dark-surface), var(--dark-card));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container:hover {
+  transform: scale(1.05) rotate(3deg);
+  box-shadow:
+    0 0 0 6px rgba(102, 217, 237, 0.2),
+    0 30px 60px rgba(102, 217, 237, 0.15);
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.image-container:hover .profile-image {
+  transform: scale(1.1);
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(102, 217, 237, 0.1) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.image-container:hover .image-overlay {
+  opacity: 1;
+}
+
 /* Responsive */
+@media (max-width: 1024px) {
+  .hero__main {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .hero__content {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero__logos {
+    margin-top: 2rem;
+  }
+
+  .image-container {
+    width: 280px;
+    height: 280px;
+  }
+}
+
 @media (max-width: 768px) {
   .hero {
     padding: 80px 0 60px;
@@ -350,6 +453,15 @@
   .hero__description {
     font-size: 15px;
     margin-bottom: 32px;
+  }
+
+  .hero__main {
+    gap: 2.5rem;
+  }
+
+  .image-container {
+    width: 240px;
+    height: 240px;
   }
 
   .hero__scroll-indicator {
@@ -410,5 +522,14 @@
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
     border-top: 5px solid var(--primary-cyan);
+  }
+
+  .hero__main {
+    gap: 2rem;
+  }
+
+  .image-container {
+    width: 200px;
+    height: 200px;
   }
 }

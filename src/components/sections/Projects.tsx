@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { projects } from '@/data/portfolio';
+import { projects, projectCategories } from '@/data/portfolio';
 import {
   FaHospital,
   FaGlobe,
@@ -65,13 +65,9 @@ const Projects: React.FC = () => {
         });
 
   function getProjectCategory(title: string): string {
-    if (title.includes('BioMark') || title.includes('Vincere Health'))
-      return 'Healthcare';
-    if (title.includes('LetzChat') || title.includes('AI')) return 'AI/ML';
-    if (title.includes('Desert Sign') || title.includes('London Riders'))
-      return 'E-commerce';
-    if (title.includes('Path Signals')) return 'Fintech';
-    return 'Web App';
+    return (
+      projectCategories[title as keyof typeof projectCategories] || 'Web App'
+    );
   }
 
   function getProjectIcon(title: string): React.ReactNode {
@@ -180,8 +176,10 @@ const Projects: React.FC = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => {
-                      // Placeholder for source code link
-                      alert('Source code available on request');
+                      window.open(
+                        'mailto:umair.butt@umairleo.com?subject=Source Code Request&body=Hi, I would like to request access to the source code for this project.',
+                        '_blank'
+                      );
                     }}
                   >
                     {renderIcon(FaCode)}

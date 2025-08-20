@@ -34,8 +34,8 @@ const Work: React.FC = () => {
     <section id='work' className='work'>
       <div className='container'>
         <div className='work__header' data-aos='fade-up'>
-          <h2 className='work__title'>work</h2>
-          <p className='work__subtitle'>
+          <h2 className='section-title chunky-underline'>work</h2>
+          <p className='section-subtitle'>
             selected projects showcasing my technical expertise
           </p>
         </div>

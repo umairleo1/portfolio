@@ -1,0 +1,197 @@
+/* Logo Scroll Component */
+.logo-scroll {
+  padding: 2rem 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-scroll__container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.logo-scroll__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logo-scroll__title {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.logo-scroll__title::before,
+.logo-scroll__title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(102, 217, 237, 0.3),
+    transparent
+  );
+}
+
+.logo-scroll__title::before {
+  right: 100%;
+  margin-right: 1rem;
+}
+
+.logo-scroll__title::after {
+  left: 100%;
+  margin-left: 1rem;
+}
+
+.logo-scroll__track {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  mask: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+.logo-scroll__content {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  width: fit-content;
+}
+
+.logo-scroll__item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 70px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(102, 217, 237, 0.3);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logo-scroll__item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(102, 217, 237, 0.1),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.logo-scroll__item:hover::before {
+  left: 100%;
+}
+
+.logo-scroll__item:hover {
+  border-color: rgba(102, 217, 237, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+  transform: translateY(-2px);
+}
+
+.logo-scroll__image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: grayscale(30%) brightness(1.1);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.logo-scroll__fallback {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.logo-scroll__item:hover .logo-scroll__image {
+  filter: grayscale(0%) brightness(1);
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .logo-scroll {
+    padding: 2rem 0 1.5rem;
+  }
+
+  .logo-scroll__header {
+    margin-bottom: 1.5rem;
+  }
+
+  .logo-scroll__title {
+    font-size: 0.9rem;
+  }
+
+  .logo-scroll__title::before,
+  .logo-scroll__title::after {
+    width: 40px;
+  }
+
+  .logo-scroll__content {
+    gap: 3rem;
+  }
+
+  .logo-scroll__item {
+    width: 100px;
+    height: 50px;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-scroll {
+    padding: 1.5rem 0 1rem;
+  }
+
+  .logo-scroll__content {
+    gap: 2.5rem;
+  }
+
+  .logo-scroll__item {
+    width: 80px;
+    height: 40px;
+    padding: 0.375rem;
+  }
+
+  .logo-scroll__title::before,
+  .logo-scroll__title::after {
+    width: 30px;
+  }
+}

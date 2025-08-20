@@ -399,8 +399,8 @@ Supports all modern browsers with the following minimum versions:
 </div>
 
 - **Lighthouse Score**: 95+ across all metrics
-- **Bundle Size**: 121.75 kB gzipped (main bundle)
-- **CSS Size**: 11.98 kB gzipped
+- **Bundle Size**: 122.56 kB gzipped (main bundle)
+- **CSS Size**: 13.4 kB gzipped
 - **First Contentful Paint**: < 1.5s
 - **Time to Interactive**: < 3s
 - **Status**: ✅ **Deployed and Live**
