@@ -225,14 +225,14 @@ export const companies = [
   },
   {
     name: 'University of Greenwich',
-    logo: '/assets/images/work/uog.png',
+    logo: '/assets/images/work/UoG.png',
     alt: 'University of Greenwich Logo',
     website: 'https://www.gre.ac.uk',
     skills: ['Python', 'LangGraph', 'Machine Learning', 'SQL', 'Data Mining'],
   },
   {
     name: 'SprintX',
-    logo: '/assets/images/work/sprintx.jpeg',
+    logo: '/assets/images/work/SprintX.png',
     alt: 'SprintX Logo',
     website: '#',
     skills: [

@@ -5,8 +5,10 @@ import { animationConfig } from '@/config/animations';
 import '@/styles/components/LogoScroll.css';
 
 const LogoScroll: React.FC = memo(() => {
-  // Duplicate the companies array for seamless infinite scroll
-  const duplicatedCompanies = [...companies, ...companies];
+  // Create triple set for truly seamless infinite scroll
+  const tripleCompanies = [...companies, ...companies, ...companies];
+  const singleSetWidth =
+    (120 + animationConfig.scroll.logoScroll.gap) * companies.length;
 
   return (
     <div className='logo-scroll'>
@@ -19,21 +21,21 @@ const LogoScroll: React.FC = memo(() => {
           <motion.div
             className='logo-scroll__content'
             animate={{
-              x: [
-                0,
-                -(140 + animationConfig.scroll.logoScroll.gap) *
-                  companies.length,
-              ],
+              x: [-singleSetWidth, 0],
             }}
             transition={{
               x: {
                 duration: animationConfig.scroll.logoScroll.duration,
                 repeat: Infinity,
                 ease: 'linear',
+                repeatType: 'loop',
               },
             }}
+            style={{
+              x: -singleSetWidth, // Start from the duplicated set position
+            }}
           >
-            {duplicatedCompanies.map((company, index) => (
+            {tripleCompanies.map((company, index) => (
               <div
                 key={`${company.name}-${index}`}
                 className='logo-scroll__item'
