@@ -182,7 +182,12 @@ export const certifications = [
   {
     title: 'Advanced Learning Algorithms',
     issuer: 'Coursera',
-    link: '',
+    link: 'https://www.coursera.org/account/accomplishments/verify/JJ4DEZRSW4ME',
+  },
+  {
+    title: 'Supervised Machine Learning: Regression and Classification',
+    issuer: 'Coursera',
+    link: 'https://www.coursera.org/account/accomplishments/verify/9D28SBBURTP2',
   },
   {
     title: 'Developer of the Month Award',

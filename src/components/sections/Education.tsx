@@ -119,6 +119,20 @@ const Education: React.FC = () => {
                     variants={itemVariants}
                     whileHover={{ scale: 1.05, y: -8 }}
                     transition={{ duration: 0.3 }}
+                    onClick={() => {
+                      if (cert.link && cert.link !== '') {
+                        window.open(cert.link, '_blank', 'noopener,noreferrer');
+                      }
+                    }}
+                    style={{
+                      cursor:
+                        cert.link && cert.link !== '' ? 'pointer' : 'default',
+                    }}
+                    title={
+                      cert.link && cert.link !== ''
+                        ? `View ${cert.title} certificate`
+                        : cert.title
+                    }
                   >
                     <div className='certification-item__content'>
                       <div className='certification-item__header'>
