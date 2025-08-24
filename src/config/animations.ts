@@ -21,7 +21,7 @@ export const animationConfig = {
   },
   scroll: {
     logoScroll: {
-      duration: 20,
+      duration: 25,
       gap: 48, // 3rem in pixels
     },
   },

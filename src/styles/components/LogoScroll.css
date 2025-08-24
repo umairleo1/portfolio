@@ -55,6 +55,7 @@
   width: 100%;
   overflow: hidden;
   position: relative;
+  /* Performance optimized mask */
   mask: linear-gradient(
     90deg,
     transparent 0%,
@@ -69,6 +70,9 @@
     black 90%,
     transparent 100%
   );
+  /* Containment for better performance */
+  contain: layout style paint;
+  transform: translateZ(0);
 }
 
 .logo-scroll__content {
@@ -76,6 +80,11 @@
   align-items: center;
   gap: 3rem;
   width: fit-content;
+  /* Performance optimizations */
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
 }
 
 .logo-scroll__item {
@@ -85,8 +94,11 @@
   justify-content: center;
   width: 120px;
   height: 80px;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
   position: relative;
+  /* Performance optimizations */
+  will-change: transform;
+  contain: layout style paint;
 }
 
 .logo-scroll__item:hover {
@@ -97,16 +109,15 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: brightness(1.3) contrast(1.2) saturate(1.1);
-  transition: all 0.3s ease;
-  /* Add background for very dark logos */
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.03) 0%,
-    transparent 70%
-  );
-  border-radius: 8px;
-  padding: 4px;
+  transition:
+    filter 0.3s ease,
+    transform 0.3s ease;
+  /* Preserve original colors - only minimal brightness boost for visibility */
+  filter: brightness(1.1);
+  /* Performance optimizations */
+  will-change: filter, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .logo-scroll__fallback {
@@ -119,7 +130,7 @@
 }
 
 .logo-scroll__item:hover .logo-scroll__image {
-  filter: brightness(1.3) contrast(1.2);
+  filter: brightness(1.15);
 }
 
 /* Responsive Design */
