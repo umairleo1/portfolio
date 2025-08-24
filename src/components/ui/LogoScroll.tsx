@@ -31,19 +31,42 @@ const LogoScroll: React.FC = memo(() => {
                 repeatType: 'loop',
               },
             }}
-            style={{
+            initial={{
               x: -singleSetWidth, // Start from the duplicated set position
             }}
+            drag={false}
           >
             {tripleCompanies.map((company, index) => (
               <div
                 key={`${company.name}-${index}`}
                 className='logo-scroll__item'
+                onClick={() => {
+                  if (company.website && company.website !== '#') {
+                    window.open(
+                      company.website,
+                      '_blank',
+                      'noopener,noreferrer'
+                    );
+                  }
+                }}
+                style={{
+                  cursor:
+                    company.website && company.website !== '#'
+                      ? 'pointer'
+                      : 'default',
+                }}
+                title={
+                  company.website && company.website !== '#'
+                    ? `Visit ${company.name}`
+                    : company.name
+                }
               >
                 <img
                   src={`${process.env.PUBLIC_URL || ''}${company.logo}`}
                   alt={company.alt}
                   className='logo-scroll__image'
+                  loading='lazy'
+                  decoding='async'
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     const fallback = document.createElement('div');

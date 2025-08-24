@@ -57,7 +57,7 @@ const Hero: React.FC = () => {
                   alt={personalInfo.name}
                   className='profile-image'
                   onError={(e) => {
-                    e.currentTarget.src = `${process.env.PUBLIC_URL || ''}/assets/images/profile-avatar.jpg`;
+                    e.currentTarget.src = `${process.env.PUBLIC_URL || ''}/assets/images/profile-fallback.jpg`;
                   }}
                 />
                 <div className='image-overlay'></div>

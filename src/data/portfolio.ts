@@ -7,7 +7,7 @@ export const personalInfo = {
   linkedin: 'https://www.linkedin.com/in/muhammad-umair-amin/',
   github: 'https://github.com/umairleo1',
   twitter: 'https://x.com/UmairLeo7',
-  profileImage: '/assets/images/profile-picture.jpg',
+  profileImage: '/assets/images/profile-main.jpg',
   objective:
     'passionate about building scalable, high-performance applications and turning innovative ideas into robust software solutions.',
 };
@@ -211,7 +211,7 @@ export const interests = {
 export const companies = [
   {
     name: 'UNICEF UK',
-    logo: '/assets/images/work/UNICEF.png',
+    logo: '/assets/images/work/Unicef.png',
     alt: 'UNICEF UK Logo',
     website: 'https://www.unicef.org.uk',
     skills: [
@@ -234,7 +234,7 @@ export const companies = [
     name: 'SprintX',
     logo: '/assets/images/work/SprintX.png',
     alt: 'SprintX Logo',
-    website: '#',
+    website: 'https://www.sprintx.net',
     skills: [
       'React 18',
       'React Query',
@@ -248,7 +248,7 @@ export const companies = [
     name: 'Frizhub',
     logo: '/assets/images/work/frizhub.webp',
     alt: 'Frizhub Logo',
-    website: '#',
+    website: 'https://www.frizhub.com',
     skills: ['React Native', 'AWS', 'GCP', 'Docker', 'Jenkins', 'Terraform'],
   },
 ];
