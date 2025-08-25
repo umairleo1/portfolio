@@ -55,24 +55,41 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  /* Performance optimized mask */
-  mask: linear-gradient(
-    90deg,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
-  -webkit-mask: linear-gradient(
-    90deg,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
   /* Containment for better performance */
   contain: layout style paint;
   transform: translateZ(0);
+}
+
+/* Replace CSS mask with more compatible pseudo-element overlay */
+.logo-scroll__track::before,
+.logo-scroll__track::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 15%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.logo-scroll__track::before {
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    var(--dark-bg) 0%,
+    rgba(23, 22, 26, 0.8) 30%,
+    transparent 100%
+  );
+}
+
+.logo-scroll__track::after {
+  right: 0;
+  background: linear-gradient(
+    270deg,
+    var(--dark-bg) 0%,
+    rgba(23, 22, 26, 0.8) 30%,
+    transparent 100%
+  );
 }
 
 .logo-scroll__content {
