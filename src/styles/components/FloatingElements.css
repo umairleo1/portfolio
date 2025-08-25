@@ -57,7 +57,7 @@
 /* Geometric shapes */
 .geometric-shape {
   position: absolute;
-  border: 1px solid rgba(102, 217, 237, 0.1);
+  border: 1px solid var(--primary-cyan-10);
   background: transparent;
 }
 
@@ -68,7 +68,7 @@
   right: 15%;
   border-radius: 50%;
   animation: geometricFloat1 25s ease-in-out infinite;
-  border: 1px solid rgba(102, 217, 237, 0.15);
+  border: 1px solid var(--primary-cyan-15);
 }
 
 .geometric-shape--2 {
@@ -145,7 +145,7 @@
   height: 200px;
   top: 10%;
   left: 10%;
-  background: radial-gradient(circle, rgba(102, 217, 237, 0.15), transparent);
+  background: radial-gradient(circle, var(--primary-cyan-15), transparent);
   animation: gradientPulse1 8s ease-in-out infinite;
 }
 

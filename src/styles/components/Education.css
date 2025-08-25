@@ -66,8 +66,8 @@
 .education-item {
   position: relative;
   background: var(--dark-surface);
-  border: 1px solid rgba(102, 217, 237, 0.1);
-  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-md);
   padding: 24px;
   transition: var(--transition);
 }
@@ -100,10 +100,10 @@
   font-size: 0.9rem;
   color: var(--primary-cyan);
   font-weight: 500;
-  background: rgba(102, 217, 237, 0.1);
+  background: var(--overlay-medium);
   padding: 0.5rem 1rem;
-  border-radius: 20px;
-  border: 1px solid rgba(102, 217, 237, 0.2);
+  border-radius: var(--border-radius-2xl);
+  border: 1px solid var(--border-medium);
 }
 
 .education-item__details {
@@ -132,7 +132,7 @@
   color: var(--text-secondary);
   margin: 0.5rem 0 0 0;
   padding-top: 0.5rem;
-  border-top: 1px solid rgba(102, 217, 237, 0.1);
+  border-top: 1px solid var(--border-subtle);
 }
 
 .education-item__specialization .label {
@@ -152,8 +152,8 @@
 .certification-item {
   position: relative;
   background: var(--dark-surface);
-  border: 1px solid rgba(102, 217, 237, 0.1);
-  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-md);
   padding: 24px;
   transition: var(--transition);
   overflow: hidden;
@@ -172,9 +172,9 @@
 }
 
 .certification-icon {
-  background: rgba(102, 217, 237, 0.1);
-  border: 1px solid rgba(102, 217, 237, 0.2);
-  border-radius: 8px;
+  background: var(--overlay-medium);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--border-radius-md);
   padding: 0.75rem;
   color: var(--primary-cyan);
   font-size: 1.25rem;
@@ -213,16 +213,14 @@
 /* Hover Effects (matching the global card styles) */
 .education-item:hover,
 .certification-item:hover {
-  transform: translateY(-8px) scale(1.02);
-  border-color: rgba(102, 217, 237, 0.3);
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(102, 217, 237, 0.1);
+  transform: var(--hover-lift);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-card);
 }
 
 .certification-item:hover .certification-icon {
-  background: rgba(102, 217, 237, 0.15);
-  border-color: rgba(102, 217, 237, 0.3);
+  background: var(--overlay-strong);
+  border-color: var(--border-strong);
   transform: scale(1.05);
 }
 

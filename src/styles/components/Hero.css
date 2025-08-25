@@ -84,7 +84,7 @@
 .hero__circle {
   position: absolute;
   border-radius: 50%;
-  border: 1px solid rgba(102, 217, 237, 0.1);
+  border: 1px solid var(--primary-cyan-10);
   animation: float 6s ease-in-out infinite;
 }
 
@@ -96,7 +96,7 @@
   animation:
     float 8s ease-in-out infinite,
     morphShape 12s ease-in-out infinite;
-  background: radial-gradient(circle, rgba(102, 217, 237, 0.05), transparent);
+  background: radial-gradient(circle, var(--primary-cyan-05), transparent);
   animation-delay: 0s;
 }
 
@@ -168,22 +168,22 @@
   z-index: 100;
   background: rgba(15, 15, 20, 0.8);
   backdrop-filter: blur(20px);
-  border: 2px solid rgba(102, 217, 237, 0.3);
+  border: 2px solid var(--primary-cyan-30);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation:
     float 3s ease-in-out infinite,
     glow 2s ease-in-out infinite alternate;
   box-shadow:
-    0 0 20px rgba(102, 217, 237, 0.2),
+    0 0 20px var(--primary-cyan-20),
     0 8px 32px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .hero__scroll-indicator:hover {
   transform: translateX(-50%) scale(1.1) translateY(-5px);
-  border-color: rgba(102, 217, 237, 0.6);
+  border-color: var(--primary-cyan-60);
   box-shadow:
-    0 0 30px rgba(102, 217, 237, 0.4),
+    0 0 30px var(--primary-cyan-40),
     0 20px 40px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   background: rgba(15, 15, 20, 0.9);
@@ -200,7 +200,7 @@
   background: conic-gradient(
     from 0deg,
     transparent,
-    rgba(102, 217, 237, 0.8),
+    var(--primary-cyan-80),
     rgba(139, 92, 246, 0.8),
     transparent
   );
@@ -219,7 +219,7 @@
   border-radius: 50%;
   background: radial-gradient(
     circle at 30% 30%,
-    rgba(102, 217, 237, 0.1),
+    var(--primary-cyan-10),
     transparent 70%
   );
   z-index: -1;
@@ -241,7 +241,7 @@
   background: linear-gradient(
     to bottom,
     var(--primary-cyan),
-    rgba(102, 217, 237, 0.6)
+    var(--primary-cyan-60)
   );
   border-radius: 1px;
   margin-bottom: 2px;
@@ -253,7 +253,7 @@
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-top: 8px solid var(--primary-cyan);
-  filter: drop-shadow(0 0 4px rgba(102, 217, 237, 0.5));
+  filter: drop-shadow(0 0 4px var(--primary-cyan-50));
 }
 
 @keyframes float {
@@ -283,13 +283,13 @@
 @keyframes glow {
   0% {
     box-shadow:
-      0 0 20px rgba(102, 217, 237, 0.2),
+      0 0 20px var(--primary-cyan-20),
       0 8px 32px rgba(0, 0, 0, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
   100% {
     box-shadow:
-      0 0 30px rgba(102, 217, 237, 0.4),
+      0 0 30px var(--primary-cyan-40),
       0 8px 32px rgba(0, 0, 0, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.15);
   }
@@ -366,7 +366,7 @@
   overflow: hidden;
   border: 3px solid var(--primary-cyan);
   box-shadow:
-    0 0 0 6px rgba(102, 217, 237, 0.1),
+    0 0 0 6px var(--primary-cyan-10),
     0 20px 40px rgba(0, 0, 0, 0.3);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   background: linear-gradient(135deg, var(--dark-surface), var(--dark-card));
@@ -381,8 +381,8 @@
 .image-container:hover {
   transform: scale(1.05) rotate(3deg);
   box-shadow:
-    0 0 0 6px rgba(102, 217, 237, 0.2),
-    0 30px 60px rgba(102, 217, 237, 0.15);
+    0 0 0 6px var(--primary-cyan-20),
+    0 30px 60px var(--primary-cyan-15);
 }
 
 .profile-image {
@@ -408,7 +408,7 @@
   background: linear-gradient(
     45deg,
     transparent 0%,
-    rgba(102, 217, 237, 0.1) 50%,
+    var(--primary-cyan-10) 50%,
     transparent 100%
   );
   opacity: 0;
