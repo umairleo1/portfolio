@@ -3,15 +3,28 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { skills } from '@/data/portfolio';
 import {
-  FaCode,
-  FaReact,
-  FaServer,
-  FaCloud,
-  FaTools,
-  FaRobot,
-  FaDatabase,
-  FaShieldAlt,
-} from 'react-icons/fa';
+  SiJavascript,
+  SiReact,
+  SiNodedotjs,
+  SiAmazon,
+  SiDocker,
+  SiTensorflow,
+  SiPostgresql,
+  SiAuth0,
+  SiTypescript,
+  SiPython,
+  SiKubernetes,
+  SiMongodb,
+} from 'react-icons/si';
+import {
+  HiOutlineServer,
+  HiOutlineCloud,
+  HiOutlineCog,
+  HiOutlineCpuChip,
+  HiOutlineShieldCheck,
+  HiOutlineSparkles,
+} from 'react-icons/hi2';
+import { HiCode, HiDatabase } from 'react-icons/hi';
 import { renderIcon } from '@/utils/IconWrapper';
 import '@/styles/components/Expertise.css';
 
@@ -41,57 +54,65 @@ const Expertise: React.FC = () => {
     {
       title: 'Languages',
       items: skills.languages,
-      icon: renderIcon(FaCode),
-      color: 'var(--primary-cyan)',
+      icon: renderIcon(HiCode),
+      techIcons: [SiJavascript, SiTypescript, SiPython],
+      gradient: 'linear-gradient(135deg, #f7df1e, #3178c6, #306998)',
       description: 'Core programming languages and markup',
     },
     {
       title: 'Frontend',
       items: skills.frontEnd,
-      icon: renderIcon(FaReact),
-      color: '#06B6D4',
+      icon: renderIcon(HiOutlineSparkles),
+      techIcons: [SiReact],
+      gradient: 'linear-gradient(135deg, #61dafb, #06b6d4, #a855f7)',
       description: 'Modern UI frameworks and libraries',
     },
     {
       title: 'Backend',
       items: skills.backEnd,
-      icon: renderIcon(FaServer),
-      color: '#10B981',
+      icon: renderIcon(HiOutlineServer),
+      techIcons: [SiNodedotjs],
+      gradient: 'linear-gradient(135deg, #339933, #10b981, #059669)',
       description: 'Server-side technologies and frameworks',
     },
     {
       title: 'Cloud & IaC',
       items: skills.cloudAndIaC,
-      icon: renderIcon(FaCloud),
-      color: '#0EA5E9',
+      icon: renderIcon(HiOutlineCloud),
+      techIcons: [SiAmazon],
+      gradient: 'linear-gradient(135deg, #ff9900, #232f3e, #0ea5e9)',
       description: 'Cloud platforms and infrastructure as code',
     },
     {
       title: 'DevOps & Observability',
       items: skills.devOpsAndObservability,
-      icon: renderIcon(FaTools),
-      color: '#F59E0B',
+      icon: renderIcon(HiOutlineCog),
+      techIcons: [SiDocker, SiKubernetes],
+      gradient: 'linear-gradient(135deg, #2496ed, #326ce5, #f59e0b)',
       description: 'CI/CD, monitoring, and automation tools',
     },
     {
       title: 'Data & Messaging',
       items: skills.dataAndMessaging,
-      icon: renderIcon(FaDatabase),
-      color: '#EF4444',
+      icon: renderIcon(HiDatabase),
+      techIcons: [SiPostgresql, SiMongodb],
+      gradient: 'linear-gradient(135deg, #336791, #47a248, #ef4444)',
       description: 'Databases and message queue systems',
     },
     {
       title: 'Generative AI',
       items: skills.generativeAI,
-      icon: renderIcon(FaRobot),
-      color: '#8B5CF6',
+      icon: renderIcon(HiOutlineCpuChip),
+      techIcons: [SiTensorflow],
+      gradient: 'linear-gradient(135deg, #ff6f00, #8b5cf6, #ec4899)',
       description: 'AI/ML platforms and integration tools',
     },
     {
       title: 'Security',
       items: skills.security,
-      icon: renderIcon(FaShieldAlt),
-      color: '#F97316',
+      icon: renderIcon(HiOutlineShieldCheck),
+      techIcons: [SiAuth0],
+      gradient: 'linear-gradient(135deg, #eb5424, #f97316, #dc2626)',
       description: 'Security tools and best practices',
     },
   ];
@@ -100,7 +121,6 @@ const Expertise: React.FC = () => {
     { value: '5+', label: 'Years Experience' },
     { value: '20+', label: 'Projects Completed' },
     { value: '15+', label: 'Technologies' },
-    { value: '2', label: "Master's Degrees" },
   ];
 
   return (
@@ -132,11 +152,18 @@ const Expertise: React.FC = () => {
                   transition={{ duration: 0.3 }}
                 >
                   <div className='skill-category__header'>
-                    <div
-                      className='skill-category__icon'
-                      style={{ color: category.color }}
-                    >
-                      {category.icon}
+                    <div className='skill-category__icon-container'>
+                      <div
+                        className='skill-category__icon'
+                        style={{ background: category.gradient }}
+                      >
+                        {category.icon}
+                      </div>
+                      <div className='skill-category__tech-icons'>
+                        {category.techIcons.map((TechIcon, iconIndex) => (
+                          <TechIcon key={iconIndex} className='tech-icon' />
+                        ))}
+                      </div>
                     </div>
                     <div className='skill-category__info'>
                       <h3 className='skill-category__title'>
