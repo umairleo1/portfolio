@@ -261,7 +261,7 @@ export const companies = [
 // Application configuration
 export const appConfig = {
   resume: {
-    url: 'https://www.overleaf.com/read/bcmmnbtyxhjp#424e70',
+    url: 'https://www.overleaf.com/read/cvskqhhwffsm#9221f8',
     downloadUrl: '/resume.pdf',
   },
   navigation: {
