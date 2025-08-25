@@ -268,7 +268,6 @@ export const appConfig = {
     items: [
       { label: 'skills', href: '#skills' },
       { label: 'education', href: '#education' },
-      { label: 'work', href: '#work' },
       { label: 'projects', href: '#projects' },
       { label: 'experience', href: '#experience' },
       { label: 'contact', href: '#contact' },

@@ -7,6 +7,8 @@
   pointer-events: none;
   z-index: 1;
   overflow: hidden;
+  /* Prevent any layout shifts */
+  contain: strict;
 }
 
 .hero-floating-elements {

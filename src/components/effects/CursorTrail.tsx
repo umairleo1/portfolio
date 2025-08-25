@@ -25,10 +25,33 @@ const CursorTrail: React.FC = () => {
     ).matches;
     if (prefersReducedMotion) return;
 
-    // Initialize dot positions
+    // Get current cursor position or use screen center as fallback
+    const getInitialCursorPosition = () => {
+      // Try to get cursor position from any recent mouse event
+      let initialX = window.innerWidth / 2;
+      let initialY = window.innerHeight / 2;
+
+      // Use a temporary event listener to get actual cursor position
+      const tempHandler = (e: MouseEvent) => {
+        initialX = e.clientX;
+        initialY = e.clientY;
+      };
+
+      document.addEventListener('mousemove', tempHandler, {
+        once: true,
+        passive: true,
+      });
+
+      return { x: initialX, y: initialY };
+    };
+
+    const initialPos = getInitialCursorPosition();
+    mousePosition.current = initialPos;
+
+    // Initialize all dots at initial cursor position
     dotPositions.current = Array(DOT_COUNT)
       .fill(null)
-      .map(() => ({ x: 0, y: 0 }));
+      .map(() => ({ x: initialPos.x, y: initialPos.y }));
 
     const handleMouseMove = (e: MouseEvent) => {
       mousePosition.current = { x: e.clientX, y: e.clientY };
@@ -65,6 +88,17 @@ const CursorTrail: React.FC = () => {
       setDots(newDots);
       animationFrameRef.current = requestAnimationFrame(animateTrail);
     };
+
+    // Set initial dots immediately
+    const initialDots: DotPosition[] = dotPositions.current.map(
+      (pos, index) => ({
+        x: pos.x,
+        y: pos.y,
+        scale: Math.max(0.2, (DOT_COUNT - index) / DOT_COUNT),
+        opacity: Math.max(0.1, (DOT_COUNT - index) / DOT_COUNT) * 0.8,
+      })
+    );
+    setDots(initialDots);
 
     document.addEventListener('mousemove', handleMouseMove, { passive: true });
     animateTrail();
