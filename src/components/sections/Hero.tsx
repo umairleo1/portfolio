@@ -16,15 +16,19 @@ const Hero: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2,
+        delayChildren: 0,
+        staggerChildren: 0.05,
+        duration: 0.4,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: { y: 0, opacity: 1 },
+    hidden: { y: 10, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
   };
 
   return (
@@ -56,6 +60,10 @@ const Hero: React.FC = () => {
                   src={`${process.env.PUBLIC_URL || ''}${personalInfo.profileImage}`}
                   alt={personalInfo.name}
                   className='profile-image'
+                  width='400'
+                  height='400'
+                  loading='eager'
+                  decoding='sync'
                   onError={(e) => {
                     e.currentTarget.src = `${process.env.PUBLIC_URL || ''}/assets/images/profile-fallback.jpg`;
                   }}

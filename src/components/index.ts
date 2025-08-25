@@ -1,6 +1,13 @@
-// Layout Components
+// Layout Components (Critical - Load Immediately)
 export { default as Header } from './layout/Header';
 export { default as Footer } from './layout/Footer';
+
+// Critical Section Components (Above-the-fold)
+export { default as Hero } from './sections/Hero';
+
+// Common Components
+export { default as ErrorBoundary } from './common/ErrorBoundary';
+export { default as LoadingSpinner } from './common/LoadingSpinner';
 
 // UI Components
 export { default as ScrollToBottom } from './ui/ScrollToBottom';
@@ -9,16 +16,14 @@ export { default as Card } from './ui/Card';
 export { default as Badge } from './ui/Badge';
 export { default as Button } from './ui/Button';
 
-// Section Components
-export { default as Hero } from './sections/Hero';
+// Section Components (Lazy Loaded)
 export { default as Expertise } from './sections/Expertise';
 export { default as Education } from './sections/Education';
 export { default as Work } from './sections/Work';
 export { default as Experience } from './sections/Experience';
-export { default as Projects } from './sections/Projects';
 export { default as Contact } from './sections/Contact';
 
-// Effect Components
+// Effect Components (Lazy Loaded)
 export { default as FloatingElements } from './effects/FloatingElements';
 export { default as CursorTrail } from './effects/CursorTrail';
 export { default as ThreeBackground } from './effects/ThreeBackground';

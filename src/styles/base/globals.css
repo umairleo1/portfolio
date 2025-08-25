@@ -41,6 +41,10 @@ body {
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent layout shift during font loading */
+  font-display: swap;
+  /* Stable layout */
+  overflow-x: hidden;
 }
 
 /* Container */

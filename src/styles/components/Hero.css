@@ -8,6 +8,8 @@
   background: var(--dark-bg);
   overflow: hidden;
   padding-top: 80px; /* Account for header height */
+  /* Prevent layout shift during loading */
+  contain: layout style paint;
 }
 
 /* Main Layout */
@@ -371,6 +373,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Prevent layout shift */
+  flex-shrink: 0;
+  contain: layout style paint;
 }
 
 .image-container:hover {
@@ -385,6 +390,9 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
+  /* Prevent layout shift during load */
+  display: block;
+  aspect-ratio: 1;
 }
 
 .image-container:hover .profile-image {
