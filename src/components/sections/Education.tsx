@@ -3,11 +3,11 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { education, certifications } from '@/data/portfolio';
 import {
-  FaGraduationCap,
-  FaAward,
-  FaCalendarAlt,
-  FaMapMarkerAlt,
-} from 'react-icons/fa';
+  HiAcademicCap,
+  HiOutlineCalendarDays,
+  HiOutlineMapPin,
+  HiOutlineTrophy,
+} from 'react-icons/hi2';
 import { renderIcon } from '@/utils/IconWrapper';
 import '@/styles/components/Education.css';
 
@@ -22,14 +22,13 @@ const Education: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2,
+        staggerChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 20, opacity: 0 },
     visible: { y: 0, opacity: 1 },
   };
 
@@ -54,9 +53,9 @@ const Education: React.FC = () => {
           <div className='education__content'>
             <motion.div className='education__academic' variants={itemVariants}>
               <div className='section-header'>
-                <h3 className='section-subtitle-alt'>
-                  {renderIcon(FaGraduationCap, { className: 'section-icon' })}
-                  academic background
+                <h3 className='section-heading'>
+                  {renderIcon(HiAcademicCap, { className: 'section-icon' })}
+                  Academic Education
                 </h3>
               </div>
 
@@ -66,14 +65,14 @@ const Education: React.FC = () => {
                     key={index}
                     className='education-item card'
                     variants={itemVariants}
-                    whileHover={{ scale: 1.02, y: -5 }}
+                    whileHover={{ scale: 1.02, y: -8 }}
                     transition={{ duration: 0.3 }}
                   >
                     <div className='education-item__content'>
                       <div className='education-item__header'>
                         <h4 className='education-item__degree'>{edu.degree}</h4>
                         <span className='education-item__period'>
-                          {renderIcon(FaCalendarAlt)}
+                          {renderIcon(HiOutlineCalendarDays)}
                           {edu.period}
                         </span>
                       </div>
@@ -83,7 +82,7 @@ const Education: React.FC = () => {
                           <strong>{edu.institution}</strong>
                         </p>
                         <p className='education-item__location'>
-                          {renderIcon(FaMapMarkerAlt)}
+                          {renderIcon(HiOutlineMapPin)}
                           {edu.location}
                         </p>
                         {edu.specialization && (
@@ -94,7 +93,6 @@ const Education: React.FC = () => {
                         )}
                       </div>
                     </div>
-                    <div className='education-item__decoration'></div>
                   </motion.div>
                 ))}
               </div>
@@ -105,9 +103,9 @@ const Education: React.FC = () => {
               variants={itemVariants}
             >
               <div className='section-header'>
-                <h3 className='section-subtitle-alt'>
-                  {renderIcon(FaAward, { className: 'section-icon' })}
-                  certifications & awards
+                <h3 className='section-heading'>
+                  {renderIcon(HiOutlineTrophy, { className: 'section-icon' })}
+                  Professional Certifications
                 </h3>
               </div>
 
@@ -117,7 +115,7 @@ const Education: React.FC = () => {
                     key={index}
                     className='certification-item card'
                     variants={itemVariants}
-                    whileHover={{ scale: 1.05, y: -8 }}
+                    whileHover={{ scale: 1.02, y: -8 }}
                     transition={{ duration: 0.3 }}
                     onClick={() => {
                       if (cert.link && cert.link !== '') {
@@ -137,7 +135,7 @@ const Education: React.FC = () => {
                     <div className='certification-item__content'>
                       <div className='certification-item__header'>
                         <div className='certification-icon'>
-                          {renderIcon(FaAward)}
+                          {renderIcon(HiOutlineTrophy)}
                         </div>
                         <div className='certification-info'>
                           <h4 className='certification-item__title'>
@@ -151,12 +149,11 @@ const Education: React.FC = () => {
 
                       {cert.date && (
                         <p className='certification-item__date'>
-                          {renderIcon(FaCalendarAlt)}
+                          {renderIcon(HiOutlineCalendarDays)}
                           {cert.date}
                         </p>
                       )}
                     </div>
-                    <div className='certification-item__glow'></div>
                   </motion.div>
                 ))}
               </div>
