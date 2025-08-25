@@ -51,7 +51,7 @@
   "homepage": "https://umairleo1.github.io/portfolio",
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build && npm run build:optimize",
+    "build": "PUBLIC_URL=/portfolio react-app-rewired build && npm run build:optimize",
     "build:analyze": "npm run build && npx bundle-analyzer build/static/js/*.js",
     "build:optimize": "npm run compress:gzip",
     "compress:gzip": "gzip -k build/static/js/*.js build/static/css/*.css",
