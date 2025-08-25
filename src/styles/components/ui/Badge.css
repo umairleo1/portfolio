@@ -26,9 +26,9 @@
 
 /* Variants */
 .ui-badge--primary {
-  background: rgba(102, 217, 237, 0.1);
+  background: var(--primary-cyan-10);
   color: var(--primary-cyan);
-  border-color: rgba(102, 217, 237, 0.2);
+  border-color: var(--primary-cyan-20);
 }
 
 .ui-badge--secondary {
@@ -55,8 +55,8 @@
 }
 
 .ui-badge--primary.ui-badge--hoverable:hover {
-  background: rgba(102, 217, 237, 0.15);
-  border-color: rgba(102, 217, 237, 0.3);
+  background: var(--primary-cyan-15);
+  border-color: var(--primary-cyan-30);
 }
 
 .ui-badge--secondary.ui-badge--hoverable:hover {

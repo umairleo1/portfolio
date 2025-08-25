@@ -1,26 +1,108 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Tamal Sen Color Palette */
+  /* ========================================
+     TAMAL SEN DESIGN SYSTEM - THEME COLORS
+     ======================================== */
+
+  /* Primary Colors */
   --primary-cyan: #66d9ed;
+  --primary-cyan-rgb: 102, 217, 237;
+
+  /* Background Colors */
   --dark-bg: #17161a;
   --dark-surface: #1a1a1a;
   --dark-card: #1e1e1e;
+
+  /* Text Colors */
   --text-primary: #ffffff;
   --text-secondary: #888;
   --text-muted: #666;
+
+  /* Accent Colors */
   --accent-gradient: linear-gradient(45deg, #ff006e, #3a86ff, #ffd60a, #8338ec);
 
-  /* Typography */
+  /* ========================================
+     THEME OPACITY VARIATIONS
+     ======================================== */
+
+  /* Primary Cyan Variations */
+  --primary-cyan-02: rgba(var(--primary-cyan-rgb), 0.02);
+  --primary-cyan-05: rgba(var(--primary-cyan-rgb), 0.05);
+  --primary-cyan-08: rgba(var(--primary-cyan-rgb), 0.08);
+  --primary-cyan-10: rgba(var(--primary-cyan-rgb), 0.1);
+  --primary-cyan-15: rgba(var(--primary-cyan-rgb), 0.15);
+  --primary-cyan-20: rgba(var(--primary-cyan-rgb), 0.2);
+  --primary-cyan-25: rgba(var(--primary-cyan-rgb), 0.25);
+  --primary-cyan-30: rgba(var(--primary-cyan-rgb), 0.3);
+  --primary-cyan-40: rgba(var(--primary-cyan-rgb), 0.4);
+  --primary-cyan-50: rgba(var(--primary-cyan-rgb), 0.5);
+  --primary-cyan-60: rgba(var(--primary-cyan-rgb), 0.6);
+  --primary-cyan-70: rgba(var(--primary-cyan-rgb), 0.7);
+  --primary-cyan-80: rgba(var(--primary-cyan-rgb), 0.8);
+  --primary-cyan-90: rgba(var(--primary-cyan-rgb), 0.9);
+
+  /* Border Colors */
+  --border-subtle: var(--primary-cyan-10);
+  --border-medium: var(--primary-cyan-20);
+  --border-strong: var(--primary-cyan-30);
+
+  /* Background Overlays */
+  --overlay-subtle: var(--primary-cyan-05);
+  --overlay-medium: var(--primary-cyan-10);
+  --overlay-strong: var(--primary-cyan-15);
+
+  /* Box Shadow Colors */
+  --shadow-primary: var(--primary-cyan-20);
+  --shadow-glow: var(--primary-cyan-30);
+
+  /* ========================================
+     TYPOGRAPHY
+     ======================================== */
   --font-mono: 'Roboto Mono', monospace;
 
-  /* Spacing */
+  /* ========================================
+     SPACING & LAYOUT
+     ======================================== */
   --section-padding: 80px 0;
   --container-padding: 0 clamp(20px, 5vw, 80px);
   --max-width: min(1400px, 95vw);
 
-  /* Transitions */
+  /* Border Radius */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-2xl: 20px;
+  --border-radius-pill: 25px;
+
+  /* ========================================
+     TRANSITIONS & ANIMATIONS
+     ======================================== */
   --transition: all 0.3s ease;
+  --transition-fast: all 0.2s ease;
+  --transition-slow: all 0.4s ease;
+
+  /* Hover Transforms */
+  --hover-lift: translateY(-8px) scale(1.02);
+  --hover-lift-small: translateY(-2px) scale(1.05);
+
+  /* ========================================
+     SHADOWS
+     ======================================== */
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--border-subtle);
+  --shadow-card-hover:
+    0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--border-medium);
+  --shadow-glow-effect: 0 0 30px var(--shadow-glow);
+
+  /* Specific shadow variations */
+  --shadow-small: 0 4px 12px var(--shadow-primary);
+  --shadow-medium: 0 8px 25px var(--shadow-primary);
+  --shadow-large: 0 12px 35px var(--shadow-glow);
+  --shadow-glow-strong: 0 0 20px var(--shadow-glow);
+  --shadow-outline-thin: 0 0 0 1px var(--border-subtle);
+  --shadow-outline-medium: 0 0 0 1px var(--border-medium);
+  --shadow-outline-thick: 0 0 0 2px var(--border-medium);
 }
 
 * {
@@ -182,7 +264,7 @@ section {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(102, 217, 237, 0.3),
+    var(--primary-cyan-30),
     transparent
   );
   transition: left 0.6s ease;
@@ -212,7 +294,7 @@ section {
 .btn:hover {
   color: var(--dark-bg);
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(102, 217, 237, 0.3);
+  box-shadow: 0 8px 25px var(--primary-cyan-30);
 }
 
 .btn > * {
@@ -224,32 +306,32 @@ section {
   background: linear-gradient(
     135deg,
     var(--primary-cyan),
-    rgba(102, 217, 237, 0.8)
+    var(--primary-cyan-80)
   );
   color: var(--dark-bg);
-  box-shadow: 0 4px 15px rgba(102, 217, 237, 0.3);
+  box-shadow: 0 4px 15px var(--primary-cyan-30);
 }
 
 .btn-filled::after {
   background: linear-gradient(
     135deg,
-    rgba(102, 217, 237, 0.9),
+    var(--primary-cyan-90),
     var(--primary-cyan)
   );
 }
 
 .btn-filled:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 12px 35px rgba(102, 217, 237, 0.4);
+  box-shadow: 0 12px 35px var(--primary-cyan-40);
 }
 
 /* Card styles with enhanced hover effects */
 .card {
   background: var(--dark-surface);
-  border-radius: 8px;
+  border-radius: var(--border-radius-md);
   padding: 24px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(102, 217, 237, 0.1);
+  transition: var(--transition-slow);
+  border: 1px solid var(--border-subtle);
   position: relative;
   overflow: hidden;
 }
@@ -264,7 +346,7 @@ section {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(102, 217, 237, 0.1),
+    var(--overlay-medium),
     transparent
   );
   transition: left 0.6s ease;
@@ -275,11 +357,9 @@ section {
 }
 
 .card:hover {
-  transform: translateY(-8px) scale(1.02);
-  border-color: rgba(102, 217, 237, 0.3);
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(102, 217, 237, 0.1);
+  transform: var(--hover-lift);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-card);
 }
 
 /* Grid layouts */
@@ -367,10 +447,10 @@ section {
 @keyframes glow {
   0%,
   100% {
-    box-shadow: 0 0 5px rgba(102, 217, 237, 0.2);
+    box-shadow: 0 0 5px var(--primary-cyan-20);
   }
   50% {
-    box-shadow: 0 0 20px rgba(102, 217, 237, 0.4);
+    box-shadow: 0 0 20px var(--primary-cyan-40);
   }
 }
 
@@ -403,7 +483,7 @@ section {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(102, 217, 237, 0.3),
+    var(--primary-cyan-30),
     transparent
   );
   animation: shimmer 2s infinite;

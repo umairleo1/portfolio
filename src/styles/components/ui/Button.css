@@ -39,24 +39,24 @@
 .ui-button--primary {
   background: var(--primary-cyan);
   color: var(--dark-bg);
-  box-shadow: 0 4px 15px rgba(102, 217, 237, 0.3);
+  box-shadow: 0 4px 15px var(--primary-cyan-30);
 }
 
 .ui-button--primary:hover {
-  background: rgba(102, 217, 237, 0.9);
+  background: var(--primary-cyan-90);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 217, 237, 0.4);
+  box-shadow: 0 8px 25px var(--primary-cyan-40);
 }
 
 .ui-button--secondary {
   background: var(--dark-surface);
   color: var(--text-primary);
-  border: 1px solid rgba(102, 217, 237, 0.3);
+  border: 1px solid var(--primary-cyan-30);
 }
 
 .ui-button--secondary:hover {
-  background: rgba(102, 217, 237, 0.1);
-  border-color: rgba(102, 217, 237, 0.5);
+  background: var(--primary-cyan-10);
+  border-color: var(--primary-cyan-50);
 }
 
 .ui-button--outline {

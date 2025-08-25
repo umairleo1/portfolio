@@ -3,7 +3,7 @@
   background: var(--dark-surface);
   border-radius: 12px;
   padding: 1.5rem;
-  border: 1px solid rgba(102, 217, 237, 0.1);
+  border: 1px solid var(--primary-cyan-10);
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -11,10 +11,10 @@
 
 .ui-card--hoverable:hover {
   transform: translateY(-4px);
-  border-color: rgba(102, 217, 237, 0.3);
+  border-color: var(--primary-cyan-30);
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(102, 217, 237, 0.1);
+    0 0 0 1px var(--primary-cyan-10);
 }
 
 .ui-card--clickable {
@@ -31,7 +31,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(102, 217, 237, 0.1),
+    var(--primary-cyan-10),
     transparent
   );
   transition: left 0.6s ease;
@@ -45,6 +45,6 @@
   background: linear-gradient(
     135deg,
     var(--dark-surface),
-    rgba(102, 217, 237, 0.05)
+    var(--primary-cyan-05)
   );
 }

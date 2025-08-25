@@ -27,14 +27,14 @@
 
 .experience__card {
   background: var(--dark-surface);
-  border-radius: 16px;
+  border-radius: var(--border-radius-xl);
   overflow: hidden;
-  border: 1px solid rgba(102, 217, 237, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--border-subtle);
+  transition: var(--transition);
 }
 
 .experience__card:hover {
-  border-color: rgba(102, 217, 237, 0.3);
+  border-color: var(--border-strong);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 

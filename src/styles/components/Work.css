@@ -61,7 +61,7 @@
 
 .filter-btn {
   background: transparent;
-  border: 1px solid rgba(102, 217, 237, 0.3);
+  border: 1px solid var(--primary-cyan-30);
   color: var(--text-secondary);
   padding: 8px 20px;
   border-radius: 20px;
@@ -89,13 +89,13 @@
   border-radius: 12px;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(102, 217, 237, 0.2);
+  border: 1px solid var(--primary-cyan-20);
   cursor: pointer;
   position: relative;
   transform-origin: center;
   box-shadow:
     0 4px 15px rgba(0, 0, 0, 0.2),
-    0 0 0 1px rgba(102, 217, 237, 0.05);
+    0 0 0 1px var(--primary-cyan-05);
 }
 
 .project-card::before {
@@ -107,7 +107,7 @@
   bottom: 0;
   background: linear-gradient(
     135deg,
-    rgba(102, 217, 237, 0.05),
+    var(--primary-cyan-05),
     transparent,
     rgba(139, 92, 246, 0.05)
   );
@@ -122,11 +122,11 @@
 
 .project-card:hover {
   transform: translateY(-16px) scale(1.03) rotateX(5deg);
-  border-color: rgba(102, 217, 237, 0.6);
+  border-color: var(--primary-cyan-60);
   box-shadow:
     0 25px 50px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(102, 217, 237, 0.2),
-    0 0 30px rgba(102, 217, 237, 0.3);
+    0 0 0 1px var(--primary-cyan-20),
+    0 0 30px var(--primary-cyan-30);
 }
 
 .project-card:hover .project-card__image {
@@ -143,8 +143,8 @@
   height: 200px;
   background: linear-gradient(
     135deg,
-    rgba(102, 217, 237, 0.1),
-    rgba(102, 217, 237, 0.05)
+    var(--primary-cyan-10),
+    var(--primary-cyan-05)
   );
   display: flex;
   align-items: center;
@@ -162,7 +162,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(102, 217, 237, 0.9);
+  background: var(--primary-cyan-90);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -189,7 +189,7 @@
   bottom: 0;
   background: linear-gradient(
     45deg,
-    rgba(102, 217, 237, 0.1) 0%,
+    var(--primary-cyan-10) 0%,
     rgba(255, 0, 110, 0.05) 25%,
     rgba(58, 134, 255, 0.05) 50%,
     rgba(255, 214, 10, 0.05) 75%,
@@ -232,19 +232,19 @@
 }
 
 .tech-tag {
-  background: rgba(102, 217, 237, 0.15);
+  background: var(--primary-cyan-15);
   color: var(--text-primary);
   padding: 4px 8px;
   border-radius: 12px;
   font-size: 11px;
   font-weight: 500;
-  border: 1px solid rgba(102, 217, 237, 0.3);
+  border: 1px solid var(--primary-cyan-30);
   transition: all 0.3s ease;
   opacity: 1;
 }
 
 .tech-tag:hover {
-  background: rgba(102, 217, 237, 0.25);
+  background: var(--primary-cyan-25);
   color: var(--primary-cyan);
   transform: translateY(-2px);
 }
