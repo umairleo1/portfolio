@@ -18,6 +18,9 @@ updates:
     labels:
       - 'dependencies'
       - 'automated'
+    ignore:
+      - update-types:
+          ['version-update:semver-minor', 'version-update:semver-patch']
 
   # Enable version updates for GitHub Actions
   - package-ecosystem: 'github-actions'
@@ -37,3 +40,6 @@ updates:
     labels:
       - 'github-actions'
       - 'automated'
+    ignore:
+      - update-types:
+          ['version-update:semver-minor', 'version-update:semver-patch']
