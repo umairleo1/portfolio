@@ -216,7 +216,7 @@ export const interests = {
 export const companies = [
   {
     name: 'UNICEF UK',
-    logo: '/assets/images/work/Unicef.png',
+    logo: '/assets/images/work/unicef-uk.png',
     alt: 'UNICEF UK Logo',
     website: 'https://www.unicef.org.uk',
     skills: [
@@ -230,14 +230,14 @@ export const companies = [
   },
   {
     name: 'University of Greenwich',
-    logo: '/assets/images/work/UoG.png',
+    logo: '/assets/images/work/university-of-greenwich.png',
     alt: 'University of Greenwich Logo',
     website: 'https://www.gre.ac.uk',
     skills: ['Python', 'LangGraph', 'Machine Learning', 'SQL', 'Data Mining'],
   },
   {
     name: 'SprintX',
-    logo: '/assets/images/work/SprintX.png',
+    logo: '/assets/images/work/sprintx.png',
     alt: 'SprintX Logo',
     website: 'https://www.sprintx.net',
     skills: [
@@ -251,7 +251,7 @@ export const companies = [
   },
   {
     name: 'Frizhub',
-    logo: '/assets/images/work/frizhub.webp',
+    logo: '/assets/images/work/frizhub.png',
     alt: 'Frizhub Logo',
     website: 'https://www.frizhub.com',
     skills: ['React Native', 'AWS', 'GCP', 'Docker', 'Jenkins', 'Terraform'],
