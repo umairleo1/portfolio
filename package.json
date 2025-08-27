@@ -57,7 +57,7 @@
     "test:watch": "npm run test -- --watchAll=false --passWithNoTests",
     "eject": "react-scripts eject",
     "predeploy": "npm run build && npm run validate",
-    "deploy": "gh-pages -d build",
+    "deploy": "echo '⚠️  Use GitHub Actions for deployment. Manual deployment disabled for production safety.'",
     "validate": "npm run lint && npm run type-check && npm run test:ci",
     "dev": "npm run start:all",
     "start:all": "./scripts/start-services.sh",
