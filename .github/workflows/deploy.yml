@@ -189,7 +189,7 @@ jobs:
         uses: actions/checkout@v4.2.2
 
       - name: Lighthouse CI with advanced config
-        uses: treosh/lighthouse-ci-action@v12.1.0
+        uses: treosh/lighthouse-ci-action@v12
         with:
           urls: |
             https://umairleo1.github.io/portfolio
