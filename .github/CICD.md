@@ -41,7 +41,7 @@ This directory contains the GitHub Actions workflows and automation configuratio
 ### 3. **Dependabot** (`dependabot.yml`)
 
 **Purpose:** Automated dependency updates  
-**Schedule:** Weekly on Mondays at 09:00 UTC  
+**Schedule:** Weekly on Mondays at 04:00 UTC  
 **Features:**
 
 - **NPM Dependencies**: Automated package updates with security focus
