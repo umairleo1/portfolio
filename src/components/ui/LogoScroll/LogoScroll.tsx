@@ -36,6 +36,9 @@ const LogoScroll: React.FC = memo(() => {
   const lastTimeRef = useRef<number>(0);
   const manualScrollTimeoutRef = useRef<number | null>(null);
   const touchStartRef = useRef<{ x: number; time: number } | null>(null);
+  const velocityRef = useRef<number>(0);
+  const lastTouchRef = useRef<{ x: number; time: number } | null>(null);
+  const momentumAnimationRef = useRef<number | null>(null);
 
   // Optimized auto-scroll animation loop
   const animate = useCallback(() => {
@@ -70,7 +73,7 @@ const LogoScroll: React.FC = memo(() => {
 
   // Manual scroll handler with bidirectional infinite scroll
   const handleManualScroll = useCallback(
-    (deltaX: number) => {
+    (deltaX: number, isTouch = false) => {
       const currentX = x.get();
       let newX = currentX + deltaX;
 
@@ -88,9 +91,12 @@ const LogoScroll: React.FC = memo(() => {
       if (manualScrollTimeoutRef.current) {
         clearTimeout(manualScrollTimeoutRef.current);
       }
+
+      // Optimized delay: 500ms for touch, 200ms for wheel/trackpad
+      const delay = isTouch ? 500 : 200;
       manualScrollTimeoutRef.current = window.setTimeout(() => {
         setIsManualScrolling(false);
-      }, 200);
+      }, delay);
     },
     [x, singleSetWidth]
   );
@@ -126,24 +132,62 @@ const LogoScroll: React.FC = memo(() => {
       const touch = touchEvent.touches[0];
       if (!touch || !touchStartRef.current) return;
 
-      const deltaX = touchStartRef.current.x - touch.clientX;
-      const deltaTime = Date.now() - touchStartRef.current.time;
+      const now = Date.now();
+      const deltaX = touch.clientX - touchStartRef.current.x;
+      const deltaTime = now - touchStartRef.current.time;
 
-      // Throttled touch processing for smooth performance
-      if (Math.abs(deltaX) > 3 && deltaTime > 16) {
-        handleManualScroll(deltaX * 0.4);
+      // Calculate velocity for momentum
+      if (deltaTime > 0) {
+        velocityRef.current = deltaX / deltaTime;
+      }
+
+      // Smooth touch processing with reduced threshold
+      if (Math.abs(deltaX) > 1 && deltaTime > 8) {
+        handleManualScroll(-deltaX * 0.8, true);
         touchStartRef.current = {
           x: touch.clientX,
-          time: Date.now(),
+          time: now,
         };
       }
+
+      // Store last touch for momentum calculation
+      lastTouchRef.current = {
+        x: touch.clientX,
+        time: now,
+      };
     },
     [handleManualScroll]
   );
 
   const handleTouchEnd = useCallback(() => {
+    // Cancel any existing momentum animation
+    if (momentumAnimationRef.current) {
+      cancelAnimationFrame(momentumAnimationRef.current);
+      momentumAnimationRef.current = null;
+    }
+
+    // Add momentum/inertia scrolling after touch ends - iPhone-like behavior
+    if (lastTouchRef.current && Math.abs(velocityRef.current) > 0.05) {
+      let momentum = velocityRef.current * -120;
+      const friction = 0.92;
+
+      const momentumScroll = () => {
+        if (Math.abs(momentum) > 0.5) {
+          handleManualScroll(momentum, true);
+          momentum *= friction;
+          momentumAnimationRef.current = requestAnimationFrame(momentumScroll);
+        } else {
+          momentumAnimationRef.current = null;
+        }
+      };
+
+      momentumAnimationRef.current = requestAnimationFrame(momentumScroll);
+    }
+
     touchStartRef.current = null;
-  }, []);
+    lastTouchRef.current = null;
+    velocityRef.current = 0;
+  }, [handleManualScroll]);
 
   const handleImageError = useCallback(
     (e: React.SyntheticEvent<HTMLImageElement>, companyName: string) => {
@@ -178,6 +222,16 @@ const LogoScroll: React.FC = memo(() => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
         animationRef.current = null;
+      }
+      // Also cleanup momentum animation on unmount
+      if (momentumAnimationRef.current) {
+        cancelAnimationFrame(momentumAnimationRef.current);
+        momentumAnimationRef.current = null;
+      }
+      // Cleanup manual scroll timeout
+      if (manualScrollTimeoutRef.current) {
+        clearTimeout(manualScrollTimeoutRef.current);
+        manualScrollTimeoutRef.current = null;
       }
     };
   }, [isHovered, isManualScrolling, animate]);
