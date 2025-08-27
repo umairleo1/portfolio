@@ -2,7 +2,7 @@
 
 :root {
   /* ========================================
-     TAMAL SEN DESIGN SYSTEM - THEME COLORS
+     COLOR PALETTE
      ======================================== */
 
   /* Primary Colors */
@@ -190,7 +190,7 @@ section {
   scroll-margin-top: 100px; /* Account for header height + extra space */
 }
 
-/* Navigation underlines (Tamal's signature style) */
+/* Navigation underlines */
 .nav-underline {
   position: relative;
   display: inline-block;

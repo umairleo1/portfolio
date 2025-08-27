@@ -1,0 +1,202 @@
+/* Logo Scroll Component */
+.logoScroll {
+  padding: 2rem 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.title::before,
+.title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--primary-cyan-30),
+    transparent
+  );
+}
+
+.title::before {
+  right: 100%;
+  margin-right: 1rem;
+}
+
+.title::after {
+  left: 100%;
+  margin-left: 1rem;
+}
+
+.track {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  /* Containment for better performance */
+  contain: layout style paint;
+  transform: translateZ(0);
+}
+
+/* Replace CSS mask with more compatible pseudo-element overlay */
+.track::before,
+.track::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 15%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.track::before {
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    var(--dark-bg) 0%,
+    rgba(23, 22, 26, 0.8) 30%,
+    transparent 100%
+  );
+}
+
+.track::after {
+  right: 0;
+  background: linear-gradient(
+    270deg,
+    var(--dark-bg) 0%,
+    rgba(23, 22, 26, 0.8) 30%,
+    transparent 100%
+  );
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  width: fit-content;
+  /* Performance optimizations */
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 80px;
+  transition: transform 0.3s ease;
+  position: relative;
+  /* Performance optimizations */
+  will-change: transform;
+  contain: layout style paint;
+}
+
+.item:hover {
+  transform: translateY(-3px) scale(1.1);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition:
+    filter 0.3s ease,
+    transform 0.3s ease;
+  /* Preserve original colors - only minimal brightness boost for visibility */
+  filter: brightness(1.1);
+  /* Performance optimizations */
+  will-change: filter, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.fallback {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.item:hover .image {
+  filter: brightness(1.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .logoScroll {
+    padding: 2rem 0 1.5rem;
+  }
+
+  .header {
+    margin-bottom: 1.5rem;
+  }
+
+  .title {
+    font-size: 0.9rem;
+  }
+
+  .title::before,
+  .title::after {
+    width: 40px;
+  }
+
+  .content {
+    gap: 2rem;
+  }
+
+  .item {
+    width: 160px;
+    height: 80px;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logoScroll {
+    padding: 1.5rem 0 1rem;
+  }
+
+  .content {
+    gap: 1.5rem;
+  }
+
+  .item {
+    width: 140px;
+    height: 70px;
+    padding: 0.75rem;
+  }
+
+  .title::before,
+  .title::after {
+    width: 30px;
+  }
+}

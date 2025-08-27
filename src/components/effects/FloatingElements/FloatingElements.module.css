@@ -1,0 +1,211 @@
+.floatingElementsContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  /* Prevent any layout shifts */
+  contain: strict;
+}
+
+.heroFloatingElements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+/* Hide floating elements when not on hero section */
+.heroFloatingElements.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Dynamic floating orbs - only in hero */
+.floatingOrb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  animation: floatUp linear infinite;
+  will-change: transform;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(20px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-120vh) translateX(30px) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+/* Geometric shapes */
+.geometricShape {
+  position: absolute;
+  border: 1px solid rgba(102, 217, 237, 0.1);
+  background: transparent;
+}
+
+.geometricShape1 {
+  width: 80px;
+  height: 80px;
+  top: 25%;
+  right: 15%;
+  border-radius: 50%;
+  animation: geometricFloat1 25s ease-in-out infinite;
+  border: 1px solid rgba(102, 217, 237, 0.15);
+}
+
+.geometricShape2 {
+  width: 50px;
+  height: 50px;
+  bottom: 35%;
+  left: 20%;
+  transform: rotate(45deg);
+  animation: geometricFloat2 30s ease-in-out infinite reverse;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.geometricShape3 {
+  width: 60px;
+  height: 60px;
+  top: 65%;
+  right: 25%;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  border: none;
+  background: linear-gradient(135deg, rgba(74, 144, 226, 0.1), transparent);
+  animation: geometricFloat3 35s ease-in-out infinite;
+}
+
+@keyframes geometricFloat1 {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-30px) rotate(180deg);
+    opacity: 0.6;
+  }
+}
+
+@keyframes geometricFloat2 {
+  0%,
+  100% {
+    transform: translateX(0) rotate(45deg) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateX(20px) rotate(225deg) scale(1.1);
+    opacity: 0.4;
+  }
+}
+
+@keyframes geometricFloat3 {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0.2;
+  }
+  33% {
+    transform: translateY(-20px) translateX(10px) rotate(120deg);
+    opacity: 0.4;
+  }
+  66% {
+    transform: translateY(10px) translateX(-15px) rotate(240deg);
+    opacity: 0.3;
+  }
+}
+
+/* Gradient orbs */
+.gradientOrb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.gradientOrb1 {
+  width: 200px;
+  height: 200px;
+  top: 10%;
+  left: 10%;
+  background: radial-gradient(circle, rgba(102, 217, 237, 0.15), transparent);
+  animation: gradientPulse1 8s ease-in-out infinite;
+}
+
+.gradientOrb2 {
+  width: 150px;
+  height: 150px;
+  bottom: 20%;
+  right: 15%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.1), transparent);
+  animation: gradientPulse2 12s ease-in-out infinite;
+}
+
+@keyframes gradientPulse1 {
+  0%,
+  100% {
+    transform: scale(1) translateX(0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.2) translateX(20px);
+    opacity: 0.6;
+  }
+}
+
+@keyframes gradientPulse2 {
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(0.8) translateY(-30px);
+    opacity: 0.5;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .geometricShape1 {
+    width: 60px;
+    height: 60px;
+  }
+
+  .geometricShape2 {
+    width: 40px;
+    height: 40px;
+  }
+
+  .geometricShape3 {
+    width: 50px;
+    height: 50px;
+  }
+
+  .gradientOrb1 {
+    width: 120px;
+    height: 120px;
+  }
+
+  .gradientOrb2 {
+    width: 100px;
+    height: 100px;
+  }
+}

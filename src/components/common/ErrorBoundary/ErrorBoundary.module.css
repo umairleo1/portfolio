@@ -1,0 +1,172 @@
+.errorBoundary {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.95),
+    rgba(15, 15, 15, 0.98)
+  );
+}
+
+.errorContainer {
+  max-width: 500px;
+  text-align: center;
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.errorIcon {
+  color: #ff6b6b;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.errorIcon svg {
+  filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.3));
+}
+
+.errorTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-white);
+  margin-bottom: 1rem;
+}
+
+.errorMessage {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.errorActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.retryButton,
+.refreshButton {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--accent-blue);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.retryButton {
+  background: var(--accent-blue);
+  color: var(--primary-white);
+}
+
+.retryButton:hover {
+  background: transparent;
+  color: var(--accent-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+.refreshButton {
+  background: transparent;
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+
+.refreshButton:hover {
+  background: var(--accent-cyan);
+  color: var(--primary-white);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 173, 181, 0.3);
+}
+
+.errorDetails {
+  text-align: left;
+  background: rgba(15, 15, 15, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+.errorDetails summary {
+  color: var(--accent-cyan);
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.errorDetails summary:hover {
+  color: var(--primary-white);
+}
+
+.errorStack {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.8rem;
+  color: #ff6b6b;
+  white-space: pre-wrap;
+  overflow: auto;
+  max-height: 200px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .errorBoundary {
+    padding: 1rem;
+  }
+
+  .errorContainer {
+    padding: 2rem 1.5rem;
+  }
+
+  .errorTitle {
+    font-size: 1.6rem;
+  }
+
+  .errorMessage {
+    font-size: 1rem;
+  }
+
+  .errorActions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .retryButton,
+  .refreshButton {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .errorContainer {
+    padding: 1.5rem 1rem;
+  }
+
+  .errorTitle {
+    font-size: 1.4rem;
+  }
+
+  .errorIcon svg {
+    width: 48px;
+    height: 48px;
+  }
+}

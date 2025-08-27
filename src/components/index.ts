@@ -8,6 +8,7 @@ export { default as Hero } from './sections/Hero';
 // Common Components
 export { default as ErrorBoundary } from './common/ErrorBoundary';
 export { default as LoadingSpinner } from './common/LoadingSpinner';
+export { default as SectionLoader } from './common/SectionLoader';
 
 // UI Components
 export { default as ScrollToBottom } from './ui/ScrollToBottom';
@@ -26,4 +27,3 @@ export { default as Contact } from './sections/Contact';
 // Effect Components (Lazy Loaded)
 export { default as FloatingElements } from './effects/FloatingElements';
 export { default as CursorTrail } from './effects/CursorTrail';
-export { default as ThreeBackground } from './effects/ThreeBackground';
