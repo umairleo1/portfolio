@@ -62,6 +62,4 @@ export interface NavItem {
   href: string;
 }
 
-import { IconBaseProps } from 'react-icons';
-
-export type IconType = React.ComponentType<IconBaseProps>;
+export type IconType = React.ComponentType<any>;

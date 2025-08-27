@@ -1,5 +1,4 @@
 import React from 'react';
-import { IconBaseProps } from 'react-icons';
 
 interface IconWrapperProps extends React.HTMLAttributes<HTMLSpanElement> {
   children: React.ReactNode;
@@ -15,10 +14,7 @@ export function IconWrapper({ children, ...props }: IconWrapperProps) {
 }
 
 // Helper function to safely render react-icons
-export function renderIcon(
-  IconComponent: React.ComponentType<IconBaseProps>,
-  props?: IconBaseProps
-): React.ReactNode {
+export function renderIcon(IconComponent: any, props?: any): React.ReactNode {
   try {
     return React.createElement(IconComponent, props || {});
   } catch {
