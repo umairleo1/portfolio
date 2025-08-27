@@ -21,13 +21,13 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
-  # Security Scanning Job (2025 standard)
+  # Security Scanning Job
   security:
     name: Security Analysis
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2 # SHA pinned for 2025 security
+        uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0 # Full history for security analysis
 
@@ -155,7 +155,7 @@ jobs:
           find build -name "*.css" -size +50k -exec gzip -k {} \;
 
       - name: Upload build artifacts
-        uses: actions/upload-pages-artifact@v3.0.1
+        uses: actions/upload-pages-artifact@v4.0.0
         with:
           path: ./build
           retention-days: 1 # Minimal retention for security
