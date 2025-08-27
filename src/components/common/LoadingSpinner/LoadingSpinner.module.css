@@ -1,0 +1,104 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.fullScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+}
+
+.spinnerWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.spinner {
+  border: 3px solid transparent;
+  border-top: 3px solid var(--primary-cyan);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Size variations */
+.small {
+  width: 24px;
+  height: 24px;
+  border-width: 2px;
+}
+
+.medium {
+  width: 32px;
+  height: 32px;
+  border-width: 3px;
+}
+
+.large {
+  width: 48px;
+  height: 48px;
+  border-width: 3px;
+}
+
+/* Color variations */
+.primary {
+  border-top-color: var(--primary-cyan);
+}
+
+.secondary {
+  border-top-color: var(--text-secondary);
+}
+
+.white {
+  border-top-color: var(--text-primary);
+}
+
+.message {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin: 0;
+  text-align: center;
+}
+
+.fullScreen .message {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+/* Animations */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2s;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .message {
+    font-size: 0.85rem;
+  }
+}

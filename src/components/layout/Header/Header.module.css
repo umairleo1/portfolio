@@ -1,0 +1,258 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  background: rgba(23, 22, 26, 0.8);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--primary-cyan-10);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scrolled {
+  background: rgba(23, 22, 26, 0.95);
+  backdrop-filter: blur(25px);
+  border-bottom-color: var(--primary-cyan-30);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  transition: padding 0.3s ease;
+}
+
+.scrolled .content {
+  padding: 16px 0;
+}
+
+.logo {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary-cyan);
+  text-transform: lowercase;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo a {
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  display: inline-block;
+}
+
+.resumeLink {
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  display: inline-block;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profileImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--primary-cyan),
+    rgba(139, 92, 246, 0.8)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--primary-cyan-30);
+  position: relative;
+  overflow: hidden;
+}
+
+.profileImage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.3),
+    transparent 70%
+  );
+  border-radius: 50%;
+}
+
+.profilePic {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.profileInitials {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+  display: none;
+}
+
+.profileText {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary-cyan);
+  text-transform: lowercase;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.navList {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 400;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  padding: 8px 0;
+}
+
+.navLink::before {
+  content: '// ';
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.navLink:hover,
+.active {
+  color: var(--text-primary);
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-cyan),
+    var(--primary-cyan-50)
+  );
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 1px;
+}
+
+.navLink:hover::after,
+.active::after {
+  width: 100%;
+}
+
+.navLink:hover {
+  transform: translateY(-2px);
+  color: var(--primary-cyan);
+}
+
+.scrolled .navLink {
+  font-size: 13px;
+}
+
+.menuToggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--dark-bg);
+  border-top: 1px solid var(--primary-cyan-10);
+  padding: 20px;
+}
+
+.mobileNav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mobileNavItem {
+  margin-bottom: 16px;
+}
+
+.mobileNavLink {
+  font-size: 16px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  display: block;
+  padding: 8px 0;
+  transition: var(--transition);
+}
+
+.mobileNavLink::before {
+  content: '// ';
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.mobileNavLink:hover,
+.mobileActive {
+  color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+
+  .menuToggle {
+    display: block;
+  }
+
+  .navList {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 16px 0;
+  }
+
+  .scrolled .content {
+    padding: 12px 0;
+  }
+
+  .logo {
+    font-size: 14px;
+  }
+}

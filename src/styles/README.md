@@ -1,4 +1,4 @@
-# Tamal Sen Portfolio - Design System & Theme Variables
+# Portfolio - Design System & Theme Variables
 
 ## 🎨 Theme Overview
 

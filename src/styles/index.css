@@ -3,17 +3,5 @@
 @import 'base/globals.css';
 @import 'base/App.css';
 
-/* Component styles */
-@import 'components/Header.css';
-@import 'components/Footer.css';
-@import 'components/Hero.css';
-@import 'components/About.css';
-@import 'components/Expertise.css';
-@import 'components/Work.css';
-@import 'components/Experience.css';
-@import 'components/Projects.css';
-@import 'components/Contact.css';
-@import 'components/ScrollToBottom.css';
-@import 'components/FloatingElements.css';
-@import 'components/CursorTrail.css';
-@import 'components/SectionBackgrounds.css';
+/* Global component styles removed - now using CSS Modules */
+/* All component-specific styles are now co-located with their components */
