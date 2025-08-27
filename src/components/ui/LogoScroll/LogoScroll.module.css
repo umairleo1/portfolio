@@ -58,6 +58,17 @@
   /* Containment for better performance */
   contain: layout style paint;
   transform: translateZ(0);
+  /* Enhanced touch and scroll support for manual scrolling */
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+  /* Smooth scrolling optimization */
+  scroll-behavior: smooth;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  /* Cursor indicates scrollable content */
+  cursor: grab;
 }
 
 /* Replace CSS mask with more compatible pseudo-element overlay */
@@ -102,6 +113,8 @@
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: translate3d(0, 0, 0);
+  /* Remove transitions for smooth manual scrolling */
+  transition: none;
 }
 
 .item {
