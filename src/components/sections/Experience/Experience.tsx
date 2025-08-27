@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { experience, companies } from '@/data/portfolio';
+import { experience, companies } from '@/data';
 import { HiLocationMarker, HiExternalLink } from 'react-icons/hi';
 import { renderIcon } from '@/utils/IconWrapper';
 import styles from './Experience.module.css';

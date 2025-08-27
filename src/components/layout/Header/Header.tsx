@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo } from 'react';
 import type { NavItem } from '@/types';
 import { NAVIGATION_PATHS } from '@/lib/constants';
-import { appConfig } from '@/data/portfolio';
+import { appConfig } from '@/data';
 import { useThrottle } from '@/hooks';
 import styles from './Header.module.css';
 

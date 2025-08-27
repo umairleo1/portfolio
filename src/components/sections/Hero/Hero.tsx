@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { personalInfo } from '@/data/portfolio';
+import { personalInfo } from '@/data';
 import LogoScroll from '@/components/ui/LogoScroll';
 import styles from './Hero.module.css';
 

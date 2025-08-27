@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { personalInfo } from '@/data/portfolio';
+import { personalInfo } from '@/data';
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi';
 import { renderIcon } from '@/utils/IconWrapper';
 import styles from './Contact.module.css';

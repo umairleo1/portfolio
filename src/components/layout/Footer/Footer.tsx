@@ -1,5 +1,5 @@
 import React from 'react';
-import { personalInfo } from '@/data/portfolio';
+import { personalInfo } from '@/data';
 import { FaLinkedinIn, FaGithub, FaTwitter, FaReact } from 'react-icons/fa';
 import { SiTypescript } from 'react-icons/si';
 import { renderIcon } from '@/utils/IconWrapper';
