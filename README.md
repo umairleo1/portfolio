@@ -161,8 +161,30 @@ portfolio/
 │   │       ├── Badge/         # Skill badges with variants
 │   │       ├── LogoScroll/    # Animated company logos
 │   │       └── ScrollToBottom/# Scroll indicator
-│   ├── data/                  # Static content and configuration
-│   │   └── portfolio.ts       # Centralized portfolio data
+│   ├── data/                  # Modular data architecture with domain separation
+│   │   ├── index.ts           # Main barrel export for all data
+│   │   ├── types/             # TypeScript type definitions
+│   │   │   └── index.ts       # Comprehensive data types
+│   │   ├── personal/          # Personal information and interests
+│   │   │   ├── index.ts       # Personal data barrel export
+│   │   │   ├── info.ts        # Personal details and contact info
+│   │   │   └── interests.ts   # Personal interests and languages
+│   │   ├── professional/      # Professional experience and skills
+│   │   │   ├── index.ts       # Professional data barrel export
+│   │   │   ├── skills.ts      # Technical skills by category
+│   │   │   ├── experience.ts  # Work experience and achievements
+│   │   │   ├── education.ts   # Educational background
+│   │   │   └── certifications.ts # Professional certifications
+│   │   ├── projects/          # Portfolio projects and categorization
+│   │   │   ├── index.ts       # Projects data barrel export
+│   │   │   ├── projects.ts    # Project details and achievements
+│   │   │   └── categories.ts  # Project categorization system
+│   │   ├── companies/         # Company information and branding
+│   │   │   ├── index.ts       # Companies data barrel export
+│   │   │   └── companies.ts   # Company logos and associated skills
+│   │   └── config/            # Application configuration
+│   │       ├── index.ts       # Configuration barrel export
+│   │       └── app.ts         # App settings, navigation, and SEO
 │   ├── styles/                # Centralized styling system
 │   │   ├── base/              # Global styles and theme
 │   │   │   ├── globals.css    # Main theme variables & base styles
@@ -410,10 +432,10 @@ npm run security:audit:ci      # Critical vulnerabilities only
 
 ### Personal Information
 
-Update your details in `src/data/portfolio.ts`:
+Update your details in `src/data/personal/info.ts`:
 
 ```typescript
-export const personalInfo = {
+export const personalInfo: PersonalInfo = {
   name: 'Your Name',
   title: 'Your Professional Title',
   location: 'Your Location',
@@ -426,16 +448,38 @@ export const personalInfo = {
 
 ### Skills and Technologies
 
-Customize your technical skills by category:
+Customize your technical skills by category in `src/data/professional/skills.ts`:
 
 ```typescript
-export const skills = {
+export const skills: SkillCategories = {
   languages: ['JavaScript', 'TypeScript', 'Python'],
   frontEnd: ['React', 'Next.js', 'CSS Modules'],
   backEnd: ['Node.js', 'Express', 'MongoDB'],
   cloudAndIaC: ['AWS', 'Terraform', 'Docker'],
   // ... other categories
 };
+```
+
+### Modular Data Architecture
+
+The new data structure provides several advantages:
+
+- **Domain Separation**: Each data type has its own module for better organization
+- **Type Safety**: Comprehensive TypeScript interfaces for all data structures
+- **Scalability**: Easy to add new sections without bloating existing files
+- **Import Flexibility**: Import specific sections or use barrel exports
+
+```typescript
+// Import specific data sections
+import { personalInfo } from '@/data/personal';
+import { skills, experience } from '@/data/professional';
+import { projects } from '@/data/projects';
+
+// Or use the main barrel export
+import { personalInfo, skills, projects } from '@/data';
+
+// Import with types for development
+import { PersonalInfo, SkillCategories } from '@/data';
 ```
 
 ### Styling and Theme
