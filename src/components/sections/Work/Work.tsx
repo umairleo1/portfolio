@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { projects } from '@/data/portfolio';
+import { projects } from '@/data';
 import {
   FaGlobe,
   FaMobile,

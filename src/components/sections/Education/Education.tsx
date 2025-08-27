@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { education, certifications } from '@/data/portfolio';
+import { education, certifications } from '@/data';
 import {
   HiAcademicCap,
   HiOutlineCalendarDays,

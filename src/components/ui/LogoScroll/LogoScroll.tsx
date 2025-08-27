@@ -7,7 +7,7 @@ import React, {
   useMemo,
 } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
-import { companies } from '@/data/portfolio';
+import { companies } from '@/data';
 import { animationConfig } from '@/config/animations';
 import styles from './LogoScroll.module.css';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { skills } from '@/data/portfolio';
+import { skills } from '@/data';
 import {
   SiJavascript,
   SiReact,
