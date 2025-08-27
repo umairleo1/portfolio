@@ -108,5 +108,5 @@ If you discover a security vulnerability, please email: umair.leo17@gmail.com
 
 ---
 
-**Last Updated**: December 2024
+**Last Updated**: August 2025
 **Next Review**: Quarterly security assessment

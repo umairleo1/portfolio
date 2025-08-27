@@ -4,40 +4,42 @@
 [![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge&logo=github&logoColor=white)](https://umairleo1.github.io/portfolio)
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![CSS Modules](https://img.shields.io/badge/CSS_Modules-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://github.com/css-modules/css-modules)
 [![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/features/actions)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge)](http://makeapullrequest.com)
 
-A modern, responsive portfolio website showcasing professional software engineering experience. Built with React 19, TypeScript, and cutting-edge web technologies featuring stunning animations, glassmorphism design, and optimized performance.
+A modern, responsive portfolio website showcasing professional software engineering experience. Built with React 19, TypeScript, and CSS Modules featuring stunning animations, custom design system, and optimized performance.
 
 ## Live Demo
 
-[**View Live Portfolio →**](https://umairleo1.github.io/portfolio) ✨ **Now Live!**
+[**View Live Portfolio →**](https://umairleo1.github.io/portfolio)
 
 ## Features
 
 ### Design & UX
 
-- **Modern Glassmorphism UI** - Professional design with backdrop filters and transparency effects
+- **Modern Design System** - Centralized theme with 50+ CSS custom properties
 - **Responsive Design** - Seamlessly adapts to all devices and screen sizes
-- **Interactive Animations** - Smooth AOS (Animate On Scroll) with floating elements
-- **Professional Typography** - Carefully selected fonts and spacing for optimal readability
-- **Custom Favicon** - Unique "MU" branded SVG favicon
+- **Interactive Animations** - Smooth animations with floating elements and cursor trails
+- **Professional Typography** - Roboto Mono for technical aesthetic
+- **Consistent Styling** - CSS Modules for scoped styles and maintainability
 
 ### Technical Excellence
 
 - **React 19** - Latest React with enhanced performance and concurrent features
-- **TypeScript** - Full type safety and enhanced developer experience
-- **Modern CSS** - CSS Grid, Flexbox, custom properties, and advanced animations
+- **TypeScript** - Full type safety with strict mode enabled
+- **CSS Modules** - Scoped styling with professional architecture
 - **Performance Optimized** - Code splitting, lazy loading, and optimized bundle size
+- **Error Boundaries** - Graceful error handling and recovery
 - **SEO Optimized** - Semantic HTML, proper meta tags, and structured data
 
 ### User Experience
 
 - **Intuitive Navigation** - Smooth scrolling with active section highlighting
+- **Lazy Loading** - Progressive component loading for optimal performance
+- **Professional Sections** - Hero, Expertise, Work, Experience, Education, and Contact
+- **Accessibility** - WCAG compliant with keyboard navigation support
 - **Contact Form** - Functional form with validation and user feedback
-- **Professional Sections** - Hero, Expertise, Work, Experience, and Contact
-- **Accessibility** - WCAG compliant with keyboard navigation and screen reader support
 
 ## Architecture
 
@@ -49,14 +51,58 @@ A modern, responsive portfolio website showcasing professional software engineer
 
 </div>
 
-| Category        | Technologies                                               |
-| --------------- | ---------------------------------------------------------- |
-| **Frontend**    | React 19, TypeScript 4.9, CSS3, HTML5                      |
-| **Icons**       | React Icons with custom wrapper for React 19 compatibility |
-| **Animations**  | AOS (Animate On Scroll), Custom CSS animations             |
-| **Build Tools** | react-app-rewired, Create React App, Webpack               |
-| **Development** | ESLint 8.57, Prettier, Husky, lint-staged, VS Code         |
-| **Deployment**  | GitHub Pages, GitHub Actions, CI/CD Pipeline               |
+| Category        | Technologies                                           |
+| --------------- | ------------------------------------------------------ |
+| **Frontend**    | React 19, TypeScript 4.9, CSS Modules, HTML5           |
+| **Icons**       | React Icons with type-safe wrapper                     |
+| **Animations**  | Framer Motion, Custom CSS animations                   |
+| **Build Tools** | react-app-rewired, Create React App, Webpack           |
+| **Development** | ESLint 9.33, Prettier 3.0, Husky 9.1, lint-staged 16.1 |
+| **Testing**     | Jest, React Testing Library, Coverage Reports          |
+| **Deployment**  | GitHub Pages, GitHub Actions, CI/CD Pipeline           |
+
+### Design System
+
+The project uses a centralized theme system with CSS custom properties for consistent styling:
+
+```css
+:root {
+  /* Primary Colors */
+  --primary-cyan: #66d9ed;
+  --primary-cyan-rgb: 102, 217, 237;
+
+  /* Background Colors */
+  --dark-bg: #17161a;
+  --dark-surface: #1a1a1a;
+  --dark-card: #1e1e1e;
+
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #888;
+  --text-muted: #666;
+
+  /* Spacing & Layout */
+  --section-padding: 80px 0;
+  --container-padding: 0 clamp(20px, 5vw, 80px);
+  --max-width: min(1400px, 95vw);
+
+  /* Border Radius */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+
+  /* Transitions */
+  --transition: all 0.3s ease;
+  --transition-fast: all 0.2s ease;
+  --transition-slow: all 0.4s ease;
+
+  /* Shadows */
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--border-subtle);
+  --shadow-glow: 0 0 30px var(--primary-cyan-30);
+
+  /* ... 50+ design tokens total */
+}
+```
 
 ### Browser Support
 
@@ -69,12 +115,12 @@ A modern, responsive portfolio website showcasing professional software engineer
 
 </div>
 
-| Browser | Version   |
-| ------- | --------- |
-| Chrome  | Latest ✅ |
-| Firefox | Latest ✅ |
-| Safari  | Latest ✅ |
-| Edge    | Latest ✅ |
+| Browser | Version | Support |
+| ------- | ------- | ------- |
+| Chrome  | 88+     | Full    |
+| Firefox | 85+     | Full    |
+| Safari  | 14+     | Full    |
+| Edge    | 88+     | Full    |
 
 ## Project Structure
 
@@ -82,51 +128,66 @@ A modern, responsive portfolio website showcasing professional software engineer
 portfolio/
 ├── public/                     # Static assets
 │   ├── assets/                # Organized assets
-│   │   ├── favicons/          # Favicon files
-│   │   ├── images/            # Profile pictures
-│   │   ├── icons/             # App icons
-│   │   └── svg/               # SVG graphics
-│   ├── index.html             # HTML template
-│   └── manifest.json          # PWA manifest
+│   │   ├── favicons/          # Favicon files (16x16 to 512x512)
+│   │   ├── images/            # Profile pictures and graphics
+│   │   └── icons/             # App icons and logos
+│   ├── index.html             # HTML template with meta tags
+│   └── manifest.json          # PWA manifest configuration
 ├── src/
-│   ├── components/            # React components
+│   ├── components/            # React components with CSS Modules
+│   │   ├── common/            # Shared components
+│   │   │   ├── ErrorBoundary/ # Error handling component
+│   │   │   ├── LoadingSpinner/# Loading states with animations
+│   │   │   └── SectionLoader/ # Section loading component
+│   │   ├── effects/           # Animation components
+│   │   │   ├── CursorTrail/   # Mouse cursor trail effect
+│   │   │   └── FloatingElements/# Background floating animations
 │   │   ├── layout/            # Layout components
-│   │   │   ├── Header/        # Navigation with profile picture
+│   │   │   ├── Header/        # Navigation with scroll detection
 │   │   │   └── Footer/        # Footer with tech stack icons
 │   │   ├── sections/          # Main page sections
 │   │   │   ├── Hero/          # Landing section with animations
-│   │   │   ├── About/         # About section
-│   │   │   ├── Expertise/     # Skills and technologies
-│   │   │   ├── Work/          # Work showcase
-│   │   │   ├── Projects/      # Projects portfolio
-│   │   │   ├── Experience/    # Professional experience
-│   │   │   └── Contact/       # Contact form
-│   │   ├── effects/           # Animation components
-│   │   │   ├── FloatingElements/ # Hero section animations
-│   │   │   ├── CursorTrail/   # Mouse cursor trail
-│   │   │   └── ThreeBackground/ # 3D background
-│   │   └── ui/                # UI components
-│   ├── data/                  # Static content
-│   │   └── portfolio.ts       # Portfolio data and content
-│   ├── styles/                # Component styles
-│   │   └── components/        # Component-specific CSS
+│   │   │   ├── Expertise/     # Skills showcase with categories
+│   │   │   ├── Education/     # Education & certifications
+│   │   │   ├── Work/          # Work showcase with projects
+│   │   │   ├── Experience/    # Professional experience timeline
+│   │   │   └── Contact/       # Contact information
+│   │   └── ui/                # Reusable UI components
+│   │       ├── Card/          # Reusable card component with variants
+│   │       ├── Button/        # Button with loading states
+│   │       ├── Badge/         # Skill badges with variants
+│   │       ├── LogoScroll/    # Animated company logos
+│   │       └── ScrollToBottom/# Scroll indicator
+│   ├── data/                  # Static content and configuration
+│   │   └── portfolio.ts       # Centralized portfolio data
+│   ├── styles/                # Centralized styling system
+│   │   ├── base/              # Global styles and theme
+│   │   │   ├── globals.css    # Main theme variables & base styles
+│   │   │   └── App.css        # App-wide component styles
+│   │   └── README.md          # Design system documentation
 │   ├── types/                 # TypeScript definitions
 │   │   └── index.ts           # Common type definitions
-│   ├── lib/                   # Utilities and constants
-│   │   └── constants/         # Asset paths and config
-│   ├── contexts/              # React contexts
 │   ├── hooks/                 # Custom React hooks
+│   │   ├── useThrottle.ts     # Throttled event handling
+│   │   └── index.ts           # Hook exports
 │   ├── utils/                 # Utility functions
+│   │   ├── IconWrapper.tsx    # React Icons wrapper
+│   │   ├── animations.ts      # Animation utilities
+│   │   └── index.ts           # Utility exports
 │   ├── config/                # Configuration files
+│   │   ├── animations.ts      # Animation configurations
+│   │   ├── env.ts             # Environment variables
+│   │   └── index.ts           # Config exports
 │   └── App.tsx                # Main application component
-├── docs/                      # Documentation
-├── scripts/                   # Development scripts
+├── scripts/                   # Development automation
 ├── .gitignore                 # Git ignore patterns
-├── LICENSE                    # MIT License
-├── package.json               # Dependencies and scripts
+├── .prettierrc                # Prettier configuration
+├── eslint.config.js           # ESLint configuration
 ├── tsconfig.json              # TypeScript configuration
-├── config-overrides.js        # react-app-rewired config
-└── README.md                  # Project documentation
+├── config-overrides.js        # react-app-rewired configuration
+├── package.json               # Dependencies and scripts
+├── LICENSE                    # MIT License
+└── README.md                  # This documentation
 ```
 
 ## Quick Start
@@ -136,7 +197,7 @@ portfolio/
 Before you begin, ensure you have the following installed:
 
 - **Node.js** (v20.9 or higher) - [Download here](https://nodejs.org/)
-- **npm** (comes with Node.js) or **yarn**
+- **npm** (v10.0 or higher) - Comes with Node.js
 - **Git** - [Download here](https://git-scm.com/)
 
 ### Installation
@@ -166,13 +227,16 @@ Before you begin, ensure you have the following installed:
 ### Development Workflow
 
 ```bash
-# Start all development services (recommended)
+# Start development server with hot reload
+npm start
+
+# Start all development services (dev server + tests)
 npm run start:all
 
 # Run tests in watch mode
 npm run test:watch
 
-# Check code quality (before committing)
+# Check code quality
 npm run validate
 
 # Build for production
@@ -182,30 +246,72 @@ npm run build
 npm run deploy
 ```
 
-### Code Quality Automation
+## Code Quality Automation
 
-The project includes **automatic pre-commit hooks** that ensure code quality:
+The project includes **comprehensive code quality automation** with industry-standard tooling:
+
+<div align="center">
+
+![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black)
+![Husky](https://img.shields.io/badge/Husky-000000?style=for-the-badge&logo=git&logoColor=white)
+![Jest](https://img.shields.io/badge/Jest-323330?style=for-the-badge&logo=jest&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+
+</div>
+
+### Pre-commit Hooks (Husky + lint-staged)
+
+**Automatic code quality enforcement** that runs before every commit:
 
 ```bash
 # These run automatically before every commit:
-- ESLint auto-fix for TypeScript/JavaScript files
-- Prettier formatting for all supported files
-- Only processes staged files (fast and efficient)
-
-# Manual quality checks (also available):
-npm run lint          # Check for linting errors
-npm run lint:fix       # Auto-fix linting issues
-npm run format         # Format all files
-npm run format:check   # Verify formatting
-npm run type-check     # TypeScript validation
+✅ ESLint auto-fix for TypeScript/JavaScript files
+✅ Prettier formatting for all supported files
+✅ Type checking with TypeScript compiler
+✅ Only processes staged files (fast and efficient)
 ```
 
-**Benefits:**
+**Configuration in `package.json`:**
 
-- ✅ **Never commit unformatted code**
-- ✅ **Automatic error fixing**
-- ✅ **Consistent code style across team**
-- ✅ **Faster code reviews**
+```json
+{
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{css,scss,sass}": ["prettier --write"],
+    "*.{json,md,yml,yaml}": ["prettier --write"]
+  }
+}
+```
+
+### Manual Quality Checks
+
+```bash
+# Comprehensive validation (used in CI/CD)
+npm run validate               # Runs lint + type-check + tests
+
+# Individual checks
+npm run lint                   # ESLint with React/TypeScript rules
+npm run lint:fix               # Auto-fix linting issues
+npm run format                 # Format all files with Prettier
+npm run format:check           # Verify formatting without changes
+npm run type-check             # TypeScript compilation check
+npm run test:ci                # Tests with coverage reports
+
+# Security auditing
+npm run security:audit         # Full dependency audit
+npm run security:audit:prod    # Production dependencies only
+npm run security:audit:ci      # Critical vulnerabilities only
+```
+
+### Benefits of Code Quality Automation
+
+- **Never commit unformatted code** - Automatic Prettier formatting
+- **Consistent code style** - ESLint enforces React/TypeScript best practices
+- **Type safety** - TypeScript strict mode catches errors before runtime
+- **Faster code reviews** - Automated formatting eliminates style discussions
+- **CI/CD integration** - Same checks run locally and in GitHub Actions
+- **Security monitoring** - Regular dependency vulnerability scanning
 
 ## Customization Guide
 
@@ -221,68 +327,87 @@ export const personalInfo = {
   email: 'your.email@example.com',
   linkedin: 'https://linkedin.com/in/your-profile',
   github: 'https://github.com/your-username',
-  twitter: 'https://twitter.com/your-handle',
   objective: 'Your professional objective...',
 };
 ```
 
 ### Skills and Technologies
 
-Customize your technical skills:
+Customize your technical skills by category:
 
 ```typescript
 export const skills = {
-  frontEnd: ['React', 'TypeScript', 'CSS3', '...'],
-  backEnd: ['Node.js', 'Python', 'Java', '...'],
-  cloudAndIaC: ['AWS', 'Terraform', 'Docker', '...'],
+  languages: ['JavaScript', 'TypeScript', 'Python'],
+  frontEnd: ['React', 'Next.js', 'CSS Modules'],
+  backEnd: ['Node.js', 'Express', 'MongoDB'],
+  cloudAndIaC: ['AWS', 'Terraform', 'Docker'],
   // ... other categories
 };
 ```
 
-### Experience and Projects
-
-Add your professional experience:
-
-```typescript
-export const experience = [
-  {
-    title: 'Your Job Title',
-    company: 'Company Name',
-    location: 'Location',
-    period: 'Start - End',
-    achievements: [
-      'Achievement 1 with measurable impact',
-      'Achievement 2 with specific technologies',
-    ],
-  },
-];
-```
-
 ### Styling and Theme
 
-Customize the visual appearance:
+The design system is centralized in `src/styles/base/globals.css`. Update CSS custom properties to customize the entire theme:
 
-1. **Colors** - Update CSS custom properties in `src/styles/globals.css`:
+```css
+:root {
+  /* Primary Brand Color */
+  --primary-cyan: #66d9ed; /* Change this to your brand color */
+  --primary-cyan-rgb: 102, 217, 237; /* RGB version for opacity variants */
 
-   ```css
-   :root {
-     --primary-cyan: #66d9ed;
-     --dark-bg: #171620;
-     --text-primary: #ffffff;
-     /* ... other variables */
-   }
+  /* Background Colors */
+  --dark-bg: #17161a; /* Main background */
+  --dark-surface: #1a1a1a; /* Card backgrounds */
+  --dark-card: #1e1e1e; /* Elevated cards */
+
+  /* Spacing System */
+  --section-padding: 80px 0; /* Vertical section spacing */
+  --border-radius-md: 8px; /* Default border radius */
+
+  /* Animation Timing */
+  --transition: all 0.3s ease; /* Standard transitions */
+}
+```
+
+### Adding New Components
+
+Follow the established CSS Modules pattern:
+
+1. **Create component directory:** `src/components/ui/NewComponent/`
+
+2. **Add required files:**
+
+   ```
+   NewComponent/
+   ├── NewComponent.tsx           # Component logic
+   ├── NewComponent.module.css    # Scoped styles
+   └── index.ts                   # Barrel export
    ```
 
-2. **Typography** - Modify font imports and declarations
-3. **Animations** - Adjust AOS settings in `src/App.tsx`
+3. **Use CSS Modules syntax:**
+
+   ```tsx
+   import React from 'react';
+   import styles from './NewComponent.module.css';
+
+   const NewComponent: React.FC = () => {
+     return (
+       <div className={styles.container}>
+         <h2 className={styles.title}>Content</h2>
+       </div>
+     );
+   };
+
+   export default NewComponent;
+   ```
+
+4. **Add to barrel exports in `src/components/index.ts`**
 
 ## Deployment
 
 ### Fully Automated GitHub Pages Deployment
 
-**Zero manual work required!** The portfolio uses a professional CI/CD pipeline that automatically deploys when you push to the main branch.
-
-#### How it works:
+**Zero manual work required!** The portfolio uses a professional CI/CD pipeline:
 
 ```bash
 # Simply push your changes
@@ -290,103 +415,48 @@ git add .
 git commit -m "feat: update portfolio content"
 git push origin main
 
-# That's it! Your portfolio deploys automatically in ~3 minutes
+# Deployment happens automatically in ~3 minutes
 ```
 
-#### What happens automatically:
+### What Happens Automatically:
 
-1. ✅ **Quality Validation** - TypeScript, ESLint, Prettier, Tests
-2. ✅ **Security Audit** - Vulnerability scanning
-3. ✅ **Production Build** - Optimized React build
-4. ✅ **Live Deployment** - Automatic GitHub Pages deployment
+1. **Quality Validation** - TypeScript compilation, ESLint, Prettier, Tests
+2. **Security Audit** - Dependency vulnerability scanning
+3. **Production Build** - Optimized React build with code splitting
+4. **Live Deployment** - Automatic GitHub Pages deployment
+5. **Bundle Analysis** - Performance metrics and optimization
 
-**Result:** Your portfolio is live at https://umairleo1.github.io/portfolio
+**Result:** Your portfolio is live at `https://umairleo1.github.io/portfolio`
 
-### Custom Domain
+### Custom Domain Setup
 
-1. **Add CNAME file**
+1. **Add CNAME file:**
 
    ```bash
    echo "yourdomain.com" > public/CNAME
    ```
 
-2. **Configure DNS**
-   - Add A records pointing to GitHub Pages IPs
-   - Or add CNAME record pointing to `your-username.github.io`
+2. **Configure DNS:**
+   - Add A records: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+   - Or CNAME record: `your-username.github.io`
 
-3. **Enable in GitHub Settings**
-   - Go to repository Settings → Pages
-   - Configure custom domain
+3. **Enable in GitHub:**
+   - Repository Settings → Pages → Custom domain
 
 ### Environment Variables
 
-For sensitive data, use environment variables:
+For sensitive configuration, create `.env.local`:
 
 ```bash
-# Create .env.local file
-REACT_APP_CONTACT_EMAIL=your-email@example.com
+# Analytics and tracking
 REACT_APP_ANALYTICS_ID=your-analytics-id
+
+# Contact form integration
+REACT_APP_CONTACT_API=your-contact-api-endpoint
+
+# Feature flags
+REACT_APP_ENABLE_ANALYTICS=true
 ```
-
-## Contributing
-
-We welcome contributions! Please read our [Contributing Guidelines](./docs/CONTRIBUTING.md) for details.
-
-### Development Process
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
-
-#### Automated Quality Assurance
-
-When you create a PR, the CI/CD pipeline automatically:
-
-- ✅ Runs all tests and quality checks
-- ✅ Validates TypeScript compilation
-- ✅ Checks code formatting and linting
-- ✅ Performs security audit
-- ❌ **Does NOT deploy** (only validates)
-
-Once merged, automatic deployment to live site occurs!
-
-### Code Standards
-
-- **TypeScript** - All code must be properly typed
-- **ESLint** - Follow the established linting rules
-- **Prettier** - Code must be formatted consistently (automated via pre-commit)
-- **Testing** - New features require appropriate tests
-- **Pre-commit hooks** - Automatic formatting and linting before commits
-
-## Available Scripts
-
-| Script                        | Description                                 |
-| ----------------------------- | ------------------------------------------- |
-| `npm start`                   | Start development server                    |
-| `npm run build`               | Create production build                     |
-| `npm test`                    | Run test suite                              |
-| `npm run deploy`              | Deploy to GitHub Pages                      |
-| `npm run lint`                | Run ESLint                                  |
-| `npm run lint:fix`            | Auto-fix ESLint issues                      |
-| `npm run format`              | Format code with Prettier                   |
-| `npm run format:check`        | Check Prettier formatting                   |
-| `npm run type-check`          | Run TypeScript type checking                |
-| `npm run validate`            | Run all quality checks (lint + type + test) |
-| `npm run security:audit`      | Security audit (shows dev warnings)         |
-| `npm run security:audit:prod` | Security audit (production only)            |
-| `npm run start:all`           | Start all development services              |
-| `npm run stop:all`            | Stop all running services                   |
-
-## Browser Compatibility
-
-Supports all modern browsers with the following minimum versions:
-
-- **Chrome**: 88+
-- **Firefox**: 85+
-- **Safari**: 14+
-- **Edge**: 88+
 
 ## Performance
 
@@ -398,41 +468,143 @@ Supports all modern browsers with the following minimum versions:
 
 </div>
 
-- **Lighthouse Score**: 95+ across all metrics
-- **Bundle Size**: 122.56 kB gzipped (main bundle)
-- **CSS Size**: 13.4 kB gzipped
-- **First Contentful Paint**: < 1.5s
-- **Time to Interactive**: < 3s
-- **Status**: ✅ **Deployed and Live**
+### Bundle Analysis
+
+- **Main Bundle**: 131.76 kB (gzipped)
+- **CSS Bundle**: 13.13 kB (gzipped)
+- **Lazy Chunks**: 2.66 kB (gzipped)
+- **Total Initial**: ~148 kB (excellent for a feature-rich portfolio)
+
+### Performance Optimizations
+
+- **Code Splitting** - Components lazy load on demand
+- **Image Optimization** - Responsive images with proper sizing
+- **CSS Optimization** - CSS Modules eliminate unused styles
+- **Bundle Optimization** - Tree shaking and minification
+- **Lazy Loading** - Progressive component loading
+- **Critical CSS** - Above-the-fold styles inlined
+
+### Web Vitals Scores
+
+| Metric                       | Score   | Status    |
+| ---------------------------- | ------- | --------- |
+| **First Contentful Paint**   | < 1.5s  | Excellent |
+| **Largest Contentful Paint** | < 2.5s  | Excellent |
+| **First Input Delay**        | < 100ms | Excellent |
+| **Cumulative Layout Shift**  | < 0.1   | Excellent |
+| **Time to Interactive**      | < 3s    | Excellent |
 
 ## Security & Quality
 
 <div align="center">
 
 ![Security](https://img.shields.io/badge/Security-Audit_Passing-00d26a?style=for-the-badge&logo=githubactions&logoColor=white)
-![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
-![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black)
-![Jest](https://img.shields.io/badge/Jest-323330?style=for-the-badge&logo=jest&logoColor=white)
-![Husky](https://img.shields.io/badge/Husky-000000?style=for-the-badge&logo=git&logoColor=white)
+![CodeQL](https://img.shields.io/badge/CodeQL-Enabled-00d26a?style=for-the-badge&logo=github&logoColor=white)
+![Dependabot](https://img.shields.io/badge/Dependabot-Enabled-00d26a?style=for-the-badge&logo=github&logoColor=white)
 
 </div>
 
-### Security
+### Security Features
 
-- **No sensitive data** in repository
-- **Environment variables** for configuration
-- **CSP headers** for security
-- **Regular dependency updates**
+- **No Sensitive Data** - All secrets in environment variables
+- **CSP Headers** - Content Security Policy for XSS protection
+- **Dependency Scanning** - Automated vulnerability detection
+- **Auto Updates** - Dependabot for security patches
+- **Code Scanning** - GitHub CodeQL analysis
 
-### Code Quality
+### Security Scripts
 
-- **Pre-commit hooks** - Husky + lint-staged
-- **Automatic formatting** - Prettier with industry standards
-- **Linting** - ESLint with React/TypeScript rules
-- **Type safety** - Full TypeScript coverage
-- **Testing** - Jest + React Testing Library
-- **Security auditing** - npm audit with professional configuration
-- **CI/CD validation** - All checks run on GitHub Actions
+```bash
+# Regular security auditing
+npm run security:audit          # Development dependencies included
+npm run security:audit:prod     # Production dependencies only
+npm run security:audit:ci       # Critical vulnerabilities only
+npm run security:fix            # Attempt automatic fixes
+```
+
+### Code Quality Standards
+
+- **Pre-commit Hooks** - Husky + lint-staged automation
+- **Automatic Formatting** - Prettier with industry standards
+- **Linting** - ESLint with React/TypeScript/Accessibility rules
+- **Type Safety** - TypeScript strict mode with full coverage
+- **Testing** - Jest + React Testing Library + Coverage reports
+- **CI/CD Validation** - All quality checks in GitHub Actions
+
+## Available Scripts
+
+### Development Scripts
+
+| Script               | Description                     | Usage                        |
+| -------------------- | ------------------------------- | ---------------------------- |
+| `npm start`          | Start development server        | Primary development          |
+| `npm run start:all`  | Start dev server + test watcher | Full development environment |
+| `npm run dev`        | Alias for `start:all`           | Quick development start      |
+| `npm test`           | Run tests interactively         | Testing with Jest UI         |
+| `npm run test:watch` | Run tests in watch mode         | Background testing           |
+| `npm run test:ci`    | Run tests with coverage         | CI/CD testing                |
+
+### Build & Deploy Scripts
+
+| Script                  | Description                     | Usage                |
+| ----------------------- | ------------------------------- | -------------------- |
+| `npm run build`         | Production build + optimization | Pre-deployment build |
+| `npm run build:analyze` | Build with bundle analyzer      | Performance analysis |
+| `npm run deploy`        | Deploy to GitHub Pages          | Manual deployment    |
+| `npm run predeploy`     | Pre-deployment validation       | Automatic pre-deploy |
+
+### Quality Assurance Scripts
+
+| Script                 | Description            | Usage                  |
+| ---------------------- | ---------------------- | ---------------------- |
+| `npm run validate`     | Full validation suite  | Pre-commit validation  |
+| `npm run lint`         | ESLint checking        | Code style validation  |
+| `npm run lint:fix`     | Auto-fix ESLint issues | Code cleanup           |
+| `npm run format`       | Prettier formatting    | Code formatting        |
+| `npm run format:check` | Check formatting       | CI/CD formatting check |
+| `npm run type-check`   | TypeScript compilation | Type safety validation |
+
+### Utility Scripts
+
+| Script                   | Description                | Usage                    |
+| ------------------------ | -------------------------- | ------------------------ |
+| `npm run clean`          | Clean build cache          | Fresh build preparation  |
+| `npm run clean:install`  | Clean install dependencies | Dependency refresh       |
+| `npm run analyze`        | Bundle size analysis       | Performance optimization |
+| `npm run services:start` | Start concurrent services  | Advanced development     |
+| `npm run services:stop`  | Stop all services          | Service management       |
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Make** your changes following the code style
+4. **Test** your changes (`npm run validate`)
+5. **Commit** your changes (`git commit -m 'feat: add amazing feature'`)
+6. **Push** to the branch (`git push origin feature/amazing-feature`)
+7. **Open** a Pull Request
+
+### Contribution Guidelines
+
+- **TypeScript** - All code must be properly typed with strict mode
+- **CSS Modules** - Use scoped styling only, no global CSS
+- **ESLint** - Follow established linting rules (auto-fixed by pre-commit)
+- **Prettier** - Code formatting is automated via pre-commit hooks
+- **Testing** - New features require appropriate test coverage
+- **Documentation** - Update documentation for significant changes
+
+### Code Review Process
+
+When you create a PR, automated checks will:
+
+- Run full test suite with coverage reports
+- Validate TypeScript compilation
+- Check code formatting and linting
+- Perform security audit for vulnerabilities
+- Analyze bundle size impact
+- Block merge if any checks fail
 
 ## License
 
@@ -440,48 +612,61 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ### What this means:
 
-- ✅ Commercial use
-- ✅ Modification
-- ✅ Distribution
-- ✅ Private use
-
-## Acknowledgments
-
-- **React Team** - For the incredible React framework
-- **TypeScript Team** - For enhanced JavaScript development
-- **React Icons** - For comprehensive icon library
-- **AOS Library** - For smooth scroll animations
-- **Create React App** - For zero-configuration setup
+- **Commercial use** - Use in commercial projects
+- **Modification** - Adapt and customize freely
+- **Distribution** - Share and redistribute
+- **Private use** - Use privately without restrictions
+- **Attribution required** - Include original license notice
 
 ## Contact & Support
 
-**Muhammad Umair** - Software Engineer
+**Muhammad Umair** - Senior Software Engineer
 
-- 📧 **Email**: [umair.leo17@gmail.com](mailto:umair.leo17@gmail.com)
-- 💼 **LinkedIn**: [muhammad-umair-amin](https://www.linkedin.com/in/muhammad-umair-amin/)
-- 🐙 **GitHub**: [umairleo1](https://github.com/umairleo1)
-- 🐦 **Twitter**: [@UmairLeo7](https://x.com/UmairLeo7)
+<div align="center">
+
+[![Email](https://img.shields.io/badge/Email-umair.leo17%40gmail.com-red?style=for-the-badge&logo=gmail&logoColor=white)](mailto:umair.leo17@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-muhammad--umair--amin-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/muhammad-umair-amin/)
+[![GitHub](https://img.shields.io/badge/GitHub-umairleo1-black?style=for-the-badge&logo=github&logoColor=white)](https://github.com/umairleo1)
+[![Twitter](https://img.shields.io/badge/Twitter-%40UmairLeo7-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://x.com/UmairLeo7)
+
+</div>
 
 ### Getting Help
 
-- 🐛 **Bug Reports**: [Open an issue](https://github.com/umairleo1/portfolio-website/issues)
-- 💡 **Feature Requests**: [Start a discussion](https://github.com/umairleo1/portfolio-website/discussions)
-- 💬 **Questions**: [Ask in discussions](https://github.com/umairleo1/portfolio-website/discussions)
+- **Bug Reports**: [Open an issue](https://github.com/umairleo1/portfolio/issues/new?template=bug_report.md)
+- **Feature Requests**: [Start a discussion](https://github.com/umairleo1/portfolio/discussions/new?category=ideas)
+- **Questions**: [Ask in discussions](https://github.com/umairleo1/portfolio/discussions/new?category=q-a)
+- **Direct Contact**: [umair.leo17@gmail.com](mailto:umair.leo17@gmail.com)
+
+## Acknowledgments
+
+Special thanks to the open-source community and these amazing projects:
+
+- **React Team** - For the incredible React framework and ecosystem
+- **TypeScript Team** - For enhanced JavaScript development experience
+- **CSS Modules Community** - For scoped styling solution
+- **Framer Motion** - For smooth, professional animations
+- **Create React App** - For zero-configuration setup and tooling
+- **React Icons** - For comprehensive icon library
+- **ESLint & Prettier** - For code quality and consistency tools
 
 ## Show Your Support
 
 If this project helped you or you found it interesting:
 
-1. **Give it a ⭐** on GitHub
-2. **Fork it** for your own use
-3. **Share it** with others
-4. **Contribute** to make it better
+1. **Star the repository** on GitHub
+2. **Fork it** for your own portfolio
+3. **Share it** with fellow developers
+4. **Contribute** to make it even better
+5. **Leave feedback** in discussions
 
 ---
 
 <div align="center">
 
-**Built with ❤️ by Muhammad Umair using React 19 & TypeScript**
+**Built with ❤️ using React 19, TypeScript & CSS Modules**
+
+_Professional portfolio template for software engineers_
 
 [⬆ Back to Top](#muhammad-umair---software-engineer-portfolio)
 
