@@ -56,7 +56,12 @@ const Experience: React.FC = () => {
           animate={inView ? 'visible' : 'hidden'}
         >
           <motion.div className={styles.header} variants={itemVariants}>
-            <h1 className={styles.title}>Professional Experience</h1>
+            <h2 className={`${styles.sectionTitle} chunky-underline`}>
+              professional experience
+            </h2>
+            <p className={styles.sectionSubtitle}>
+              career journey and key achievements
+            </p>
           </motion.div>
 
           <div className={styles.accordion}>

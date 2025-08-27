@@ -9,12 +9,21 @@
   margin-bottom: 80px;
 }
 
-.title {
-  font-size: clamp(2.5rem, 6vw, 4rem);
+.sectionTitle {
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 0;
-  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.sectionSubtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
 .accordion {
