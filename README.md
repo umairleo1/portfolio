@@ -253,7 +253,7 @@ npm run build
 
 ### Automated Deployment & Quality Assurance
 
-This project implements **industry-standard CI/CD** following 2025 security best practices:
+This project implements **industry-standard CI/CD** following 2025 security best practices with comprehensive documentation in [`.github/README.md`](.github/README.md):
 
 <div align="center">
 
@@ -290,7 +290,9 @@ Security Event Logging  # SARIF format compliance
 
 ### Automated Workflows
 
-#### 1. **Main Deployment** (`.github/workflows/deploy.yml`)
+For detailed workflow documentation, configuration details, and troubleshooting, see [`.github/README.md`](.github/README.md).
+
+#### 1. **Main Deployment** ([`deploy.yml`](.github/workflows/deploy.yml))
 
 ```bash
 Trigger: Push to main branch
@@ -301,7 +303,7 @@ Trigger: Push to main branch
 └── Performance Audit (Lighthouse)
 ```
 
-#### 2. **PR Quality Checks** (`.github/workflows/pr-check.yml`)
+#### 2. **PR Quality Checks** ([`pr-check.yml`](.github/workflows/pr-check.yml))
 
 ```bash
 Trigger: Pull Request events
@@ -309,6 +311,16 @@ Trigger: Pull Request events
 ├── Multi-Node Testing (20 LTS, 22 Current)
 ├── Bundle Size Analysis
 └── Automated Status Reports
+```
+
+#### 3. **Dependency Updates** ([`dependabot.yml`](.github/dependabot.yml))
+
+```bash
+Schedule: Weekly on Mondays
+├── NPM Dependencies (security-focused)
+├── GitHub Actions updates
+├── Automated PR creation
+└── Maintainer assignment
 ```
 
 ### Quality Metrics & Monitoring
