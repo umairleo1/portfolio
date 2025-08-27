@@ -253,7 +253,7 @@ npm run build
 
 ### Automated Deployment & Quality Assurance
 
-This project implements **industry-standard CI/CD** following 2025 security best practices with comprehensive documentation in [`.github/README.md`](.github/README.md):
+This project implements **industry-standard CI/CD** following 2025 security best practices with comprehensive documentation in [`.github/CICD.md`](.github/CICD.md):
 
 <div align="center">
 
@@ -290,7 +290,7 @@ Security Event Logging  # SARIF format compliance
 
 ### Automated Workflows
 
-For detailed workflow documentation, configuration details, and troubleshooting, see [`.github/README.md`](.github/README.md).
+For detailed workflow documentation, configuration details, and troubleshooting, see [`.github/CICD.md`](.github/CICD.md).
 
 #### 1. **Main Deployment** ([`deploy.yml`](.github/workflows/deploy.yml))
 
