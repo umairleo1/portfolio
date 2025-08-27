@@ -1,4 +1,4 @@
-name: 🚀 Build and Deploy to GitHub Pages
+name: Build and Deploy to GitHub Pages
 
 on:
   push:
@@ -23,7 +23,7 @@ concurrency:
 jobs:
   # Security Scanning Job (2025 standard)
   security:
-    name: 🔒 Security Analysis
+    name: Security Analysis
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -54,7 +54,7 @@ jobs:
 
   # Quality Gates Job
   quality:
-    name: 🔍 Quality Gates
+    name: Quality Gates
     runs-on: ubuntu-latest
     needs: security
     strategy:
@@ -103,7 +103,7 @@ jobs:
 
   # Build Job with advanced optimizations
   build:
-    name: 🏗️ Build & Optimize
+    name: Build and Optimize
     runs-on: ubuntu-latest
     needs: quality
     outputs:
@@ -162,7 +162,7 @@ jobs:
 
   # Deploy Job with enhanced security
   deploy:
-    name: 🚀 Secure Deploy
+    name: Secure Deploy
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -180,7 +180,7 @@ jobs:
 
   # Advanced Performance & Security Monitoring
   monitor:
-    name: 📊 Performance & Security Monitor
+    name: Performance and Security Monitor
     runs-on: ubuntu-latest
     needs: deploy
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -209,7 +209,7 @@ jobs:
 
       - name: Generate performance report
         run: |
-          echo "## 📊 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "- **Deploy Time**: $(date)" >> $GITHUB_STEP_SUMMARY
           echo "- **Build Size**: $(du -sh build 2>/dev/null || echo 'N/A')" >> $GITHUB_STEP_SUMMARY
           echo "- **Site URL**: https://umairleo1.github.io/portfolio" >> $GITHUB_STEP_SUMMARY
