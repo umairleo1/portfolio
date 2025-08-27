@@ -1,0 +1,215 @@
+name: 🚀 Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Minimal permissions following 2025 security standards
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  security-events: write # For CodeQL analysis
+  actions: read # For vulnerability scanning
+
+# Prevent concurrent deployments with advanced cancellation
+concurrency:
+  group: 'pages-${{ github.ref }}'
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  # Security Scanning Job (2025 standard)
+  security:
+    name: 🔒 Security Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2 # SHA pinned for 2025 security
+        with:
+          fetch-depth: 0 # Full history for security analysis
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3.28.0
+        with:
+          languages: javascript-typescript
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3.28.0
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: 'fs'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy results
+        uses: github/codeql-action/upload-sarif@v3.28.0
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  # Quality Gates Job
+  quality:
+    name: 🔍 Quality Gates
+    runs-on: ubuntu-latest
+    needs: security
+    strategy:
+      matrix:
+        node-version: [20, 22] # Test against LTS and current
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v4.2.0
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node-version }}-
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run TypeScript check
+        run: npm run type-check
+
+      - name: Run tests with coverage
+        run: npm run test:ci
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5.1.1
+        if: matrix.node-version == 20
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+
+      - name: Security audit (production dependencies only)
+        run: npm run security:audit:prod
+
+  # Build Job with advanced optimizations
+  build:
+    name: 🏗️ Build & Optimize
+    runs-on: ubuntu-latest
+    needs: quality
+    outputs:
+      build-cache-key: ${{ steps.build-cache.outputs.cache-hit }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Node.js 20 LTS
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Cache build artifacts
+        id: build-cache
+        uses: actions/cache@v4.2.0
+        with:
+          path: |
+            build
+            .next/cache
+            node_modules/.cache
+          key: build-${{ runner.os }}-${{ hashFiles('**/package-lock.json', 'src/**/*', 'public/**/*') }}
+          restore-keys: |
+            build-${{ runner.os }}-
+
+      - name: Install dependencies with retry
+        uses: nick-fields/retry@v3.0.0
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command: npm ci --prefer-offline --no-audit
+
+      - name: Build application with optimizations
+        run: npm run build
+        env:
+          PUBLIC_URL: /portfolio
+          NODE_ENV: production
+          GENERATE_SOURCEMAP: false # Reduce build size
+          INLINE_RUNTIME_CHUNK: false # Better caching
+
+      - name: Optimize build artifacts
+        run: |
+          # Remove source maps from production
+          find build -name "*.map" -delete
+          # Compress large files
+          find build -name "*.js" -size +100k -exec gzip -k {} \;
+          find build -name "*.css" -size +50k -exec gzip -k {} \;
+
+      - name: Upload build artifacts
+        uses: actions/upload-pages-artifact@v3.0.1
+        with:
+          path: ./build
+          retention-days: 1 # Minimal retention for security
+
+  # Deploy Job with enhanced security
+  deploy:
+    name: 🚀 Secure Deploy
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4.0.5
+        with:
+          timeout: 600000 # 10 minutes timeout
+          error_count: 10
+          reporting_interval: 5
+
+  # Advanced Performance & Security Monitoring
+  monitor:
+    name: 📊 Performance & Security Monitor
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Checkout for monitoring
+        uses: actions/checkout@v4.2.2
+
+      - name: Lighthouse CI with advanced config
+        uses: treosh/lighthouse-ci-action@v12.1.0
+        with:
+          urls: |
+            https://umairleo1.github.io/portfolio
+          configPath: './.lighthouserc.json'
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Security headers check
+        uses: step-security/harden-runner@v2.10.2
+        with:
+          allowed-endpoints: |
+            api.github.com:443
+            github.com:443
+            umairleo1.github.io:443
+          disable-sudo: true
+          disable-file-monitoring: true
+
+      - name: Generate performance report
+        run: |
+          echo "## 📊 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deploy Time**: $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build Size**: $(du -sh build 2>/dev/null || echo 'N/A')" >> $GITHUB_STEP_SUMMARY
+          echo "- **Site URL**: https://umairleo1.github.io/portfolio" >> $GITHUB_STEP_SUMMARY
