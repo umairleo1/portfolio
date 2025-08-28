@@ -157,22 +157,25 @@ REACT_APP_GITHUB_TOKEN="ghp_xxxxxxxxxxxxxxxxxxxx"
 
 3. **Features Included**
    - **GDPR/CCPA Compliant** - Privacy-first configuration
-   - **Enhanced Events** - Portfolio-specific tracking
-   - **Web Vitals** - Performance monitoring
+   - **Section Tracking** - Automatic section view analytics with Intersection Observer
+   - **Contact Form Funnel** - Complete form interaction tracking
+   - **Project Engagement** - Project card interactions and demo clicks
+   - **Social Link Tracking** - Footer and header external link analytics
+   - **User Engagement** - Scroll depth, time on page, click tracking
+   - **Web Vitals** - Performance monitoring integration
    - **Error Tracking** - Application error monitoring
-   - **User Engagement** - Scroll depth, time tracking
 
 ### Analytics Events
 
 The portfolio automatically tracks:
 
-- **Page Views** - Enhanced with performance metrics
-- **Section Views** - Which portfolio sections users engage with
-- **Project Interactions** - Demo/code clicks with metadata
-- **Contact Form** - Complete form analytics funnel
-- **External Links** - Social media and external clicks
-- **Downloads** - Resume/CV download tracking
-- **Performance** - Web Vitals and user engagement metrics
+- **Page Views** - Enhanced with performance metrics and user agent data
+- **Section Engagement** - Skills, Projects, Education, Experience, Contact sections
+- **Project Interactions** - Hover views, demo clicks, filter usage with technology metadata
+- **Contact Form Funnel** - Start, submit, success/error events with completion times
+- **External Links** - Footer social links (LinkedIn, GitHub, Twitter) and header resume clicks
+- **User Engagement** - Scroll depth milestones (25%, 50%, 75%, 90%, 100%) and time intervals
+- **Performance Metrics** - Web Vitals monitoring (LCP, FID, CLS) for optimization
 
 For detailed analytics documentation, see [`docs/ANALYTICS.md`](docs/ANALYTICS.md)
 
@@ -203,11 +206,16 @@ Update your personal details in the environment variables:
    - `src/data/professional/experience.ts` - Work experience
    - `src/data/projects/projects.ts` - Portfolio projects
 
-3. **Company Logos** - Add your company assets to:
+3. **Contact Methods** - The portfolio uses a clean contact approach:
+   - **Dedicated Contact Section** - Professional contact form with analytics
+   - **Footer Social Links** - LinkedIn, GitHub, Twitter (email removed for cleaner design)
+   - **Header Resume Link** - Direct access to CV/resume
+
+4. **Company Logos** - Add your company assets to:
    - `public/assets/images/work/` - Company logos
    - Update `src/data/companies/companies.ts`
 
-4. **Profile Images** - Replace default images:
+5. **Profile Images** - Replace default images:
    - `public/assets/images/profile-main.jpg` - Main profile photo
    - `public/assets/images/profile-fallback.jpg` - Fallback image
 

@@ -195,6 +195,49 @@ Analytics is automatically disabled in test environments.
 
 Use GA4 DebugView in Google Analytics to validate events in real-time.
 
+## Analytics Events Implemented
+
+### Comprehensive Tracking Coverage
+
+The portfolio includes professional analytics tracking across all user interactions:
+
+**1. Section Engagement**
+
+- Automatic section view tracking using Intersection Observer
+- Tracks: Skills, Projects, Education, Experience, Contact sections
+- Measures: Time spent, scroll depth, entry/exit patterns
+
+**2. Contact Form Analytics**
+
+- Complete form funnel tracking: start → submit → success/error
+- Measures: Completion time, field-specific errors, abandonment
+- Contact method clicks: email and phone links with context
+
+**3. Project Interactions**
+
+- Project card hover tracking (view events)
+- Demo link clicks with technology metadata
+- Filter usage tracking
+- External link tracking with context
+
+**4. Social & External Links**
+
+- Footer social links: LinkedIn, GitHub, Twitter
+- Header resume link tracking
+- All external links tracked with context and position
+
+**5. User Engagement Metrics**
+
+- Scroll depth milestones: 25%, 50%, 75%, 90%, 100%
+- Time on page intervals: 30s, 1m, 3m, 5m
+- Performance Web Vitals integration
+
+**6. Navigation & Performance**
+
+- Page view tracking with enhanced metadata
+- Web Vitals monitoring (LCP, FID, CLS, etc.)
+- Error tracking for debugging
+
 ## Best Practices
 
 1. **Always use environment variables** for tracking IDs
@@ -203,6 +246,46 @@ Use GA4 DebugView in Google Analytics to validate events in real-time.
 4. **Monitor performance impact** with Web Vitals
 5. **Use meaningful event names** and categories
 6. **Implement error boundaries** for graceful failures
+7. **Review analytics data regularly** to optimize user experience
+
+## Developer Implementation Details
+
+### Analytics Hooks Architecture
+
+The portfolio uses a custom hook system for performance-optimized analytics:
+
+**`useAnalytics()`** - Main analytics hook providing:
+
+- `trackSectionView()` - Section engagement tracking
+- `trackContactForm()` - Form interaction funnel
+- `trackProjectInteraction()` - Project engagement events
+- `trackExternalLink()` - External link tracking
+- `trackEngagement()` - User engagement metrics
+
+**`useSectionTracking(sectionName)`** - Intersection Observer-based section tracking:
+
+- Automatic view detection when 30% of section is visible
+- Time-on-section measurement with 1-second minimum
+- Scroll depth calculation at entry/exit points
+
+**`useScrollDepthTracking()`** - Global scroll tracking:
+
+- Milestone-based tracking: 25%, 50%, 75%, 90%, 100%
+- RequestAnimationFrame optimization for smooth performance
+- Automatic cleanup and memory management
+
+**`useTimeTracking()`** - Time-based engagement:
+
+- Interval tracking: 30s, 1m, 3m, 5m
+- Non-blocking background measurement
+- Session-based tracking with cleanup
+
+### Performance Considerations
+
+- **Zero Impact**: All tracking is asynchronous and non-blocking
+- **Memory Efficient**: Proper cleanup of observers and timers
+- **Debounced**: Events are throttled to prevent excessive API calls
+- **Optimized**: Uses native browser APIs (Intersection Observer, RequestAnimationFrame)
 
 ## Troubleshooting
 
