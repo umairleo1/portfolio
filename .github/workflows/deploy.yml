@@ -141,10 +141,35 @@ jobs:
       - name: Build application with optimizations
         run: npm run build
         env:
+          # Build Configuration
           PUBLIC_URL: /portfolio
           NODE_ENV: production
           GENERATE_SOURCEMAP: false # Reduce build size
           INLINE_RUNTIME_CHUNK: false # Better caching
+
+          # Personal Information (from GitHub Secrets)
+          REACT_APP_FULL_NAME: ${{ secrets.REACT_APP_FULL_NAME }}
+          REACT_APP_PROFESSIONAL_TITLE: ${{ secrets.REACT_APP_PROFESSIONAL_TITLE }}
+          REACT_APP_EMAIL: ${{ secrets.REACT_APP_EMAIL }}
+          REACT_APP_PHONE: ${{ secrets.REACT_APP_PHONE }}
+
+          # Social & Professional Links
+          REACT_APP_GITHUB_USERNAME: ${{ secrets.REACT_APP_GITHUB_USERNAME }}
+          REACT_APP_GITHUB_URL: ${{ secrets.REACT_APP_GITHUB_URL }}
+          REACT_APP_LINKEDIN_URL: ${{ secrets.REACT_APP_LINKEDIN_URL }}
+          REACT_APP_TWITTER_URL: ${{ secrets.REACT_APP_TWITTER_URL }}
+
+          # Resume & Portfolio
+          REACT_APP_RESUME_URL: ${{ secrets.REACT_APP_RESUME_URL }}
+          REACT_APP_RESUME_DOWNLOAD_URL: ${{ secrets.REACT_APP_RESUME_DOWNLOAD_URL }}
+
+          # Analytics (Optional)
+          REACT_APP_GOOGLE_ANALYTICS_ID: ${{ secrets.REACT_APP_GOOGLE_ANALYTICS_ID }}
+
+          # App Metadata
+          REACT_APP_APP_NAME: 'Muhammad Umair - Software Engineer Portfolio'
+          REACT_APP_APP_VERSION: '1.0.0'
+          REACT_APP_APP_ENVIRONMENT: 'production'
 
       - name: Optimize build artifacts
         run: |
