@@ -1,16 +1,15 @@
 import type { AppConfig } from '../types';
-import { env } from '@/config/env';
 import { personalInfo } from '../personal/info';
 
 /**
  * Application configuration including navigation, social links, and SEO
  * Used throughout the application for consistent configuration
- * Values are sourced from environment variables for security and flexibility
+ * Public configuration that's used across the portfolio website
  */
 export const appConfig: AppConfig = {
   resume: {
-    url: env.RESUME_URL,
-    downloadUrl: env.RESUME_DOWNLOAD_URL,
+    url: 'https://www.overleaf.com/read/cvskqhhwffsm#9221f8',
+    downloadUrl: '/resume.pdf',
   },
   navigation: {
     items: [
@@ -22,26 +21,24 @@ export const appConfig: AppConfig = {
     ],
   },
   social: {
-    github: env.GITHUB_URL,
-    linkedin: env.LINKEDIN_URL,
-    twitter: env.TWITTER_URL,
-    email: env.EMAIL,
-    ...(env.STACKOVERFLOW_URL && { stackoverflow: env.STACKOVERFLOW_URL }),
-    ...(env.MEDIUM_URL && { medium: env.MEDIUM_URL }),
-    ...(env.DEV_TO_URL && { devTo: env.DEV_TO_URL }),
+    github: personalInfo.github,
+    linkedin: personalInfo.linkedin,
+    twitter: personalInfo.twitter,
+    email: personalInfo.email,
   },
   seo: {
     title: `${personalInfo.name} - ${personalInfo.title}`,
-    description: env.SEO_DESCRIPTION || personalInfo.objective,
-    keywords: env.SEO_KEYWORDS
-      ? env.SEO_KEYWORDS.split(',').map((k) => k.trim())
-      : [
-          'Software Engineer',
-          'React Developer',
-          'Python Developer',
-          'AWS',
-          'TypeScript',
-          'Full Stack Developer',
-        ],
+    description:
+      'Experienced Software Engineer based in London, UK. Passionate about building scalable, high-performance applications and turning innovative ideas into robust software solutions.',
+    keywords: [
+      'Software Engineer',
+      'React Developer',
+      'Python Developer',
+      'AWS',
+      'TypeScript',
+      'Full Stack Developer',
+      'London',
+      'UK',
+    ],
   },
 };

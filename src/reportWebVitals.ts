@@ -26,39 +26,13 @@ const reportWebVitals = (onPerfEntry?: ReportCallback) => {
       return 'poor';
     };
 
-    // Send to Google Analytics if enabled
-    if (env.ENABLE_PERFORMANCE_MONITORING) {
+    // Send to Google Analytics (always enabled if GA is configured)
+    if (env.GOOGLE_ANALYTICS_ID) {
       trackWebVitals(
         metric.name as 'FCP' | 'LCP' | 'FID' | 'CLS' | 'TTFB',
         metric.value,
         getRating(metric.name, metric.value)
       );
-    }
-
-    // Send to external endpoint if configured
-    if (env.WEB_VITALS_ENDPOINT) {
-      fetch(env.WEB_VITALS_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: metric.name,
-          value: metric.value,
-          rating: getRating(metric.name, metric.value),
-          delta: metric.delta,
-          id: metric.id,
-          url: window.location.href,
-          timestamp: Date.now(),
-          user_agent: navigator.userAgent,
-          connection:
-            (navigator as any)?.connection?.effectiveType || 'unknown',
-        }),
-      }).catch((error) => {
-        if (env.ENABLE_ANALYTICS_DEBUG) {
-          console.error('Failed to send Web Vitals to endpoint:', error);
-        }
-      });
     }
 
     // Call custom callback if provided

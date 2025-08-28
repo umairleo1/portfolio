@@ -1,4 +1,4 @@
-import { env } from '@/config/env';
+import { personalInfo } from '@/data/personal/info';
 
 // Asset paths constants using React's built-in PUBLIC_URL handling
 const getAssetPath = (path: string) => {
@@ -24,13 +24,10 @@ export const NAVIGATION_PATHS = {
   CONTACT: '#contact',
 } as const;
 
-// External URLs - sourced from environment variables
+// External URLs - sourced from personal info data
 export const EXTERNAL_URLS = {
-  GITHUB: env.GITHUB_URL,
-  LINKEDIN: env.LINKEDIN_URL,
-  EMAIL: `mailto:${env.EMAIL}`,
-  TWITTER: env.TWITTER_URL,
-  ...(env.STACKOVERFLOW_URL && { STACKOVERFLOW: env.STACKOVERFLOW_URL }),
-  ...(env.MEDIUM_URL && { MEDIUM: env.MEDIUM_URL }),
-  ...(env.DEV_TO_URL && { DEV_TO: env.DEV_TO_URL }),
+  GITHUB: personalInfo.github,
+  LINKEDIN: personalInfo.linkedin,
+  EMAIL: `mailto:${personalInfo.email}`,
+  TWITTER: personalInfo.twitter,
 } as const;
