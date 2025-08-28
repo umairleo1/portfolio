@@ -117,7 +117,7 @@ export const validateEnv = (): void => {
     } else {
       // eslint-disable-next-line no-console
       console.warn(
-        `⚠️ Missing environment variables (using fallbacks): ${missingVars.join(', ')}`
+        `Missing environment variables (using fallbacks): ${missingVars.join(', ')}`
       );
     }
   }

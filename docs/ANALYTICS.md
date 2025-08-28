@@ -13,7 +13,7 @@ This portfolio implements enterprise-grade Google Analytics 4 (GA4) tracking wit
 - **IP Anonymization**: User privacy protection
 - **Cookie Security**: Secure, SameSite strict cookies
 
-### 📊 Advanced Tracking
+### Advanced Tracking
 
 - **Page Views**: Enhanced with performance metrics
 - **User Interactions**: Click, scroll, and engagement tracking
@@ -22,7 +22,7 @@ This portfolio implements enterprise-grade Google Analytics 4 (GA4) tracking wit
 - **Performance Metrics**: Web Vitals integration
 - **Error Tracking**: Application error monitoring
 
-### ⚡ Performance
+### Performance
 
 - **Async Loading**: Non-blocking script loading
 - **Error Handling**: Graceful fallbacks
@@ -182,11 +182,11 @@ REACT_APP_ENABLE_ANALYTICS_DEBUG=true
 
 Console output includes:
 
-- 🔒 Consent settings
-- ✅ Initialization success
-- 📊 Page view tracking
-- 📈 Event tracking
-- 🚀 Web Vitals monitoring
+- Consent settings
+- Initialization success
+- Page view tracking
+- Event tracking
+- Web Vitals monitoring
 
 ### Testing
 

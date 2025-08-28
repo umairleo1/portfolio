@@ -35,6 +35,8 @@ A modern, responsive portfolio website showcasing professional software engineer
 - **Performance Optimized** - Code splitting, lazy loading, and optimized bundle size
 - **Error Boundaries** - Graceful error handling and recovery
 - **SEO Optimized** - Semantic HTML, proper meta tags, and structured data
+- **Enterprise Analytics** - GDPR-compliant Google Analytics 4 with Web Vitals
+- **Environment-Based Config** - Secure configuration management with validation
 
 ### User Experience
 
@@ -43,6 +45,220 @@ A modern, responsive portfolio website showcasing professional software engineer
 - **Professional Sections** - Hero, Expertise, Work, Experience, Education, and Contact
 - **Accessibility** - WCAG compliant with keyboard navigation support
 - **Contact Form** - Functional form with validation and user feedback
+
+## Quick Start
+
+### Prerequisites
+
+- **Node.js** 20.9.0 or higher
+- **npm** 10.0.0 or higher
+- **Git** for version control
+
+### Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/umairleo1/portfolio.git
+   cd portfolio
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm ci
+   ```
+
+3. **Set up environment variables**
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Edit `.env` with your configuration (see [Environment Setup](#environment-setup))
+
+4. **Start development server**
+
+   ```bash
+   npm start
+   ```
+
+5. **Open in browser**
+   ```
+   http://localhost:3000
+   ```
+
+### Available Scripts
+
+```bash
+# Development
+npm start                    # Start development server
+npm run dev                  # Start dev server + test watcher
+npm run start:all           # Start all development services
+
+# Building
+npm run build               # Create production build
+npm run build:analyze       # Build with bundle analysis
+
+# Testing & Quality
+npm test                    # Run tests interactively
+npm run test:ci             # Run tests with coverage
+npm run lint                # Check code quality
+npm run lint:fix            # Fix linting issues
+npm run type-check          # TypeScript compilation check
+npm run validate            # Run all quality checks
+
+# Utilities
+npm run format              # Format code with Prettier
+npm run clean               # Clean build artifacts
+npm run analyze             # Analyze bundle size
+```
+
+## Environment Setup
+
+### Required Variables
+
+Create a `.env` file in the root directory:
+
+```bash
+# ------ PERSONAL INFORMATION ------
+REACT_APP_FULL_NAME="Your Full Name"
+REACT_APP_PROFESSIONAL_TITLE="Your Job Title"
+REACT_APP_EMAIL="your.email@example.com"
+REACT_APP_PHONE="+1234567890"
+
+# ------ SOCIAL & PROFESSIONAL LINKS ------
+REACT_APP_GITHUB_USERNAME="yourusername"
+REACT_APP_GITHUB_URL="https://github.com/yourusername"
+REACT_APP_LINKEDIN_URL="https://linkedin.com/in/yourprofile"
+REACT_APP_TWITTER_URL="https://twitter.com/yourusername"
+
+# ------ GOOGLE ANALYTICS (Optional) ------
+REACT_APP_GOOGLE_ANALYTICS_ID="G-XXXXXXXXXX"
+REACT_APP_ENABLE_ANALYTICS_DEBUG=true
+
+# ------ RESUME & PORTFOLIO ------
+REACT_APP_RESUME_URL="https://your-resume-link.com"
+REACT_APP_RESUME_DOWNLOAD_URL="/resume.pdf"
+```
+
+### Optional Variables
+
+```bash
+# Contact Form (EmailJS)
+REACT_APP_EMAILJS_SERVICE_ID="service_xxxxxx"
+REACT_APP_EMAILJS_TEMPLATE_ID="template_xxxxxx"
+REACT_APP_EMAILJS_PUBLIC_KEY="your_public_key"
+
+# Additional Analytics
+REACT_APP_GTM_ID="GTM-XXXXXXX"
+REACT_APP_CLARITY_ID="xxxxxxxxxx"
+
+# Performance Monitoring
+REACT_APP_ENABLE_PERFORMANCE_MONITORING=true
+REACT_APP_WEB_VITALS_ENDPOINT="https://your-vitals-endpoint.com"
+
+# Feature Flags
+REACT_APP_ENABLE_CONTACT_FORM=true
+REACT_APP_ENABLE_RESUME_DOWNLOAD=true
+REACT_APP_ENABLE_ANIMATIONS=true
+```
+
+### Environment Files
+
+- **`.env`** - Your personal configuration (ignored by git)
+- **`.env.example`** - Template with all available variables
+- **`.env.local`** - Local development overrides (ignored by git)
+
+## Google Analytics Integration
+
+### Setup Instructions
+
+1. **Create GA4 Property**
+   - Go to [Google Analytics](https://analytics.google.com/)
+   - Create new GA4 property
+   - Copy your Measurement ID (`G-XXXXXXXXXX`)
+
+2. **Configure Environment**
+
+   ```bash
+   REACT_APP_GOOGLE_ANALYTICS_ID="G-XXXXXXXXXX"
+   REACT_APP_ENABLE_ANALYTICS_DEBUG=true  # Development only
+   ```
+
+3. **Features Included**
+   - **GDPR/CCPA Compliant** - Privacy-first configuration
+   - **Enhanced Events** - Portfolio-specific tracking
+   - **Web Vitals** - Performance monitoring
+   - **Error Tracking** - Application error monitoring
+   - **User Engagement** - Scroll depth, time tracking
+
+### Analytics Events
+
+The portfolio automatically tracks:
+
+- **Page Views** - Enhanced with performance metrics
+- **Section Views** - Which portfolio sections users engage with
+- **Project Interactions** - Demo/code clicks with metadata
+- **Contact Form** - Complete form analytics funnel
+- **External Links** - Social media and external clicks
+- **Downloads** - Resume/CV download tracking
+- **Performance** - Web Vitals and user engagement metrics
+
+For detailed analytics documentation, see [`docs/ANALYTICS.md`](docs/ANALYTICS.md)
+
+## Customization Guide
+
+### Personal Information
+
+Update your personal details in the environment variables:
+
+```bash
+# .env file
+REACT_APP_FULL_NAME="Your Full Name"
+REACT_APP_PROFESSIONAL_TITLE="Your Job Title"
+REACT_APP_EMAIL="your.email@example.com"
+REACT_APP_PHONE="+1234567890"
+```
+
+### Portfolio Content
+
+1. **Professional Data** - Update files in `src/data/`:
+   - `src/data/personal/info.ts` - Personal information
+   - `src/data/professional/skills.ts` - Technical skills
+   - `src/data/professional/experience.ts` - Work experience
+   - `src/data/projects/projects.ts` - Portfolio projects
+
+2. **Company Logos** - Add your company assets to:
+   - `public/assets/images/work/` - Company logos
+   - Update `src/data/companies/companies.ts`
+
+3. **Profile Images** - Replace default images:
+   - `public/assets/images/profile-main.jpg` - Main profile photo
+   - `public/assets/images/profile-fallback.jpg` - Fallback image
+
+### Styling & Theming
+
+The portfolio uses a centralized theme system:
+
+- **Colors & Variables** - `src/styles/base/globals.css`
+- **Component Styles** - Individual CSS modules per component
+- **Animations** - `src/config/animations.ts`
+
+### Analytics Customization
+
+Configure tracking for your specific needs:
+
+```typescript
+// Example: Custom event tracking
+import { trackEvent } from '@/utils/analytics';
+
+trackEvent('custom_interaction', {
+  event_category: 'engagement',
+  event_label: 'feature_usage',
+  value: 1,
+});
+```
 
 ## Architecture
 
@@ -198,12 +414,15 @@ portfolio/
 │   ├── utils/                 # Utility functions
 │   │   ├── IconWrapper.tsx    # React Icons wrapper
 │   │   ├── animations.ts      # Animation utilities
+│   │   ├── analytics.ts       # Google Analytics integration
 │   │   └── index.ts           # Utility exports
 │   ├── config/                # Configuration files
 │   │   ├── animations.ts      # Animation configurations
-│   │   ├── env.ts             # Environment variables
+│   │   ├── env.ts             # Environment variables with validation
 │   │   └── index.ts           # Config exports
 │   └── App.tsx                # Main application component
+├── docs/                      # Documentation
+│   └── ANALYTICS.md           # Google Analytics integration guide
 ├── scripts/                   # Development automation
 ├── .gitignore                 # Git ignore patterns
 ├── .prettierrc                # Prettier configuration
@@ -580,20 +799,18 @@ git push origin main
 3. **Enable in GitHub:**
    - Repository Settings → Pages → Custom domain
 
-### Environment Variables
+### Additional Environment Variables
 
-For sensitive configuration, create `.env.local`:
+The portfolio supports extensive customization through environment variables. Key categories include:
 
-```bash
-# Analytics and tracking
-REACT_APP_ANALYTICS_ID=your-analytics-id
+- **Personal Information** - Name, contact details, social links
+- **Analytics & Tracking** - Google Analytics, GTM, Microsoft Clarity
+- **Contact Form** - EmailJS or Formspree integration
+- **Performance** - Web Vitals monitoring and endpoints
+- **Feature Flags** - Enable/disable specific functionality
+- **Development** - Debug modes and development tools
 
-# Contact form integration
-REACT_APP_CONTACT_API=your-contact-api-endpoint
-
-# Feature flags
-REACT_APP_ENABLE_ANALYTICS=true
-```
+See [Environment Setup](#environment-setup) for complete configuration options.
 
 ## Performance
 

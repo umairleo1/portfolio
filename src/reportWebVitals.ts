@@ -78,7 +78,7 @@ const reportWebVitals = (onPerfEntry?: ReportCallback) => {
         onTTFB(analyticsCallback);
 
         if (env.ENABLE_ANALYTICS_DEBUG) {
-          console.log('🚀 Web Vitals monitoring initialized');
+          console.log('Web Vitals monitoring initialized');
         }
       })
       .catch((error) => {

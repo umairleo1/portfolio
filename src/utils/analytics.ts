@@ -82,7 +82,7 @@ export const initGA = (): Promise<void> => {
       // Validation checks
       if (!env.GOOGLE_ANALYTICS_ID) {
         if (env.isDevelopment()) {
-          console.warn('⚠️ Google Analytics ID not configured');
+          console.warn('Google Analytics ID not configured');
           return resolve();
         }
         throw new Error(
@@ -91,7 +91,7 @@ export const initGA = (): Promise<void> => {
       }
 
       if (env.isTest()) {
-        console.log('🧪 Analytics disabled in test environment');
+        console.log('Analytics disabled in test environment');
         return resolve();
       }
 
@@ -147,14 +147,14 @@ export const initGA = (): Promise<void> => {
         });
 
         if (env.ENABLE_ANALYTICS_DEBUG) {
-          console.log('✅ Google Analytics initialized successfully');
+          console.log('Google Analytics initialized successfully');
         }
 
         resolve();
       };
 
       script.onerror = (error) => {
-        console.error('❌ Failed to load Google Analytics:', error);
+        console.error('Failed to load Google Analytics:', error);
         reject(new Error('GA_SCRIPT_LOAD_FAILED'));
       };
 
@@ -168,7 +168,7 @@ export const initGA = (): Promise<void> => {
         }
       }, 10000);
     } catch (error) {
-      console.error('❌ Google Analytics initialization failed:', error);
+      console.error('Google Analytics initialization failed:', error);
       reject(error);
     }
   });
@@ -209,10 +209,10 @@ export const trackPageView = (
     });
 
     if (env.ENABLE_ANALYTICS_DEBUG) {
-      console.log('📊 Page view tracked:', { pagePath, pageTitle });
+      console.log('Page view tracked:', { pagePath, pageTitle });
     }
   } catch (error) {
-    console.error('❌ Page view tracking failed:', error);
+    console.error('Page view tracking failed:', error);
   }
 };
 
@@ -257,10 +257,10 @@ export const trackEvent = (
     }
 
     if (env.ENABLE_ANALYTICS_DEBUG) {
-      console.log('📈 Event tracked:', eventName, sanitizedParams);
+      console.log('Event tracked:', eventName, sanitizedParams);
     }
   } catch (error) {
-    console.error('❌ Event tracking failed:', error);
+    console.error('Event tracking failed:', error);
     // Ensure callback still executes on error
     if (options.hitCallback) {
       setTimeout(options.hitCallback, 100);

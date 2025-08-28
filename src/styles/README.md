@@ -199,7 +199,7 @@ export default MyComponent;
 ### Anti-patterns to Avoid
 
 ```css
-/* ❌ Don't hardcode values */
+/* Don't hardcode values */
 .bad-component {
   background: #1a1a1a;
   border: 1px solid rgba(102, 217, 237, 0.1);
@@ -207,7 +207,7 @@ export default MyComponent;
   transition: all 0.3s ease;
 }
 
-/* ✅ Use design tokens instead */
+/* Use design tokens instead */
 .good-component {
   background: var(--dark-surface);
   border: 1px solid var(--border-subtle);
