@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
         with:
           fetch-depth: 0 # Full history for security analysis
 
@@ -62,7 +62,7 @@ jobs:
         node-version: [20, 22] # Test against LTS and current
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4.1.0
@@ -110,7 +110,7 @@ jobs:
       build-cache-key: ${{ steps.build-cache.outputs.cache-hit }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Setup Node.js 20 LTS
         uses: actions/setup-node@v4.1.0
@@ -194,7 +194,7 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
       - name: Checkout for monitoring
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Lighthouse CI with advanced config
         uses: treosh/lighthouse-ci-action@v12
