@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { personalInfo } from '@/data';
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi';
 import { renderIcon } from '@/utils/IconWrapper';
+import { useAnalytics, useSectionTracking } from '@/hooks/useAnalytics';
 import styles from './Contact.module.css';
 
 const Contact: React.FC = () => {
@@ -12,11 +13,25 @@ const Contact: React.FC = () => {
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStartTime, setFormStartTime] = useState<number>(0);
 
+  // Analytics hooks
+  const { trackContactForm, trackExternalLink } = useAnalytics();
+  const sectionRef = useSectionTracking('contact');
+
+  // Track form start on first input
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+
+    // Track form start on first input
+    if (formStartTime === 0 && value.length === 1) {
+      const startTime = Date.now();
+      setFormStartTime(startTime);
+      trackContactForm('start', { formType: 'contact' });
+    }
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -27,12 +42,47 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Calculate completion time
+    const completionTime = formStartTime > 0 ? Date.now() - formStartTime : 0;
 
-    // Form submitted - handle form data here
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setIsSubmitting(false);
+    // Track form submission
+    trackContactForm('submit', {
+      formType: 'contact',
+      completionTime,
+    });
+
+    try {
+      // Simulate form submission
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Track successful submission
+      trackContactForm('success', {
+        formType: 'contact',
+        completionTime,
+      });
+
+      // Form submitted - handle form data here
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormStartTime(0);
+    } catch (error) {
+      // Track form error
+      trackContactForm('error', {
+        formType: 'contact',
+        completionTime,
+        errorField: 'submission',
+      });
+
+      // Log error for debugging
+      // eslint-disable-next-line no-console
+      console.error('Form submission error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Handle external link clicks with analytics
+  const handleContactClick = (href: string, type: string) => {
+    trackExternalLink(href, type, 'contact_section', 'contact_details');
   };
 
   const contactDetails = [
@@ -41,23 +91,27 @@ const Contact: React.FC = () => {
       label: 'email',
       value: personalInfo.email,
       href: `mailto:${personalInfo.email}`,
+      onClick: () =>
+        handleContactClick(`mailto:${personalInfo.email}`, 'email'),
     },
     {
       icon: renderIcon(HiPhone),
       label: 'phone',
       value: personalInfo.phone,
       href: `tel:${personalInfo.phone}`,
+      onClick: () => handleContactClick(`tel:${personalInfo.phone}`, 'phone'),
     },
     {
       icon: renderIcon(HiLocationMarker),
       label: 'location',
       value: personalInfo.location,
       href: null,
+      onClick: null,
     },
   ];
 
   return (
-    <section id='contact' className={styles.contact}>
+    <section ref={sectionRef} id='contact' className={styles.contact}>
       <div className='container'>
         <div className={styles.contactHeader} data-aos='fade-up'>
           <h2 className={styles.contactTitle}>contact</h2>
@@ -95,7 +149,12 @@ const Contact: React.FC = () => {
                     </div>
                     <div className={styles.contactDetailValue}>
                       {detail.href ? (
-                        <a href={detail.href}>{detail.value}</a>
+                        <a
+                          href={detail.href}
+                          onClick={detail.onClick || undefined}
+                        >
+                          {detail.value}
+                        </a>
                       ) : (
                         detail.value
                       )}

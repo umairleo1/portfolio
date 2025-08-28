@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useSectionTracking } from '@/hooks/useAnalytics';
 import { experience, companies } from '@/data';
 import { HiLocationMarker, HiExternalLink } from 'react-icons/hi';
 import { renderIcon } from '@/utils/IconWrapper';
 import styles from './Experience.module.css';
 
 const Experience: React.FC = () => {
+  const sectionRef = useSectionTracking('experience');
   const [expandedItems, setExpandedItems] = useState<number[]>([0]);
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -47,7 +49,7 @@ const Experience: React.FC = () => {
   };
 
   return (
-    <section id='experience' className={styles.experience}>
+    <section ref={sectionRef} id='experience' className={styles.experience}>
       <div className='container'>
         <motion.div
           ref={ref}

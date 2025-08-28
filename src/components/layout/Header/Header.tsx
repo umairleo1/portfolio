@@ -3,6 +3,7 @@ import type { NavItem } from '@/types';
 import { NAVIGATION_PATHS } from '@/lib/constants';
 import { appConfig } from '@/data';
 import { useThrottle } from '@/hooks';
+import { useAnalytics } from '@/hooks/useAnalytics';
 import styles from './Header.module.css';
 
 const navItems: NavItem[] = appConfig.navigation.items.map((item) => ({
@@ -20,6 +21,7 @@ const Header: React.FC = memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
+  const { trackExternalLink } = useAnalytics();
 
   const handleScroll = useThrottle(() => {
     // Handle scroll background blur effect
@@ -71,6 +73,11 @@ const Header: React.FC = memo(() => {
     }
   };
 
+  // Handle resume link click with analytics
+  const handleResumeClick = () => {
+    trackExternalLink(appConfig.resume.url, 'Resume', 'header', 'resume_link');
+  };
+
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className='container'>
@@ -81,6 +88,7 @@ const Header: React.FC = memo(() => {
               target='_blank'
               rel='noopener noreferrer'
               className={styles.resumeLink}
+              onClick={handleResumeClick}
             >
               Resume
             </a>

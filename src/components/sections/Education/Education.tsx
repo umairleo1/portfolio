@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useSectionTracking } from '@/hooks/useAnalytics';
 import { education, certifications } from '@/data';
 import {
   HiAcademicCap,
@@ -12,6 +13,7 @@ import { renderIcon } from '@/utils/IconWrapper';
 import styles from './Education.module.css';
 
 const Education: React.FC = () => {
+  const sectionRef = useSectionTracking('education');
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -33,7 +35,11 @@ const Education: React.FC = () => {
   };
 
   return (
-    <section id='education' className={`${styles.education} section`}>
+    <section
+      ref={sectionRef}
+      id='education'
+      className={`${styles.education} section`}
+    >
       <div className='container'>
         <motion.div
           ref={ref}

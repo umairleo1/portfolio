@@ -9,10 +9,15 @@ import {
   FaExternalLinkAlt,
 } from 'react-icons/fa';
 import { renderIcon } from '@/utils/IconWrapper';
+import { useAnalytics, useSectionTracking } from '@/hooks/useAnalytics';
 import styles from './Work.module.css';
 
 const Work: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState('All');
+
+  // Analytics hooks
+  const { trackProjectInteraction, trackExternalLink } = useAnalytics();
+  const sectionRef = useSectionTracking('projects');
 
   const filters = ['All', 'Web App', 'Mobile', 'API', 'Tool'];
 
@@ -30,8 +35,36 @@ const Work: React.FC = () => {
     return icons[category] || icons.default;
   };
 
+  // Handle project card interactions
+  const handleProjectView = (projectTitle: string, technologies: string[]) => {
+    trackProjectInteraction(projectTitle, 'view', {
+      projectCategory: 'web',
+      technologies,
+    });
+  };
+
+  const handleProjectClick = (
+    projectTitle: string,
+    url: string,
+    technologies: string[]
+  ) => {
+    trackProjectInteraction(projectTitle, 'click_demo', {
+      projectCategory: 'web',
+      technologies,
+      projectUrl: url,
+    });
+    trackExternalLink(url, projectTitle, 'projects_section', 'project_demo');
+  };
+
+  const handleFilterChange = (filter: string) => {
+    setActiveFilter(filter);
+    trackProjectInteraction('filter_change', 'view', {
+      projectCategory: filter.toLowerCase(),
+    });
+  };
+
   return (
-    <section id='projects' className={styles.work}>
+    <section ref={sectionRef} id='projects' className={styles.work}>
       <div className='container'>
         <div className={styles.header} data-aos='fade-up'>
           <h2 className={`${styles.sectionTitle} chunky-underline`}>
@@ -47,7 +80,7 @@ const Work: React.FC = () => {
             <button
               key={filter}
               className={`${styles.filterBtn} ${activeFilter === filter ? styles.filterBtnActive : ''}`}
-              onClick={() => setActiveFilter(filter)}
+              onClick={() => handleFilterChange(filter)}
             >
               {filter.toLowerCase()}
             </button>
@@ -61,6 +94,9 @@ const Work: React.FC = () => {
               className={styles.projectCard}
               data-aos='fade-up'
               data-aos-delay={index * 100}
+              onMouseEnter={() =>
+                handleProjectView(project.title, project.technologies)
+              }
             >
               <div className={styles.projectCardImage}>
                 <div className='project-icon'>{getProjectIcon('Web App')}</div>
@@ -98,6 +134,13 @@ const Work: React.FC = () => {
                         target='_blank'
                         rel='noopener noreferrer'
                         className={styles.projectLink}
+                        onClick={() =>
+                          handleProjectClick(
+                            project.title,
+                            project.link,
+                            project.technologies
+                          )
+                        }
                       >
                         {renderIcon(FaExternalLinkAlt, {
                           className: styles.projectLinkIcon,
