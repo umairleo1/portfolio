@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useSectionTracking } from '@/hooks/useAnalytics';
 import { skills } from '@/data';
 import {
   SiJavascript,
@@ -33,6 +34,9 @@ const Expertise: React.FC = () => {
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  // Analytics section tracking
+  const sectionRef = useSectionTracking('skills');
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -124,7 +128,11 @@ const Expertise: React.FC = () => {
   ];
 
   return (
-    <section id='skills' className={`${styles.expertise} section`}>
+    <section
+      ref={sectionRef}
+      id='skills'
+      className={`${styles.expertise} section`}
+    >
       <div className='container'>
         <motion.div
           ref={ref}

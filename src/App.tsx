@@ -9,6 +9,7 @@ import {
   SectionLoader,
 } from '@/components';
 import { initGA, trackPageView } from '@/utils';
+import { useScrollDepthTracking, useTimeTracking } from '@/hooks/useAnalytics';
 import '@/styles/base/globals.css';
 import '@/styles/base/App.css';
 
@@ -21,6 +22,10 @@ const Contact = lazy(() => import('@/components/sections/Contact'));
 
 function App() {
   const [sectionsReady, setSectionsReady] = useState(false);
+
+  // Global engagement tracking hooks
+  useScrollDepthTracking();
+  useTimeTracking();
 
   // Initialize Google Analytics with proper error handling
   useEffect(() => {
