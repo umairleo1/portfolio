@@ -192,7 +192,7 @@ jobs:
         uses: treosh/lighthouse-ci-action@v12
         with:
           urls: |
-            https://umairleo1.github.io/portfolio
+            ${{ github.event.repository.homepage || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
           configPath: './.lighthouserc.json'
           uploadArtifacts: true
           temporaryPublicStorage: true
@@ -203,7 +203,7 @@ jobs:
           allowed-endpoints: |
             api.github.com:443
             github.com:443
-            umairleo1.github.io:443
+            ${{ github.repository_owner }}.github.io:443
           disable-sudo: true
           disable-file-monitoring: true
 
@@ -212,4 +212,4 @@ jobs:
           echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "- **Deploy Time**: $(date)" >> $GITHUB_STEP_SUMMARY
           echo "- **Build Size**: $(du -sh build 2>/dev/null || echo 'N/A')" >> $GITHUB_STEP_SUMMARY
-          echo "- **Site URL**: https://umairleo1.github.io/portfolio" >> $GITHUB_STEP_SUMMARY
+          echo "- **Site URL**: ${{ github.event.repository.homepage || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}" >> $GITHUB_STEP_SUMMARY

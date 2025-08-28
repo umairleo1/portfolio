@@ -1,3 +1,5 @@
+import { env } from '@/config/env';
+
 // Asset paths constants using React's built-in PUBLIC_URL handling
 const getAssetPath = (path: string) => {
   return `${process.env.PUBLIC_URL || ''}${path}`;
@@ -22,9 +24,13 @@ export const NAVIGATION_PATHS = {
   CONTACT: '#contact',
 } as const;
 
-// External URLs
+// External URLs - sourced from environment variables
 export const EXTERNAL_URLS = {
-  GITHUB: 'https://github.com/umairleo1',
-  LINKEDIN: 'https://linkedin.com/in/yourprofile',
-  EMAIL: 'mailto:umair.leo17@gmail.com',
+  GITHUB: env.GITHUB_URL,
+  LINKEDIN: env.LINKEDIN_URL,
+  EMAIL: `mailto:${env.EMAIL}`,
+  TWITTER: env.TWITTER_URL,
+  ...(env.STACKOVERFLOW_URL && { STACKOVERFLOW: env.STACKOVERFLOW_URL }),
+  ...(env.MEDIUM_URL && { MEDIUM: env.MEDIUM_URL }),
+  ...(env.DEV_TO_URL && { DEV_TO: env.DEV_TO_URL }),
 } as const;
