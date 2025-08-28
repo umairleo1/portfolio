@@ -139,8 +139,8 @@ export const initGA = (): Promise<void> => {
 
         // Set user properties for better segmentation
         window.gtag('set', 'user_properties', {
-          environment: env.APP_ENVIRONMENT,
-          version: env.APP_VERSION,
+          environment: env.isProduction() ? 'production' : 'development',
+          version: '1.0.0',
           user_agent: navigator.userAgent.includes('Mobile')
             ? 'mobile'
             : 'desktop',
