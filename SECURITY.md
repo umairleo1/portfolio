@@ -2,9 +2,9 @@
 
 ## Supported Versions
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.0.x   | :white_check_mark: |
+| Version | Supported |
+| ------- | --------- |
+| 1.0.x   | ✅        |
 
 ## Security Vulnerabilities Assessment
 
@@ -105,6 +105,18 @@ If you discover a security vulnerability, please email: umair.leo17@gmail.com
 - **GitHub Security Advisories**: Automatic vulnerability detection
 - **npm audit**: Regular security scans
 - **Pre-commit hooks**: Code quality enforcement
+
+## Documentation
+
+For additional project documentation:
+
+- **[`README.md`](README.md)** - Project overview and quick start
+- **[`docs/SETUP.md`](docs/SETUP.md)** - Installation and configuration guide
+- **[`docs/CUSTOMIZATION.md`](docs/CUSTOMIZATION.md)** - Personalization instructions
+- **[`docs/ANALYTICS.md`](docs/ANALYTICS.md)** - Analytics integration and insights
+- **[`docs/CODE_QUALITY.md`](docs/CODE_QUALITY.md)** - Code quality automation and standards
+- **[`.github/CICD.md`](.github/CICD.md)** - CI/CD pipeline and deployment automation
+- **[`CONTRIBUTING.md`](CONTRIBUTING.md)** - Development and contribution guidelines
 
 ---
 
