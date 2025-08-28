@@ -34,16 +34,17 @@ This portfolio implements enterprise-grade Google Analytics 4 (GA4) tracking wit
 ### Environment Variables
 
 ```bash
-# Required
+# Required - Add to your .env file
 REACT_APP_GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
 
-# Optional
-REACT_APP_GTM_ID=GTM-XXXXXXX
-REACT_APP_CLARITY_ID=xxxxxxxxxx
-REACT_APP_WEB_VITALS_ENDPOINT=https://your-endpoint.com
-REACT_APP_ENABLE_ANALYTICS_DEBUG=true
-REACT_APP_ENABLE_PERFORMANCE_MONITORING=true
+# Optional - for additional functionality
+REACT_APP_EMAILJS_SERVICE_ID=service_xxxxxx
+REACT_APP_EMAILJS_TEMPLATE_ID=template_xxxxxx
+REACT_APP_EMAILJS_PUBLIC_KEY=your_public_key
+REACT_APP_GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx
 ```
+
+**Note:** Only secrets are stored in environment variables. All other configuration is in the `src/data` folder.
 
 ### Consent Settings
 
@@ -176,9 +177,7 @@ try {
 
 Enable debug logging in development:
 
-```bash
-REACT_APP_ENABLE_ANALYTICS_DEBUG=true
-```
+Debug mode is automatically enabled in development environment.
 
 Console output includes:
 

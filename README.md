@@ -116,53 +116,23 @@ npm run analyze             # Analyze bundle size
 
 ## Environment Setup
 
-### Required Variables
+### Secret Variables Only
 
-Create a `.env` file in the root directory:
+Create a `.env` file in the root directory with your secrets:
 
 ```bash
-# ------ PERSONAL INFORMATION ------
-REACT_APP_FULL_NAME="Your Full Name"
-REACT_APP_PROFESSIONAL_TITLE="Your Job Title"
-REACT_APP_EMAIL="your.email@example.com"
-REACT_APP_PHONE="+1234567890"
+# Environment
+NODE_ENV=development
 
-# ------ SOCIAL & PROFESSIONAL LINKS ------
-REACT_APP_GITHUB_USERNAME="yourusername"
-REACT_APP_GITHUB_URL="https://github.com/yourusername"
-REACT_APP_LINKEDIN_URL="https://linkedin.com/in/yourprofile"
-REACT_APP_TWITTER_URL="https://twitter.com/yourusername"
-
-# ------ GOOGLE ANALYTICS (Optional) ------
+# Real Secrets (Add your actual values here)
 REACT_APP_GOOGLE_ANALYTICS_ID="G-XXXXXXXXXX"
-REACT_APP_ENABLE_ANALYTICS_DEBUG=true
-
-# ------ RESUME & PORTFOLIO ------
-REACT_APP_RESUME_URL="https://your-resume-link.com"
-REACT_APP_RESUME_DOWNLOAD_URL="/resume.pdf"
-```
-
-### Optional Variables
-
-```bash
-# Contact Form (EmailJS)
 REACT_APP_EMAILJS_SERVICE_ID="service_xxxxxx"
 REACT_APP_EMAILJS_TEMPLATE_ID="template_xxxxxx"
 REACT_APP_EMAILJS_PUBLIC_KEY="your_public_key"
-
-# Additional Analytics
-REACT_APP_GTM_ID="GTM-XXXXXXX"
-REACT_APP_CLARITY_ID="xxxxxxxxxx"
-
-# Performance Monitoring
-REACT_APP_ENABLE_PERFORMANCE_MONITORING=true
-REACT_APP_WEB_VITALS_ENDPOINT="https://your-vitals-endpoint.com"
-
-# Feature Flags
-REACT_APP_ENABLE_CONTACT_FORM=true
-REACT_APP_ENABLE_RESUME_DOWNLOAD=true
-REACT_APP_ENABLE_ANIMATIONS=true
+REACT_APP_GITHUB_TOKEN="ghp_xxxxxxxxxxxxxxxxxxxx"
 ```
+
+**Note:** All public information (personal details, social links, resume URLs, etc.) is stored in the `src/data` folder for better organization and consistency. Only secrets need to be in environment variables.
 
 ### Environment Files
 
@@ -183,7 +153,6 @@ REACT_APP_ENABLE_ANIMATIONS=true
 
    ```bash
    REACT_APP_GOOGLE_ANALYTICS_ID="G-XXXXXXXXXX"
-   REACT_APP_ENABLE_ANALYTICS_DEBUG=true  # Development only
    ```
 
 3. **Features Included**
@@ -213,27 +182,32 @@ For detailed analytics documentation, see [`docs/ANALYTICS.md`](docs/ANALYTICS.m
 
 Update your personal details in the environment variables:
 
-```bash
-# .env file
-REACT_APP_FULL_NAME="Your Full Name"
-REACT_APP_PROFESSIONAL_TITLE="Your Job Title"
-REACT_APP_EMAIL="your.email@example.com"
-REACT_APP_PHONE="+1234567890"
-```
-
 ### Portfolio Content
 
-1. **Professional Data** - Update files in `src/data/`:
-   - `src/data/personal/info.ts` - Personal information
+1. **Personal Information** - Update `src/data/personal/info.ts`:
+
+   ```typescript
+   export const personalInfo: PersonalInfo = {
+     name: 'YOUR NAME',
+     title: 'Your Job Title',
+     email: 'your.email@example.com',
+     phone: '+1234567890',
+     // ... other fields
+   };
+   ```
+
+2. **Professional Data** - Update files in `src/data/`:
+   - `src/data/personal/info.ts` - Personal information and contact details
+   - `src/data/config/app.ts` - App configuration and social links
    - `src/data/professional/skills.ts` - Technical skills
    - `src/data/professional/experience.ts` - Work experience
    - `src/data/projects/projects.ts` - Portfolio projects
 
-2. **Company Logos** - Add your company assets to:
+3. **Company Logos** - Add your company assets to:
    - `public/assets/images/work/` - Company logos
    - Update `src/data/companies/companies.ts`
 
-3. **Profile Images** - Replace default images:
+4. **Profile Images** - Replace default images:
    - `public/assets/images/profile-main.jpg` - Main profile photo
    - `public/assets/images/profile-fallback.jpg` - Fallback image
 
