@@ -4,37 +4,20 @@ Thank you for your interest in contributing to this portfolio project! This guid
 
 ## Getting Started
 
-### Prerequisites
+For detailed setup instructions, see [`docs/SETUP.md`](docs/SETUP.md).
 
-- **Node.js** (v20.9 or higher) - [Download here](https://nodejs.org/)
-- **npm** (v10.0 or higher) - Comes with Node.js
-- **Git** - [Download here](https://git-scm.com/)
-- Basic knowledge of React 19, TypeScript, and CSS Modules
-
-### Development Setup
+### Quick Setup
 
 1. **Fork the repository** on GitHub
-
-2. **Clone your fork**
-
+2. **Clone and setup**
    ```bash
    git clone https://github.com/your-username/portfolio.git
    cd portfolio
-   ```
-
-3. **Install dependencies**
-
-   ```bash
-   npm install
-   ```
-
-4. **Start development server**
-
-   ```bash
+   npm ci
+   cp .env.example .env
    npm start
    ```
-
-5. **Create a feature branch**
+3. **Create a feature branch**
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -378,6 +361,17 @@ Contributors are recognized through:
 - **README Credits** - Major contributors acknowledged
 - **Social Media** - Shared on professional networks
 
+## Documentation
+
+For comprehensive project documentation:
+
+- **[`README.md`](README.md)** - Project overview and quick start
+- **[`docs/SETUP.md`](docs/SETUP.md)** - Detailed setup and installation guide
+- **[`docs/CUSTOMIZATION.md`](docs/CUSTOMIZATION.md)** - How to personalize the portfolio
+- **[`docs/ANALYTICS.md`](docs/ANALYTICS.md)** - Analytics integration and insights
+- **[`docs/CODE_QUALITY.md`](docs/CODE_QUALITY.md)** - Code quality automation and standards
+- **[`.github/CICD.md`](.github/CICD.md)** - CI/CD pipeline and deployment automation
+
 ## Resources
 
 ### Learning Resources
@@ -395,7 +389,7 @@ Contributors are recognized through:
 
 ---
 
-**Thank you for contributing to making this portfolio better!** 🎉
+**Thank you for contributing to making this portfolio better!**
 
 Your contributions help showcase modern React development practices and inspire other developers in the community.
 

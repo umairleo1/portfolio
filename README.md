@@ -1,17 +1,13 @@
-# Muhammad Umair - Software Engineer Portfolio
+# Professional Portfolio Template
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge&logo=github&logoColor=white)](https://umairleo1.github.io/portfolio)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/umairleo1/portfolio/deploy.yml?branch=main&style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/umairleo1/portfolio/actions)
-[![Security Score](https://img.shields.io/badge/Security-A+-brightgreen?style=for-the-badge&logo=security&logoColor=white)](https://github.com/umairleo1/portfolio/security)
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![CSS Modules](https://img.shields.io/badge/CSS_Modules-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://github.com/css-modules/css-modules)
-[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/features/actions)
-[![CodeQL](https://img.shields.io/badge/CodeQL-Enabled-success?style=for-the-badge&logo=github&logoColor=white)](https://github.com/umairleo1/portfolio/security/code-scanning)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge)](http://makeapullrequest.com)
 
-A modern, responsive portfolio website showcasing professional software engineering experience. Built with React 19, TypeScript, and CSS Modules featuring stunning animations, custom design system, and optimized performance.
+A modern, responsive portfolio website template for software engineers. Built with React 19, TypeScript, and CSS Modules featuring professional design, enterprise-grade analytics, and optimized performance.
 
 ## Live Demo
 
@@ -19,74 +15,57 @@ A modern, responsive portfolio website showcasing professional software engineer
 
 ## Features
 
-### Design & UX
+**Design & User Experience**
 
-- **Modern Design System** - Centralized theme with 50+ CSS custom properties
-- **Responsive Design** - Seamlessly adapts to all devices and screen sizes
-- **Interactive Animations** - Smooth animations with floating elements and cursor trails
-- **Professional Typography** - Roboto Mono for technical aesthetic
-- **Consistent Styling** - CSS Modules for scoped styles and maintainability
+- Modern design system with centralized theming
+- Responsive design for all devices and screen sizes
+- Interactive animations and smooth transitions
+- Professional typography and consistent styling
+- Accessibility compliant with keyboard navigation
 
-### Technical Excellence
+**Technical Architecture**
 
-- **React 19** - Latest React with enhanced performance and concurrent features
-- **TypeScript** - Full type safety with strict mode enabled
-- **CSS Modules** - Scoped styling with professional architecture
-- **Performance Optimized** - Code splitting, lazy loading, and optimized bundle size
-- **Error Boundaries** - Graceful error handling and recovery
-- **SEO Optimized** - Semantic HTML, proper meta tags, and structured data
-- **Enterprise Analytics** - GDPR-compliant Google Analytics 4 with Web Vitals
-- **Environment-Based Config** - Secure configuration management with validation
+- React 19 with TypeScript for type safety
+- CSS Modules for scoped styling
+- Performance optimized with code splitting and lazy loading
+- Error boundaries for graceful error handling
+- SEO optimized with semantic HTML and structured data
 
-### User Experience
+**Analytics & Insights**
 
-- **Intuitive Navigation** - Smooth scrolling with active section highlighting
-- **Lazy Loading** - Progressive component loading for optimal performance
-- **Professional Sections** - Hero, Expertise, Work, Experience, Education, and Contact
-- **Accessibility** - WCAG compliant with keyboard navigation support
-- **Contact Form** - Functional form with validation and user feedback
+- Enterprise-grade Google Analytics 4 implementation
+- GDPR-compliant privacy configuration
+- Web Vitals performance monitoring
+- Custom event tracking for user behavior analysis
+- Professional recruitment insights and optimization
 
 ## Quick Start
 
 ### Prerequisites
 
-- **Node.js** 20.9.0 or higher
-- **npm** 10.0.0 or higher
-- **Git** for version control
+- Node.js 20.9.0 or higher
+- npm 10.0.0 or higher
+- Git for version control
 
 ### Installation
 
-1. **Clone the repository**
+```bash
+# Clone repository
+git clone https://github.com/umairleo1/portfolio.git
+cd portfolio
 
-   ```bash
-   git clone https://github.com/umairleo1/portfolio.git
-   cd portfolio
-   ```
+# Install dependencies
+npm ci
 
-2. **Install dependencies**
+# Configure environment
+cp .env.example .env
+# Edit .env with your values
 
-   ```bash
-   npm ci
-   ```
+# Start development server
+npm start
+```
 
-3. **Set up environment variables**
-
-   ```bash
-   cp .env.example .env
-   ```
-
-   Edit `.env` with your configuration (see [Environment Setup](#environment-setup))
-
-4. **Start development server**
-
-   ```bash
-   npm start
-   ```
-
-5. **Open in browser**
-   ```
-   http://localhost:3000
-   ```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Available Scripts
 
@@ -114,137 +93,21 @@ npm run clean               # Clean build artifacts
 npm run analyze             # Analyze bundle size
 ```
 
-## Environment Setup
+## Configuration
 
-### Secret Variables Only
+For detailed setup instructions including environment configuration, prerequisites, and troubleshooting, see [`docs/SETUP.md`](docs/SETUP.md).
 
-Create a `.env` file in the root directory with your secrets:
+## Analytics & Insights
 
-```bash
-# Environment
-NODE_ENV=development
+Enterprise-grade Google Analytics 4 implementation with privacy compliance and professional insights for career optimization.
 
-# Real Secrets (Add your actual values here)
-REACT_APP_GOOGLE_ANALYTICS_ID="G-XXXXXXXXXX"
-REACT_APP_EMAILJS_SERVICE_ID="service_xxxxxx"
-REACT_APP_EMAILJS_TEMPLATE_ID="template_xxxxxx"
-REACT_APP_EMAILJS_PUBLIC_KEY="your_public_key"
-REACT_APP_GITHUB_TOKEN="ghp_xxxxxxxxxxxxxxxxxxxx"
-```
+For complete analytics documentation including setup, business value, and implementation details, see [`docs/ANALYTICS.md`](docs/ANALYTICS.md).
 
-**Note:** All public information (personal details, social links, resume URLs, etc.) is stored in the `src/data` folder for better organization and consistency. Only secrets need to be in environment variables.
+## Customization
 
-### Environment Files
+For complete customization instructions including personal information updates, portfolio content management, styling, and deployment configuration, see [`docs/CUSTOMIZATION.md`](docs/CUSTOMIZATION.md).
 
-- **`.env`** - Your personal configuration (ignored by git)
-- **`.env.example`** - Template with all available variables
-- **`.env.local`** - Local development overrides (ignored by git)
-
-## Google Analytics Integration
-
-### Setup Instructions
-
-1. **Create GA4 Property**
-   - Go to [Google Analytics](https://analytics.google.com/)
-   - Create new GA4 property
-   - Copy your Measurement ID (`G-XXXXXXXXXX`)
-
-2. **Configure Environment**
-
-   ```bash
-   REACT_APP_GOOGLE_ANALYTICS_ID="G-XXXXXXXXXX"
-   ```
-
-3. **Features Included**
-   - **GDPR/CCPA Compliant** - Privacy-first configuration
-   - **Section Tracking** - Automatic section view analytics with Intersection Observer
-   - **Contact Form Funnel** - Complete form interaction tracking
-   - **Project Engagement** - Project card interactions and demo clicks
-   - **Social Link Tracking** - Footer and header external link analytics
-   - **User Engagement** - Scroll depth, time on page, click tracking
-   - **Web Vitals** - Performance monitoring integration
-   - **Error Tracking** - Application error monitoring
-
-### Analytics Events
-
-The portfolio automatically tracks:
-
-- **Page Views** - Enhanced with performance metrics and user agent data
-- **Section Engagement** - Skills, Projects, Education, Experience, Contact sections
-- **Project Interactions** - Hover views, demo clicks, filter usage with technology metadata
-- **Contact Form Funnel** - Start, submit, success/error events with completion times
-- **External Links** - Footer social links (LinkedIn, GitHub, Twitter) and header resume clicks
-- **User Engagement** - Scroll depth milestones (25%, 50%, 75%, 90%, 100%) and time intervals
-- **Performance Metrics** - Web Vitals monitoring (LCP, FID, CLS) for optimization
-
-For detailed analytics documentation, see [`docs/ANALYTICS.md`](docs/ANALYTICS.md)
-
-## Customization Guide
-
-### Personal Information
-
-Update your personal details in the environment variables:
-
-### Portfolio Content
-
-1. **Personal Information** - Update `src/data/personal/info.ts`:
-
-   ```typescript
-   export const personalInfo: PersonalInfo = {
-     name: 'YOUR NAME',
-     title: 'Your Job Title',
-     email: 'your.email@example.com',
-     phone: '+1234567890',
-     // ... other fields
-   };
-   ```
-
-2. **Professional Data** - Update files in `src/data/`:
-   - `src/data/personal/info.ts` - Personal information and contact details
-   - `src/data/config/app.ts` - App configuration and social links
-   - `src/data/professional/skills.ts` - Technical skills
-   - `src/data/professional/experience.ts` - Work experience
-   - `src/data/projects/projects.ts` - Portfolio projects
-
-3. **Contact Methods** - The portfolio uses a clean contact approach:
-   - **Dedicated Contact Section** - Professional contact form with analytics
-   - **Footer Social Links** - LinkedIn, GitHub, Twitter (email removed for cleaner design)
-   - **Header Resume Link** - Direct access to CV/resume
-
-4. **Company Logos** - Add your company assets to:
-   - `public/assets/images/work/` - Company logos
-   - Update `src/data/companies/companies.ts`
-
-5. **Profile Images** - Replace default images:
-   - `public/assets/images/profile-main.jpg` - Main profile photo
-   - `public/assets/images/profile-fallback.jpg` - Fallback image
-
-### Styling & Theming
-
-The portfolio uses a centralized theme system:
-
-- **Colors & Variables** - `src/styles/base/globals.css`
-- **Component Styles** - Individual CSS modules per component
-- **Animations** - `src/config/animations.ts`
-
-### Analytics Customization
-
-Configure tracking for your specific needs:
-
-```typescript
-// Example: Custom event tracking
-import { trackEvent } from '@/utils/analytics';
-
-trackEvent('custom_interaction', {
-  event_category: 'engagement',
-  event_label: 'feature_usage',
-  value: 1,
-});
-```
-
-## Architecture
-
-### Tech Stack
+## Tech Stack
 
 <div align="center">
 
@@ -261,67 +124,6 @@ trackEvent('custom_interaction', {
 | **Development** | ESLint 9.33, Prettier 3.0, Husky 9.1, lint-staged 16.1 |
 | **Testing**     | Jest, React Testing Library, Coverage Reports          |
 | **Deployment**  | GitHub Pages, GitHub Actions, CI/CD Pipeline           |
-
-### Design System
-
-The project uses a centralized theme system with CSS custom properties for consistent styling:
-
-```css
-:root {
-  /* Primary Colors */
-  --primary-cyan: #66d9ed;
-  --primary-cyan-rgb: 102, 217, 237;
-
-  /* Background Colors */
-  --dark-bg: #17161a;
-  --dark-surface: #1a1a1a;
-  --dark-card: #1e1e1e;
-
-  /* Text Colors */
-  --text-primary: #ffffff;
-  --text-secondary: #888;
-  --text-muted: #666;
-
-  /* Spacing & Layout */
-  --section-padding: 80px 0;
-  --container-padding: 0 clamp(20px, 5vw, 80px);
-  --max-width: min(1400px, 95vw);
-
-  /* Border Radius */
-  --border-radius-sm: 4px;
-  --border-radius-md: 8px;
-  --border-radius-lg: 12px;
-
-  /* Transitions */
-  --transition: all 0.3s ease;
-  --transition-fast: all 0.2s ease;
-  --transition-slow: all 0.4s ease;
-
-  /* Shadows */
-  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--border-subtle);
-  --shadow-glow: 0 0 30px var(--primary-cyan-30);
-
-  /* ... 50+ design tokens total */
-}
-```
-
-### Browser Support
-
-<div align="center">
-
-![Chrome](https://img.shields.io/badge/Google%20Chrome-4285F4?style=for-the-badge&logo=GoogleChrome&logoColor=white)
-![Firefox](https://img.shields.io/badge/Firefox-FF7139?style=for-the-badge&logo=Firefox-Browser&logoColor=white)
-![Safari](https://img.shields.io/badge/Safari-000000?style=for-the-badge&logo=Safari&logoColor=white)
-![Edge](https://img.shields.io/badge/Edge-0078D7?style=for-the-badge&logo=Microsoft-edge&logoColor=white)
-
-</div>
-
-| Browser | Version | Support |
-| ------- | ------- | ------- |
-| Chrome  | 88+     | Full    |
-| Firefox | 85+     | Full    |
-| Safari  | 14+     | Full    |
-| Edge    | 88+     | Full    |
 
 ## Project Structure
 
@@ -404,6 +206,8 @@ portfolio/
 │   │   └── index.ts           # Config exports
 │   └── App.tsx                # Main application component
 ├── docs/                      # Documentation
+│   ├── SETUP.md               # Installation and configuration guide
+│   ├── CUSTOMIZATION.md       # Personalization instructions
 │   └── ANALYTICS.md           # Google Analytics integration guide
 ├── scripts/                   # Development automation
 ├── .gitignore                 # Git ignore patterns
@@ -416,155 +220,34 @@ portfolio/
 └── README.md                  # This documentation
 ```
 
-## Quick Start
+## Documentation
 
-### Prerequisites
+- **[`docs/SETUP.md`](docs/SETUP.md)** - Complete installation and configuration guide
+- **[`docs/CUSTOMIZATION.md`](docs/CUSTOMIZATION.md)** - Personalization and content management
+- **[`docs/ANALYTICS.md`](docs/ANALYTICS.md)** - Analytics integration and business insights
+- **[`docs/CODE_QUALITY.md`](docs/CODE_QUALITY.md)** - Code quality automation and standards
+- **[`.github/CICD.md`](.github/CICD.md)** - CI/CD pipeline and deployment automation
+- **[`CONTRIBUTING.md`](CONTRIBUTING.md)** - Development and contribution guidelines
+- **[`SECURITY.md`](SECURITY.md)** - Security policy and vulnerability reporting
+- **[`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)** - Community standards and behavior guidelines
 
-Before you begin, ensure you have the following installed:
+## CI/CD Pipeline
 
-- **Node.js** (v20.9 or higher) - [Download here](https://nodejs.org/)
-- **npm** (v10.0 or higher) - Comes with Node.js
-- **Git** - [Download here](https://git-scm.com/)
+Enterprise-grade automated deployment with security scanning, quality gates, and performance monitoring.
 
-### Installation
+**Features:**
 
-1. **Clone the repository**
+- Automated GitHub Pages deployment
+- Security scanning (CodeQL + Trivy)
+- Performance auditing (Lighthouse)
+- Quality validation (ESLint, TypeScript, Tests)
+- Bundle size monitoring
 
-   ```bash
-   git clone https://github.com/umairleo1/portfolio.git
-   cd portfolio
-   ```
+**Performance Standards:** 95+ Lighthouse scores across all metrics
 
-2. **Install dependencies**
+For detailed workflow documentation, configuration, and troubleshooting, see [`.github/CICD.md`](.github/CICD.md).
 
-   ```bash
-   npm install
-   ```
-
-3. **Start development server**
-
-   ```bash
-   npm start
-   ```
-
-4. **Open your browser**
-   Navigate to `http://localhost:3000`
-
-### Development Workflow
-
-```bash
-# Start development server with hot reload
-npm start
-
-# Start all development services (dev server + tests)
-npm run start:all
-
-# Run tests in watch mode
-npm run test:watch
-
-# Check code quality
-npm run validate
-
-# Build for production
-npm run build
-
-# Deploy via automated GitHub Actions CI/CD pipeline
-# Push to main branch triggers automatic deployment
-```
-
-## Enterprise-Grade CI/CD Pipeline
-
-### Automated Deployment & Quality Assurance
-
-This project implements **industry-standard CI/CD** following 2025 security best practices with comprehensive documentation in [`.github/CICD.md`](.github/CICD.md):
-
-<div align="center">
-
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
-![CodeQL](https://img.shields.io/badge/CodeQL-000000?style=for-the-badge&logo=github&logoColor=white)
-![Trivy](https://img.shields.io/badge/Trivy-1904DA?style=for-the-badge&logo=aqua&logoColor=white)
-![Lighthouse](https://img.shields.io/badge/Lighthouse-F44B21?style=for-the-badge&logo=lighthouse&logoColor=white)
-![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
-![Jest](https://img.shields.io/badge/Jest-323330?style=for-the-badge&logo=jest&logoColor=white)
-
-</div>
-
-### Security-First Approach (2025 Standards)
-
-**Multi-layered security scanning** integrated into every deployment:
-
-```yaml
-CodeQL Analysis          # GitHub's semantic code analysis
-Trivy Vulnerability Scan # Infrastructure & dependency scanning
-SHA-Pinned Dependencies  # Immutable action versions
-Minimal Permissions     # Least privilege access model
-Security Event Logging  # SARIF format compliance
-```
-
-### Performance-Optimized Pipeline
-
-**Build times consistently under 8 minutes** with advanced optimizations:
-
-- **Parallel Job Execution**: Security, quality, and build run concurrently
-- **Intelligent Caching**: NPM, build artifacts, and dependency caching
-- **Matrix Testing**: Node.js 20 LTS & 22 Current
-- **Optimized Dependencies**: `--prefer-offline` and retry mechanisms
-- **Performance Monitoring**: Lighthouse CI with custom thresholds
-
-### Automated Workflows
-
-For detailed workflow documentation, configuration details, and troubleshooting, see [`.github/CICD.md`](.github/CICD.md).
-
-#### 1. **Main Deployment** ([`deploy.yml`](.github/workflows/deploy.yml))
-
-```bash
-Trigger: Push to main branch
-├── Security Analysis (CodeQL + Trivy)
-├── Quality Gates (ESLint, TypeScript, Tests)
-├── Optimized Build (Compression, cache)
-├── GitHub Pages Deploy
-└── Performance Audit (Lighthouse)
-```
-
-#### 2. **PR Quality Checks** ([`pr-check.yml`](.github/workflows/pr-check.yml))
-
-```bash
-Trigger: Pull Request events
-├── Security Scan (Trivy vulnerability analysis)
-├── Multi-Node Testing (20 LTS, 22 Current)
-├── Bundle Size Analysis
-└── Automated Status Reports
-```
-
-#### 3. **Dependency Updates** ([`dependabot.yml`](.github/dependabot.yml))
-
-```bash
-Schedule: Weekly on Mondays
-├── NPM Dependencies (security-focused)
-├── GitHub Actions updates
-├── Automated PR creation
-└── Maintainer assignment
-```
-
-### Quality Metrics & Monitoring
-
-**Lighthouse Performance Standards:**
-
-- Performance Score: ≥90
-- Accessibility Score: ≥95
-- Best Practices: ≥90
-- SEO Score: ≥90
-
-**Build Optimization Results:**
-
-- Bundle Size: Monitored & optimized
-- First Contentful Paint: <2s
-- Largest Contentful Paint: <2.5s
-- Cumulative Layout Shift: <0.1
-
-## Code Quality Automation
-
-The project includes **comprehensive code quality automation** with industry-standard tooling:
+## Code Quality
 
 <div align="center">
 
@@ -576,223 +259,22 @@ The project includes **comprehensive code quality automation** with industry-sta
 
 </div>
 
-### Pre-commit Hooks (Husky + lint-staged)
+**Automated Quality Assurance:**
 
-**Automatic code quality enforcement** that runs before every commit:
+- Pre-commit hooks (Husky + lint-staged)
+- ESLint with React/TypeScript rules
+- Prettier auto-formatting
+- TypeScript strict mode
+- Jest testing with coverage reports
+- Security dependency auditing
 
-```bash
-# These run automatically before every commit:
-ESLint auto-fix for TypeScript/JavaScript files
-Prettier formatting for all supported files
-Type checking with TypeScript compiler
-Only processes staged files (fast and efficient)
-```
-
-**Configuration in `package.json`:**
-
-```json
-{
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
-    "*.{css,scss,sass}": ["prettier --write"],
-    "*.{json,md,yml,yaml}": ["prettier --write"]
-  }
-}
-```
-
-### Manual Quality Checks
-
-```bash
-# Comprehensive validation (used in CI/CD)
-npm run validate               # Runs lint + type-check + tests
-
-# Individual checks
-npm run lint                   # ESLint with React/TypeScript rules
-npm run lint:fix               # Auto-fix linting issues
-npm run format                 # Format all files with Prettier
-npm run format:check           # Verify formatting without changes
-npm run type-check             # TypeScript compilation check
-npm run test:ci                # Tests with coverage reports
-
-# Security auditing
-npm run security:audit         # Full dependency audit
-npm run security:audit:prod    # Production dependencies only
-npm run security:audit:ci      # Critical vulnerabilities only
-```
-
-### Benefits of Code Quality Automation
-
-- **Never commit unformatted code** - Automatic Prettier formatting
-- **Consistent code style** - ESLint enforces React/TypeScript best practices
-- **Type safety** - TypeScript strict mode catches errors before runtime
-- **Faster code reviews** - Automated formatting eliminates style discussions
-- **CI/CD integration** - Same checks run locally and in GitHub Actions
-- **Security monitoring** - Regular dependency vulnerability scanning
-
-## Customization Guide
-
-### Personal Information
-
-Update your details in `src/data/personal/info.ts`:
-
-```typescript
-export const personalInfo: PersonalInfo = {
-  name: 'Your Name',
-  title: 'Your Professional Title',
-  location: 'Your Location',
-  email: 'your.email@example.com',
-  linkedin: 'https://linkedin.com/in/your-profile',
-  github: 'https://github.com/your-username',
-  objective: 'Your professional objective...',
-};
-```
-
-### Skills and Technologies
-
-Customize your technical skills by category in `src/data/professional/skills.ts`:
-
-```typescript
-export const skills: SkillCategories = {
-  languages: ['JavaScript', 'TypeScript', 'Python'],
-  frontEnd: ['React', 'Next.js', 'CSS Modules'],
-  backEnd: ['Node.js', 'Express', 'MongoDB'],
-  cloudAndIaC: ['AWS', 'Terraform', 'Docker'],
-  // ... other categories
-};
-```
-
-### Modular Data Architecture
-
-The new data structure provides several advantages:
-
-- **Domain Separation**: Each data type has its own module for better organization
-- **Type Safety**: Comprehensive TypeScript interfaces for all data structures
-- **Scalability**: Easy to add new sections without bloating existing files
-- **Import Flexibility**: Import specific sections or use barrel exports
-
-```typescript
-// Import specific data sections
-import { personalInfo } from '@/data/personal';
-import { skills, experience } from '@/data/professional';
-import { projects } from '@/data/projects';
-
-// Or use the main barrel export
-import { personalInfo, skills, projects } from '@/data';
-
-// Import with types for development
-import { PersonalInfo, SkillCategories } from '@/data';
-```
-
-### Styling and Theme
-
-The design system is centralized in `src/styles/base/globals.css`. Update CSS custom properties to customize the entire theme:
-
-```css
-:root {
-  /* Primary Brand Color */
-  --primary-cyan: #66d9ed; /* Change this to your brand color */
-  --primary-cyan-rgb: 102, 217, 237; /* RGB version for opacity variants */
-
-  /* Background Colors */
-  --dark-bg: #17161a; /* Main background */
-  --dark-surface: #1a1a1a; /* Card backgrounds */
-  --dark-card: #1e1e1e; /* Elevated cards */
-
-  /* Spacing System */
-  --section-padding: 80px 0; /* Vertical section spacing */
-  --border-radius-md: 8px; /* Default border radius */
-
-  /* Animation Timing */
-  --transition: all 0.3s ease; /* Standard transitions */
-}
-```
-
-### Adding New Components
-
-Follow the established CSS Modules pattern:
-
-1. **Create component directory:** `src/components/ui/NewComponent/`
-
-2. **Add required files:**
-
-   ```
-   NewComponent/
-   ├── NewComponent.tsx           # Component logic
-   ├── NewComponent.module.css    # Scoped styles
-   └── index.ts                   # Barrel export
-   ```
-
-3. **Use CSS Modules syntax:**
-
-   ```tsx
-   import React from 'react';
-   import styles from './NewComponent.module.css';
-
-   const NewComponent: React.FC = () => {
-     return (
-       <div className={styles.container}>
-         <h2 className={styles.title}>Content</h2>
-       </div>
-     );
-   };
-
-   export default NewComponent;
-   ```
-
-4. **Add to barrel exports in `src/components/index.ts`**
+For comprehensive code quality automation details, see [`docs/CODE_QUALITY.md`](docs/CODE_QUALITY.md).
 
 ## Deployment
 
-### Fully Automated GitHub Pages Deployment
+Fully automated GitHub Pages deployment. Simply push to main branch for automatic deployment in ~3 minutes.
 
-**Zero manual work required!** The portfolio uses a professional CI/CD pipeline:
-
-```bash
-# Simply push your changes
-git add .
-git commit -m "feat: update portfolio content"
-git push origin main
-
-# Deployment happens automatically in ~3 minutes
-```
-
-### What Happens Automatically:
-
-1. **Quality Validation** - TypeScript compilation, ESLint, Prettier, Tests
-2. **Security Audit** - Dependency vulnerability scanning
-3. **Production Build** - Optimized React build with code splitting
-4. **Live Deployment** - Automatic GitHub Pages deployment
-5. **Bundle Analysis** - Performance metrics and optimization
-
-**Result:** Your portfolio is live at `https://umairleo1.github.io/portfolio`
-
-### Custom Domain Setup
-
-1. **Add CNAME file:**
-
-   ```bash
-   echo "yourdomain.com" > public/CNAME
-   ```
-
-2. **Configure DNS:**
-   - Add A records: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - Or CNAME record: `your-username.github.io`
-
-3. **Enable in GitHub:**
-   - Repository Settings → Pages → Custom domain
-
-### Additional Environment Variables
-
-The portfolio supports extensive customization through environment variables. Key categories include:
-
-- **Personal Information** - Name, contact details, social links
-- **Analytics & Tracking** - Google Analytics, GTM, Microsoft Clarity
-- **Contact Form** - EmailJS or Formspree integration
-- **Performance** - Web Vitals monitoring and endpoints
-- **Feature Flags** - Enable/disable specific functionality
-- **Development** - Debug modes and development tools
-
-See [Environment Setup](#environment-setup) for complete configuration options.
+**Zero manual work required** - Quality validation, security audit, production build, and live deployment all happen automatically.
 
 ## Performance
 
@@ -804,33 +286,17 @@ See [Environment Setup](#environment-setup) for complete configuration options.
 
 </div>
 
-### Bundle Analysis
+**Optimizations:**
 
-- **Main Bundle**: 131.76 kB (gzipped)
-- **CSS Bundle**: 13.13 kB (gzipped)
-- **Lazy Chunks**: 2.66 kB (gzipped)
-- **Total Initial**: ~148 kB (excellent for a feature-rich portfolio)
+- Code splitting with lazy loading
+- CSS Modules for optimal bundling
+- Image optimization and responsive sizing
+- Web Vitals monitoring integration
+- Total initial bundle: ~148 kB (gzipped)
 
-### Performance Optimizations
+**Lighthouse Scores:** 95+ across all metrics (Performance, Accessibility, Best Practices, SEO)
 
-- **Code Splitting** - Components lazy load on demand
-- **Image Optimization** - Responsive images with proper sizing
-- **CSS Optimization** - CSS Modules eliminate unused styles
-- **Bundle Optimization** - Tree shaking and minification
-- **Lazy Loading** - Progressive component loading
-- **Critical CSS** - Above-the-fold styles inlined
-
-### Web Vitals Scores
-
-| Metric                       | Score   | Status    |
-| ---------------------------- | ------- | --------- |
-| **First Contentful Paint**   | < 1.5s  | Excellent |
-| **Largest Contentful Paint** | < 2.5s  | Excellent |
-| **First Input Delay**        | < 100ms | Excellent |
-| **Cumulative Layout Shift**  | < 0.1   | Excellent |
-| **Time to Interactive**      | < 3s    | Excellent |
-
-## Security & Quality
+## Security
 
 <div align="center">
 
@@ -840,75 +306,19 @@ See [Environment Setup](#environment-setup) for complete configuration options.
 
 </div>
 
-### Security Features
+**Security Features:**
 
-- **No Sensitive Data** - All secrets in environment variables
-- **CSP Headers** - Content Security Policy for XSS protection
-- **Dependency Scanning** - Automated vulnerability detection
-- **Auto Updates** - Dependabot for security patches
-- **Code Scanning** - GitHub CodeQL analysis
+- Environment variable-based secrets management
+- Automated dependency vulnerability scanning
+- GitHub CodeQL analysis
+- Dependabot auto-updates
+- CSP headers for XSS protection
 
-### Security Scripts
+## Deployment
 
-```bash
-# Regular security auditing
-npm run security:audit          # Development dependencies included
-npm run security:audit:prod     # Production dependencies only
-npm run security:audit:ci       # Critical vulnerabilities only
-npm run security:fix            # Attempt automatic fixes
-```
+Fully automated GitHub Pages deployment. Simply push to main branch for automatic deployment in ~3 minutes.
 
-### Code Quality Standards
-
-- **Pre-commit Hooks** - Husky + lint-staged automation
-- **Automatic Formatting** - Prettier with industry standards
-- **Linting** - ESLint with React/TypeScript/Accessibility rules
-- **Type Safety** - TypeScript strict mode with full coverage
-- **Testing** - Jest + React Testing Library + Coverage reports
-- **CI/CD Validation** - All quality checks in GitHub Actions
-
-## Available Scripts
-
-### Development Scripts
-
-| Script               | Description                     | Usage                        |
-| -------------------- | ------------------------------- | ---------------------------- |
-| `npm start`          | Start development server        | Primary development          |
-| `npm run start:all`  | Start dev server + test watcher | Full development environment |
-| `npm run dev`        | Alias for `start:all`           | Quick development start      |
-| `npm test`           | Run tests interactively         | Testing with Jest UI         |
-| `npm run test:watch` | Run tests in watch mode         | Background testing           |
-| `npm run test:ci`    | Run tests with coverage         | CI/CD testing                |
-
-### Build & Deploy Scripts
-
-| Script                  | Description                     | Usage                |
-| ----------------------- | ------------------------------- | -------------------- |
-| `npm run build`         | Production build + optimization | Pre-deployment build |
-| `npm run build:analyze` | Build with bundle analyzer      | Performance analysis |
-| `npm run deploy`        | Deploy to GitHub Pages          | Manual deployment    |
-| `npm run predeploy`     | Pre-deployment validation       | Automatic pre-deploy |
-
-### Quality Assurance Scripts
-
-| Script                 | Description            | Usage                  |
-| ---------------------- | ---------------------- | ---------------------- |
-| `npm run validate`     | Full validation suite  | Pre-commit validation  |
-| `npm run lint`         | ESLint checking        | Code style validation  |
-| `npm run lint:fix`     | Auto-fix ESLint issues | Code cleanup           |
-| `npm run format`       | Prettier formatting    | Code formatting        |
-| `npm run format:check` | Check formatting       | CI/CD formatting check |
-| `npm run type-check`   | TypeScript compilation | Type safety validation |
-
-### Utility Scripts
-
-| Script                   | Description                | Usage                    |
-| ------------------------ | -------------------------- | ------------------------ |
-| `npm run clean`          | Clean build cache          | Fresh build preparation  |
-| `npm run clean:install`  | Clean install dependencies | Dependency refresh       |
-| `npm run analyze`        | Bundle size analysis       | Performance optimization |
-| `npm run services:start` | Start concurrent services  | Advanced development     |
-| `npm run services:stop`  | Stop all services          | Service management       |
+**Zero manual work required** - Quality validation, security audit, production build, and live deployment all happen automatically.
 
 ## Contributing
 

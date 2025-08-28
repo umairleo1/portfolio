@@ -1,13 +1,57 @@
-# CI/CD Configuration
+# Enterprise-Grade CI/CD Pipeline
 
-This directory contains the GitHub Actions workflows and automation configurations for the portfolio project.
+## Automated Deployment & Quality Assurance
 
-## Workflows Overview
+This project implements **industry-standard CI/CD** following 2025 security best practices with comprehensive automation and monitoring.
 
-### 1. **Deploy Workflow** (`deploy.yml`)
+<div align="center">
+
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
+![CodeQL](https://img.shields.io/badge/CodeQL-000000?style=for-the-badge&logo=github&logoColor=white)
+![Trivy](https://img.shields.io/badge/Trivy-1904DA?style=for-the-badge&logo=aqua&logoColor=white)
+![Lighthouse](https://img.shields.io/badge/Lighthouse-F44B21?style=for-the-badge&logo=lighthouse&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+![Jest](https://img.shields.io/badge/Jest-323330?style=for-the-badge&logo=jest&logoColor=white)
+
+</div>
+
+## Security-First Approach (2025 Standards)
+
+**Multi-layered security scanning** integrated into every deployment:
+
+```yaml
+CodeQL Analysis          # GitHub's semantic code analysis
+Trivy Vulnerability Scan # Infrastructure & dependency scanning
+SHA-Pinned Dependencies  # Immutable action versions
+Minimal Permissions     # Least privilege access model
+Security Event Logging  # SARIF format compliance
+```
+
+## Performance-Optimized Pipeline
+
+**Build times consistently under 8 minutes** with advanced optimizations:
+
+- **Parallel Job Execution**: Security, quality, and build run concurrently
+- **Intelligent Caching**: NPM, build artifacts, and dependency caching
+- **Matrix Testing**: Node.js 20 LTS & 22 Current
+- **Optimized Dependencies**: `--prefer-offline` and retry mechanisms
+- **Performance Monitoring**: Lighthouse CI with custom thresholds
+
+## Automated Workflows
+
+### 1. **Main Deployment** ([`deploy.yml`](workflows/deploy.yml))
 
 **Triggers:** Push to `main` branch, manual dispatch  
 **Purpose:** Production deployment to GitHub Pages
+
+```bash
+Trigger: Push to main branch
+├── Security Analysis (CodeQL + Trivy)
+├── Quality Gates (ESLint, TypeScript, Tests)
+├── Optimized Build (Compression, cache)
+├── GitHub Pages Deploy
+└── Performance Audit (Lighthouse)
+```
 
 **Pipeline Stages:**
 
@@ -25,10 +69,18 @@ This directory contains the GitHub Actions workflows and automation configuratio
 - SARIF security reporting for vulnerability tracking
 - Harden Runner protection against supply chain attacks
 
-### 2. **PR Checks Workflow** (`pr-check.yml`)
+### 2. **PR Quality Checks** ([`pr-check.yml`](workflows/pr-check.yml))
 
 **Triggers:** Pull request events  
 **Purpose:** Quality assurance for code changes
+
+```bash
+Trigger: Pull Request events
+├── Security Scan (Trivy vulnerability analysis)
+├── Multi-Node Testing (20 LTS, 22 Current)
+├── Bundle Size Analysis
+└── Automated Status Reports
+```
 
 **Features:**
 
@@ -38,10 +90,19 @@ This directory contains the GitHub Actions workflows and automation configuratio
 - **Status Reporting**: Intelligent PR comments with detailed analysis
 - **Quality Enforcement**: All checks must pass before merge eligibility
 
-### 3. **Dependabot** (`dependabot.yml`)
+### 3. **Dependency Updates** ([`dependabot.yml`](dependabot.yml))
 
 **Purpose:** Automated dependency updates  
-**Schedule:** Weekly on Mondays at 04:00 UTC  
+**Schedule:** Weekly on Mondays at 04:00 UTC
+
+```bash
+Schedule: Weekly on Mondays
+├── NPM Dependencies (security-focused)
+├── GitHub Actions updates
+├── Automated PR creation
+└── Maintainer assignment
+```
+
 **Features:**
 
 - **NPM Dependencies**: Automated package updates with security focus
