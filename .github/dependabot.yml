@@ -9,9 +9,9 @@ updates:
       time: '04:00'
     open-pull-requests-limit: 10
     reviewers:
-      - 'umairleo1'
+      - '@me'
     assignees:
-      - 'umairleo1'
+      - '@me'
     commit-message:
       prefix: 'chore'
       include: 'scope'
@@ -32,9 +32,9 @@ updates:
       time: '04:00'
     open-pull-requests-limit: 5
     reviewers:
-      - 'umairleo1'
+      - '@me'
     assignees:
-      - 'umairleo1'
+      - '@me'
     commit-message:
       prefix: 'chore'
       include: 'scope'
