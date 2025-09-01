@@ -8,8 +8,13 @@ import React, {
 } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
 import { companies } from '@/data';
-import { animationConfig } from '@/config/animations';
 import styles from './LogoScroll.module.css';
+
+// Logo scroll configuration
+const logoScrollConfig = {
+  gap: 48, // 3rem in pixels
+  duration: 30, // seconds for smooth scroll
+};
 
 const LogoScroll: React.FC = memo(() => {
   const [isHovered, setIsHovered] = useState(false);
@@ -18,10 +23,9 @@ const LogoScroll: React.FC = memo(() => {
   // Memoized infinite scroll calculations for optimal performance
   const { tripleCompanies, singleSetWidth, speed } = useMemo(() => {
     const triple = [...companies, ...companies, ...companies];
-    const itemWidth = 120 + animationConfig.scroll.logoScroll.gap;
+    const itemWidth = 120 + logoScrollConfig.gap;
     const width = itemWidth * companies.length;
-    const scrollSpeed =
-      width / (animationConfig.scroll.logoScroll.duration * 1000);
+    const scrollSpeed = width / (logoScrollConfig.duration * 1000);
 
     return {
       tripleCompanies: triple,
