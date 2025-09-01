@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { useSectionTracking } from '@/hooks/useAnalytics';
 import { education, certifications } from '@/data';
 import {
@@ -14,25 +13,6 @@ import styles from './Education.module.css';
 
 const Education: React.FC = () => {
   const sectionRef = useSectionTracking('education');
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 },
-  };
 
   return (
     <section
@@ -41,29 +21,18 @@ const Education: React.FC = () => {
       className={`${styles.education} section`}
     >
       <div className='container'>
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial='hidden'
-          animate={inView ? 'visible' : 'hidden'}
-        >
-          <motion.div
-            className={styles.educationHeader}
-            variants={itemVariants}
-          >
+        <div>
+          <div className={styles.educationHeader}>
             <h2 className={`${styles.sectionTitle} chunky-underline`}>
               education & certifications
             </h2>
             <p className={styles.sectionSubtitle}>
               academic foundation and professional achievements
             </p>
-          </motion.div>
+          </div>
 
           <div className={styles.educationContent}>
-            <motion.div
-              className={styles.educationAcademic}
-              variants={itemVariants}
-            >
+            <div className={styles.educationAcademic}>
               <div className={styles.sectionHeader}>
                 <h3 className={styles.sectionHeading}>
                   {renderIcon(HiAcademicCap, { className: styles.sectionIcon })}
@@ -76,7 +45,6 @@ const Education: React.FC = () => {
                   <motion.div
                     key={index}
                     className={`${styles.educationItem} card`}
-                    variants={itemVariants}
                     whileHover={{ scale: 1.02, y: -8 }}
                     transition={{ duration: 0.3 }}
                   >
@@ -112,12 +80,9 @@ const Education: React.FC = () => {
                   </motion.div>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              className={styles.educationCertifications}
-              variants={itemVariants}
-            >
+            <div className={styles.educationCertifications}>
               <div className={styles.sectionHeader}>
                 <h3 className={styles.sectionHeading}>
                   {renderIcon(HiOutlineTrophy, {
@@ -132,7 +97,6 @@ const Education: React.FC = () => {
                   <motion.div
                     key={index}
                     className={`${styles.certificationItem} card`}
-                    variants={itemVariants}
                     whileHover={{ scale: 1.02, y: -8 }}
                     transition={{ duration: 0.3 }}
                     onClick={() => {
@@ -175,9 +139,9 @@ const Education: React.FC = () => {
                   </motion.div>
                 ))}
               </div>
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

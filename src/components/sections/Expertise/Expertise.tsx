@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { useSectionTracking } from '@/hooks/useAnalytics';
 import { skills } from '@/data';
 import {
@@ -30,29 +29,8 @@ import { renderIcon } from '@/utils/IconWrapper';
 import styles from './Expertise.module.css';
 
 const Expertise: React.FC = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   // Analytics section tracking
   const sectionRef = useSectionTracking('skills');
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: { y: 0, opacity: 1 },
-  };
 
   const skillCategories = [
     {
@@ -134,92 +112,99 @@ const Expertise: React.FC = () => {
       className={`${styles.expertise} section`}
     >
       <div className='container'>
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial='hidden'
-          animate={inView ? 'visible' : 'hidden'}
-        >
-          <motion.div className={styles.header} variants={itemVariants}>
+        <div>
+          <div className={styles.header}>
             <h2 className={`${styles.sectionTitle} chunky-underline`}>
               skills & expertise
             </h2>
             <p className={styles.sectionSubtitle}>
               comprehensive technology stack and specialized competencies
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div className={styles.skills} variants={itemVariants}>
-            <div className={styles.skillsGrid}>
-              {skillCategories.map((category, index) => (
-                <motion.div
-                  key={category.title}
-                  className={`${styles.skillCategory} card`}
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02, y: -8 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className={styles.skillCategoryHeader}>
-                    <div className={styles.skillCategoryIconContainer}>
-                      <div
-                        className={styles.skillCategoryIcon}
-                        style={{ background: category.gradient }}
-                      >
-                        {category.icon}
-                      </div>
-                      <div className={styles.skillCategoryTechIcons}>
-                        {category.techIcons.map((TechIcon, iconIndex) => (
-                          <TechIcon
-                            key={iconIndex}
-                            className={styles.techIcon}
-                          />
-                        ))}
-                      </div>
+          <div className={styles.skillsGrid}>
+            {skillCategories.map((category) => (
+              <motion.div
+                key={category.title}
+                className={`${styles.skillCategory} card`}
+                whileHover={{
+                  scale: 1.02,
+                  y: -8,
+                  transition: {
+                    duration: 0.3,
+                    ease: [0.4, 0, 0.2, 1],
+                  },
+                }}
+                whileTap={{
+                  scale: 0.98,
+                  transition: {
+                    duration: 0.1,
+                    ease: [0.4, 0, 0.2, 1],
+                  },
+                }}
+              >
+                <div className={styles.skillCategoryHeader}>
+                  <div className={styles.skillCategoryIconContainer}>
+                    <div
+                      className={styles.skillCategoryIcon}
+                      style={{ background: category.gradient }}
+                    >
+                      {category.icon}
                     </div>
-                    <div className={styles.skillCategoryInfo}>
-                      <h3 className={styles.skillCategoryTitle}>
-                        {category.title}
-                      </h3>
-                      <p className={styles.skillCategoryDescription}>
-                        {category.description}
-                      </p>
+                    <div className={styles.skillCategoryTechIcons}>
+                      {category.techIcons.map((TechIcon, iconIndex) => (
+                        <TechIcon key={iconIndex} className={styles.techIcon} />
+                      ))}
                     </div>
                   </div>
-                  <div className={styles.skillCategoryItems}>
-                    {category.items.map((skill, skillIndex) => (
-                      <motion.span
-                        key={skill}
-                        className={styles.skillTag}
-                        variants={itemVariants}
-                        transition={{ delay: index * 0.1 + skillIndex * 0.05 }}
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        {skill}
-                      </motion.span>
-                    ))}
+                  <div className={styles.skillCategoryInfo}>
+                    <h3 className={styles.skillCategoryTitle}>
+                      {category.title}
+                    </h3>
+                    <p className={styles.skillCategoryDescription}>
+                      {category.description}
+                    </p>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+                </div>
+                <div className={styles.skillCategoryItems}>
+                  {category.items.map((skill) => (
+                    <span key={skill} className={styles.skillTag}>
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
 
-          <motion.div className={styles.stats} variants={itemVariants}>
+          <div className={styles.stats}>
             <div className={styles.statsGrid}>
               {stats.map((stat, index) => (
                 <motion.div
                   key={index}
                   className={styles.statItem}
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  transition={{ duration: 0.2 }}
+                  whileHover={{
+                    scale: 1.05,
+                    transition: {
+                      duration: 0.2,
+                      ease: [0.4, 0, 0.2, 1],
+                    },
+                  }}
+                  whileTap={{
+                    scale: 0.95,
+                    transition: {
+                      duration: 0.1,
+                      ease: [0.4, 0, 0.2, 1],
+                    },
+                  }}
                 >
                   <div className={styles.statValue}>{stat.value}</div>
                   <div className={styles.statLabel}>{stat.label}</div>
                 </motion.div>
               ))}
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );
