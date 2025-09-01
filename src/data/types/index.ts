@@ -33,6 +33,8 @@ export interface SkillCategories {
   dataAndMessaging: string[];
   testing: string[];
   security: string[];
+  designAndTools: string[];
+  monitoringAndAnalytics: string[];
 }
 
 export interface Experience {
