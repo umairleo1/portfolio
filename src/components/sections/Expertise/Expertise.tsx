@@ -23,6 +23,8 @@ import {
   HiOutlineCpuChip,
   HiOutlineShieldCheck,
   HiOutlineSparkles,
+  HiOutlineWrenchScrewdriver,
+  HiOutlineChartBarSquare,
 } from 'react-icons/hi2';
 import { HiCode, HiDatabase } from 'react-icons/hi';
 import { renderIcon } from '@/utils/IconWrapper';
@@ -97,12 +99,36 @@ const Expertise: React.FC = () => {
       gradient: 'linear-gradient(135deg, #eb5424, #f97316, #dc2626)',
       description: 'Security tools and best practices',
     },
+    {
+      title: 'Testing',
+      items: skills.testing,
+      icon: renderIcon(HiOutlineWrenchScrewdriver),
+      techIcons: [],
+      gradient: 'linear-gradient(135deg, #10b981, #06b6d4, #8b5cf6)',
+      description: 'Testing frameworks and methodologies',
+    },
+    {
+      title: 'Design & Tools',
+      items: skills.designAndTools,
+      icon: renderIcon(HiOutlineWrenchScrewdriver),
+      techIcons: [],
+      gradient: 'linear-gradient(135deg, #f59e0b, #d97706, #92400e)',
+      description: 'Development tools and design systems',
+    },
+    {
+      title: 'Monitoring & Analytics',
+      items: skills.monitoringAndAnalytics,
+      icon: renderIcon(HiOutlineChartBarSquare),
+      techIcons: [],
+      gradient: 'linear-gradient(135deg, #dc2626, #ef4444, #f87171)',
+      description: 'Performance monitoring and analytics tools',
+    },
   ];
 
   const stats = [
     { value: '5+', label: 'Years Experience' },
     { value: '20+', label: 'Projects Completed' },
-    { value: '15+', label: 'Technologies' },
+    { value: '50+', label: 'Technologies' },
   ];
 
   return (
