@@ -27,6 +27,10 @@
     0 0 16px var(--primary-cyan-30);
   filter: blur(0.1px);
   will-change: transform, opacity;
+  /* Enhanced GPU acceleration */
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 /* Hide on mobile devices */

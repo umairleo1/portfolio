@@ -14,10 +14,29 @@ const CursorTrail: React.FC = () => {
   const mousePosition = useRef({ x: 0, y: 0 });
   const animationFrameRef = useRef<number | null>(null);
   const dotPositions = useRef<{ x: number; y: number }[]>([]);
+  const lastUpdateTime = useRef<number>(0);
 
-  // Reduced dot count for better performance
-  const DOT_COUNT = 8;
-  const TRAIL_SPEED = 0.15;
+  // Optimized constants for better performance
+  const DOT_COUNT = 6; // Reduced further for better performance
+  const TRAIL_SPEED = 0.18; // Slightly faster for smoother trail
+  const THROTTLE_MS = 16; // 60fps target
+
+  // Throttled mouse move handler for better performance
+  const handleMouseMove = (e: MouseEvent) => {
+    const now = performance.now();
+    if (now - lastUpdateTime.current < THROTTLE_MS) return;
+
+    lastUpdateTime.current = now;
+    mousePosition.current = { x: e.clientX, y: e.clientY };
+
+    // Initialize dots on first mouse movement
+    if (!hasMovedCursor) {
+      dotPositions.current = Array(DOT_COUNT)
+        .fill(null)
+        .map(() => ({ x: e.clientX, y: e.clientY }));
+      setHasMovedCursor(true);
+    }
+  };
 
   useEffect(() => {
     // Check for reduced motion preference
@@ -26,22 +45,10 @@ const CursorTrail: React.FC = () => {
     ).matches;
     if (prefersReducedMotion) return;
 
-    // Initialize with empty positions - dots will appear on first mouse movement
+    // Initialize with empty positions
     dotPositions.current = Array(DOT_COUNT)
       .fill(null)
       .map(() => ({ x: 0, y: 0 }));
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mousePosition.current = { x: e.clientX, y: e.clientY };
-
-      // Initialize dots on first mouse movement
-      if (!hasMovedCursor) {
-        dotPositions.current = Array(DOT_COUNT)
-          .fill(null)
-          .map(() => ({ x: e.clientX, y: e.clientY }));
-        setHasMovedCursor(true);
-      }
-    };
 
     const animateTrail = () => {
       // Only animate if cursor has moved
@@ -58,33 +65,41 @@ const CursorTrail: React.FC = () => {
         dotPositions.current[0].y = targetY;
       }
 
-      // Smooth trailing effect for other dots
+      // Smooth trailing effect for other dots with optimized loop
       for (let i = 1; i < DOT_COUNT; i++) {
         const current = dotPositions.current[i];
         const target = dotPositions.current[i - 1];
 
         if (current && target) {
-          current.x += (target.x - current.x) * TRAIL_SPEED;
-          current.y += (target.y - current.y) * TRAIL_SPEED;
+          // Use lerp for smoother interpolation
+          const deltaX = target.x - current.x;
+          const deltaY = target.y - current.y;
+          current.x += deltaX * TRAIL_SPEED;
+          current.y += deltaY * TRAIL_SPEED;
         }
       }
 
-      // Calculate visual properties
-      const newDots: DotPosition[] = dotPositions.current.map((pos, index) => ({
-        x: pos.x,
-        y: pos.y,
-        scale: Math.max(0.2, (DOT_COUNT - index) / DOT_COUNT),
-        opacity: Math.max(0.1, (DOT_COUNT - index) / DOT_COUNT) * 0.8,
-      }));
+      // Calculate visual properties with optimized scale and opacity
+      const newDots: DotPosition[] = dotPositions.current.map((pos, index) => {
+        const factor = (DOT_COUNT - index) / DOT_COUNT;
+        return {
+          x: pos.x,
+          y: pos.y,
+          scale: Math.max(0.3, factor * 0.9), // Better scaling
+          opacity: Math.max(0.15, factor * 0.85), // Better opacity curve
+        };
+      });
 
       setDots(newDots);
       animationFrameRef.current = requestAnimationFrame(animateTrail);
     };
 
-    // Start with empty dots - they will appear on first mouse movement
+    const startAnimation = () => {
+      animateTrail();
+    };
 
     document.addEventListener('mousemove', handleMouseMove, { passive: true });
-    animateTrail();
+    startAnimation();
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
@@ -92,6 +107,7 @@ const CursorTrail: React.FC = () => {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasMovedCursor]);
 
   return (
@@ -106,6 +122,8 @@ const CursorTrail: React.FC = () => {
               top: `${dot.y}px`,
               transform: `translate(-50%, -50%) scale(${dot.scale})`,
               opacity: dot.opacity,
+              // Use transform3d for better GPU acceleration
+              willChange: 'transform, opacity',
             }}
           />
         ))}
