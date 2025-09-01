@@ -8,7 +8,7 @@ import { personalInfo } from '../personal/info';
  */
 export const appConfig: AppConfig = {
   resume: {
-    url: 'https://www.overleaf.com/read/cvskqhhwffsm#9221f8',
+    url: 'https://www.overleaf.com/read/wjrbmcpzjgnq#8d4ec7',
     downloadUrl: '/resume.pdf',
   },
   navigation: {
