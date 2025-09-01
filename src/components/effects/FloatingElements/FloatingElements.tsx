@@ -4,83 +4,119 @@ import styles from './FloatingElements.module.css';
 const FloatingElements: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHeroVisible, setIsHeroVisible] = useState(true);
+  const activeElementsRef = useRef<HTMLElement[]>([]);
 
   useEffect(() => {
+    // Optimized scroll handler with throttling
+    const handleScroll = () => {
+      const heroSection = document.getElementById('about');
+      if (heroSection) {
+        const heroRect = heroSection.getBoundingClientRect();
+        const isVisible = heroRect.bottom > 100;
+        setIsHeroVisible(isVisible);
+      }
+    };
     // Check for reduced motion preference
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
     if (prefersReducedMotion) return;
 
-    // Scroll detection for hero visibility (throttled)
+    // Throttled scroll detection
     let scrollTimeout: NodeJS.Timeout | null = null;
-    const handleScroll = () => {
+    const throttledScrollHandler = () => {
       if (scrollTimeout) return;
       scrollTimeout = setTimeout(() => {
-        const heroSection = document.getElementById('about');
-        if (heroSection) {
-          const heroRect = heroSection.getBoundingClientRect();
-          const isVisible = heroRect.bottom > 100;
-          setIsHeroVisible(isVisible);
-        }
+        handleScroll();
         scrollTimeout = null;
       }, 100);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', throttledScrollHandler, {
+      passive: true,
+    });
 
+    // Optimized element creation with cleanup tracking
     const createFloatingElement = () => {
       if (!containerRef.current || !isHeroVisible) return;
+
+      // Limit concurrent elements for better performance
+      if (activeElementsRef.current.length >= 4) return;
 
       const element = document.createElement('div');
       element.className = styles.floatingOrb || 'floating-orb';
 
-      // Reduced random properties for better performance
-      const size = Math.random() * 40 + 15; // Smaller: 15-55px
-      const opacity = Math.random() * 0.2 + 0.05; // More subtle: 0.05-0.25
-      const duration = Math.random() * 15 + 20; // Longer: 20-35s
+      // Optimized properties for better performance
+      const size = Math.random() * 30 + 20; // 20-50px for better visibility
+      const opacity = Math.random() * 0.15 + 0.08; // 0.08-0.23 for better subtlety
+      const duration = Math.random() * 10 + 25; // 25-35s for smoother motion
 
-      // Random starting position
-      const startX = Math.random() * window.innerWidth;
+      // Random starting position with boundary checks
+      const startX = Math.max(
+        0,
+        Math.min(window.innerWidth - size, Math.random() * window.innerWidth)
+      );
       const startY = window.innerHeight + size;
 
+      // Use CSS custom properties for better performance
       element.style.cssText = `
-        width: ${size}px;
-        height: ${size}px;
-        left: ${startX}px;
-        top: ${startY}px;
-        opacity: ${opacity};
-        animation-duration: ${duration}s;
-        background: radial-gradient(circle, rgba(102, 217, 237, 0.15), transparent);
+        --size: ${size}px;
+        --start-x: ${startX}px;
+        --start-y: ${startY}px;
+        --opacity: ${opacity};
+        --duration: ${duration}s;
+        width: var(--size);
+        height: var(--size);
+        left: var(--start-x);
+        top: var(--start-y);
+        opacity: var(--opacity);
+        animation-duration: var(--duration);
+        background: radial-gradient(circle, rgba(102, 217, 237, 0.12), transparent);
+        will-change: transform, opacity;
+        transform: translate3d(0, 0, 0);
       `;
 
       containerRef.current.appendChild(element);
+      activeElementsRef.current.push(element);
 
-      // Remove element after animation
-      setTimeout(() => {
+      // Improved cleanup with tracking
+      const cleanup = () => {
         if (element.parentNode) {
           element.parentNode.removeChild(element);
+          activeElementsRef.current = activeElementsRef.current.filter(
+            (el) => el !== element
+          );
         }
-      }, duration * 1000);
+      };
+
+      setTimeout(cleanup, duration * 1000);
     };
 
-    // Delayed startup - don't run immediately
+    // Optimized startup sequence
     let interval: NodeJS.Timeout;
     const startDelay = setTimeout(() => {
-      // Create fewer initial elements
+      // Create initial elements with staggered timing
       for (let i = 0; i < 2; i++) {
-        setTimeout(() => createFloatingElement(), i * 3000);
+        setTimeout(() => createFloatingElement(), i * 2000);
       }
 
-      // Less frequent creation
-      interval = setInterval(createFloatingElement, 8000);
-    }, 2000); // 2 second delay for startup
+      // Regular creation interval
+      interval = setInterval(createFloatingElement, 6000); // More frequent for better visual flow
+    }, 1500); // Reduced delay for faster startup
 
     return () => {
       clearTimeout(startDelay);
       if (interval) clearInterval(interval);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', throttledScrollHandler);
       if (scrollTimeout) clearTimeout(scrollTimeout);
+
+      // Cleanup active elements
+      activeElementsRef.current.forEach((element) => {
+        if (element.parentNode) {
+          element.parentNode.removeChild(element);
+        }
+      });
+      activeElementsRef.current = [];
     };
   }, [isHeroVisible]);
 
