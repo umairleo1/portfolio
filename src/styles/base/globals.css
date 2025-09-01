@@ -254,27 +254,6 @@ section {
   border-radius: 4px;
 }
 
-.btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--primary-cyan-30),
-    transparent
-  );
-  transition: left 0.6s ease;
-  z-index: 1;
-}
-
-.btn:hover::before {
-  left: 100%;
-}
-
 .btn::after {
   content: '';
   position: absolute;
@@ -336,26 +315,6 @@ section {
   overflow: hidden;
 }
 
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--overlay-medium),
-    transparent
-  );
-  transition: left 0.6s ease;
-}
-
-.card:hover::before {
-  left: 100%;
-}
-
 .card:hover {
   transform: var(--hover-lift);
   border-color: var(--border-strong);
@@ -376,171 +335,41 @@ section {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
-/* Enhanced Animations */
+/* Enhanced Animations with GPU acceleration */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translate3d(0, 30px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes textReveal {
-  0% {
-    transform: translateY(100%);
-  }
-  100% {
-    transform: translateY(0%);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-50px);
+    transform: translate3d(-50px, 0, 0);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translate3d(50px, 0, 0);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
-}
-
-@keyframes morphShape {
-  0%,
-  100% {
-    border-radius: 50% 30% 40% 60%;
-  }
-  25% {
-    border-radius: 30% 60% 50% 40%;
-  }
-  50% {
-    border-radius: 40% 50% 60% 30%;
-  }
-  75% {
-    border-radius: 60% 40% 30% 50%;
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes glow {
-  0%,
-  100% {
-    box-shadow: 0 0 5px var(--primary-cyan-20);
-  }
-  50% {
-    box-shadow: 0 0 20px var(--primary-cyan-40);
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.fade-in-up {
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-.shimmer-effect {
-  position: relative;
-  overflow: hidden;
-}
-
-.shimmer-effect::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--primary-cyan-30),
-    transparent
-  );
-  animation: shimmer 2s infinite;
-}
-
-.glow-effect {
-  animation: glow 2s ease-in-out infinite;
-}
-
-.float-effect {
-  animation: float 3s ease-in-out infinite;
-}
-
-.text-reveal {
-  overflow: hidden;
-}
-
-.text-reveal span {
-  display: inline-block;
-  transform: translateY(100%);
-  animation: textReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.magnetic-hover {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.magnetic-hover:hover {
-  transform: translateY(-5px) scale(1.02);
-}
-
-.section-enter {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.section-enter.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.morph-shape {
-  animation: morphShape 8s ease-in-out infinite;
 }
 
 /* Scroll reveal */
-.scroll-reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease;
-}
-
-.scroll-reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -575,4 +404,30 @@ section {
 ::selection {
   background: var(--primary-cyan);
   color: var(--dark-bg);
+}
+
+/* Performance optimizations */
+* {
+  /* Optimize animations for better performance */
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable cursor trail and floating elements */
+  .cursor-trail,
+  .floating-elements {
+    display: none !important;
+  }
 }
