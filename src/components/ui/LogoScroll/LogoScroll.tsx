@@ -19,6 +19,12 @@ const logoScrollConfig = {
 const LogoScroll: React.FC = memo(() => {
   const [isHovered, setIsHovered] = useState(false);
   const [isManualScrolling, setIsManualScrolling] = useState(false);
+  const [isInView, setIsInView] = useState(true); // Assume visible initially
+
+  // Check for reduced motion preference
+  const prefersReducedMotion = useMemo(() => {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }, []);
 
   // Memoized infinite scroll calculations for optimal performance
   const { tripleCompanies, singleSetWidth, speed } = useMemo(() => {
@@ -39,6 +45,7 @@ const LogoScroll: React.FC = memo(() => {
   const animationRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number>(0);
   const manualScrollTimeoutRef = useRef<number | null>(null);
+  const isTabVisibleRef = useRef<boolean>(true);
   const touchStartRef = useRef<{ x: number; time: number } | null>(null);
   const velocityRef = useRef<number>(0);
   const lastTouchRef = useRef<{ x: number; time: number } | null>(null);
@@ -48,10 +55,13 @@ const LogoScroll: React.FC = memo(() => {
   const animate = useCallback(() => {
     const now = Date.now();
     const deltaTime = now - lastTimeRef.current;
+
+    // Prevent huge time jumps after tab becomes visible again
+    const cappedDeltaTime = Math.min(deltaTime, 100); // Max 100ms per frame
     lastTimeRef.current = now;
 
     const currentX = x.get();
-    let newX = currentX + deltaTime * speed;
+    let newX = currentX + cappedDeltaTime * speed;
 
     // Seamless infinite loop boundary
     if (newX >= 0) {
@@ -60,10 +70,26 @@ const LogoScroll: React.FC = memo(() => {
 
     x.set(newX);
 
-    if (!isHovered && !isManualScrolling) {
+    // Only animate if all conditions are met
+    const shouldAnimate =
+      !isHovered &&
+      !isManualScrolling &&
+      isTabVisibleRef.current &&
+      isInView &&
+      !prefersReducedMotion;
+
+    if (shouldAnimate) {
       animationRef.current = requestAnimationFrame(animate);
     }
-  }, [isHovered, isManualScrolling, x, singleSetWidth, speed]);
+  }, [
+    isHovered,
+    isManualScrolling,
+    x,
+    singleSetWidth,
+    speed,
+    isInView,
+    prefersReducedMotion,
+  ]);
 
   // Mouse interaction handlers
   const handleMouseEnter = useCallback(() => setIsHovered(true), []);
@@ -211,7 +237,7 @@ const LogoScroll: React.FC = memo(() => {
 
   // Auto-scroll animation lifecycle
   useEffect(() => {
-    if (isHovered || isManualScrolling) {
+    if (isHovered || isManualScrolling || !isInView || prefersReducedMotion) {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
         animationRef.current = null;
@@ -238,11 +264,14 @@ const LogoScroll: React.FC = memo(() => {
         manualScrollTimeoutRef.current = null;
       }
     };
-  }, [isHovered, isManualScrolling, animate]);
+  }, [isHovered, isManualScrolling, isInView, prefersReducedMotion, animate]);
 
   // Manual scroll event listeners with cleanup
+  const trackRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const trackElement = document.querySelector(`.${styles.track}`);
+    const trackElement = trackRef.current;
     if (!trackElement) return;
 
     trackElement.addEventListener('wheel', handleWheel, { passive: false });
@@ -264,14 +293,90 @@ const LogoScroll: React.FC = memo(() => {
     };
   }, [handleWheel, handleTouchStart, handleTouchMove, handleTouchEnd]);
 
+  // Handle page visibility changes (tab switches)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        // Reset timing when tab becomes visible to prevent jumps
+        lastTimeRef.current = Date.now();
+        isTabVisibleRef.current = true;
+
+        // Immediately restart animation if conditions are met
+        const shouldRestart =
+          !isHovered && !isManualScrolling && isInView && !prefersReducedMotion;
+        if (shouldRestart && !animationRef.current) {
+          // Small delay to ensure smooth restart
+          setTimeout(() => {
+            if (!animationRef.current && isTabVisibleRef.current) {
+              animationRef.current = requestAnimationFrame(animate);
+            }
+          }, 50);
+        }
+      } else {
+        // Pause animation when tab is hidden
+        isTabVisibleRef.current = false;
+        if (animationRef.current) {
+          cancelAnimationFrame(animationRef.current);
+          animationRef.current = null;
+        }
+      }
+    };
+
+    // Backup event listeners for better browser compatibility
+    const handleFocus = () => {
+      lastTimeRef.current = Date.now();
+      isTabVisibleRef.current = true;
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('focus', handleFocus);
+    window.addEventListener('blur', () => {
+      isTabVisibleRef.current = false;
+    });
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('blur', () => {
+        isTabVisibleRef.current = false;
+      });
+    };
+  }, [isHovered, isManualScrolling, isInView, prefersReducedMotion, animate]);
+
+  // Intersection Observer for performance optimization
+  useEffect(() => {
+    const containerElement = containerRef.current;
+    if (!containerElement) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry) {
+          setIsInView(entry.isIntersecting);
+        }
+      },
+      {
+        rootMargin: '50px', // Start animation slightly before visible
+        threshold: 0,
+      }
+    );
+
+    observer.observe(containerElement);
+
+    return () => {
+      observer.unobserve(containerElement);
+    };
+  }, []);
+
   return (
-    <div className={styles.logoScroll}>
+    <div ref={containerRef} className={styles.logoScroll}>
       <div className={styles.container}>
         <div className={styles.header}>
           <p className={styles.title}>worked with</p>
         </div>
 
         <div
+          ref={trackRef}
           className={styles.track}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
