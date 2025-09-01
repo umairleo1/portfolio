@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { useSectionTracking } from '@/hooks/useAnalytics';
 import { experience, companies } from '@/data';
 import { HiLocationMarker, HiExternalLink } from 'react-icons/hi';
@@ -10,25 +8,6 @@ import styles from './Experience.module.css';
 const Experience: React.FC = () => {
   const sectionRef = useSectionTracking('experience');
   const [expandedItems, setExpandedItems] = useState<number[]>([0]);
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 },
-  };
 
   const toggleExpanded = (index: number) => {
     setExpandedItems((prev) =>
@@ -51,28 +30,19 @@ const Experience: React.FC = () => {
   return (
     <section ref={sectionRef} id='experience' className={styles.experience}>
       <div className='container'>
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial='hidden'
-          animate={inView ? 'visible' : 'hidden'}
-        >
-          <motion.div className={styles.header} variants={itemVariants}>
+        <div>
+          <div className={styles.header}>
             <h2 className={`${styles.sectionTitle} chunky-underline`}>
               professional experience
             </h2>
             <p className={styles.sectionSubtitle}>
               career journey and key achievements
             </p>
-          </motion.div>
+          </div>
 
           <div className={styles.accordion}>
             {experience.map((item, index) => (
-              <motion.div
-                key={index}
-                className={styles.card}
-                variants={itemVariants}
-              >
+              <div key={index} className={styles.card}>
                 <div
                   className={styles.cardHeader}
                   onClick={() => toggleExpanded(index)}
@@ -148,10 +118,10 @@ const Experience: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
