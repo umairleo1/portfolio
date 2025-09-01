@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { personalInfo } from '@/data';
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi';
 import { renderIcon } from '@/utils/IconWrapper';
@@ -136,11 +137,18 @@ const Contact: React.FC = () => {
 
             <div className={styles.contactDetails}>
               {contactDetails.map((detail, index) => (
-                <div
+                <motion.div
                   key={index}
                   className={styles.contactDetail}
                   data-aos='fade-up'
                   data-aos-delay={300 + index * 100}
+                  whileHover={{
+                    x: 8,
+                    transition: {
+                      duration: 0.3,
+                      ease: [0.25, 0.1, 0.25, 1],
+                    },
+                  }}
                 >
                   <div className={styles.contactDetailIcon}>{detail.icon}</div>
                   <div className={styles.contactDetailContent}>
@@ -160,7 +168,7 @@ const Contact: React.FC = () => {
                       )}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
