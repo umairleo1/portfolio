@@ -21,7 +21,7 @@
     },
     "upload": {
       "target": "temporary-public-storage",
-      "githubStatusContextSuffix": "/portfolio"
+      "githubStatusContextSuffix": ""
     }
   }
 }
