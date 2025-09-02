@@ -14,7 +14,10 @@ export function IconWrapper({ children, ...props }: IconWrapperProps) {
 }
 
 // Helper function to safely render react-icons
-export function renderIcon(IconComponent: any, props?: any): React.ReactNode {
+export function renderIcon(
+  IconComponent: React.ComponentType<any>,
+  props?: Record<string, any>
+): React.ReactNode {
   try {
     return React.createElement(IconComponent, props || {});
   } catch {

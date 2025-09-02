@@ -16,5 +16,5 @@ export const personalInfo: PersonalInfo = {
   twitter: 'https://x.com/UmairLeo7',
   profileImage: '/assets/images/profile-main.jpg',
   objective:
-    'passionate about building scalable, high-performance applications and turning innovative ideas into robust software solutions.',
+    'Passionate about building scalable, high-performance applications and turning innovative ideas into robust software solutions.',
 };

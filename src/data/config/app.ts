@@ -32,6 +32,7 @@ export const appConfig: AppConfig = {
       'Experienced Software Engineer based in London, UK. Passionate about building scalable, high-performance applications and turning innovative ideas into robust software solutions.',
     keywords: [
       'Software Engineer',
+      'React Native Developer',
       'React Developer',
       'Python Developer',
       'AWS',

@@ -31,7 +31,7 @@ const Card: React.FC<CardProps> = ({
     .filter(Boolean)
     .join(' ');
 
-  const motionProps: any = {};
+  const motionProps: Record<string, any> = {};
   if (variants) motionProps.variants = variants;
   if (onClick) motionProps.onClick = onClick;
   if (style) motionProps.style = style;
