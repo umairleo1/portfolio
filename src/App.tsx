@@ -8,10 +8,12 @@ import {
   ErrorBoundary,
   SectionLoader,
 } from '@/components';
+import { SEO, StructuredData, WebVitalsOptimizer } from '@/components/seo';
 import { initGA, trackPageView } from '@/utils';
 import { useScrollDepthTracking, useTimeTracking } from '@/hooks/useAnalytics';
 import '@/styles/base/globals.css';
 import '@/styles/base/App.css';
+import '@/styles/base/accessibility.css';
 
 // Lazy load non-critical sections for optimal performance
 const Expertise = lazy(() => import('@/components/sections/Expertise'));
@@ -55,6 +57,11 @@ function App() {
 
   return (
     <ErrorBoundary>
+      {/* SEO Meta Tags - Load immediately for search engines */}
+      <SEO />
+      <StructuredData />
+      <WebVitalsOptimizer />
+
       <div className='App'>
         {/* Critical Effects - Load immediately with Hero */}
         <ErrorBoundary fallback={null}>
