@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const baseUrl = 'https://umairleo1.github.io/portfolio';
+// Use environment variable - fallback is acceptable here since this is a build script
+const baseUrl =
+  process.env.REACT_APP_SITE_URL || 'https://umairleo1.github.io/portfolio';
 const buildDir = path.join(__dirname, '..', 'build');
 const sitemapPath = path.join(buildDir, 'sitemap.xml');
 
