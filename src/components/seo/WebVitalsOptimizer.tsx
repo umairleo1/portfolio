@@ -6,14 +6,17 @@ import { useEffect } from 'react';
  */
 const WebVitalsOptimizer = () => {
   useEffect(() => {
-    // Preload critical resources
+    // Preload critical resources only when needed
     const preloadCriticalResources = () => {
-      // Preload hero image
-      const heroImageLink = document.createElement('link');
-      heroImageLink.rel = 'preload';
-      heroImageLink.as = 'image';
-      heroImageLink.href = '/assets/images/profile-main.jpg';
-      document.head.appendChild(heroImageLink);
+      // Only preload hero image if it's actually present in DOM
+      const heroImage = document.querySelector('img[src*="profile-main"]');
+      if (heroImage) {
+        const heroImageLink = document.createElement('link');
+        heroImageLink.rel = 'preload';
+        heroImageLink.as = 'image';
+        heroImageLink.href = `${process.env.PUBLIC_URL || ''}/assets/images/profile-main.jpg`;
+        document.head.appendChild(heroImageLink);
+      }
 
       // Preload critical fonts if any
       const fontLink = document.createElement('link');
@@ -64,10 +67,20 @@ const WebVitalsOptimizer = () => {
       }
     };
 
-    // Run optimizations
-    preloadCriticalResources();
-    optimizeCLS();
-    optimizeFID();
+    // Run optimizations with delay to ensure DOM is ready
+    const initOptimizations = () => {
+      optimizeCLS();
+      optimizeFID();
+      // Delay preload until Hero component is likely mounted
+      setTimeout(preloadCriticalResources, 100);
+    };
+
+    // Run after DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initOptimizations);
+    } else {
+      initOptimizations();
+    }
 
     // Set up intersection observer for lazy loading
     const lazyImages = document.querySelectorAll('img[data-lazy]');
