@@ -16,12 +16,15 @@ jspm_packages/
 /dist
 /out
 
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# Environment variables (professional setup)
+.env                    # Local development template
+.env.local             # Local secrets and overrides  
+.env.development.local # Development-specific secrets
+.env.test.local        # Test-specific secrets
+.env.production.local  # Production-specific secrets
+
+# Environment files that ARE committed:
+# .env.production       # Production public config (committed)
 
 # Logs
 npm-debug.log*
