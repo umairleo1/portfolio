@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { ASSET_PATHS } from '@/lib/constants/paths';
 
 /**
  * Core Web Vitals optimization component
@@ -14,7 +15,7 @@ const WebVitalsOptimizer = () => {
         const heroImageLink = document.createElement('link');
         heroImageLink.rel = 'preload';
         heroImageLink.as = 'image';
-        heroImageLink.href = `${process.env.PUBLIC_URL || ''}/assets/images/profile-main.jpg`;
+        heroImageLink.href = ASSET_PATHS.PROFILE_MAIN;
         document.head.appendChild(heroImageLink);
       }
 

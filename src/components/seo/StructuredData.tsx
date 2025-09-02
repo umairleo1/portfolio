@@ -1,6 +1,13 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { personalInfo, experience, skills, projects, education } from '@/data';
+import {
+  personalInfo,
+  experience,
+  skills,
+  projects,
+  education,
+  appConfig,
+} from '@/data';
 
 const StructuredData: React.FC = () => {
   // Person Schema
@@ -17,8 +24,8 @@ const StructuredData: React.FC = () => {
       addressLocality: 'London',
       addressCountry: 'UK',
     },
-    url: 'https://umairleo1.github.io/portfolio',
-    image: 'https://umairleo1.github.io/portfolio/assets/profile.jpg',
+    url: appConfig.seo.url,
+    image: `${appConfig.seo.url}/assets/profile.jpg`,
     sameAs: [personalInfo.linkedin, personalInfo.github, personalInfo.twitter],
     knowsAbout: [
       ...skills.languages,
@@ -39,7 +46,7 @@ const StructuredData: React.FC = () => {
     name: 'Muhammad Umair Portfolio',
     description:
       'Professional portfolio showcasing software engineering expertise',
-    url: 'https://umairleo1.github.io/portfolio',
+    url: appConfig.seo.url,
     author: {
       '@type': 'Person',
       name: personalInfo.name,
