@@ -10,221 +10,222 @@ import { motion, useMotionValue } from 'framer-motion';
 import { companies } from '@/data';
 import styles from './LogoScroll.module.css';
 
-// Logo scroll configuration
-const logoScrollConfig = {
-  gap: 48, // 3rem in pixels
-  duration: 30, // seconds for smooth scroll
-};
+// Professional configuration constants
+const CONFIG = {
+  GAP: 48,
+  DURATION: 30000, // milliseconds
+  TOUCH_DELAY: 400,
+  WHEEL_DELAY: 400,
+  RESTART_DELAY: 100,
+  MAX_FRAME_TIME: 100,
+  WHEEL_SENSITIVITY: 0.6,
+  TOUCH_SENSITIVITY: 0.8,
+  MOMENTUM_MULTIPLIER: 120,
+  FRICTION: 0.92,
+} as const;
 
 const LogoScroll: React.FC = memo(() => {
   const [isHovered, setIsHovered] = useState(false);
   const [isManualScrolling, setIsManualScrolling] = useState(false);
-  const [isInView, setIsInView] = useState(true); // Assume visible initially
 
-  // Check for reduced motion preference
-  const prefersReducedMotion = useMemo(() => {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Performance: Cache reduced motion check
+  const prefersReducedMotion = useMemo(
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    []
+  );
+
+  // Professional: Memoized scroll calculations
+  const scrollConfig = useMemo(() => {
+    const itemWidth = 120 + CONFIG.GAP;
+    const singleSetWidth = itemWidth * companies.length;
+    const speed = singleSetWidth / CONFIG.DURATION;
+    const tripleCompanies = [...companies, ...companies, ...companies];
+
+    return { tripleCompanies, singleSetWidth, speed };
   }, []);
 
-  // Memoized infinite scroll calculations for optimal performance
-  const { tripleCompanies, singleSetWidth, speed } = useMemo(() => {
-    const triple = [...companies, ...companies, ...companies];
-    const itemWidth = 120 + logoScrollConfig.gap;
-    const width = itemWidth * companies.length;
-    const scrollSpeed = width / (logoScrollConfig.duration * 1000);
+  // Professional: Centralized refs
+  const refs = {
+    x: useMotionValue(-scrollConfig.singleSetWidth),
+    animation: useRef<number | null>(null),
+    lastTime: useRef<number>(0),
+    manualTimeout: useRef<number | null>(null),
+    momentum: useRef<number | null>(null),
+    container: useRef<HTMLDivElement>(null),
+    track: useRef<HTMLDivElement>(null),
+    touch: useRef<{ x: number; time: number } | null>(null),
+    velocity: useRef<number>(0),
+  };
 
-    return {
-      tripleCompanies: triple,
-      singleSetWidth: width,
-      speed: scrollSpeed,
-    };
-  }, []);
-
-  // Motion and animation refs
-  const x = useMotionValue(-singleSetWidth);
-  const animationRef = useRef<number | null>(null);
-  const lastTimeRef = useRef<number>(0);
-  const manualScrollTimeoutRef = useRef<number | null>(null);
-  const isTabVisibleRef = useRef<boolean>(true);
-  const touchStartRef = useRef<{ x: number; time: number } | null>(null);
-  const velocityRef = useRef<number>(0);
-  const lastTouchRef = useRef<{ x: number; time: number } | null>(null);
-  const momentumAnimationRef = useRef<number | null>(null);
-
-  // Optimized auto-scroll animation loop
+  // Professional: Single animation function
   const animate = useCallback(() => {
     const now = Date.now();
-    const deltaTime = now - lastTimeRef.current;
+    const deltaTime = Math.min(
+      now - refs.lastTime.current,
+      CONFIG.MAX_FRAME_TIME
+    );
+    refs.lastTime.current = now;
 
-    // Prevent huge time jumps after tab becomes visible again
-    const cappedDeltaTime = Math.min(deltaTime, 100); // Max 100ms per frame
-    lastTimeRef.current = now;
+    const currentX = refs.x.get();
+    let newX = currentX + deltaTime * scrollConfig.speed;
 
-    const currentX = x.get();
-    let newX = currentX + cappedDeltaTime * speed;
+    // Seamless loop boundary
+    if (newX >= 0) newX -= scrollConfig.singleSetWidth;
 
-    // Seamless infinite loop boundary
-    if (newX >= 0) {
-      newX -= singleSetWidth;
-    }
+    refs.x.set(newX);
 
-    x.set(newX);
-
-    // Only animate if all conditions are met
-    const shouldAnimate =
-      !isHovered &&
-      !isManualScrolling &&
-      isTabVisibleRef.current &&
-      isInView &&
-      !prefersReducedMotion;
-
-    if (shouldAnimate) {
-      animationRef.current = requestAnimationFrame(animate);
+    // Continue if no user interaction
+    if (!isHovered && !isManualScrolling && !prefersReducedMotion) {
+      refs.animation.current = requestAnimationFrame(animate);
+    } else {
+      refs.animation.current = null;
     }
   }, [
     isHovered,
     isManualScrolling,
-    x,
-    singleSetWidth,
-    speed,
-    isInView,
     prefersReducedMotion,
+    scrollConfig.speed,
+    scrollConfig.singleSetWidth,
   ]);
 
-  // Mouse interaction handlers
+  // Professional: Clean animation control
+  const startAnimation = useCallback(() => {
+    if (
+      refs.animation.current ||
+      isHovered ||
+      isManualScrolling ||
+      prefersReducedMotion
+    ) {
+      return;
+    }
+    refs.lastTime.current = Date.now();
+    refs.animation.current = requestAnimationFrame(animate);
+  }, [animate, isHovered, isManualScrolling, prefersReducedMotion]);
+
+  const stopAnimation = useCallback(() => {
+    if (refs.animation.current) {
+      cancelAnimationFrame(refs.animation.current);
+      refs.animation.current = null;
+    }
+  }, []);
+
+  // Professional: Optimized manual scroll handler
+  const handleManualScroll = useCallback(
+    (deltaX: number, isTouch = false) => {
+      const currentX = refs.x.get();
+      let newX = currentX + deltaX;
+
+      // Infinite scroll boundaries
+      if (newX >= 0) {
+        newX -= scrollConfig.singleSetWidth;
+      } else if (newX <= -scrollConfig.singleSetWidth * 2) {
+        newX += scrollConfig.singleSetWidth;
+      }
+
+      refs.x.set(newX);
+
+      // Pause auto-scroll
+      setIsManualScrolling(true);
+      stopAnimation();
+
+      // Clear previous timeout
+      if (refs.manualTimeout.current) {
+        clearTimeout(refs.manualTimeout.current);
+      }
+
+      // Resume after delay
+      const delay = isTouch ? CONFIG.TOUCH_DELAY : CONFIG.WHEEL_DELAY;
+      refs.manualTimeout.current = window.setTimeout(() => {
+        setIsManualScrolling(false);
+      }, delay);
+    },
+    [scrollConfig.singleSetWidth, stopAnimation]
+  );
+
+  // Professional: Mouse handlers
   const handleMouseEnter = useCallback(() => setIsHovered(true), []);
   const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
+  // Professional: Company click handler
   const handleCompanyClick = useCallback((website: string) => {
     if (website && website !== '#') {
       window.open(website, '_blank', 'noopener,noreferrer');
     }
   }, []);
 
-  // Manual scroll handler with bidirectional infinite scroll
-  const handleManualScroll = useCallback(
-    (deltaX: number, isTouch = false) => {
-      const currentX = x.get();
-      let newX = currentX + deltaX;
-
-      // Bidirectional infinite scroll boundaries
-      if (newX >= 0) {
-        newX -= singleSetWidth;
-      } else if (newX <= -singleSetWidth * 2) {
-        newX += singleSetWidth;
-      }
-
-      x.set(newX);
-
-      // Temporary pause auto-scroll during manual interaction
-      setIsManualScrolling(true);
-      if (manualScrollTimeoutRef.current) {
-        clearTimeout(manualScrollTimeoutRef.current);
-      }
-
-      // Optimized delay: 500ms for touch, 200ms for wheel/trackpad
-      const delay = isTouch ? 500 : 200;
-      manualScrollTimeoutRef.current = window.setTimeout(() => {
-        setIsManualScrolling(false);
-      }, delay);
-    },
-    [x, singleSetWidth]
-  );
-
-  // Wheel/trackpad scroll handler
+  // Professional: Wheel handler
   const handleWheel = useCallback(
-    (e: Event) => {
-      const wheelEvent = e as WheelEvent;
-      wheelEvent.preventDefault();
-
-      const deltaX = wheelEvent.deltaY * 0.6;
-      handleManualScroll(deltaX);
+    (e: WheelEvent) => {
+      e.preventDefault();
+      handleManualScroll(e.deltaY * CONFIG.WHEEL_SENSITIVITY);
     },
     [handleManualScroll]
   );
 
-  // Touch gesture handlers for mobile devices
-  const handleTouchStart = useCallback((e: Event) => {
-    const touch = (e as TouchEvent).touches[0];
+  // Professional: Touch handlers
+  const handleTouchStart = useCallback((e: TouchEvent) => {
+    const touch = e.touches[0];
     if (touch) {
-      touchStartRef.current = {
-        x: touch.clientX,
-        time: Date.now(),
-      };
+      refs.touch.current = { x: touch.clientX, time: Date.now() };
     }
   }, []);
 
   const handleTouchMove = useCallback(
-    (e: Event) => {
-      const touchEvent = e as TouchEvent;
-      touchEvent.preventDefault();
-
-      const touch = touchEvent.touches[0];
-      if (!touch || !touchStartRef.current) return;
+    (e: TouchEvent) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      if (!touch || !refs.touch.current) return;
 
       const now = Date.now();
-      const deltaX = touch.clientX - touchStartRef.current.x;
-      const deltaTime = now - touchStartRef.current.time;
+      const deltaX = touch.clientX - refs.touch.current.x;
+      const deltaTime = now - refs.touch.current.time;
 
-      // Calculate velocity for momentum
       if (deltaTime > 0) {
-        velocityRef.current = deltaX / deltaTime;
+        refs.velocity.current = deltaX / deltaTime;
       }
 
-      // Smooth touch processing with reduced threshold
       if (Math.abs(deltaX) > 1 && deltaTime > 8) {
-        handleManualScroll(-deltaX * 0.8, true);
-        touchStartRef.current = {
-          x: touch.clientX,
-          time: now,
-        };
+        handleManualScroll(deltaX * CONFIG.TOUCH_SENSITIVITY, true);
+        refs.touch.current = { x: touch.clientX, time: now };
       }
-
-      // Store last touch for momentum calculation
-      lastTouchRef.current = {
-        x: touch.clientX,
-        time: now,
-      };
     },
     [handleManualScroll]
   );
 
   const handleTouchEnd = useCallback(() => {
-    // Cancel any existing momentum animation
-    if (momentumAnimationRef.current) {
-      cancelAnimationFrame(momentumAnimationRef.current);
-      momentumAnimationRef.current = null;
+    // Cancel existing momentum
+    if (refs.momentum.current) {
+      cancelAnimationFrame(refs.momentum.current);
+      refs.momentum.current = null;
     }
 
-    // Add momentum/inertia scrolling after touch ends - iPhone-like behavior
-    if (lastTouchRef.current && Math.abs(velocityRef.current) > 0.05) {
-      let momentum = velocityRef.current * -120;
-      const friction = 0.92;
+    // Add momentum scrolling
+    if (Math.abs(refs.velocity.current) > 0.05) {
+      let momentum = refs.velocity.current * CONFIG.MOMENTUM_MULTIPLIER;
 
       const momentumScroll = () => {
         if (Math.abs(momentum) > 0.5) {
           handleManualScroll(momentum, true);
-          momentum *= friction;
-          momentumAnimationRef.current = requestAnimationFrame(momentumScroll);
+          momentum *= CONFIG.FRICTION;
+          refs.momentum.current = requestAnimationFrame(momentumScroll);
         } else {
-          momentumAnimationRef.current = null;
+          refs.momentum.current = null;
         }
       };
 
-      momentumAnimationRef.current = requestAnimationFrame(momentumScroll);
+      refs.momentum.current = requestAnimationFrame(momentumScroll);
     }
 
-    touchStartRef.current = null;
-    lastTouchRef.current = null;
-    velocityRef.current = 0;
+    refs.touch.current = null;
+    refs.velocity.current = 0;
   }, [handleManualScroll]);
 
+  // Professional: Image error handler
   const handleImageError = useCallback(
     (e: React.SyntheticEvent<HTMLImageElement>, companyName: string) => {
       const target = e.currentTarget;
       target.style.display = 'none';
 
-      // Prevent multiple fallbacks
       if (!target.parentElement?.querySelector(`.${styles.fallback}`)) {
         const fallback = document.createElement('div');
         fallback.textContent = companyName;
@@ -235,43 +236,41 @@ const LogoScroll: React.FC = memo(() => {
     []
   );
 
-  // Auto-scroll animation lifecycle
+  // Professional: Animation lifecycle
   useEffect(() => {
-    if (isHovered || isManualScrolling || !isInView || prefersReducedMotion) {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-        animationRef.current = null;
-      }
-      return;
-    }
-
-    lastTimeRef.current = Date.now();
-    animationRef.current = requestAnimationFrame(animate);
+    startAnimation();
 
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-        animationRef.current = null;
+      stopAnimation();
+      if (refs.momentum.current) {
+        cancelAnimationFrame(refs.momentum.current);
+        refs.momentum.current = null;
       }
-      // Also cleanup momentum animation on unmount
-      if (momentumAnimationRef.current) {
-        cancelAnimationFrame(momentumAnimationRef.current);
-        momentumAnimationRef.current = null;
-      }
-      // Cleanup manual scroll timeout
-      if (manualScrollTimeoutRef.current) {
-        clearTimeout(manualScrollTimeoutRef.current);
-        manualScrollTimeoutRef.current = null;
+      if (refs.manualTimeout.current) {
+        clearTimeout(refs.manualTimeout.current);
+        refs.manualTimeout.current = null;
       }
     };
-  }, [isHovered, isManualScrolling, isInView, prefersReducedMotion, animate]);
+  }, []);
 
-  // Manual scroll event listeners with cleanup
-  const trackRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
+  // Professional: State change handler
   useEffect(() => {
-    const trackElement = trackRef.current;
+    if (!isHovered && !isManualScrolling && !prefersReducedMotion) {
+      startAnimation();
+    } else {
+      stopAnimation();
+    }
+  }, [
+    isHovered,
+    isManualScrolling,
+    prefersReducedMotion,
+    startAnimation,
+    stopAnimation,
+  ]);
+
+  // Professional: Event listeners
+  useEffect(() => {
+    const trackElement = refs.track.current;
     if (!trackElement) return;
 
     trackElement.addEventListener('wheel', handleWheel, { passive: false });
@@ -293,96 +292,46 @@ const LogoScroll: React.FC = memo(() => {
     };
   }, [handleWheel, handleTouchStart, handleTouchMove, handleTouchEnd]);
 
-  // Handle page visibility changes (tab switches)
+  // Professional: Window events
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        // Reset timing when tab becomes visible to prevent jumps
-        lastTimeRef.current = Date.now();
-        isTabVisibleRef.current = true;
-
-        // Immediately restart animation if conditions are met
-        const shouldRestart =
-          !isHovered && !isManualScrolling && isInView && !prefersReducedMotion;
-        if (shouldRestart && !animationRef.current) {
-          // Small delay to ensure smooth restart
-          setTimeout(() => {
-            if (!animationRef.current && isTabVisibleRef.current) {
-              animationRef.current = requestAnimationFrame(animate);
-            }
-          }, 50);
-        }
-      } else {
-        // Pause animation when tab is hidden
-        isTabVisibleRef.current = false;
-        if (animationRef.current) {
-          cancelAnimationFrame(animationRef.current);
-          animationRef.current = null;
-        }
+        refs.lastTime.current = Date.now();
+        setTimeout(startAnimation, CONFIG.RESTART_DELAY);
       }
     };
 
-    // Backup event listeners for better browser compatibility
     const handleFocus = () => {
-      lastTimeRef.current = Date.now();
-      isTabVisibleRef.current = true;
+      refs.lastTime.current = Date.now();
+      setTimeout(startAnimation, CONFIG.RESTART_DELAY);
     };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('focus', handleFocus);
-    window.addEventListener('blur', () => {
-      isTabVisibleRef.current = false;
-    });
+    window.addEventListener('pageshow', handleFocus);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', handleFocus);
-      window.removeEventListener('blur', () => {
-        isTabVisibleRef.current = false;
-      });
+      window.removeEventListener('pageshow', handleFocus);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [isHovered, isManualScrolling, isInView, prefersReducedMotion, animate]);
-
-  // Intersection Observer for performance optimization
-  useEffect(() => {
-    const containerElement = containerRef.current;
-    if (!containerElement) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry) {
-          setIsInView(entry.isIntersecting);
-        }
-      },
-      {
-        rootMargin: '50px', // Start animation slightly before visible
-        threshold: 0,
-      }
-    );
-
-    observer.observe(containerElement);
-
-    return () => {
-      observer.unobserve(containerElement);
-    };
-  }, []);
+  }, [startAnimation]);
 
   return (
-    <div ref={containerRef} className={styles.logoScroll}>
+    <div ref={refs.container} className={styles.logoScroll}>
       <div className={styles.container}>
         <div className={styles.header}>
           <p className={styles.title}>worked with</p>
         </div>
 
         <div
-          ref={trackRef}
+          ref={refs.track}
           className={styles.track}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <motion.div className={styles.content} style={{ x }} drag={false}>
-            {tripleCompanies.map((company, index) => (
+          <motion.div className={styles.content} style={{ x: refs.x }}>
+            {scrollConfig.tripleCompanies.map((company, index) => (
               <div
                 key={`${company.name}-${index}`}
                 className={styles.item}
