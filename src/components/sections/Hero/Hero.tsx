@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { personalInfo } from '@/data';
+import { ASSET_PATHS } from '@/lib/constants/paths';
 import LogoScroll from '@/components/ui/LogoScroll';
 import styles from './Hero.module.css';
 
@@ -72,7 +73,7 @@ const Hero: React.FC = () => {
             <motion.div className={styles.heroImage} variants={itemVariants}>
               <div className={styles.imageContainer}>
                 <img
-                  src={`${process.env.PUBLIC_URL || ''}${personalInfo.profileImage}`}
+                  src={ASSET_PATHS.PROFILE_MAIN}
                   alt={`Professional headshot of ${personalInfo.name}, Software Engineer`}
                   className={styles.profileImage}
                   width='400'
@@ -81,7 +82,7 @@ const Hero: React.FC = () => {
                   decoding='sync'
                   aria-describedby='profile-image-description'
                   onError={(e) => {
-                    e.currentTarget.src = `${process.env.PUBLIC_URL || ''}/assets/images/profile-fallback.jpg`;
+                    e.currentTarget.src = ASSET_PATHS.PROFILE_FALLBACK;
                   }}
                 />
                 <span id='profile-image-description' className='sr-only'>
