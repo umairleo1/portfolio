@@ -100,6 +100,8 @@ export interface SocialConfig {
 
 export interface SEOConfig {
   title: string;
+  url: string;
+  domain: string;
   description: string;
   keywords: string[];
 }
