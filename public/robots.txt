@@ -1,3 +1,10 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /build/
+Disallow: /node_modules/
+Disallow: *.json
+Disallow: *.map
+
+# Sitemap
+Sitemap: https://umairleo1.github.io/portfolio/sitemap.xml
