@@ -29,7 +29,15 @@ A modern, responsive portfolio website template for software engineers. Built wi
 - CSS Modules for scoped styling
 - Performance optimized with code splitting and lazy loading
 - Error boundaries for graceful error handling
-- SEO optimized with semantic HTML and structured data
+- Professional SEO implementation with structured data and meta tags
+
+**SEO & Performance**
+
+- Comprehensive SEO implementation with 85-95 SEO score potential
+- Dynamic meta tags with Open Graph and Twitter Cards
+- JSON-LD structured data for rich snippets
+- Automatic sitemap generation and robots.txt optimization
+- Core Web Vitals optimization and accessibility compliance
 
 **Analytics & Insights**
 
@@ -76,8 +84,9 @@ npm run dev                  # Start dev server + test watcher
 npm run start:all           # Start all development services
 
 # Building
-npm run build               # Create production build
+npm run build               # Create production build with SEO sitemap
 npm run build:analyze       # Build with bundle analysis
+npm run build:sitemap       # Generate sitemap.xml for SEO
 
 # Testing & Quality
 npm test                    # Run tests interactively
@@ -155,6 +164,11 @@ portfolio/
 │   │   │   ├── Work/          # Work showcase with projects
 │   │   │   ├── Experience/    # Professional experience timeline
 │   │   │   └── Contact/       # Contact information
+│   │   ├── seo/               # SEO and structured data components
+│   │   │   ├── SEO.tsx        # Dynamic meta tags with Open Graph
+│   │   │   ├── StructuredData.tsx # JSON-LD schemas for rich snippets
+│   │   │   ├── WebVitalsOptimizer.tsx # Core Web Vitals optimization
+│   │   │   └── index.ts       # SEO components barrel export
 │   │   └── ui/                # Reusable UI components
 │   │       ├── Card/          # Reusable card component with variants
 │   │       ├── Button/        # Button with loading states
@@ -188,12 +202,15 @@ portfolio/
 │   ├── styles/                # Centralized styling system
 │   │   ├── base/              # Global styles and theme
 │   │   │   ├── globals.css    # Main theme variables & base styles
-│   │   │   └── App.css        # App-wide component styles
+│   │   │   ├── App.css        # App-wide component styles
+│   │   │   └── accessibility.css # Accessibility and screen reader styles
 │   │   └── README.md          # Design system documentation
 │   ├── types/                 # TypeScript definitions
 │   │   └── index.ts           # Common type definitions
 │   ├── hooks/                 # Custom React hooks
 │   │   ├── useThrottle.ts     # Throttled event handling
+│   │   ├── useSectionSEO.ts   # Dynamic SEO meta updates per section
+│   │   ├── useAnalytics.ts    # Google Analytics event tracking
 │   │   └── index.ts           # Hook exports
 │   ├── utils/                 # Utility functions
 │   │   ├── IconWrapper.tsx    # React Icons wrapper
@@ -210,6 +227,7 @@ portfolio/
 │   ├── CUSTOMIZATION.md       # Personalization instructions
 │   └── ANALYTICS.md           # Google Analytics integration guide
 ├── scripts/                   # Development automation
+│   └── generate-sitemap.js    # Automatic SEO sitemap generation
 ├── .gitignore                 # Git ignore patterns
 ├── .prettierrc                # Prettier configuration
 ├── eslint.config.js           # ESLint configuration
@@ -225,6 +243,7 @@ portfolio/
 - **[`docs/SETUP.md`](docs/SETUP.md)** - Complete installation and configuration guide
 - **[`docs/CUSTOMIZATION.md`](docs/CUSTOMIZATION.md)** - Personalization and content management
 - **[`docs/ANALYTICS.md`](docs/ANALYTICS.md)** - Analytics integration and business insights
+- **[`docs/SEO.md`](docs/SEO.md)** - Comprehensive SEO implementation guide
 - **[`docs/CODE_QUALITY.md`](docs/CODE_QUALITY.md)** - Code quality automation and standards
 - **[`.github/CICD.md`](.github/CICD.md)** - CI/CD pipeline and deployment automation
 - **[`CONTRIBUTING.md`](CONTRIBUTING.md)** - Development and contribution guidelines
