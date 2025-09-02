@@ -60,9 +60,13 @@ Optimizes Core Web Vitals for better rankings:
 
 #### Data Configuration (`src/data/config/app.ts`)
 
+**Environment-Driven Configuration:**
+
 ```typescript
 seo: {
-  title: "Muhammad Umair - Software Engineer",
+  title: process.env.REACT_APP_SITE_NAME || "Muhammad Umair - Software Engineer",
+  url: process.env.REACT_APP_SITE_URL || 'https://umairleo1.github.io/portfolio',
+  domain: process.env.REACT_APP_SITE_DOMAIN || 'umairleo1.github.io',
   description: "Experienced Software Engineer based in London, UK...",
   keywords: [
     'Software Engineer',
@@ -73,13 +77,34 @@ seo: {
 }
 ```
 
+**Environment Files:**
+
+```bash
+# .env.production (committed - public config)
+REACT_APP_SITE_URL=https://umairleo1.github.io/portfolio
+REACT_APP_SITE_NAME=Muhammad Umair - Software Engineer
+REACT_APP_SITE_DOMAIN=umairleo1.github.io
+
+# .env.local (gitignored - secrets)
+REACT_APP_GOOGLE_ANALYTICS_ID="G-XXXXXXXXXX"
+```
+
 #### Sitemap Generation (`scripts/generate-sitemap.js`)
+
+**Environment-Aware Sitemap Generation:**
+
+```javascript
+const baseUrl =
+  process.env.REACT_APP_SITE_URL || 'https://umairleo1.github.io/portfolio';
+```
 
 Automatically generates `sitemap.xml` with:
 
+- **Dynamic URLs** - Uses environment variables for base URL
 - Portfolio sections with appropriate priorities
 - Change frequency specifications
 - Last modification dates
+- **Custom Domain Ready** - Seamless URL migration
 - Search engine discovery optimization
 
 ## Technical Implementation
@@ -171,21 +196,30 @@ Automatically generates `sitemap.xml` with:
 - Above-fold image prioritization
 - Font preconnection optimization
 
-### Build Process Integration
+### Intelligent Build System Integration
 
-The SEO implementation is integrated into the build process:
+**Automatic Domain Detection:**
 
 ```bash
-npm run build  # Includes automatic sitemap generation
-npm run build:sitemap  # Generate sitemap only
+npm run build  # Intelligent detection (GitHub Pages/Custom Domain)
 ```
 
-**Build Steps:**
+**Manual Override Commands:**
 
-1. Create production build
-2. Compress assets (gzip)
-3. Generate sitemap.xml
-4. Update robots.txt references
+```bash
+npm run build:github-pages   # Force GitHub Pages build
+npm run build:custom-domain  # Force custom domain build
+npm run build:sitemap        # Generate sitemap only
+```
+
+**Build Process:**
+
+1. **Domain Detection** - Automatically detects CNAME or custom homepage
+2. **Environment Loading** - Uses `.env.production` for public config
+3. **Dynamic Build** - Applies correct PUBLIC_URL and asset paths
+4. **Asset Optimization** - Compress assets (gzip)
+5. **SEO Generation** - Generate sitemap.xml with environment URLs
+6. **Robots.txt Update** - Update crawler directives
 
 ## Accessibility & SEO
 
@@ -240,9 +274,26 @@ npm run build:sitemap  # Generate sitemap only
 
 ### Updating SEO Configuration
 
-1. Modify `src/data/config/app.ts` for basic settings
+**For Environment Changes:**
+
+1. Update `.env.production` for public URLs and site name
+2. Update `.env.local` for private analytics and service IDs
+
+**For Content Changes:**
+
+1. Modify `src/data/config/app.ts` for description and keywords
 2. Update structured data in `src/components/seo/StructuredData.tsx`
 3. Customize meta tags in `src/components/seo/SEO.tsx`
+
+**For Custom Domain Migration:**
+
+1. Update `.env.production`:
+   ```bash
+   REACT_APP_SITE_URL=https://yourcustomdomain.com
+   ```
+2. Add CNAME file: `echo "yourcustomdomain.com" > public/CNAME`
+3. Update `package.json` homepage field
+4. Deploy - automatic detection handles the rest!
 
 ### Adding New Schemas
 
