@@ -31,6 +31,78 @@ Edit `src/data/config/app.ts`:
 
 ```typescript
 export const appConfig: AppConfig = {
+  seo: {
+    title: process.env.REACT_APP_SITE_NAME || 'Your Name - Your Title',
+    url: process.env.REACT_APP_SITE_URL || 'https://yoursite.com',
+    domain: process.env.REACT_APP_SITE_DOMAIN || 'yoursite.com',
+    description: 'Your professional description...',
+    keywords: ['Your Skills', 'Your Expertise', 'Your Location'],
+  },
+  // ... other config
+};
+```
+
+### 3. Application Constants
+
+Edit `src/lib/constants/index.ts` for app-wide constants:
+
+**App Configuration:**
+
+```typescript
+export const APP_CONFIG = {
+  NAME: 'Your Portfolio Name',
+  DESCRIPTION: 'Your portfolio description',
+  VERSION: '1.0.0',
+  AUTHOR: 'Your Name',
+} as const;
+```
+
+**Animation Settings:**
+
+```typescript
+export const ANIMATION_CONFIG = {
+  DURATION: {
+    FAST: 0.2, // Quick transitions
+    NORMAL: 0.3, // Default speed
+    SLOW: 0.5, // Slow animations
+  },
+  EASING: {
+    DEFAULT: [0.4, 0, 0.2, 1], // Standard easing
+    BOUNCE: [0.68, -0.55, 0.265, 1.55], // Bouncy effect
+  },
+} as const;
+```
+
+**Responsive Breakpoints:**
+
+```typescript
+export const BREAKPOINTS = {
+  SM: 640,   // Small devices
+  MD: 768,   // Medium devices
+  LG: 1024,  # Large devices
+  XL: 1280,  # Extra large devices
+  '2XL': 1536, # 2X large devices
+} as const;
+```
+
+**Asset Path Utilities:**
+
+```typescript
+// Located in src/lib/constants/paths.ts
+export const getAssetPath = (path: string) => {
+  return `${process.env.PUBLIC_URL || ''}${path}`;
+};
+
+export const ASSET_PATHS = {
+  PROFILE_MAIN: getAssetPath('/assets/images/profile-main.jpg'),
+  PROFILE_FALLBACK: getAssetPath('/assets/images/profile-fallback.jpg'),
+  FAVICON_ICO: getAssetPath('/assets/favicons/favicon.ico'),
+  FAVICON_SVG: getAssetPath('/assets/favicons/favicon.svg'),
+} as const;
+```
+
+```typescript
+export const appConfig: AppConfig = {
   resume: {
     url: 'https://your-resume-link.com',
     downloadUrl: '/resume.pdf',

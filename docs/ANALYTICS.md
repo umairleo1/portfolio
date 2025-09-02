@@ -6,7 +6,7 @@ This portfolio implements enterprise-grade Google Analytics 4 (GA4) tracking wit
 
 ## Features
 
-### 🔒 Privacy & Compliance
+### Privacy & Compliance
 
 - **GDPR Compliant**: Full consent management system
 - **CCPA Compliant**: Restricted data processing
