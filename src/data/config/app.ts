@@ -27,9 +27,14 @@ export const appConfig: AppConfig = {
     email: personalInfo.email,
   },
   seo: {
-    title: `${personalInfo.name} - ${personalInfo.title}`,
+    title:
+      process.env.REACT_APP_SITE_NAME ||
+      `${personalInfo.name} - ${personalInfo.title}`,
+    url:
+      process.env.REACT_APP_SITE_URL || 'https://umairleo1.github.io/portfolio',
+    domain: process.env.REACT_APP_SITE_DOMAIN || 'umairleo1.github.io',
     description:
-      'Experienced Software Engineer based in London, UK. Passionate about building scalable, high-performance applications and turning innovative ideas into robust software solutions.',
+      'Full-Stack Software Engineer | React • Python • AWS. Delivered 50+ high-performance applications, reduced load times by 60%, and architected systems serving 1M+ users. Available for exciting opportunities.',
     keywords: [
       'Software Engineer',
       'React Native Developer',

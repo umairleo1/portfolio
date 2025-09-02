@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
 import { companies } from '@/data';
+import { getAssetPath } from '@/lib/constants/paths';
 import styles from './LogoScroll.module.css';
 
 // Professional configuration constants
@@ -369,7 +370,7 @@ const LogoScroll: React.FC = memo(() => {
                 }
               >
                 <img
-                  src={`${process.env.PUBLIC_URL || ''}${company.logo}`}
+                  src={getAssetPath(company.logo)}
                   alt={company.alt}
                   className={styles.image}
                   loading='lazy'
