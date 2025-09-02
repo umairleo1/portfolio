@@ -1,7 +1,7 @@
 import { personalInfo } from '@/data/personal/info';
 
 // Asset paths constants using React's built-in PUBLIC_URL handling
-const getAssetPath = (path: string) => {
+export const getAssetPath = (path: string) => {
   return `${process.env.PUBLIC_URL || ''}${path}`;
 };
 
