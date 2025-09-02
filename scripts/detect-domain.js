@@ -14,8 +14,10 @@ const detectDomainType = () => {
   // Check for custom domain indicators
   const hasCNAME = fs.existsSync(cnamePath);
   const homepage = packageJson.homepage || '';
-  const homepageIsCustom =
-    !homepage.endsWith('.github.io/') && !homepage.endsWith('.github.io');
+
+  // Secure domain validation - check exact GitHub Pages pattern
+  const githubPagesPattern = /^https:\/\/[^.]+\.github\.io(\/.*)?$/;
+  const homepageIsCustom = !githubPagesPattern.test(homepage);
 
   const isCustomDomain = hasCNAME || homepageIsCustom;
 
