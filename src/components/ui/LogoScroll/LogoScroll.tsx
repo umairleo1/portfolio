@@ -80,6 +80,8 @@ const LogoScroll: React.FC = memo(() => {
     } else {
       refs.animation.current = null;
     }
+    // refs are stable and don't need to be in dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isHovered,
     isManualScrolling,
@@ -100,6 +102,8 @@ const LogoScroll: React.FC = memo(() => {
     }
     refs.lastTime.current = Date.now();
     refs.animation.current = requestAnimationFrame(animate);
+    // refs are stable and don't need to be in dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animate, isHovered, isManualScrolling, prefersReducedMotion]);
 
   const stopAnimation = useCallback(() => {
@@ -107,6 +111,8 @@ const LogoScroll: React.FC = memo(() => {
       cancelAnimationFrame(refs.animation.current);
       refs.animation.current = null;
     }
+    // refs are stable and don't need to be in dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Professional: Optimized manual scroll handler
@@ -139,6 +145,8 @@ const LogoScroll: React.FC = memo(() => {
         setIsManualScrolling(false);
       }, delay);
     },
+    // refs are stable and don't need to be in dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [scrollConfig.singleSetWidth, stopAnimation]
   );
 
@@ -168,6 +176,8 @@ const LogoScroll: React.FC = memo(() => {
     if (touch) {
       refs.touch.current = { x: touch.clientX, time: Date.now() };
     }
+    // refs are stable and don't need to be in dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleTouchMove = useCallback(
@@ -189,6 +199,8 @@ const LogoScroll: React.FC = memo(() => {
         refs.touch.current = { x: touch.clientX, time: now };
       }
     },
+    // refs are stable and don't need to be in dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [handleManualScroll]
   );
 
@@ -218,6 +230,8 @@ const LogoScroll: React.FC = memo(() => {
 
     refs.touch.current = null;
     refs.velocity.current = 0;
+    // refs are stable and don't need to be in dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleManualScroll]);
 
   // Professional: Image error handler
@@ -251,6 +265,8 @@ const LogoScroll: React.FC = memo(() => {
         refs.manualTimeout.current = null;
       }
     };
+    // refs and functions are stable and don't need to be in dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Professional: State change handler
@@ -290,6 +306,8 @@ const LogoScroll: React.FC = memo(() => {
       trackElement.removeEventListener('touchmove', handleTouchMove);
       trackElement.removeEventListener('touchend', handleTouchEnd);
     };
+    // refs are stable and don't need to be in dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleWheel, handleTouchStart, handleTouchMove, handleTouchEnd]);
 
   // Professional: Window events
@@ -315,6 +333,8 @@ const LogoScroll: React.FC = memo(() => {
       window.removeEventListener('pageshow', handleFocus);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
+    // refs are stable and don't need to be in dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startAnimation]);
 
   return (
