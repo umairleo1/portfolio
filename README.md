@@ -65,9 +65,9 @@ cd portfolio
 # Install dependencies
 npm ci
 
-# Configure environment
-cp .env.example .env
-# Edit .env with your values
+# Configure environment (professional setup)
+cp .env.example .env.local
+# Edit .env.local with your actual secret values
 
 # Start development server
 npm start
@@ -83,8 +83,10 @@ npm start                    # Start development server
 npm run dev                  # Start dev server + test watcher
 npm run start:all           # Start all development services
 
-# Building
-npm run build               # Create production build with SEO sitemap
+# Building (Intelligent Build System)
+npm run build               # Intelligent auto-detection (GitHub Pages/Custom Domain)
+npm run build:github-pages  # Force GitHub Pages build
+npm run build:custom-domain # Force custom domain build
 npm run build:analyze       # Build with bundle analysis
 npm run build:sitemap       # Generate sitemap.xml for SEO
 
@@ -104,7 +106,49 @@ npm run analyze             # Analyze bundle size
 
 ## Configuration
 
-For detailed setup instructions including environment configuration, prerequisites, and troubleshooting, see [`docs/SETUP.md`](docs/SETUP.md).
+### Environment Setup (Professional Architecture)
+
+The project uses a professional multi-environment configuration system:
+
+```bash
+.env.example       # Template for developers (committed)
+.env.production    # Production public config (committed)
+.env.local         # Your local secrets (gitignored)
+```
+
+**Key Features:**
+
+- **Intelligent CI/CD** - Automatically detects GitHub Pages vs Custom Domain
+- **Environment-specific URLs** - Seamless migration to custom domains
+- **Security-first** - Real secrets never committed to repository
+- **Team-friendly** - Consistent production configuration
+
+### Custom Domain Migration
+
+When ready for a custom domain:
+
+1. **Update environment:**
+
+   ```bash
+   # .env.production
+   REACT_APP_SITE_URL=https://yourcustomdomain.com
+   ```
+
+2. **Add CNAME file:**
+
+   ```bash
+   echo "yourcustomdomain.com" > public/CNAME
+   ```
+
+3. **Update package.json:**
+
+   ```json
+   "homepage": "https://yourcustomdomain.com"
+   ```
+
+4. **Deploy** - CI/CD automatically detects and builds for custom domain!
+
+For detailed setup instructions see [`docs/SETUP.md`](docs/SETUP.md).
 
 ## Analytics & Insights
 
@@ -144,7 +188,9 @@ portfolio/
 │   │   ├── images/            # Profile pictures and graphics
 │   │   └── icons/             # App icons and logos
 │   ├── index.html             # HTML template with meta tags
-│   └── manifest.json          # PWA manifest configuration
+│   ├── manifest.json          # PWA manifest configuration
+│   ├── robots.txt             # SEO crawler directives
+│   └── CNAME                  # Custom domain configuration (when needed)
 ├── src/
 │   ├── components/            # React components with CSS Modules
 │   │   ├── common/            # Shared components
@@ -217,6 +263,10 @@ portfolio/
 │   │   ├── animations.ts      # Animation utilities
 │   │   ├── analytics.ts       # Google Analytics integration
 │   │   └── index.ts           # Utility exports
+│   ├── lib/                   # Library utilities and constants
+│   │   └── constants/         # Application constants and configuration
+│   │       ├── index.ts       # Constants barrel export
+│   │       └── paths.ts       # Asset paths and URL utilities
 │   ├── config/                # Configuration files
 │   │   ├── animations.ts      # Animation configurations
 │   │   ├── env.ts             # Environment variables with validation
@@ -227,13 +277,18 @@ portfolio/
 │   ├── CUSTOMIZATION.md       # Personalization instructions
 │   └── ANALYTICS.md           # Google Analytics integration guide
 ├── scripts/                   # Development automation
-│   └── generate-sitemap.js    # Automatic SEO sitemap generation
-├── .gitignore                 # Git ignore patterns
+│   ├── generate-sitemap.js    # Automatic SEO sitemap generation
+│   └── detect-domain.js       # Intelligent CI/CD domain detection
+├── .env.example               # Environment template for developers
+├── .env.production            # Production public configuration (committed)
+├── .env.local                 # Local secrets and overrides (gitignored)
+├── .gitignore                 # Git ignore patterns with environment setup
+├── .lighthouserc.json         # Lighthouse CI configuration
 ├── .prettierrc                # Prettier configuration
 ├── eslint.config.js           # ESLint configuration
 ├── tsconfig.json              # TypeScript configuration
 ├── config-overrides.js        # react-app-rewired configuration
-├── package.json               # Dependencies and scripts
+├── package.json               # Dependencies and scripts with intelligent builds
 ├── LICENSE                    # MIT License
 └── README.md                  # This documentation
 ```
@@ -243,6 +298,7 @@ portfolio/
 - **[`docs/SETUP.md`](docs/SETUP.md)** - Complete installation and configuration guide
 - **[`docs/CUSTOMIZATION.md`](docs/CUSTOMIZATION.md)** - Personalization and content management
 - **[`docs/ANALYTICS.md`](docs/ANALYTICS.md)** - Analytics integration and business insights
+- **[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)** - Deployment and custom domain migration guide
 - **[`docs/SEO.md`](docs/SEO.md)** - Comprehensive SEO implementation guide
 - **[`docs/CODE_QUALITY.md`](docs/CODE_QUALITY.md)** - Code quality automation and standards
 - **[`.github/CICD.md`](.github/CICD.md)** - CI/CD pipeline and deployment automation
@@ -425,6 +481,14 @@ If this project helped you or you found it interesting:
 4. **Contribute** to make it even better
 5. **Leave feedback** in discussions
 
+### Support Development
+
+If you find this template valuable and want to support its continued development:
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-ea4aaa?style=for-the-badge&logo=github-sponsors&logoColor=white)](https://github.com/sponsors/umairleo1)
+
+Your sponsorship helps maintain this project and create more open-source tools for developers.
+
 ---
 
 <div align="center">
@@ -433,6 +497,6 @@ If this project helped you or you found it interesting:
 
 _Professional portfolio template for software engineers_
 
-[⬆ Back to Top](#muhammad-umair---software-engineer-portfolio)
+[⬆ Back to Top](#professional-portfolio-template)
 
 </div>
