@@ -91,6 +91,17 @@
   transform: translateZ(0);
 }
 
+/* Alternating left/right positioning */
+.educationItem:nth-child(odd) {
+  margin-left: 0;
+  margin-right: 30px;
+}
+
+.educationItem:nth-child(even) {
+  margin-left: 30px;
+  margin-right: 0;
+}
+
 .educationItem::before {
   content: '';
   position: absolute;
@@ -648,6 +659,15 @@
 
   .certificationsGrid {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  /* Remove alternating positioning on mobile */
+  .educationItem:nth-child(odd),
+  .educationItem:nth-child(even) {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
