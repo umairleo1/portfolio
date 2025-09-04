@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { useSectionTracking } from '@/hooks/useAnalytics';
+import { useSectionTracking, useAnalytics } from '@/hooks/useAnalytics';
 import { education, certifications } from '@/data';
+import type { Certification } from '@/data/types';
 import {
   HiAcademicCap,
   HiOutlineCalendarDays,
@@ -13,6 +14,22 @@ import styles from './Education.module.css';
 
 const Education: React.FC = () => {
   const sectionRef = useSectionTracking('education');
+  const { trackExternalLink } = useAnalytics();
+
+  const handleCertificateClick = useCallback(
+    (cert: Certification) => {
+      if (cert.link && cert.link !== '') {
+        trackExternalLink(
+          cert.link,
+          cert.title,
+          'education_certificate',
+          'certifications_grid'
+        );
+        window.open(cert.link, '_blank', 'noopener,noreferrer');
+      }
+    },
+    [trackExternalLink]
+  );
 
   return (
     <section
@@ -46,17 +63,26 @@ const Education: React.FC = () => {
                     key={index}
                     className={`${styles.educationItem} card`}
                     whileHover={{ scale: 1.02, y: -8 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
                   >
+                    <div className={styles.degreeLevel}>
+                      {edu.degree.includes('MSc') ? "MASTER'S" : "BACHELOR'S"}
+                    </div>
+                    <div className={styles.particles}></div>
+                    <div className={styles.educationItemHint}>
+                      ✨ hover to explore
+                    </div>
                     <div className={styles.educationItemContent}>
                       <div className={styles.educationItemHeader}>
                         <h4 className={styles.educationItemDegree}>
                           {edu.degree}
                         </h4>
-                        <span className={styles.educationItemPeriod}>
+                        <div className={styles.educationItemPeriod}>
                           {renderIcon(HiOutlineCalendarDays)}
                           {edu.period}
-                        </span>
+                        </div>
                       </div>
 
                       <div className={styles.educationItemDetails}>
@@ -75,6 +101,52 @@ const Education: React.FC = () => {
                             {edu.specialization}
                           </p>
                         )}
+
+                        <div className={styles.educationExpandedContent}>
+                          <div className={styles.educationSkills}>
+                            {edu.degree.includes('MSc') ? (
+                              <>
+                                <span className={styles.educationSkill}>
+                                  Machine Learning
+                                </span>
+                                <span className={styles.educationSkill}>
+                                  Data Visualization
+                                </span>
+                                <span className={styles.educationSkill}>
+                                  Big Data
+                                </span>
+                                <span className={styles.educationSkill}>
+                                  Anti Money Laundering
+                                </span>
+                                <span className={styles.educationSkill}>
+                                  Python
+                                </span>
+                                <span className={styles.educationSkill}>R</span>
+                              </>
+                            ) : (
+                              <>
+                                <span className={styles.educationSkill}>
+                                  Mobile Development
+                                </span>
+                                <span className={styles.educationSkill}>
+                                  Web Technologies
+                                </span>
+                                <span className={styles.educationSkill}>
+                                  Artificial Intelligence
+                                </span>
+                                <span className={styles.educationSkill}>
+                                  Software Engineering
+                                </span>
+                                <span className={styles.educationSkill}>
+                                  Java
+                                </span>
+                                <span className={styles.educationSkill}>
+                                  JavaScript
+                                </span>
+                              </>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </motion.div>
@@ -98,12 +170,10 @@ const Education: React.FC = () => {
                     key={index}
                     className={`${styles.certificationItem} card`}
                     whileHover={{ scale: 1.02, y: -8 }}
-                    transition={{ duration: 0.3 }}
-                    onClick={() => {
-                      if (cert.link && cert.link !== '') {
-                        window.open(cert.link, '_blank', 'noopener,noreferrer');
-                      }
-                    }}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    onClick={() => handleCertificateClick(cert)}
                     style={{
                       cursor:
                         cert.link && cert.link !== '' ? 'pointer' : 'default',
@@ -114,27 +184,26 @@ const Education: React.FC = () => {
                         : cert.title
                     }
                   >
-                    <div className={styles.certificationItemContent}>
-                      <div className={styles.certificationItemHeader}>
-                        <div className={styles.certificationIcon}>
-                          {renderIcon(HiOutlineTrophy)}
-                        </div>
-                        <div className={styles.certificationInfo}>
-                          <h4 className={styles.certificationItemTitle}>
-                            {cert.title}
-                          </h4>
-                          <p className={styles.certificationItemIssuer}>
-                            {cert.issuer}
-                          </p>
-                        </div>
+                    {cert.link && cert.link !== '' && (
+                      <div className={styles.verifiedBadge}>VERIFIED</div>
+                    )}
+                    <div className={styles.certificationItemHeader}>
+                      <div className={styles.certificationIcon}>
+                        {renderIcon(HiOutlineTrophy)}
                       </div>
-
-                      {cert.date && (
-                        <p className={styles.certificationItemDate}>
-                          {renderIcon(HiOutlineCalendarDays)}
-                          {cert.date}
+                      <div className={styles.certificationInfo}>
+                        <h4 className={styles.certificationItemTitle}>
+                          {cert.title}
+                        </h4>
+                        <p className={styles.certificationItemIssuer}>
+                          {cert.issuer}
                         </p>
-                      )}
+                        {cert.date && (
+                          <p className={styles.certificationItemDate}>
+                            {cert.date}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </motion.div>
                 ))}
