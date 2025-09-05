@@ -18,7 +18,7 @@ const Education: React.FC = () => {
 
   const handleCertificateClick = useCallback(
     (cert: Certification) => {
-      if (cert.link && cert.link !== '') {
+      if (cert.link) {
         trackExternalLink(
           cert.link,
           cert.title,
@@ -59,97 +59,108 @@ const Education: React.FC = () => {
 
               <div className={styles.educationTimeline}>
                 {education.map((edu, index) => (
-                  <motion.div
-                    key={index}
-                    className={`${styles.educationItem} card`}
-                    whileHover={{ scale: 1.02, y: -8 }}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                  >
+                  <div key={index} className={styles.educationWrapper}>
                     <div className={styles.degreeLevel}>
                       {edu.degree.includes('MSc') ? "MASTER'S" : "BACHELOR'S"}
                     </div>
-                    <div className={styles.particles}></div>
-                    <div className={styles.educationItemHint}>
-                      ✨ hover to explore
-                    </div>
-                    <div className={styles.educationItemContent}>
-                      <div className={styles.educationItemHeader}>
-                        <h4 className={styles.educationItemDegree}>
-                          {edu.degree}
-                        </h4>
-                        <div className={styles.educationItemPeriod}>
-                          {renderIcon(HiOutlineCalendarDays)}
-                          {edu.period}
-                        </div>
+                    <motion.div
+                      className={`${styles.educationItem} card`}
+                      whileHover={{ scale: 1.02, y: -8 }}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.6,
+                        delay: index * 0.1,
+                      }}
+                    >
+                      <div className={styles.particles}></div>
+                      <div className={styles.educationItemHint}>
+                        <span className={styles.mobileText}>
+                          ✨ tap to explore
+                        </span>
+                        <span className={styles.desktopText}>
+                          ✨ hover to explore
+                        </span>
                       </div>
+                      <div className={styles.educationItemContent}>
+                        <div className={styles.educationItemHeader}>
+                          <h4 className={styles.educationItemDegree}>
+                            {edu.degree}
+                          </h4>
+                          <div className={styles.educationItemPeriod}>
+                            {renderIcon(HiOutlineCalendarDays)}
+                            {edu.period}
+                          </div>
+                        </div>
 
-                      <div className={styles.educationItemDetails}>
-                        <p className={styles.educationItemInstitution}>
-                          <strong>{edu.institution}</strong>
-                        </p>
-                        <p className={styles.educationItemLocation}>
-                          {renderIcon(HiOutlineMapPin)}
-                          {edu.location}
-                        </p>
-                        {edu.specialization && (
-                          <p className={styles.educationItemSpecialization}>
-                            <span className={styles.label}>
-                              Specialization:
-                            </span>{' '}
-                            {edu.specialization}
+                        <div className={styles.educationItemDetails}>
+                          <p className={styles.educationItemInstitution}>
+                            <strong>{edu.institution}</strong>
                           </p>
-                        )}
+                          <p className={styles.educationItemLocation}>
+                            {renderIcon(HiOutlineMapPin)}
+                            {edu.location}
+                          </p>
+                          {edu.specialization && (
+                            <p className={styles.educationItemSpecialization}>
+                              <span className={styles.label}>
+                                Specialization:
+                              </span>{' '}
+                              {edu.specialization}
+                            </p>
+                          )}
 
-                        <div className={styles.educationExpandedContent}>
-                          <div className={styles.educationSkills}>
-                            {edu.degree.includes('MSc') ? (
-                              <>
-                                <span className={styles.educationSkill}>
-                                  Machine Learning
-                                </span>
-                                <span className={styles.educationSkill}>
-                                  Data Visualization
-                                </span>
-                                <span className={styles.educationSkill}>
-                                  Big Data
-                                </span>
-                                <span className={styles.educationSkill}>
-                                  Anti Money Laundering
-                                </span>
-                                <span className={styles.educationSkill}>
-                                  Python
-                                </span>
-                                <span className={styles.educationSkill}>R</span>
-                              </>
-                            ) : (
-                              <>
-                                <span className={styles.educationSkill}>
-                                  Mobile Development
-                                </span>
-                                <span className={styles.educationSkill}>
-                                  Web Technologies
-                                </span>
-                                <span className={styles.educationSkill}>
-                                  Artificial Intelligence
-                                </span>
-                                <span className={styles.educationSkill}>
-                                  Software Engineering
-                                </span>
-                                <span className={styles.educationSkill}>
-                                  Java
-                                </span>
-                                <span className={styles.educationSkill}>
-                                  JavaScript
-                                </span>
-                              </>
-                            )}
+                          <div className={styles.educationExpandedContent}>
+                            <div className={styles.educationSkills}>
+                              {edu.degree.includes('MSc') ? (
+                                <>
+                                  <span className={styles.educationSkill}>
+                                    Machine Learning
+                                  </span>
+                                  <span className={styles.educationSkill}>
+                                    Data Visualization
+                                  </span>
+                                  <span className={styles.educationSkill}>
+                                    Big Data
+                                  </span>
+                                  <span className={styles.educationSkill}>
+                                    Anti Money Laundering
+                                  </span>
+                                  <span className={styles.educationSkill}>
+                                    Python
+                                  </span>
+                                  <span className={styles.educationSkill}>
+                                    R
+                                  </span>
+                                </>
+                              ) : (
+                                <>
+                                  <span className={styles.educationSkill}>
+                                    Mobile Development
+                                  </span>
+                                  <span className={styles.educationSkill}>
+                                    Web Technologies
+                                  </span>
+                                  <span className={styles.educationSkill}>
+                                    Artificial Intelligence
+                                  </span>
+                                  <span className={styles.educationSkill}>
+                                    Software Engineering
+                                  </span>
+                                  <span className={styles.educationSkill}>
+                                    Java
+                                  </span>
+                                  <span className={styles.educationSkill}>
+                                    JavaScript
+                                  </span>
+                                </>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </motion.div>
+                    </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -166,46 +177,46 @@ const Education: React.FC = () => {
 
               <div className={styles.certificationsGrid}>
                 {certifications.map((cert, index) => (
-                  <motion.div
-                    key={index}
-                    className={`${styles.certificationItem} card`}
-                    whileHover={{ scale: 1.02, y: -8 }}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    onClick={() => handleCertificateClick(cert)}
-                    style={{
-                      cursor:
-                        cert.link && cert.link !== '' ? 'pointer' : 'default',
-                    }}
-                    title={
-                      cert.link && cert.link !== ''
-                        ? `View ${cert.title} certificate`
-                        : cert.title
-                    }
-                  >
-                    {cert.link && cert.link !== '' && (
+                  <div key={index} className={styles.certificationWrapper}>
+                    {cert.link && (
                       <div className={styles.verifiedBadge}>VERIFIED</div>
                     )}
-                    <div className={styles.certificationItemHeader}>
-                      <div className={styles.certificationIcon}>
-                        {renderIcon(HiOutlineTrophy)}
-                      </div>
-                      <div className={styles.certificationInfo}>
-                        <h4 className={styles.certificationItemTitle}>
-                          {cert.title}
-                        </h4>
-                        <p className={styles.certificationItemIssuer}>
-                          {cert.issuer}
-                        </p>
-                        {cert.date && (
-                          <p className={styles.certificationItemDate}>
-                            {cert.date}
+                    <motion.div
+                      className={`${styles.certificationItem} card`}
+                      whileHover={{ scale: 1.02, y: -8 }}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      onClick={() => handleCertificateClick(cert)}
+                      style={{
+                        cursor: cert.link ? 'pointer' : 'default',
+                      }}
+                      title={
+                        cert.link
+                          ? `View ${cert.title} certificate`
+                          : cert.title
+                      }
+                    >
+                      <div className={styles.certificationItemHeader}>
+                        <div className={styles.certificationIcon}>
+                          {renderIcon(HiOutlineTrophy)}
+                        </div>
+                        <div className={styles.certificationInfo}>
+                          <h4 className={styles.certificationItemTitle}>
+                            {cert.title}
+                          </h4>
+                          <p className={styles.certificationItemIssuer}>
+                            {cert.issuer}
                           </p>
-                        )}
+                          {cert.date && (
+                            <p className={styles.certificationItemDate}>
+                              {cert.date}
+                            </p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
+                    </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
