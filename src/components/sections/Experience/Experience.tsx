@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSectionTracking } from '@/hooks/useAnalytics';
+import { useExpandable } from '@/hooks/useExpandable';
 import { experience, companies } from '@/data';
+import SectionHeader from '@/components/ui/SectionHeader';
 import { HiLocationMarker, HiExternalLink } from 'react-icons/hi';
 import { renderIcon } from '@/utils/IconWrapper';
 import styles from './Experience.module.css';
 
 const Experience: React.FC = () => {
   const sectionRef = useSectionTracking('experience');
-  const [expandedItems, setExpandedItems] = useState<number[]>([0]);
-
-  const toggleExpanded = (index: number) => {
-    setExpandedItems((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
-  };
+  const { isExpanded, toggle } = useExpandable({
+    mode: 'multiple',
+    initialExpanded: [0],
+  });
 
   const getTechSkills = (company: string) => {
     const companyData = companies.find((c) => c.name === company);
@@ -31,21 +30,17 @@ const Experience: React.FC = () => {
     <section ref={sectionRef} id='experience' className={styles.experience}>
       <div className='container'>
         <div>
-          <div className={styles.header}>
-            <h2 className={`${styles.sectionTitle} chunky-underline`}>
-              professional experience
-            </h2>
-            <p className={styles.sectionSubtitle}>
-              career journey and key achievements
-            </p>
-          </div>
+          <SectionHeader
+            title='professional experience'
+            subtitle='career journey and key achievements'
+          />
 
           <div className={styles.accordion}>
             {experience.map((item, index) => (
               <div key={index} className={styles.card}>
                 <div
                   className={styles.cardHeader}
-                  onClick={() => toggleExpanded(index)}
+                  onClick={() => toggle(index)}
                 >
                   <div className={styles.headerLeft}>
                     <h3 className={styles.jobTitle}>{item.title}</h3>
@@ -54,13 +49,13 @@ const Experience: React.FC = () => {
                   <div className={styles.headerRight}>
                     <span className={styles.dateRange}>{item.period}</span>
                     <div className={styles.expandIcon}>
-                      {expandedItems.includes(index) ? '−' : '+'}
+                      {isExpanded(index) ? '−' : '+'}
                     </div>
                   </div>
                 </div>
 
                 <div
-                  className={`${styles.cardContent} ${expandedItems.includes(index) ? styles.expanded : ''}`}
+                  className={`${styles.cardContent} ${isExpanded(index) ? styles.expanded : ''}`}
                 >
                   <div className={styles.contentInner}>
                     <div className={styles.location}>

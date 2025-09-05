@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useSectionTracking } from '@/hooks/useAnalytics';
 import { skills } from '@/data';
+import { cardAnimations } from '@/utils/animations';
+import SectionHeader from '@/components/ui/SectionHeader';
 import {
   SiJavascript,
   SiReact,
@@ -144,35 +146,18 @@ const Expertise: React.FC = () => {
     >
       <div className='container'>
         <div>
-          <div className={styles.header}>
-            <h2 className={`${styles.sectionTitle} chunky-underline`}>
-              skills & expertise
-            </h2>
-            <p className={styles.sectionSubtitle}>
-              comprehensive technology stack and specialized competencies
-            </p>
-          </div>
+          <SectionHeader
+            title='skills & expertise'
+            subtitle='comprehensive technology stack and specialized competencies'
+          />
 
           <div className={styles.skillsGrid}>
             {skillCategories.map((category) => (
               <motion.div
                 key={category.title}
                 className={`${styles.skillCategory} card`}
-                whileHover={{
-                  scale: 1.02,
-                  y: -8,
-                  transition: {
-                    duration: 0.3,
-                    ease: [0.4, 0, 0.2, 1],
-                  },
-                }}
-                whileTap={{
-                  scale: 0.98,
-                  transition: {
-                    duration: 0.1,
-                    ease: [0.4, 0, 0.2, 1],
-                  },
-                }}
+                whileHover={cardAnimations.hover}
+                whileTap={cardAnimations.tap}
               >
                 <div className={styles.skillCategoryHeader}>
                   <div className={styles.skillCategoryIconContainer}>
