@@ -1,7 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useSectionTracking, useAnalytics } from '@/hooks/useAnalytics';
+import { useExpandable } from '@/hooks/useExpandable';
 import { education, certifications } from '@/data';
 import type { Certification } from '@/data/types';
+import SectionHeader from '@/components/ui/SectionHeader';
 import {
   HiAcademicCap,
   HiOutlineCalendarDays,
@@ -14,13 +16,8 @@ import styles from './Education.module.css';
 const Education: React.FC = () => {
   const sectionRef = useSectionTracking('education');
   const { trackExternalLink } = useAnalytics();
-  const [expandedEducation, setExpandedEducation] = useState<number | null>(
-    null
-  );
-
-  const handleEducationToggle = useCallback((index: number) => {
-    setExpandedEducation((prev) => (prev === index ? null : index));
-  }, []);
+  const { isExpanded: isEducationExpanded, toggle: toggleEducation } =
+    useExpandable();
 
   const handleCertificateClick = useCallback(
     (cert: Certification) => {
@@ -45,14 +42,10 @@ const Education: React.FC = () => {
     >
       <div className='container'>
         <div>
-          <div className={styles.educationHeader}>
-            <h2 className={`${styles.sectionTitle} chunky-underline`}>
-              education & certifications
-            </h2>
-            <p className={styles.sectionSubtitle}>
-              academic foundation and professional achievements
-            </p>
-          </div>
+          <SectionHeader
+            title='education & certifications'
+            subtitle='academic foundation and professional achievements'
+          />
 
           <div className={styles.educationContent}>
             <div className={styles.educationAcademic}>
@@ -68,8 +61,8 @@ const Education: React.FC = () => {
                   <div key={index} className={styles.educationWrapper}>
                     <div className={styles.degreeLevel}>{edu.level}</div>
                     <div
-                      className={`${styles.educationItem} card ${expandedEducation === index ? styles.expanded : ''}`}
-                      onClick={() => handleEducationToggle(index)}
+                      className={`${styles.educationItem} card ${isEducationExpanded(index) ? styles.expanded : ''}`}
+                      onClick={() => toggleEducation(index)}
                       style={{
                         animationDelay: `${index * 0.1}s`,
                       }}
@@ -77,7 +70,7 @@ const Education: React.FC = () => {
                       <div className={styles.particles}></div>
                       <div className={styles.educationItemHint}>
                         <span className={styles.mobileText}>
-                          {expandedEducation === index
+                          {isEducationExpanded(index)
                             ? '✨ tap to collapse'
                             : '✨ tap to explore'}
                         </span>
