@@ -41,6 +41,7 @@
 
 .educationAcademic {
   margin-bottom: 0;
+  overflow: visible;
 }
 
 .educationCertifications {
@@ -75,10 +76,8 @@
   gap: 1rem;
   max-width: 800px;
   margin: 0 auto;
-  /* Proper spacing for absolutely positioned badges */
-  padding: 50px 20px 20px 20px;
-  /* Ensure badges are never clipped */
   overflow: visible;
+  padding: 0 30px 0 30px;
   position: relative;
 }
 
@@ -86,7 +85,7 @@
   position: relative;
   /* Allow badges to overflow naturally */
   overflow: visible;
-  padding: 20px 20px 0 0;
+  padding: 25px 25px 0 0;
 }
 
 .educationItem {
@@ -102,8 +101,12 @@
   min-height: 60px;
   display: flex;
   align-items: center;
+
+  /* CSS entrance animation to replace Framer Motion */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   will-change: transform, height, padding;
-  transform: translateZ(0);
 }
 
 /* Expanded state for mobile touch */
@@ -363,10 +366,10 @@
 }
 
 .degreeLevel {
-  /* Absolute positioning relative to wrapper */
+  /* Absolute positioning relative to educationWrapper */
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 40px;
+  right: 40px;
 
   /* Visual styling */
   background: linear-gradient(
@@ -383,13 +386,12 @@
   text-transform: uppercase;
   white-space: nowrap;
 
-  /* Professional z-index management */
-  z-index: 1000;
+  /* Professional z-index management - ensure always visible */
+  z-index: 9999;
 
   /* Production-stable rendering */
   transform: translate3d(0, 0, 0);
 
-  /* Enhanced visibility with shadow */
   box-shadow:
     var(--shadow-small),
     0 0 20px var(--primary-cyan-30),
@@ -567,6 +569,12 @@
   border: 1px solid var(--border-subtle);
   border-radius: var(--border-radius-lg);
   transition: var(--transition-slow);
+
+  /* CSS entrance animation to replace Framer Motion */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  will-change: transform;
   cursor: pointer;
   /* No overflow hidden to prevent badge clipping */
   overflow: visible;
@@ -722,13 +730,6 @@
   opacity: 0;
 }
 
-.educationItem:hover .degreeLevel {
-  transform: scale(1.05);
-  box-shadow:
-    var(--shadow-medium),
-    0 0 25px var(--primary-cyan-40);
-}
-
 .educationItem:hover .educationItemHeader {
   margin-bottom: 1rem;
 }
@@ -785,6 +786,17 @@
   animation-delay: 0.35s;
 }
 
+@keyframes slideInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes skillPop {
   0% {
     transform: scale(0.8) translateY(10px);
@@ -811,20 +823,6 @@
   border-color: var(--primary-cyan);
   transform: scale(1.1);
   color: var(--primary-cyan);
-}
-
-.certificationWrapper:hover .verifiedBadge {
-  transform: scale(1.1) translateY(-8px);
-  box-shadow:
-    0 4px 16px rgba(16, 185, 129, 0.4),
-    0 0 20px rgba(16, 185, 129, 0.3);
-}
-
-.educationWrapper:hover .degreeLevel {
-  transform: scale(1.05) translateY(-8px);
-  box-shadow:
-    var(--shadow-medium),
-    0 0 25px var(--primary-cyan-40);
 }
 
 /* Responsive Design */
@@ -902,14 +900,6 @@
 
     .educationItem:hover:not(.expanded) .educationItemHint {
       opacity: 0.9 !important;
-    }
-
-    .educationItem:hover:not(.expanded) .degreeLevel {
-      transform: none !important;
-      box-shadow:
-        var(--shadow-small),
-        0 0 20px var(--primary-cyan-30),
-        0 0 0 3px var(--dark-bg) !important;
     }
 
     .educationItem:hover:not(.expanded) .educationItemHeader {
