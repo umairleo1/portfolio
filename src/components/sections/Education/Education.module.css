@@ -1,8 +1,13 @@
-/* Education & Certifications Section */
+/* 
+ * Education & Certifications Section
+ * Professional CSS architecture for production stability
+ */
 .education {
   padding: var(--section-padding);
   background: var(--dark-bg);
   position: relative;
+  /* Allow badges to use natural stacking without isolation */
+  overflow: visible;
 }
 
 .educationHeader {
@@ -70,8 +75,18 @@
   gap: 1rem;
   max-width: 800px;
   margin: 0 auto;
-  padding: 40px 0;
+  /* Proper spacing for absolutely positioned badges */
+  padding: 50px 20px 20px 20px;
+  /* Ensure badges are never clipped */
   overflow: visible;
+  position: relative;
+}
+
+.educationWrapper {
+  position: relative;
+  /* Allow badges to overflow naturally */
+  overflow: visible;
+  padding: 20px 20px 0 0;
 }
 
 .educationItem {
@@ -89,6 +104,108 @@
   align-items: center;
   will-change: transform, height, padding;
   transform: translateZ(0);
+}
+
+/* Expanded state for mobile touch */
+.educationItem.expanded {
+  transform: translateY(-2px) translateZ(0);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-card-hover);
+  min-height: 280px;
+  align-items: flex-start;
+  padding-top: 2rem;
+  background: var(--dark-surface-elevated);
+}
+
+.educationItem.expanded::before {
+  box-shadow:
+    var(--shadow-glow-strong),
+    0 0 30px var(--primary-cyan-40),
+    inset 0 -2px 10px var(--primary-cyan-20);
+  height: 9px;
+  border-radius: 16px 16px 0 0;
+  background: linear-gradient(
+    90deg,
+    var(--dark-surface) 0%,
+    var(--primary-cyan-50) 10%,
+    var(--primary-cyan) 30%,
+    var(--primary-cyan-90) 50%,
+    var(--primary-cyan) 70%,
+    var(--primary-cyan-50) 90%,
+    var(--dark-surface) 100%
+  );
+}
+
+.educationItem.expanded::after {
+  opacity: 1;
+  border-radius: 16px 16px 0 0;
+}
+
+.educationItem.expanded .educationItemHint {
+  opacity: 0;
+}
+
+.educationItem.expanded .degreeLevel {
+  transform: scale(1.05);
+  box-shadow:
+    var(--shadow-medium),
+    0 0 25px var(--primary-cyan-40);
+}
+
+.educationItem.expanded .educationItemHeader {
+  margin-bottom: 1rem;
+}
+
+.educationItem.expanded .educationItemPeriod {
+  opacity: 1;
+  transform: translateY(0);
+  margin-top: 0.5rem;
+}
+
+.educationItem.expanded .educationItemDetails {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 300px;
+}
+
+.educationItem.expanded .educationItemSpecialization {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 200px;
+  padding-bottom: 1rem;
+}
+
+.educationItem.expanded .educationExpandedContent {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 300px;
+}
+
+.educationItem.expanded .particles {
+  opacity: 1;
+}
+
+.educationItem.expanded .educationSkill {
+  animation: skillPop 0.3s ease forwards;
+}
+
+.educationItem.expanded .educationSkill:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.educationItem.expanded .educationSkill:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.educationItem.expanded .educationSkill:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.educationItem.expanded .educationSkill:nth-child(4) {
+  animation-delay: 0.25s;
+}
+.educationItem.expanded .educationSkill:nth-child(5) {
+  animation-delay: 0.3s;
+}
+.educationItem.expanded .educationSkill:nth-child(6) {
+  animation-delay: 0.35s;
 }
 
 /* Alternating left/right positioning */
@@ -179,14 +296,23 @@
   position: absolute;
   bottom: 0.6rem;
   right: 1rem;
-  font-size: 0.6rem;
-  color: var(--text-muted);
-  opacity: 0.6;
+  font-size: 0.7rem;
+  color: var(--primary-cyan);
+  opacity: 0.9;
   transition: all 0.3s ease;
   pointer-events: none;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.5px;
   z-index: 5;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.mobileText {
+  display: none;
+}
+
+.desktopText {
+  display: inline;
 }
 
 /* Floating particles effect */
@@ -237,9 +363,12 @@
 }
 
 .degreeLevel {
+  /* Absolute positioning relative to wrapper */
   position: absolute;
-  top: -18px;
-  right: 1rem;
+  top: 0;
+  right: 0;
+
+  /* Visual styling */
   background: linear-gradient(
     135deg,
     var(--primary-cyan),
@@ -252,12 +381,24 @@
   border-radius: var(--border-radius-pill);
   letter-spacing: 0.8px;
   text-transform: uppercase;
+  white-space: nowrap;
+
+  /* Professional z-index management */
   z-index: 1000;
+
+  /* Production-stable rendering */
+  transform: translate3d(0, 0, 0);
+
+  /* Enhanced visibility with shadow */
   box-shadow:
     var(--shadow-small),
-    0 0 20px var(--primary-cyan-30);
-  border: 3px solid var(--dark-bg);
-  white-space: nowrap;
+    0 0 20px var(--primary-cyan-30),
+    0 0 0 3px var(--dark-bg);
+
+  /* Animation on hover */
+  transition:
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .educationItemContent {
@@ -401,8 +542,18 @@
   gap: 1.5rem;
   max-width: 900px;
   margin: 0 auto;
-  padding: 20px 0;
+  /* Maximum spacing to ensure badge overflow visibility */
+  padding: 50px 40px 40px 40px;
+  /* Ensure badges are never clipped */
   overflow: visible;
+  position: relative;
+}
+
+.certificationWrapper {
+  position: relative;
+  /* Allow badges to overflow naturally */
+  overflow: visible;
+  padding: 20px 20px 0 0;
 }
 
 .certificationItem {
@@ -411,12 +562,13 @@
   align-items: center;
   gap: 1rem;
   padding: 1.5rem;
-  margin: 15px 0;
+  margin: 5px 0;
   background: var(--dark-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--border-radius-lg);
   transition: var(--transition-slow);
   cursor: pointer;
+  /* No overflow hidden to prevent badge clipping */
   overflow: visible;
 }
 
@@ -441,23 +593,40 @@
 }
 
 .verifiedBadge {
+  /* Absolute positioning relative to wrapper */
   position: absolute;
-  top: -12px;
-  right: -12px;
+  top: 0;
+  right: 0;
+
+  /* Visual styling */
   background: linear-gradient(135deg, #10b981, #059669);
   color: white;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  padding: 6px 10px;
+  padding: 8px 12px;
   border-radius: var(--border-radius-sm);
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  z-index: 1000;
-  box-shadow:
-    0 2px 8px rgba(16, 185, 129, 0.3),
-    0 0 15px rgba(16, 185, 129, 0.2);
-  border: 3px solid var(--dark-bg);
   white-space: nowrap;
+  pointer-events: none;
+
+  /* Professional z-index management */
+  z-index: 1000;
+
+  /* Production-stable rendering */
+  transform: translate3d(0, 0, 0);
+
+  /* Slower, smoother animation */
+  transition:
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Enhanced visibility with strong shadow and border */
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(16, 185, 129, 0.4),
+    0 0 0 2px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .certificationItemContent {
@@ -644,11 +813,18 @@
   color: var(--primary-cyan);
 }
 
-.certificationItem:hover .verifiedBadge {
-  transform: scale(1.1);
+.certificationWrapper:hover .verifiedBadge {
+  transform: scale(1.1) translateY(-8px);
   box-shadow:
     0 4px 16px rgba(16, 185, 129, 0.4),
     0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.educationWrapper:hover .degreeLevel {
+  transform: scale(1.05) translateY(-8px);
+  box-shadow:
+    var(--shadow-medium),
+    0 0 25px var(--primary-cyan-40);
 }
 
 /* Responsive Design */
@@ -663,11 +839,108 @@
 }
 
 @media (max-width: 768px) {
+  /* Mobile touch behavior */
+  .mobileText {
+    display: inline;
+  }
+
+  .desktopText {
+    display: none;
+  }
+
+  .educationItem {
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Touch feedback */
+  .educationItem:active {
+    transform: scale(0.98);
+    transition: transform 0.15s ease-out;
+  }
+
   /* Remove alternating positioning on mobile */
   .educationItem:nth-child(odd),
   .educationItem:nth-child(even) {
     margin-left: 0;
     margin-right: 0;
+  }
+
+  /* Disable hover effects on mobile - keep expanded state working */
+  @media (hover: none) and (pointer: coarse) {
+    .educationItem:hover:not(.expanded) {
+      transform: none !important;
+      background: var(--dark-surface) !important;
+      border-color: var(--border-subtle) !important;
+      box-shadow: none !important;
+      min-height: 60px !important;
+      align-items: center !important;
+      padding: 1rem 1.5rem !important;
+    }
+
+    .educationItem:hover:not(.expanded)::before {
+      height: 6px !important;
+      box-shadow: none !important;
+      background: linear-gradient(
+        90deg,
+        var(--dark-surface) 0%,
+        var(--primary-cyan-30) 15%,
+        var(--primary-cyan) 35%,
+        var(--primary-cyan-90) 50%,
+        var(--primary-cyan) 65%,
+        var(--primary-cyan-30) 85%,
+        var(--dark-surface) 100%
+      ) !important;
+    }
+
+    .educationItem:hover:not(.expanded)::after {
+      opacity: 0 !important;
+    }
+
+    .educationItem:hover:not(.expanded) .educationItemHint {
+      opacity: 0.9 !important;
+    }
+
+    .educationItem:hover:not(.expanded) .degreeLevel {
+      transform: none !important;
+      box-shadow:
+        var(--shadow-small),
+        0 0 20px var(--primary-cyan-30),
+        0 0 0 3px var(--dark-bg) !important;
+    }
+
+    .educationItem:hover:not(.expanded) .educationItemHeader {
+      margin-bottom: 0 !important;
+    }
+
+    .educationItem:hover:not(.expanded) .educationItemPeriod {
+      opacity: 0 !important;
+      transform: translateY(10px) !important;
+    }
+
+    .educationItem:hover:not(.expanded) .educationItemDetails {
+      opacity: 0 !important;
+      transform: translateY(20px) !important;
+      max-height: 0 !important;
+    }
+
+    .educationItem:hover:not(.expanded) .educationItemSpecialization {
+      opacity: 0 !important;
+      transform: translateY(20px) !important;
+      max-height: 0 !important;
+    }
+
+    .educationItem:hover:not(.expanded) .educationExpandedContent {
+      opacity: 0 !important;
+      transform: translateY(20px) !important;
+      max-height: 0 !important;
+    }
+
+    .educationItem:hover:not(.expanded) .particles {
+      opacity: 0 !important;
+    }
   }
 }
 
