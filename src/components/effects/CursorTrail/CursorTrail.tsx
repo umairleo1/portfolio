@@ -11,6 +11,7 @@ interface DotPosition {
 const CursorTrail: React.FC = () => {
   const [dots, setDots] = useState<DotPosition[]>([]);
   const [hasMovedCursor, setHasMovedCursor] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const mousePosition = useRef({ x: 0, y: 0 });
   const animationFrameRef = useRef<number | null>(null);
   const dotPositions = useRef<{ x: number; y: number }[]>([]);
@@ -51,8 +52,8 @@ const CursorTrail: React.FC = () => {
       .map(() => ({ x: 0, y: 0 }));
 
     const animateTrail = () => {
-      // Only animate if cursor has moved
-      if (!hasMovedCursor) {
+      // Pause animation if page is not visible or animation is paused
+      if (!hasMovedCursor || isPaused || document.hidden) {
         animationFrameRef.current = requestAnimationFrame(animateTrail);
         return;
       }
@@ -98,10 +99,18 @@ const CursorTrail: React.FC = () => {
       animateTrail();
     };
 
+    // Performance optimization: pause when page is not visible
+    const handleVisibilityChange = () => {
+      setIsPaused(document.hidden);
+    };
+
+    // Add event listeners
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     document.addEventListener('mousemove', handleMouseMove, { passive: true });
     startAnimation();
 
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       document.removeEventListener('mousemove', handleMouseMove);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
