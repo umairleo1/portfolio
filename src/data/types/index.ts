@@ -47,10 +47,12 @@ export interface Experience {
 
 export interface Education {
   degree: string;
+  level: string;
   institution: string;
   location: string;
   period: string;
   specialization: string;
+  skills: string[];
 }
 
 export interface Certification {
