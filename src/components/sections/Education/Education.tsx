@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import { motion } from 'framer-motion';
 import { useSectionTracking, useAnalytics } from '@/hooks/useAnalytics';
 import { education, certifications } from '@/data';
 import type { Certification } from '@/data/types';
@@ -68,16 +67,12 @@ const Education: React.FC = () => {
                 {education.map((edu, index) => (
                   <div key={index} className={styles.educationWrapper}>
                     <div className={styles.degreeLevel}>{edu.level}</div>
-                    <motion.div
+                    <div
                       className={`${styles.educationItem} card ${expandedEducation === index ? styles.expanded : ''}`}
-                      whileHover={{ scale: 1.02, y: -8 }}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        duration: 0.6,
-                        delay: index * 0.1,
-                      }}
                       onClick={() => handleEducationToggle(index)}
+                      style={{
+                        animationDelay: `${index * 0.1}s`,
+                      }}
                     >
                       <div className={styles.particles}></div>
                       <div className={styles.educationItemHint}>
@@ -132,7 +127,7 @@ const Education: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -154,15 +149,12 @@ const Education: React.FC = () => {
                     {cert.link && (
                       <div className={styles.verifiedBadge}>VERIFIED</div>
                     )}
-                    <motion.div
+                    <div
                       className={`${styles.certificationItem} card`}
-                      whileHover={{ scale: 1.02, y: -8 }}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
                       onClick={() => handleCertificateClick(cert)}
                       style={{
                         cursor: cert.link ? 'pointer' : 'default',
+                        animationDelay: `${index * 0.1}s`,
                       }}
                       title={
                         cert.link
@@ -188,7 +180,7 @@ const Education: React.FC = () => {
                           )}
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
                 ))}
               </div>
