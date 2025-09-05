@@ -108,6 +108,7 @@ jobs:
     needs: quality
     outputs:
       build-cache-key: ${{ steps.build-cache.outputs.cache-hit }}
+      build-size: ${{ steps.build-size.outputs.size }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
@@ -153,6 +154,13 @@ jobs:
           REACT_APP_EMAILJS_TEMPLATE_ID: ${{ secrets.REACT_APP_EMAILJS_TEMPLATE_ID }}
           REACT_APP_EMAILJS_PUBLIC_KEY: ${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}
           REACT_APP_GITHUB_TOKEN: ${{ secrets.REACT_APP_GITHUB_TOKEN }}
+
+      - name: Calculate build size
+        id: build-size
+        run: |
+          BUILD_SIZE=$(du -sh build | cut -f1)
+          echo "size=$BUILD_SIZE" >> $GITHUB_OUTPUT
+          echo "Build size: $BUILD_SIZE"
 
       - name: Optimize build artifacts
         run: |
@@ -219,5 +227,5 @@ jobs:
         run: |
           echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "- **Deploy Time**: $(date)" >> $GITHUB_STEP_SUMMARY
-          echo "- **Build Size**: $(du -sh build 2>/dev/null || echo 'N/A')" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build Size**: ${{ needs.build.outputs.build-size }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Site URL**: ${{ github.event.repository.homepage || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}" >> $GITHUB_STEP_SUMMARY
