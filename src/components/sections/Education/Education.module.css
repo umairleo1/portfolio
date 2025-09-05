@@ -868,8 +868,9 @@
     margin-right: 0;
   }
 
-  /* Disable hover effects on mobile - keep expanded state working */
+  /* Disable hover effects on mobile devices only */
   @media (hover: none) and (pointer: coarse) {
+    /* Remove hover effects but preserve expanded state functionality */
     .educationItem:hover:not(.expanded) {
       transform: none !important;
       background: var(--dark-surface) !important;
@@ -965,6 +966,36 @@
 
   .educationItemPeriod {
     align-self: flex-start;
+  }
+
+  /* Enhanced mobile expanded state visibility */
+  .educationItem.expanded .educationItemPeriod {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    margin-top: 0.5rem !important;
+  }
+
+  .educationItem.expanded .educationItemDetails {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    max-height: 500px !important;
+  }
+
+  .educationItem.expanded .educationItemSpecialization {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    max-height: 200px !important;
+    padding-bottom: 1rem !important;
+  }
+
+  .educationItem.expanded .educationExpandedContent {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    max-height: 400px !important;
+  }
+
+  .educationItem.expanded .educationSkill {
+    animation: skillPop 0.3s ease forwards !important;
   }
 
   .certificationsGrid {
