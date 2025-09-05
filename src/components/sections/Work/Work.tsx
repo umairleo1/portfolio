@@ -1,5 +1,6 @@
 import React from 'react';
 import { projects } from '@/data';
+import SectionHeader from '@/components/ui/SectionHeader';
 import {
   FaGlobe,
   FaMobile,
@@ -56,14 +57,10 @@ const Work: React.FC = () => {
     <section ref={sectionRef} id='projects' className={styles.work}>
       <div className='container'>
         <div>
-          <div className={styles.header}>
-            <h2 className={`${styles.sectionTitle} chunky-underline`}>
-              projects
-            </h2>
-            <p className={styles.sectionSubtitle}>
-              selected projects showcasing my technical expertise
-            </p>
-          </div>
+          <SectionHeader
+            title='projects'
+            subtitle='selected projects showcasing my technical expertise'
+          />
 
           {/* Note: Filter buttons removed until project categorization is implemented */}
 
