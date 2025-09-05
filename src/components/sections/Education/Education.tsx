@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useSectionTracking, useAnalytics } from '@/hooks/useAnalytics';
 import { education, certifications } from '@/data';
@@ -15,6 +15,13 @@ import styles from './Education.module.css';
 const Education: React.FC = () => {
   const sectionRef = useSectionTracking('education');
   const { trackExternalLink } = useAnalytics();
+  const [expandedEducation, setExpandedEducation] = useState<number | null>(
+    null
+  );
+
+  const handleEducationToggle = useCallback((index: number) => {
+    setExpandedEducation((prev) => (prev === index ? null : index));
+  }, []);
 
   const handleCertificateClick = useCallback(
     (cert: Certification) => {
@@ -64,7 +71,7 @@ const Education: React.FC = () => {
                       {edu.degree.includes('MSc') ? "MASTER'S" : "BACHELOR'S"}
                     </div>
                     <motion.div
-                      className={`${styles.educationItem} card`}
+                      className={`${styles.educationItem} card ${expandedEducation === index ? styles.expanded : ''}`}
                       whileHover={{ scale: 1.02, y: -8 }}
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -72,11 +79,14 @@ const Education: React.FC = () => {
                         duration: 0.6,
                         delay: index * 0.1,
                       }}
+                      onClick={() => handleEducationToggle(index)}
                     >
                       <div className={styles.particles}></div>
                       <div className={styles.educationItemHint}>
                         <span className={styles.mobileText}>
-                          ✨ tap to explore
+                          {expandedEducation === index
+                            ? '✨ tap to collapse'
+                            : '✨ tap to explore'}
                         </span>
                         <span className={styles.desktopText}>
                           ✨ hover to explore
