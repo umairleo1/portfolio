@@ -9,8 +9,7 @@ import {
   SectionLoader,
 } from '@/components';
 import { SEO, StructuredData, WebVitalsOptimizer } from '@/components/seo';
-import { initGA, trackPageView } from '@/utils';
-import { useScrollDepthTracking, useTimeTracking } from '@/hooks/useAnalytics';
+// Lazy load analytics to improve initial bundle size
 import '@/styles/base/globals.css';
 import '@/styles/base/App.css';
 import '@/styles/base/accessibility.css';
@@ -25,25 +24,26 @@ const Contact = lazy(() => import('@/components/sections/Contact'));
 function App() {
   const [sectionsReady, setSectionsReady] = useState(false);
 
-  // Global engagement tracking hooks
-  useScrollDepthTracking();
-  useTimeTracking();
-
-  // Initialize Google Analytics with proper error handling
+  // Defer analytics initialization for better performance
   useEffect(() => {
     const initializeAnalytics = async () => {
+      // Wait for sections to be ready before loading analytics
+      if (!sectionsReady) return;
+
       try {
+        // Dynamic import analytics to reduce initial bundle
+        const { initGA, trackPageView } = await import('@/utils/analytics');
+
         await initGA();
         trackPageView();
       } catch (error) {
-        // eslint-disable-next-line no-console
         console.error('Failed to initialize analytics:', error);
         // Continue app functionality even if analytics fails
       }
     };
 
     initializeAnalytics();
-  }, []);
+  }, [sectionsReady]); // Only initialize when sections are ready
 
   // Load sections after Hero is ready
   useEffect(() => {
