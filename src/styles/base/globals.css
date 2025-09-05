@@ -103,6 +103,20 @@
   --shadow-outline-thin: 0 0 0 1px var(--border-subtle);
   --shadow-outline-medium: 0 0 0 1px var(--border-medium);
   --shadow-outline-thick: 0 0 0 2px var(--border-medium);
+
+  /* ========================================
+     Z-INDEX SYSTEM
+     Professional layering management
+     ======================================== */
+  --z-base: 1;
+  --z-content: 10;
+  --z-card: 20;
+  --z-badge: 100;
+  --z-sticky: 200;
+  --z-dropdown: 500;
+  --z-overlay: 800;
+  --z-modal: 900;
+  --z-tooltip: 1000;
 }
 
 * {
