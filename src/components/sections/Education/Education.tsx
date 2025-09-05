@@ -67,9 +67,7 @@ const Education: React.FC = () => {
               <div className={styles.educationTimeline}>
                 {education.map((edu, index) => (
                   <div key={index} className={styles.educationWrapper}>
-                    <div className={styles.degreeLevel}>
-                      {edu.degree.includes('MSc') ? "MASTER'S" : "BACHELOR'S"}
-                    </div>
+                    <div className={styles.degreeLevel}>{edu.level}</div>
                     <motion.div
                       className={`${styles.educationItem} card ${expandedEducation === index ? styles.expanded : ''}`}
                       whileHover={{ scale: 1.02, y: -8 }}
@@ -122,49 +120,14 @@ const Education: React.FC = () => {
 
                           <div className={styles.educationExpandedContent}>
                             <div className={styles.educationSkills}>
-                              {edu.degree.includes('MSc') ? (
-                                <>
-                                  <span className={styles.educationSkill}>
-                                    Machine Learning
-                                  </span>
-                                  <span className={styles.educationSkill}>
-                                    Data Visualization
-                                  </span>
-                                  <span className={styles.educationSkill}>
-                                    Big Data
-                                  </span>
-                                  <span className={styles.educationSkill}>
-                                    Anti Money Laundering
-                                  </span>
-                                  <span className={styles.educationSkill}>
-                                    Python
-                                  </span>
-                                  <span className={styles.educationSkill}>
-                                    R
-                                  </span>
-                                </>
-                              ) : (
-                                <>
-                                  <span className={styles.educationSkill}>
-                                    Mobile Development
-                                  </span>
-                                  <span className={styles.educationSkill}>
-                                    Web Technologies
-                                  </span>
-                                  <span className={styles.educationSkill}>
-                                    Artificial Intelligence
-                                  </span>
-                                  <span className={styles.educationSkill}>
-                                    Software Engineering
-                                  </span>
-                                  <span className={styles.educationSkill}>
-                                    Java
-                                  </span>
-                                  <span className={styles.educationSkill}>
-                                    JavaScript
-                                  </span>
-                                </>
-                              )}
+                              {edu.skills.map((skill, skillIndex) => (
+                                <span
+                                  key={skillIndex}
+                                  className={styles.educationSkill}
+                                >
+                                  {skill}
+                                </span>
+                              ))}
                             </div>
                           </div>
                         </div>
