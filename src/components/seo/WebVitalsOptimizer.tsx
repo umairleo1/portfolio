@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { ASSET_PATHS } from '@/lib/constants/paths';
 
 /**
  * Core Web Vitals optimization component
@@ -7,24 +6,19 @@ import { ASSET_PATHS } from '@/lib/constants/paths';
  */
 const WebVitalsOptimizer = () => {
   useEffect(() => {
-    // Preload critical resources only when needed
-    const preloadCriticalResources = () => {
-      // Only preload hero image if it's actually present in DOM
-      const heroImage = document.querySelector('img[src*="profile-main"]');
-      if (heroImage) {
-        const heroImageLink = document.createElement('link');
-        heroImageLink.rel = 'preload';
-        heroImageLink.as = 'image';
-        heroImageLink.href = ASSET_PATHS.PROFILE_MAIN;
-        document.head.appendChild(heroImageLink);
+    // Preconnect to external resources only
+    const preconnectResources = () => {
+      // Preconnect to font resources (avoid duplicates)
+      const existingFontPreconnect = document.querySelector(
+        'link[rel="preconnect"][href="https://fonts.gstatic.com"]'
+      );
+      if (!existingFontPreconnect) {
+        const fontLink = document.createElement('link');
+        fontLink.rel = 'preconnect';
+        fontLink.href = 'https://fonts.gstatic.com';
+        fontLink.crossOrigin = 'anonymous';
+        document.head.appendChild(fontLink);
       }
-
-      // Preload critical fonts if any
-      const fontLink = document.createElement('link');
-      fontLink.rel = 'preconnect';
-      fontLink.href = 'https://fonts.gstatic.com';
-      fontLink.crossOrigin = 'anonymous';
-      document.head.appendChild(fontLink);
     };
 
     // Optimize Cumulative Layout Shift (CLS)
@@ -72,8 +66,8 @@ const WebVitalsOptimizer = () => {
     const initOptimizations = () => {
       optimizeCLS();
       optimizeFID();
-      // Delay preload until Hero component is likely mounted
-      setTimeout(preloadCriticalResources, 100);
+      // Preconnect to external resources
+      preconnectResources();
     };
 
     // Run after DOM is ready
