@@ -4,9 +4,25 @@ import styles from './FloatingElements.module.css';
 const FloatingElements: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHeroVisible, setIsHeroVisible] = useState(true);
+  const [isComponentVisible, setIsComponentVisible] = useState(false);
   const activeElementsRef = useRef<HTMLElement[]>([]);
 
   useEffect(() => {
+    // Intersection Observer for component visibility
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry) {
+          setIsComponentVisible(entry.isIntersecting);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
     // Optimized scroll handler with throttling
     const handleScroll = () => {
       const heroSection = document.getElementById('about');
@@ -16,11 +32,15 @@ const FloatingElements: React.FC = () => {
         setIsHeroVisible(isVisible);
       }
     };
+
     // Check for reduced motion preference
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion) {
+      observer.disconnect();
+      return;
+    }
 
     // Throttled scroll detection
     let scrollTimeout: NodeJS.Timeout | null = null;
@@ -38,7 +58,8 @@ const FloatingElements: React.FC = () => {
 
     // Optimized element creation with cleanup tracking
     const createFloatingElement = () => {
-      if (!containerRef.current || !isHeroVisible) return;
+      if (!containerRef.current || !isHeroVisible || !isComponentVisible)
+        return;
 
       // Limit concurrent elements for better performance
       if (activeElementsRef.current.length >= 4) return;
@@ -105,6 +126,7 @@ const FloatingElements: React.FC = () => {
     }, 1500); // Reduced delay for faster startup
 
     return () => {
+      observer.disconnect();
       clearTimeout(startDelay);
       if (interval) clearInterval(interval);
       window.removeEventListener('scroll', throttledScrollHandler);
@@ -118,7 +140,7 @@ const FloatingElements: React.FC = () => {
       });
       activeElementsRef.current = [];
     };
-  }, [isHeroVisible]);
+  }, [isHeroVisible, isComponentVisible]);
 
   return (
     <div ref={containerRef} className={styles.floatingElementsContainer}>

@@ -28,6 +28,7 @@ const CONFIG = {
 const LogoScroll: React.FC = memo(() => {
   const [isHovered, setIsHovered] = useState(false);
   const [isManualScrolling, setIsManualScrolling] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   // Performance: Cache reduced motion check
   const prefersReducedMotion = useMemo(
@@ -75,8 +76,13 @@ const LogoScroll: React.FC = memo(() => {
 
     refs.x.set(newX);
 
-    // Continue if no user interaction
-    if (!isHovered && !isManualScrolling && !prefersReducedMotion) {
+    // Continue if no user interaction and component is visible
+    if (
+      !isHovered &&
+      !isManualScrolling &&
+      !prefersReducedMotion &&
+      isVisible
+    ) {
       refs.animation.current = requestAnimationFrame(animate);
     } else {
       refs.animation.current = null;
@@ -87,6 +93,7 @@ const LogoScroll: React.FC = memo(() => {
     isHovered,
     isManualScrolling,
     prefersReducedMotion,
+    isVisible,
     scrollConfig.speed,
     scrollConfig.singleSetWidth,
   ]);
@@ -97,7 +104,8 @@ const LogoScroll: React.FC = memo(() => {
       refs.animation.current ||
       isHovered ||
       isManualScrolling ||
-      prefersReducedMotion
+      prefersReducedMotion ||
+      !isVisible
     ) {
       return;
     }
@@ -105,7 +113,7 @@ const LogoScroll: React.FC = memo(() => {
     refs.animation.current = requestAnimationFrame(animate);
     // refs are stable and don't need to be in dependencies
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animate, isHovered, isManualScrolling, prefersReducedMotion]);
+  }, [animate, isHovered, isManualScrolling, prefersReducedMotion, isVisible]);
 
   const stopAnimation = useCallback(() => {
     if (refs.animation.current) {
@@ -270,9 +278,35 @@ const LogoScroll: React.FC = memo(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Professional: Intersection Observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry) {
+          setIsVisible(entry.isIntersecting);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (refs.container.current) {
+      observer.observe(refs.container.current);
+    }
+
+    return () => observer.disconnect();
+    // refs are stable and don't need to be in dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Professional: State change handler
   useEffect(() => {
-    if (!isHovered && !isManualScrolling && !prefersReducedMotion) {
+    if (
+      !isHovered &&
+      !isManualScrolling &&
+      !prefersReducedMotion &&
+      isVisible
+    ) {
       startAnimation();
     } else {
       stopAnimation();
@@ -281,6 +315,7 @@ const LogoScroll: React.FC = memo(() => {
     isHovered,
     isManualScrolling,
     prefersReducedMotion,
+    isVisible,
     startAnimation,
     stopAnimation,
   ]);
