@@ -1,0 +1,139 @@
+/**
+ * Common Section Styles
+ * 
+ * Shared styles for section components to maintain consistency
+ * and reduce CSS duplication across the application.
+ */
+
+/* Section Container */
+.section {
+  padding: var(--section-padding);
+  position: relative;
+  overflow: visible;
+}
+
+.section.dark-bg {
+  background: var(--dark-bg);
+}
+
+.section.light-bg {
+  background: var(--light-bg);
+}
+
+/* Common Section Headers */
+.section-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Common Card Styles */
+.card {
+  background: var(--dark-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible;
+  position: relative;
+}
+
+.card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Common Grid Patterns */
+.grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.grid-auto-fill {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Common Animation Classes */
+.slide-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Common Responsive Patterns */
+@media (max-width: 1024px) {
+  .section-header {
+    margin-bottom: 60px;
+  }
+
+  .grid-auto-fit,
+  .grid-auto-fill {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--section-padding-mobile, 4rem 1rem);
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  .section-subtitle {
+    font-size: 1.1rem;
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .grid-auto-fit,
+  .grid-auto-fill {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

@@ -2,6 +2,7 @@
 @import 'base/index.css';
 @import 'base/globals.css';
 @import 'base/App.css';
+@import 'components/section.css';
 
 /* Global component styles removed - now using CSS Modules */
 /* All component-specific styles are now co-located with their components */
