@@ -59,7 +59,7 @@ const Hero: React.FC = () => {
               {personalInfo.name}
             </h1>
             <p className={styles.heroTitle} aria-describedby='hero-description'>
-              {personalInfo.title.toLowerCase()}
+              {personalInfo.title}
             </p>
             <span id='hero-description' className='sr-only'>
               Professional software engineer specializing in full-stack
