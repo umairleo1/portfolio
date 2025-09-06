@@ -18,7 +18,7 @@ A modern, responsive portfolio website template for software engineers. Built wi
 - **Modern Tech Stack** - React 19, TypeScript, CSS Modules
 - **Responsive Design** - Mobile-first with smooth animations
 - **SEO Optimized** - 95+ Lighthouse scores with structured data
-- **Analytics Ready** - Google Analytics 4 integration
+- **Analytics Ready** - Enterprise GA4 with privacy compliance
 - **CI/CD Automated** - GitHub Actions deployment
 
 ## Quick Start
@@ -126,9 +126,52 @@ For detailed setup instructions see [`docs/SETUP.md`](docs/SETUP.md).
 
 ## Analytics & Insights
 
-Enterprise-grade Google Analytics 4 implementation with privacy compliance and professional insights for career optimization.
+Enterprise-grade Google Analytics 4 implementation with comprehensive tracking, GDPR compliance, and professional insights for career optimization.
+
+**Key Features:**
+
+- Complete user journey tracking with scroll depth and time-based engagement
+- Contact form funnel analysis with abandonment tracking
+- Project interaction analytics with technology metadata
+- React error boundary integration with automatic error reporting
+- Web Vitals monitoring for performance optimization
+- Privacy-compliant consent management with update functionality
 
 For complete analytics documentation including setup, business value, and implementation details, see [`docs/ANALYTICS.md`](docs/ANALYTICS.md).
+
+## Architecture & Code Quality
+
+### DRY Principle Implementation
+
+The project follows strict DRY principles with comprehensive reusable components and patterns:
+
+**Reusable UI Components:**
+
+- `Section` - Analytics-enabled section wrapper with consistent styling
+- `SectionHeader` - Standardized section headers with title and subtitle
+- `TrackedLink` - Analytics-integrated external link component
+- `Card`, `Badge`, `Button` - Consistent design system components
+
+**Reusable Hooks:**
+
+- `useExpandable` - Expand/collapse functionality for sections
+- `useAnalytics` - Comprehensive analytics tracking
+- `useSectionSEO` - Dynamic SEO optimization per section
+- `useThrottle` - Performance-optimized event handling
+
+**Design System:**
+
+- CSS Modules for component isolation
+- Centralized styling patterns in `styles/components/`
+- Consistent animation utilities and theme variables
+- Mobile-first responsive design patterns
+
+### Code Quality Standards
+
+- TypeScript strict mode with comprehensive type safety
+- ESLint + Prettier automated code formatting
+- Component-driven architecture with clear separation of concerns
+- Performance-optimized with lazy loading and code splitting
 
 ## Customization
 
@@ -168,9 +211,10 @@ portfolio/
 ├── src/
 │   ├── components/            # React components with CSS Modules
 │   │   ├── common/            # Shared components
-│   │   │   ├── ErrorBoundary/ # Error handling component
+│   │   │   ├── ErrorBoundary/ # Error handling with analytics integration
 │   │   │   ├── LoadingSpinner/# Loading states with animations
-│   │   │   └── SectionLoader/ # Section loading component
+│   │   │   ├── SectionLoader/ # Section loading component
+│   │   │   └── AnalyticsProvider/# Global analytics tracking provider
 │   │   ├── effects/           # Animation components
 │   │   │   ├── CursorTrail/   # Mouse cursor trail effect
 │   │   │   └── FloatingElements/# Background floating animations
@@ -194,7 +238,10 @@ portfolio/
 │   │       ├── Button/        # Button with loading states
 │   │       ├── Badge/         # Skill badges with variants
 │   │       ├── LogoScroll/    # Animated company logos
-│   │       └── ScrollToBottom/# Scroll indicator
+│   │       ├── ScrollToBottom/# Scroll indicator
+│   │       ├── Section/       # Analytics-enabled section wrapper
+│   │       ├── SectionHeader/ # Reusable section header component
+│   │       └── TrackedLink/   # External link tracking component
 │   ├── data/                  # Modular data architecture with domain separation
 │   │   ├── index.ts           # Main barrel export for all data
 │   │   ├── types/             # TypeScript type definitions
@@ -223,19 +270,23 @@ portfolio/
 │   │   ├── base/              # Global styles and theme
 │   │   │   ├── globals.css    # Main theme variables & base styles
 │   │   │   ├── App.css        # App-wide component styles
-│   │   │   └── accessibility.css # Accessibility and screen reader styles
+│   │   │   ├── accessibility.css # Accessibility and screen reader styles
+│   │   │   ├── shared.css     # Shared utility classes for components
+│   │   │   └── index.css      # CSS imports and setup
+│   │   ├── index.css          # Main stylesheet entry point
 │   │   └── README.md          # Design system documentation
 │   ├── types/                 # TypeScript definitions
 │   │   └── index.ts           # Common type definitions
 │   ├── hooks/                 # Custom React hooks
 │   │   ├── useThrottle.ts     # Throttled event handling
 │   │   ├── useSectionSEO.ts   # Dynamic SEO meta updates per section
-│   │   ├── useAnalytics.ts    # Google Analytics event tracking
+│   │   ├── useAnalytics.ts    # Analytics hooks with engagement tracking
+│   │   ├── useExpandable.ts   # Reusable expand/collapse functionality
 │   │   └── index.ts           # Hook exports
 │   ├── utils/                 # Utility functions
 │   │   ├── IconWrapper.tsx    # React Icons wrapper
 │   │   ├── animations.ts      # Animation utilities
-│   │   ├── analytics.ts       # Google Analytics integration
+│   │   ├── analytics.ts       # GA4 analytics with error handling & privacy
 │   │   └── index.ts           # Utility exports
 │   ├── lib/                   # Library utilities and constants
 │   │   └── constants/         # Application constants and configuration
