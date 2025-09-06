@@ -1,15 +1,17 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-unused-vars */
 import { env } from '@/config/env';
 
 // Enhanced Google Analytics interface for professional implementation
-/* eslint-disable no-unused-vars */
+interface GtagFunction {
+  (..._args: unknown[]): void;
+}
+
 declare global {
   interface Window {
-    gtag: any;
-    dataLayer: any[];
+    gtag: GtagFunction;
+    dataLayer: unknown[];
   }
 }
-/* eslint-enable no-unused-vars */
 
 // Analytics configuration constants
 const GA_CONFIG = {
@@ -43,8 +45,8 @@ interface EventParameters {
   event_category?: string;
   event_label?: string | undefined;
   value?: number | undefined;
-  custom_parameters?: Record<string, any>;
-  user_properties?: Record<string, any>;
+  custom_parameters?: Record<string, unknown>;
+  user_properties?: Record<string, unknown>;
 }
 
 // Enhanced tracking interface
@@ -75,6 +77,25 @@ export const setConsentSettings = (
   }
 };
 
+// Update consent settings (for GDPR compliance when users change preferences)
+export const updateConsentSettings = (
+  analytics: boolean,
+  marketing: boolean = false
+): void => {
+  if (typeof window === 'undefined' || !window.gtag) return;
+
+  window.gtag('consent', 'update', {
+    analytics_storage: analytics ? 'granted' : 'denied',
+    ad_storage: marketing ? 'granted' : 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+  });
+
+  if (env.ENABLE_ANALYTICS_DEBUG) {
+    console.log('🔒 GA Consent Updated:', { analytics, marketing });
+  }
+};
+
 // Initialize Google Analytics with professional configuration
 export const initGA = (): Promise<void> => {
   return new Promise((resolve, reject) => {
@@ -99,7 +120,7 @@ export const initGA = (): Promise<void> => {
       window.dataLayer = window.dataLayer || [];
       window.gtag =
         window.gtag ||
-        function () {
+        function (..._args: unknown[]) {
           window.dataLayer.push(arguments);
         };
 
@@ -141,9 +162,11 @@ export const initGA = (): Promise<void> => {
         window.gtag('set', 'user_properties', {
           environment: env.isProduction() ? 'production' : 'development',
           version: '1.0.0',
-          user_agent: navigator.userAgent.includes('Mobile')
-            ? 'mobile'
-            : 'desktop',
+          user_agent:
+            typeof navigator !== 'undefined' &&
+            navigator.userAgent?.includes('Mobile')
+              ? 'mobile'
+              : 'desktop',
         });
 
         if (env.ENABLE_ANALYTICS_DEBUG) {
@@ -159,7 +182,12 @@ export const initGA = (): Promise<void> => {
       };
 
       // Add script to document
-      document.head.appendChild(script);
+      const head = document.head || document.getElementsByTagName('head')[0];
+      if (head) {
+        head.appendChild(script);
+      } else {
+        throw new Error('Cannot find document head element');
+      }
 
       // Timeout fallback
       setTimeout(() => {
@@ -205,7 +233,8 @@ export const trackPageView = (
         typeof window !== 'undefined' && window.screen
           ? `${window.screen.width}x${window.screen.height}`
           : 'unknown',
-      language: navigator.language,
+      language:
+        typeof navigator !== 'undefined' ? navigator.language : 'unknown',
     });
 
     if (env.ENABLE_ANALYTICS_DEBUG) {
@@ -230,12 +259,14 @@ export const trackEvent = (
       throw new Error('Invalid event name provided');
     }
 
-    // Sanitize and prepare parameters
-    const sanitizedParams: Record<string, any> = {
-      event_category: parameters.event_category || 'general',
-      event_label: parameters.event_label,
+    // Sanitize and prepare parameters (GA4 format)
+    const sanitizedParams: Record<string, unknown> = {
+      // GA4 standard parameters
       value:
         typeof parameters.value === 'number' ? parameters.value : undefined,
+      // Custom parameters
+      event_category: parameters.event_category || 'general',
+      event_label: parameters.event_label,
       non_interaction: options.nonInteraction || false,
       transport_type: options.transport || 'beacon',
       ...parameters.custom_parameters,
@@ -284,7 +315,7 @@ export const trackInteraction = (
   category: string = 'user_interaction',
   label?: string,
   value?: number,
-  customData?: Record<string, any>
+  customData?: Record<string, unknown>
 ): void => {
   trackEvent(action, {
     event_category: category,
@@ -348,17 +379,26 @@ export const trackExternalLink = (
   context?: string,
   position?: string
 ): void => {
+  // Safely parse URL
+  let hostname: string;
+  try {
+    hostname = new URL(url).hostname;
+  } catch {
+    hostname = 'unknown';
+  }
+
   trackEvent(
     'external_link_click',
     {
       event_category: 'outbound_links',
-      event_label: url,
+      event_label: linkText || hostname,
       custom_parameters: {
         link_text: linkText,
         link_context: context,
         link_position: position,
-        destination_domain: new URL(url).hostname,
-        referrer_page: window.location.pathname,
+        destination_domain: hostname,
+        referrer_page:
+          typeof window !== 'undefined' ? window.location.pathname : 'unknown',
       },
     },
     {
@@ -381,7 +421,7 @@ export const trackProjectInteraction = (
 ): void => {
   trackEvent('project_engagement', {
     event_category: 'portfolio_interaction',
-    event_label: `${projectName}_${action}`,
+    event_label: projectName,
     value: metadata?.interactionDuration || 0,
     custom_parameters: {
       project_name: projectName,
@@ -412,9 +452,11 @@ export const trackDownload = (
         file_type: fileType,
         file_size_bytes: fileSize,
         download_context: downloadContext,
-        user_agent: navigator.userAgent.includes('Mobile')
-          ? 'mobile'
-          : 'desktop',
+        user_agent:
+          typeof navigator !== 'undefined' &&
+          navigator.userAgent?.includes('Mobile')
+            ? 'mobile'
+            : 'desktop',
       },
     },
     {
@@ -440,7 +482,8 @@ export const trackWebVitals = (
         metric_value: value,
         metric_rating: rating,
         connection_type:
-          (navigator as any)?.connection?.effectiveType || 'unknown',
+          (navigator as unknown as { connection?: { effectiveType?: string } })
+            ?.connection?.effectiveType || 'unknown',
       },
     },
     {
@@ -491,8 +534,10 @@ export const trackError = (
         error_message: errorMessage.substring(0, 150), // Limit length
         error_stack: errorStack?.substring(0, 500), // Limit length
         error_context: context,
-        user_agent: navigator.userAgent,
-        page_url: window.location.href,
+        user_agent:
+          typeof navigator !== 'undefined' ? navigator.userAgent : 'unknown',
+        page_url:
+          typeof window !== 'undefined' ? window.location.href : 'unknown',
       },
     },
     {

@@ -89,34 +89,29 @@ export const useSectionTracking = (sectionName: string) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !hasTrackedRef.current) {
-            // Track section entry
+            // Mark section entry but don't track yet
             entryTimeRef.current = Date.now();
             hasTrackedRef.current = true;
-
-            // Calculate scroll depth as percentage
-            const scrollDepth = Math.round(
-              ((window.scrollY + window.innerHeight) /
-                document.documentElement.scrollHeight) *
-                100
-            );
-
-            trackSectionView(sectionName, scrollDepth);
           } else if (
             !entry.isIntersecting &&
             hasTrackedRef.current &&
             entryTimeRef.current > 0
           ) {
-            // Track time on section when leaving
+            // Track section with complete data on exit
             const timeOnSection = Date.now() - entryTimeRef.current;
             if (timeOnSection > 1000) {
               // Only track if viewed for more than 1 second
-              const scrollDepth = Math.round(
-                ((window.scrollY + window.innerHeight) /
-                  document.documentElement.scrollHeight) *
-                  100
-              );
+              const maxScroll =
+                document.documentElement.scrollHeight - window.innerHeight;
+              const scrollDepth =
+                maxScroll <= 0
+                  ? 100
+                  : Math.round((window.scrollY / maxScroll) * 100);
               trackSectionView(sectionName, scrollDepth, timeOnSection);
             }
+            // Reset tracking state
+            hasTrackedRef.current = false;
+            entryTimeRef.current = 0;
           }
         });
       },
@@ -139,6 +134,7 @@ export const useSectionTracking = (sectionName: string) => {
 // Hook for scroll depth tracking
 export const useScrollDepthTracking = () => {
   const maxScrollDepthRef = useRef<number>(0);
+  const animationFrameRef = useRef<number | undefined>(undefined);
   const { trackEngagement } = useAnalytics();
 
   useEffect(() => {
@@ -146,12 +142,13 @@ export const useScrollDepthTracking = () => {
 
     const handleScroll = () => {
       if (!ticking) {
-        requestAnimationFrame(() => {
-          const scrollDepth = Math.round(
-            (window.scrollY /
-              (document.documentElement.scrollHeight - window.innerHeight)) *
-              100
-          );
+        animationFrameRef.current = requestAnimationFrame(() => {
+          const maxScroll =
+            document.documentElement.scrollHeight - window.innerHeight;
+          const scrollDepth =
+            maxScroll <= 0
+              ? 100
+              : Math.round((window.scrollY / maxScroll) * 100);
 
           // Only track milestones (25%, 50%, 75%, 90%, 100%)
           const milestones = [25, 50, 75, 90, 100];
@@ -180,6 +177,9 @@ export const useScrollDepthTracking = () => {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
     };
   }, [trackEngagement]);
 };
