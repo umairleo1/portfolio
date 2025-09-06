@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './Badge.module.css';
 
 interface BadgeProps {
@@ -29,4 +29,4 @@ const Badge: React.FC<BadgeProps> = ({
   return <span className={badgeClasses}>{children}</span>;
 };
 
-export default Badge;
+export default memo(Badge);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion, type Variants, type MotionStyle } from 'framer-motion';
 import styles from './Card.module.css';
 
@@ -43,4 +43,4 @@ const Card: React.FC<CardProps> = ({
   );
 };
 
-export default Card;
+export default memo(Card);
