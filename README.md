@@ -466,7 +466,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## Contact & Support
 
-**Muhammad Umair** - Senior Software Engineer
+**Muhammad Umair** - Software Engineer
 
 <div align="center">
 
