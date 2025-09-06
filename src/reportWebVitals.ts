@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
-import type { ReportCallback } from 'web-vitals';
+import type { ReportCallback, Metric } from 'web-vitals';
 import { trackWebVitals } from './utils/analytics';
 import { env } from './config/env';
 
 // Enhanced Web Vitals reporting with Google Analytics integration
 const reportWebVitals = (onPerfEntry?: ReportCallback) => {
   // Custom callback to send vitals to Google Analytics
-  const analyticsCallback = (metric: any) => {
+  const analyticsCallback = (metric: Metric) => {
     // Determine rating based on thresholds
     const getRating = (
       name: string,
@@ -39,7 +39,7 @@ const reportWebVitals = (onPerfEntry?: ReportCallback) => {
 
     // Call custom callback if provided
     if (onPerfEntry && typeof onPerfEntry === 'function') {
-      onPerfEntry(metric);
+      onPerfEntry(metric as any);
     }
   };
 
