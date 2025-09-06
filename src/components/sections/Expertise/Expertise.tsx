@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useSectionTracking } from '@/hooks/useAnalytics';
 import { skills } from '@/data';
 import { cardAnimations } from '@/utils/animations';
 import SectionHeader from '@/components/ui/SectionHeader';
+import Section from '@/components/ui/Section';
 import {
   SiJavascript,
   SiReact,
@@ -38,9 +38,6 @@ import { renderIcon } from '@/utils/IconWrapper';
 import styles from './Expertise.module.css';
 
 const Expertise: React.FC = () => {
-  // Analytics section tracking
-  const sectionRef = useSectionTracking('skills');
-
   const skillCategories = [
     {
       title: 'Languages',
@@ -139,90 +136,80 @@ const Expertise: React.FC = () => {
   ];
 
   return (
-    <section
-      ref={sectionRef}
-      id='skills'
-      className={`${styles.expertise} section`}
-    >
-      <div className='container'>
-        <div>
-          <SectionHeader
-            title='skills & expertise'
-            subtitle='comprehensive technology stack and specialized competencies'
-          />
+    <Section id='skills' className='darkBg section'>
+      <SectionHeader
+        title='skills & expertise'
+        subtitle='comprehensive technology stack and specialized competencies'
+      />
 
-          <div className={styles.skillsGrid}>
-            {skillCategories.map((category) => (
-              <motion.div
-                key={category.title}
-                className={`${styles.skillCategory} card`}
-                whileHover={cardAnimations.hover}
-                whileTap={cardAnimations.tap}
-              >
-                <div className={styles.skillCategoryHeader}>
-                  <div className={styles.skillCategoryIconContainer}>
-                    <div
-                      className={styles.skillCategoryIcon}
-                      style={{ background: category.gradient }}
-                    >
-                      {category.icon}
-                    </div>
-                    <div className={styles.skillCategoryTechIcons}>
-                      {category.techIcons.map((TechIcon, iconIndex) => (
-                        <TechIcon key={iconIndex} className={styles.techIcon} />
-                      ))}
-                    </div>
-                  </div>
-                  <div className={styles.skillCategoryInfo}>
-                    <h3 className={styles.skillCategoryTitle}>
-                      {category.title}
-                    </h3>
-                    <p className={styles.skillCategoryDescription}>
-                      {category.description}
-                    </p>
-                  </div>
+      <div className={styles.skillsGrid}>
+        {skillCategories.map((category) => (
+          <motion.div
+            key={category.title}
+            className={`${styles.skillCategory} card`}
+            whileHover={cardAnimations.hover}
+            whileTap={cardAnimations.tap}
+          >
+            <div className={styles.skillCategoryHeader}>
+              <div className={styles.skillCategoryIconContainer}>
+                <div
+                  className={styles.skillCategoryIcon}
+                  style={{ background: category.gradient }}
+                >
+                  {category.icon}
                 </div>
-                <div className={styles.skillCategoryItems}>
-                  {category.items.map((skill) => (
-                    <span key={skill} className={styles.skillTag}>
-                      {skill}
-                    </span>
+                <div className={styles.skillCategoryTechIcons}>
+                  {category.techIcons.map((TechIcon, iconIndex) => (
+                    <TechIcon key={iconIndex} className={styles.techIcon} />
                   ))}
                 </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className={styles.stats}>
-            <div className={styles.statsGrid}>
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  className={styles.statItem}
-                  whileHover={{
-                    scale: 1.05,
-                    transition: {
-                      duration: 0.2,
-                      ease: [0.4, 0, 0.2, 1],
-                    },
-                  }}
-                  whileTap={{
-                    scale: 0.95,
-                    transition: {
-                      duration: 0.1,
-                      ease: [0.4, 0, 0.2, 1],
-                    },
-                  }}
-                >
-                  <div className={styles.statValue}>{stat.value}</div>
-                  <div className={styles.statLabel}>{stat.label}</div>
-                </motion.div>
+              </div>
+              <div className={styles.skillCategoryInfo}>
+                <h3 className={styles.skillCategoryTitle}>{category.title}</h3>
+                <p className={styles.skillCategoryDescription}>
+                  {category.description}
+                </p>
+              </div>
+            </div>
+            <div className={styles.skillCategoryItems}>
+              {category.items.map((skill) => (
+                <span key={skill} className={styles.skillTag}>
+                  {skill}
+                </span>
               ))}
             </div>
-          </div>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className={styles.stats}>
+        <div className={styles.statsGrid}>
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              className={styles.statItem}
+              whileHover={{
+                scale: 1.05,
+                transition: {
+                  duration: 0.2,
+                  ease: [0.4, 0, 0.2, 1],
+                },
+              }}
+              whileTap={{
+                scale: 0.95,
+                transition: {
+                  duration: 0.1,
+                  ease: [0.4, 0, 0.2, 1],
+                },
+              }}
+            >
+              <div className={styles.statValue}>{stat.value}</div>
+              <div className={styles.statLabel}>{stat.label}</div>
+            </motion.div>
+          ))}
         </div>
       </div>
-    </section>
+    </Section>
   );
 };
 
