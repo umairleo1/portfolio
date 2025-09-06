@@ -6,7 +6,7 @@ import type { PersonalInfo } from '../types';
  * Public information that's displayed on the portfolio website
  */
 export const personalInfo: PersonalInfo = {
-  name: 'MUHAMMAD UMAIR',
+  name: 'Muhammad Umair',
   title: 'Software Engineer',
   location: 'London, United Kingdom',
   phone: '+44 77 63836505',
