@@ -7,6 +7,7 @@ import {
   FloatingElements,
   ErrorBoundary,
   SectionLoader,
+  AnalyticsProvider,
 } from '@/components';
 import { SEO, StructuredData, WebVitalsOptimizer } from '@/components/seo';
 // Lazy load analytics to improve initial bundle size
@@ -37,6 +38,7 @@ function App() {
         await initGA();
         trackPageView();
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Failed to initialize analytics:', error);
         // Continue app functionality even if analytics fails
       }
@@ -77,17 +79,19 @@ function App() {
 
           {/* Sections - Load after Hero is stable */}
           {sectionsReady && (
-            <ErrorBoundary>
-              <Suspense
-                fallback={<SectionLoader message='Loading sections...' />}
-              >
-                <Expertise />
-                <Education />
-                <Work />
-                <Experience />
-                <Contact />
-              </Suspense>
-            </ErrorBoundary>
+            <AnalyticsProvider>
+              <ErrorBoundary>
+                <Suspense
+                  fallback={<SectionLoader message='Loading sections...' />}
+                >
+                  <Expertise />
+                  <Education />
+                  <Work />
+                  <Experience />
+                  <Contact />
+                </Suspense>
+              </ErrorBoundary>
+            </AnalyticsProvider>
           )}
         </main>
 

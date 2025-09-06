@@ -1,12 +1,12 @@
 import React, { useState, useEffect, memo } from 'react';
-import type { NavItem } from '@/types';
+import type { NavigationItem } from '@/data/types';
 import { NAVIGATION_PATHS } from '@/lib/constants';
 import { appConfig } from '@/data';
 import { useThrottle } from '@/hooks';
-import { useAnalytics } from '@/hooks/useAnalytics';
+import TrackedLink from '@/components/ui/TrackedLink';
 import styles from './Header.module.css';
 
-const navItems: NavItem[] = appConfig.navigation.items.map((item) => ({
+const navItems: NavigationItem[] = appConfig.navigation.items.map((item) => ({
   label: item.label,
   href: item.href.startsWith('#')
     ? item.href
@@ -21,7 +21,6 @@ const Header: React.FC = memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
-  const { trackExternalLink } = useAnalytics();
 
   const handleScroll = useThrottle(() => {
     // Handle scroll background blur effect
@@ -73,9 +72,8 @@ const Header: React.FC = memo(() => {
     }
   };
 
-  // Handle resume link click with analytics
-  const handleResumeClick = () => {
-    trackExternalLink(appConfig.resume.url, 'Resume', 'header', 'resume_link');
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
@@ -83,15 +81,15 @@ const Header: React.FC = memo(() => {
       <div className='container'>
         <div className={styles.content}>
           <div className={styles.logo}>
-            <a
+            <TrackedLink
               href={appConfig.resume.url}
-              target='_blank'
-              rel='noopener noreferrer'
               className={styles.resumeLink}
-              onClick={handleResumeClick}
+              linkName='Resume'
+              section='header'
+              category='resume_link'
             >
               Resume
-            </a>
+            </TrackedLink>
           </div>
 
           <nav className={styles.nav}>
@@ -115,7 +113,7 @@ const Header: React.FC = memo(() => {
 
           <button
             className={styles.menuToggle}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={handleMenuToggle}
             aria-label='Toggle menu'
           >
             ☰
