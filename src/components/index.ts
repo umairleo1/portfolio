@@ -9,8 +9,12 @@ export { default as Hero } from './sections/Hero';
 export { default as ErrorBoundary } from './common/ErrorBoundary';
 export { default as LoadingSpinner } from './common/LoadingSpinner';
 export { default as SectionLoader } from './common/SectionLoader';
+export { default as AnalyticsProvider } from './common/AnalyticsProvider';
 
 // UI Components
+export { default as Section } from './ui/Section';
+export { default as SectionHeader } from './ui/SectionHeader';
+export { default as TrackedLink } from './ui/TrackedLink';
 export { default as ScrollToBottom } from './ui/ScrollToBottom';
 export { default as LogoScroll } from './ui/LogoScroll';
 export { default as Card } from './ui/Card';
