@@ -1,0 +1,32 @@
+/**
+ * Section Component Styles
+ * 
+ * Specific styles for the Section wrapper component
+ */
+
+/* Section Container */
+.section {
+  padding: var(--section-padding);
+  position: relative;
+  overflow: visible;
+}
+
+.content {
+  position: relative;
+}
+
+/* Section Background Variants */
+.section.darkBg {
+  background: var(--dark-bg);
+}
+
+.section.lightBg {
+  background: var(--light-bg);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .section {
+    padding: var(--section-padding-mobile, 4rem 1rem);
+  }
+}
