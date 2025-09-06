@@ -22,11 +22,14 @@ This portfolio implements enterprise-grade Google Analytics 4 (GA4) tracking wit
 - **Performance Metrics**: Web Vitals integration
 - **Error Tracking**: Application error monitoring
 
-### Performance
+### Performance & Reliability
 
 - **Async Loading**: Non-blocking script loading
-- **Error Handling**: Graceful fallbacks
+- **Error Handling**: Graceful fallbacks with race condition protection
 - **Beacon Transport**: Reliable data transmission
+- **Offline Event Queuing**: Events queued when offline and processed when reconnected
+- **Bot Detection**: Prevents analytics pollution from crawlers and automated tools
+- **Race Condition Protection**: Prevents multiple concurrent initializations
 - **Debug Mode**: Development-friendly logging
 
 ## Configuration
@@ -390,16 +393,36 @@ For personal portfolios targeting recruiters and employers, analytics provides a
 - Enable performance monitoring
 - Monitor Web Vitals ratings
 
+**Offline events not processing:**
+
+- Check browser network connectivity
+- Events are queued automatically when offline
+- Queued events process when connection returns
+- Check console for "Processing X queued analytics events" message
+
+**Bot traffic in analytics:**
+
+- Bot detection is automatic and comprehensive
+- Filters common crawlers, testing tools, and social media bots
+- Check user agent patterns if custom filtering needed
+
 ## Recent Improvements & Fixes
 
-### Version 2.0 Updates
+### Version 2.1 Updates
+
+**Race Condition Protection & Offline Support:**
+
+- Prevents multiple concurrent analytics initialization attempts
+- Offline event queuing system that processes events when connectivity returns
+- Enhanced bot detection to prevent analytics pollution from crawlers
+- Memory leak prevention with proper timeout cleanup
 
 **Enhanced Error Handling:**
 
 - React ErrorBoundary integration with analytics tracking
 - Safe URL parsing with fallback handling
 - Cross-browser compatibility checks for navigator and document APIs
-- Memory leak prevention with proper cleanup
+- Graceful script loading failure recovery
 
 **GA4 Compliance:**
 
@@ -431,6 +454,21 @@ Configure custom dimensions in GA4 dashboard to match:
 - `user_engagement_score`
 - `scroll_depth`
 - `form_completion_rate`
+
+### Offline & Bot Protection
+
+**Offline Event Queuing:**
+
+- Events are automatically queued when device is offline
+- Queued events are processed when connection returns
+- Prevents data loss during connectivity issues
+
+**Bot Detection Patterns:**
+
+- Filters out crawlers: `bot`, `spider`, `crawler`, `scraper`
+- Excludes testing tools: `lighthouse`, `chrome-lighthouse`
+- Blocks social crawlers: `facebookexternalhit`, `whatsapp`, `telegram`, `discord`
+- Prevents search bot pollution: `googlebot`, `bingbot`
 
 ### Enhanced E-commerce (Future)
 
