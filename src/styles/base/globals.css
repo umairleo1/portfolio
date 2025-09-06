@@ -57,6 +57,38 @@
   --shadow-glow: var(--primary-cyan-30);
 
   /* ========================================
+     GRADIENT PATTERNS
+     ======================================== */
+  --gradient-purple: linear-gradient(135deg, #8b5cf6, #a855f7, #9333ea);
+  --gradient-header: rgba(23, 22, 26, 0.8);
+  --gradient-cyan: linear-gradient(
+    135deg,
+    var(--primary-cyan-10),
+    var(--primary-cyan-05)
+  );
+  --gradient-hover: linear-gradient(
+    135deg,
+    var(--primary-cyan-15),
+    var(--primary-cyan-10)
+  );
+
+  /* ========================================
+     ANIMATION & TRANSITIONS
+     ======================================== */
+  --animation-fast: 0.15s;
+  --animation-normal: 0.3s;
+  --animation-slow: 0.6s;
+  --animation-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Transform Patterns */
+  --hover-lift-small: translateY(-2px);
+  --hover-lift: translateY(-4px);
+  --hover-lift-large: translateY(-8px);
+  --hover-scale: scale(1.05);
+  --hover-scale-small: scale(1.02);
+
+  /* ========================================
      TYPOGRAPHY
      ======================================== */
   --font-mono: 'Roboto Mono', monospace;
@@ -67,6 +99,35 @@
   --section-padding: 80px 0;
   --container-padding: 0 clamp(20px, 5vw, 80px);
   --max-width: min(1400px, 95vw);
+
+  /* Spacing Scale */
+  --space-xs: 0.25rem; /* 4px */
+  --space-sm: 0.5rem; /* 8px */
+  --space-md: 1rem; /* 16px */
+  --space-lg: 1.5rem; /* 24px */
+  --space-xl: 2rem; /* 32px */
+  --space-2xl: 3rem; /* 48px */
+  --space-3xl: 4rem; /* 64px */
+  --space-4xl: 5rem; /* 80px */
+  --space-5xl: 6rem; /* 96px */
+
+  /* Content Width Scale */
+  --content-narrow: 900px;
+  --content-medium: 1000px;
+  --content-wide: 1200px;
+  --content-full: 100%;
+
+  /* Component Spacing */
+  --gap-xs: 0.375rem; /* 6px */
+  --gap-sm: 0.75rem; /* 12px */
+  --gap-md: 1.25rem; /* 20px */
+  --gap-lg: 2rem; /* 32px */
+  --gap-xl: 3rem; /* 48px */
+
+  /* Form Spacing */
+  --form-gap: 1.25rem;
+  --form-input-padding: 0.75rem 1rem;
+  --form-border-radius: 0.5rem;
 
   /* Border Radius */
   --border-radius-sm: 4px;
