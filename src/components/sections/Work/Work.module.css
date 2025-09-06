@@ -1,83 +1,3 @@
-.work {
-  padding: var(--section-padding);
-  background: var(--dark-bg);
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.sectionTitle {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 2rem;
-  position: relative;
-  display: inline-block;
-}
-
-.sectionSubtitle {
-  font-size: 1.2rem;
-  color: var(--text-secondary);
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-.title {
-  font-size: clamp(2rem, 5vw, 3rem);
-  color: var(--text-primary);
-  margin-bottom: 16px;
-  position: relative;
-  display: inline-block;
-}
-
-.title::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 60%;
-  height: 4px;
-  background: var(--primary-cyan);
-  border-radius: 2px;
-}
-
-.subtitle {
-  font-size: 18px;
-  color: var(--text-secondary);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.filters {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 40px;
-  flex-wrap: wrap;
-}
-
-.filterBtn {
-  background: transparent;
-  border: 1px solid var(--primary-cyan-30);
-  color: var(--text-secondary);
-  padding: 8px 20px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-family: var(--font-mono);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.filterBtn:hover,
-.filterBtnActive {
-  background: var(--primary-cyan);
-  color: var(--dark-bg);
-  border-color: var(--primary-cyan);
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -299,15 +219,6 @@
   .grid {
     grid-template-columns: 1fr;
     gap: 24px;
-  }
-
-  .filters {
-    gap: 12px;
-  }
-
-  .filterBtn {
-    padding: 6px 16px;
-    font-size: 13px;
   }
 
   .projectCardContent {

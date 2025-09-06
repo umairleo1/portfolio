@@ -1,7 +1,4 @@
 .contact {
-  padding: var(--section-padding);
-  background: var(--dark-bg);
-  position: relative;
   min-height: 60vh;
   transition: all 0.3s ease;
 }
@@ -43,42 +40,11 @@
   }
 }
 
-.contactHeader {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.contactTitle {
-  font-size: clamp(2rem, 5vw, 3rem);
-  color: var(--text-primary);
-  margin-bottom: 16px;
-  position: relative;
-  display: inline-block;
-}
-
-.contactTitle::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 60%;
-  height: 4px;
-  background: var(--primary-cyan);
-  border-radius: 2px;
-}
-
-.contactSubtitle {
-  font-size: 18px;
-  color: var(--text-secondary);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
 .contactContent {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  max-width: 1000px;
+  gap: var(--gap-xl);
+  max-width: var(--content-medium);
   margin: 0 auto;
 }
 
@@ -153,42 +119,6 @@
 
 .contactDetailValue a:hover {
   color: var(--primary-cyan);
-}
-
-.contactSocial {
-  margin-top: 32px;
-}
-
-.contactSocialTitle {
-  font-size: 16px;
-  color: var(--text-primary);
-  margin-bottom: 16px;
-  font-weight: 600;
-}
-
-.contactSocialLinks {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.contactSocialLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 16px;
-  background: var(--dark-surface);
-  color: var(--text-secondary);
-  border-radius: 8px;
-  font-size: 14px;
-  transition: var(--transition);
-  border: 1px solid var(--primary-cyan-10);
-}
-
-.contactSocialLink:hover {
-  background: var(--primary-cyan);
-  color: var(--dark-bg);
-  transform: translateY(-2px);
 }
 
 .contactForm {
@@ -285,14 +215,6 @@
 
   .contactForm {
     padding: 24px;
-  }
-
-  .contactSocialLinks {
-    flex-direction: column;
-  }
-
-  .contactSocialLink {
-    justify-content: center;
   }
 }
 
