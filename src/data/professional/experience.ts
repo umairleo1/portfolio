@@ -9,7 +9,7 @@ export const experience: Experience[] = [
     title: 'Data Integrations Developer',
     company: 'UNICEF UK',
     location: 'London, United Kingdom',
-    period: 'Feb 2025 – Current',
+    period: 'Feb 2025 – Present',
     achievements: [
       'Built GitLab CI gated Salesforce to Snowflake ETL (Python, SQL, AWS Lambda), cutting nightly load time 45%.',
       'Optimized SQL (CTEs, window functions) to reconcile 5M rows with 99.8% accuracy and zero critical Sonar findings.',
