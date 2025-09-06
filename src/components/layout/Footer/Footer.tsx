@@ -3,17 +3,11 @@ import { personalInfo } from '@/data';
 import { FaLinkedinIn, FaGithub, FaTwitter, FaReact } from 'react-icons/fa';
 import { SiTypescript } from 'react-icons/si';
 import { renderIcon } from '@/utils/IconWrapper';
-import { useAnalytics } from '@/hooks/useAnalytics';
+import TrackedLink from '@/components/ui/TrackedLink';
 import styles from './Footer.module.css';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
-  const { trackExternalLink } = useAnalytics();
-
-  // Handle social link clicks with analytics
-  const handleSocialClick = (url: string, platform: string) => {
-    trackExternalLink(url, platform, 'footer', 'social_links');
-  };
 
   return (
     <footer className={styles.footer} id='footer'>
@@ -27,38 +21,36 @@ const Footer: React.FC = () => {
           </div>
 
           <div className={styles.links}>
-            <a
+            <TrackedLink
               href={personalInfo.linkedin}
-              target='_blank'
-              rel='noopener noreferrer'
               className={styles.link}
-              onClick={() =>
-                handleSocialClick(personalInfo.linkedin, 'LinkedIn')
-              }
+              linkName='LinkedIn'
+              section='footer'
+              category='social_links'
             >
               {renderIcon(FaLinkedinIn, { className: styles.icon })}
               linkedin
-            </a>
-            <a
+            </TrackedLink>
+            <TrackedLink
               href={personalInfo.github}
-              target='_blank'
-              rel='noopener noreferrer'
               className={styles.link}
-              onClick={() => handleSocialClick(personalInfo.github, 'GitHub')}
+              linkName='GitHub'
+              section='footer'
+              category='social_links'
             >
               {renderIcon(FaGithub, { className: styles.icon })}
               github
-            </a>
-            <a
+            </TrackedLink>
+            <TrackedLink
               href={personalInfo.twitter}
-              target='_blank'
-              rel='noopener noreferrer'
               className={styles.link}
-              onClick={() => handleSocialClick(personalInfo.twitter, 'Twitter')}
+              linkName='Twitter'
+              section='footer'
+              category='social_links'
             >
               {renderIcon(FaTwitter, { className: styles.icon })}
               twitter
-            </a>
+            </TrackedLink>
           </div>
 
           <div className={styles.bottom}>

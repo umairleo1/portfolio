@@ -35,12 +35,37 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       errorInfo,
     });
 
-    // Here you could send error reports to a logging service
-    // logErrorToService(error, errorInfo);
+    // Track error to analytics
+    this.trackErrorToAnalytics(error, errorInfo);
   }
+
+  private trackErrorToAnalytics = async (
+    error: Error,
+    errorInfo: React.ErrorInfo
+  ) => {
+    try {
+      const { trackError } = await import('@/utils/analytics');
+      trackError(
+        'react_error_boundary',
+        error.message,
+        error.stack,
+        errorInfo.componentStack || undefined
+      );
+    } catch (analyticsError) {
+      // Silently fail if analytics tracking fails - don't break error boundary
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.warn('Failed to track error to analytics:', analyticsError);
+      }
+    }
+  };
 
   handleRetry = () => {
     this.setState({ hasError: false });
+  };
+
+  private handleRefresh = () => {
+    window.location.reload();
   };
 
   override render() {
@@ -84,7 +109,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
               </button>
 
               <button
-                onClick={() => window.location.reload()}
+                onClick={this.handleRefresh}
                 className={styles.refreshButton}
               >
                 Refresh Page
