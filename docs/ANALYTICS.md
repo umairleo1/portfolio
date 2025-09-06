@@ -215,10 +215,10 @@ The portfolio includes professional analytics tracking across all user interacti
 
 **3. Project Interactions**
 
-- Project card hover tracking (view events)
+- Project card click tracking (view events)
 - Demo link clicks with technology metadata
-- Filter usage tracking
-- External link tracking with context
+- Project metadata tracking (categories, technologies)
+- External project link tracking with context
 
 **4. Social & External Links**
 
@@ -230,13 +230,22 @@ The portfolio includes professional analytics tracking across all user interacti
 
 - Scroll depth milestones: 25%, 50%, 75%, 90%, 100%
 - Time on page intervals: 30s, 1m, 3m, 5m
+- Global engagement tracking via AnalyticsProvider
 - Performance Web Vitals integration
 
 **6. Navigation & Performance**
 
 - Page view tracking with enhanced metadata
-- Web Vitals monitoring (LCP, FID, CLS, etc.)
-- Error tracking for debugging
+- Web Vitals monitoring (LCP, FCP, CLS, INP, TTFB)
+- React Error Boundary integration
+- Application error tracking for debugging
+
+**7. Privacy & Compliance**
+
+- GDPR-compliant consent management
+- Cookie security settings
+- Data anonymization
+- Consent update functionality
 
 ## Best Practices
 
@@ -253,6 +262,13 @@ The portfolio includes professional analytics tracking across all user interacti
 ### Analytics Hooks Architecture
 
 The portfolio uses a custom hook system for performance-optimized analytics:
+
+**Core Analytics Components:**
+
+**`AnalyticsProvider`** - Global analytics provider that initializes:
+
+- `useScrollDepthTracking()` - Global scroll milestone tracking
+- `useTimeTracking()` - Time-based engagement tracking
 
 **`useAnalytics()`** - Main analytics hook providing:
 
@@ -373,6 +389,38 @@ For personal portfolios targeting recruiters and employers, analytics provides a
 - Use `transport: 'beacon'` for critical events
 - Enable performance monitoring
 - Monitor Web Vitals ratings
+
+## Recent Improvements & Fixes
+
+### Version 2.0 Updates
+
+**Enhanced Error Handling:**
+
+- React ErrorBoundary integration with analytics tracking
+- Safe URL parsing with fallback handling
+- Cross-browser compatibility checks for navigator and document APIs
+- Memory leak prevention with proper cleanup
+
+**GA4 Compliance:**
+
+- Updated parameter structure for GA4 standards
+- Fixed event_label formatting for clean reporting
+- Proper consent management with update functionality
+- Enhanced Web Vitals tracking (FCP, LCP, INP, CLS, TTFB)
+
+**Performance Optimizations:**
+
+- RequestAnimationFrame cleanup to prevent memory leaks
+- Scroll depth calculation edge case handling
+- Proper TypeScript types throughout
+- Production build optimizations
+
+**Feature Completeness:**
+
+- AnalyticsProvider component for global engagement tracking
+- Complete scroll depth milestone tracking
+- Time-based engagement intervals
+- Professional external link tracking with domain parsing
 
 ## Advanced Configuration
 
