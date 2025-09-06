@@ -28,8 +28,10 @@ const reportWebVitals = (onPerfEntry?: ReportCallback) => {
 
     // Send to Google Analytics (always enabled if GA is configured)
     if (env.GOOGLE_ANALYTICS_ID) {
+      // Map INP to FID for GA4 compatibility since trackWebVitals expects FID
+      const metricName = metric.name === 'INP' ? 'FID' : metric.name;
       trackWebVitals(
-        metric.name as 'FCP' | 'LCP' | 'FID' | 'CLS' | 'TTFB',
+        metricName as 'FCP' | 'LCP' | 'FID' | 'CLS' | 'TTFB',
         metric.value,
         getRating(metric.name, metric.value)
       );
@@ -44,12 +46,21 @@ const reportWebVitals = (onPerfEntry?: ReportCallback) => {
   // Load and initialize Web Vitals
   if (typeof window !== 'undefined') {
     import('web-vitals')
-      .then(({ onCLS, onINP, onFCP, onLCP, onTTFB }) => {
+      .then((webVitals) => {
+        const { onCLS, onFCP, onLCP, onTTFB, onINP } = webVitals;
+
         onCLS(analyticsCallback);
-        onINP(analyticsCallback);
         onFCP(analyticsCallback);
         onLCP(analyticsCallback);
         onTTFB(analyticsCallback);
+
+        // Track INP for interaction monitoring (FID is deprecated in favor of INP)
+        onINP(analyticsCallback);
+
+        // Try to import FID if available (for backwards compatibility)
+        if ('onFID' in webVitals) {
+          (webVitals as any).onFID(analyticsCallback);
+        }
 
         if (env.ENABLE_ANALYTICS_DEBUG) {
           console.log('Web Vitals monitoring initialized');
