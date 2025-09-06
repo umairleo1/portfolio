@@ -13,6 +13,14 @@ declare global {
   }
 }
 
+// Professional initialization state management
+let initializationPromise: Promise<void> | null = null;
+let isInitialized = false;
+const offlineEventQueue: Array<{
+  eventName: string;
+  parameters: Record<string, unknown>;
+}> = [];
+
 // Analytics configuration constants
 const GA_CONFIG = {
   // Privacy and GDPR compliance settings
@@ -98,7 +106,17 @@ export const updateConsentSettings = (
 
 // Initialize Google Analytics with professional configuration
 export const initGA = (): Promise<void> => {
-  return new Promise((resolve, reject) => {
+  // FIX: Prevent race conditions from multiple concurrent initializations
+  if (initializationPromise) {
+    return initializationPromise;
+  }
+
+  if (isInitialized) {
+    return Promise.resolve();
+  }
+
+  initializationPromise = new Promise<void>((resolve, reject) => {
+    let scriptLoadTimeout: NodeJS.Timeout | null = null;
     try {
       // Validation checks
       if (!env.GOOGLE_ANALYTICS_ID) {
@@ -133,6 +151,12 @@ export const initGA = (): Promise<void> => {
       script.src = `https://www.googletagmanager.com/gtag/js?id=${env.GOOGLE_ANALYTICS_ID}`;
 
       script.onload = () => {
+        // FIX: Clear timeout to prevent memory leak
+        if (scriptLoadTimeout) {
+          clearTimeout(scriptLoadTimeout);
+          scriptLoadTimeout = null;
+        }
+
         // Configure GA after script loads
         window.gtag('js', new Date());
 
@@ -173,36 +197,101 @@ export const initGA = (): Promise<void> => {
           console.log('Google Analytics initialized successfully');
         }
 
+        isInitialized = true;
         resolve();
       };
 
       script.onerror = (error) => {
+        // FIX: Clear timeout and reset state on error
+        if (scriptLoadTimeout) {
+          clearTimeout(scriptLoadTimeout);
+          scriptLoadTimeout = null;
+        }
+        isInitialized = false;
+        initializationPromise = null;
         console.error('Failed to load Google Analytics:', error);
         reject(new Error('GA_SCRIPT_LOAD_FAILED'));
       };
 
-      // Add script to document
-      const head = document.head || document.getElementsByTagName('head')[0];
-      if (head) {
-        head.appendChild(script);
-      } else {
-        throw new Error('Cannot find document head element');
+      // FIX: CSP-safe script injection with better DOM handling
+      // Check if script already exists (prevent duplicates)
+      const existingScript = document.querySelector(
+        `script[src*="${env.GOOGLE_ANALYTICS_ID}"]`
+      );
+      if (existingScript) {
+        isInitialized = true;
+        if (scriptLoadTimeout) clearTimeout(scriptLoadTimeout);
+        resolve();
+        return;
       }
 
-      // Timeout fallback
-      setTimeout(() => {
+      // CSP nonce support
+      const metaNonce = document.querySelector('meta[name="csp-nonce"]');
+      if (metaNonce) {
+        script.nonce = metaNonce.getAttribute('content') || '';
+      }
+
+      // Safe DOM insertion with fallbacks
+      const insertionPoint =
+        document.head ||
+        document.getElementsByTagName('head')[0] ||
+        document.body ||
+        document.documentElement;
+
+      if (!insertionPoint) {
+        if (scriptLoadTimeout) clearTimeout(scriptLoadTimeout);
+        isInitialized = false;
+        initializationPromise = null;
+        throw new Error('Cannot find DOM insertion point for GA script');
+      }
+
+      insertionPoint.appendChild(script);
+
+      // FIX: Memory leak prevention - clear timeout on success/error
+      scriptLoadTimeout = setTimeout(() => {
         if (!window.gtag) {
+          isInitialized = false;
+          initializationPromise = null;
           reject(new Error('GA_INIT_TIMEOUT'));
         }
       }, 10000);
     } catch (error) {
+      // FIX: Reset state on initialization failure
+      if (scriptLoadTimeout) clearTimeout(scriptLoadTimeout);
+      isInitialized = false;
+      initializationPromise = null;
       console.error('Google Analytics initialization failed:', error);
       reject(error);
     }
   });
+
+  return initializationPromise;
 };
 
-// Enhanced page view tracking with performance metrics
+// Process any queued offline events when back online
+const processOfflineEvents = (): void => {
+  if (offlineEventQueue.length === 0) return;
+
+  console.log(`Processing ${offlineEventQueue.length} queued analytics events`);
+
+  while (offlineEventQueue.length > 0) {
+    const queuedEvent = offlineEventQueue.shift();
+    if (queuedEvent && window.gtag) {
+      try {
+        window.gtag('event', queuedEvent.eventName, queuedEvent.parameters);
+      } catch (error) {
+        console.warn('Failed to send queued analytics event:', error);
+      }
+    }
+  }
+};
+
+// Set up online/offline event listeners
+if (typeof window !== 'undefined' && 'addEventListener' in window) {
+  window.addEventListener('online', processOfflineEvents);
+}
+
+// FIX: Enhanced page view tracking with performance metrics
 export const trackPageView = (
   path?: string,
   title?: string,
@@ -210,8 +299,14 @@ export const trackPageView = (
 ): void => {
   if (!isTrackingEnabled()) return;
 
-  const pagePath = path || window.location.pathname + window.location.search;
-  const pageTitle = title || document.title;
+  const pagePath =
+    path ||
+    (typeof window !== 'undefined'
+      ? window.location.pathname + window.location.search
+      : '/unknown');
+  const pageTitle =
+    title ||
+    (typeof document !== 'undefined' ? document.title : 'Unknown Page');
 
   try {
     // Standard page view
@@ -228,13 +323,19 @@ export const trackPageView = (
       page_title: pageTitle,
       page_location: window.location.href,
       engagement_time_msec: 0,
-      user_agent: navigator.userAgent.includes('Mobile') ? 'mobile' : 'desktop',
+      user_agent:
+        typeof navigator !== 'undefined' &&
+        navigator.userAgent?.includes('Mobile')
+          ? 'mobile'
+          : 'desktop',
       screen_resolution:
         typeof window !== 'undefined' && window.screen
           ? `${window.screen.width}x${window.screen.height}`
           : 'unknown',
       language:
-        typeof navigator !== 'undefined' ? navigator.language : 'unknown',
+        typeof navigator !== 'undefined' && navigator.language
+          ? navigator.language
+          : 'unknown',
     });
 
     if (env.ENABLE_ANALYTICS_DEBUG) {
@@ -245,12 +346,25 @@ export const trackPageView = (
   }
 };
 
-// Professional event tracking with validation and error handling
+// FIX: Professional event tracking with comprehensive validation
 export const trackEvent = (
   eventName: string,
   parameters: EventParameters = {},
   options: TrackingOptions = {}
 ): void => {
+  // Handle offline events by queueing
+  if (
+    typeof navigator !== 'undefined' &&
+    'onLine' in navigator &&
+    !navigator.onLine
+  ) {
+    offlineEventQueue.push({
+      eventName,
+      parameters: { ...parameters, ...parameters.custom_parameters },
+    });
+    return;
+  }
+
   if (!isTrackingEnabled()) return;
 
   try {
@@ -259,7 +373,7 @@ export const trackEvent = (
       throw new Error('Invalid event name provided');
     }
 
-    // Sanitize and prepare parameters (GA4 format)
+    // FIX: Enhanced parameter sanitization with circular reference protection
     const sanitizedParams: Record<string, unknown> = {
       // GA4 standard parameters
       value:
@@ -269,8 +383,21 @@ export const trackEvent = (
       event_label: parameters.event_label,
       non_interaction: options.nonInteraction || false,
       transport_type: options.transport || 'beacon',
-      ...parameters.custom_parameters,
     };
+
+    // Safely merge custom parameters with circular reference protection
+    if (parameters.custom_parameters) {
+      try {
+        const customParams = JSON.parse(
+          JSON.stringify(parameters.custom_parameters)
+        );
+        Object.assign(sanitizedParams, customParams);
+      } catch (error) {
+        console.warn(
+          'Circular reference detected in GA parameters, skipping custom parameters'
+        );
+      }
+    }
 
     // Remove undefined values
     Object.keys(sanitizedParams).forEach((key) => {
@@ -299,17 +426,54 @@ export const trackEvent = (
   }
 };
 
-// Utility function to check if tracking is enabled
+// FIX: Enhanced tracking validation with bot detection and offline handling
 const isTrackingEnabled = (): boolean => {
-  return !!(
-    env.GOOGLE_ANALYTICS_ID &&
-    !env.isTest() &&
-    typeof window !== 'undefined' &&
-    window.gtag
-  );
+  // Basic environment checks
+  if (
+    !env.GOOGLE_ANALYTICS_ID ||
+    env.isTest() ||
+    typeof window === 'undefined' ||
+    !window.gtag
+  ) {
+    return false;
+  }
+
+  // Bot detection to prevent analytics pollution
+  if (typeof navigator !== 'undefined') {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const botPatterns = [
+      /bot/,
+      /spider/,
+      /crawler/,
+      /scraper/,
+      /lighthouse/,
+      /chrome-lighthouse/,
+      /googlebot/,
+      /bingbot/,
+      /facebookexternalhit/,
+      /whatsapp/,
+      /telegram/,
+      /discord/,
+    ];
+
+    if (botPatterns.some((pattern) => pattern.test(userAgent))) {
+      return false;
+    }
+  }
+
+  // Check if online (will queue events if offline)
+  if (
+    typeof navigator !== 'undefined' &&
+    'onLine' in navigator &&
+    !navigator.onLine
+  ) {
+    return false; // Events will be queued
+  }
+
+  return true;
 };
 
-// Enhanced user interaction tracking
+// FIX: Enhanced user interaction tracking with safety checks
 export const trackInteraction = (
   action: string,
   category: string = 'user_interaction',
@@ -323,7 +487,14 @@ export const trackInteraction = (
     value,
     custom_parameters: {
       interaction_timestamp: Date.now(),
-      page_path: window.location.pathname,
+      page_path:
+        typeof window !== 'undefined' ? window.location.pathname : 'unknown',
+      tab_visibility:
+        typeof document !== 'undefined'
+          ? document.hidden
+            ? 'hidden'
+            : 'visible'
+          : 'unknown',
       ...customData,
     },
   });
@@ -343,7 +514,10 @@ export const trackSectionView = (
       section_name: sectionName,
       scroll_depth_percentage: scrollDepth,
       time_on_section_ms: timeOnSection,
-      viewport_size: `${window.innerWidth}x${window.innerHeight}`,
+      viewport_size:
+        typeof window !== 'undefined'
+          ? `${window.innerWidth}x${window.innerHeight}`
+          : 'unknown',
     },
   });
 };
@@ -507,7 +681,11 @@ export const trackEngagement = (
       custom_parameters: {
         engagement_type: engagementType,
         engagement_value: value,
-        page_context: context || window.location.pathname,
+        page_context:
+          context ||
+          (typeof window !== 'undefined'
+            ? window.location.pathname
+            : 'unknown'),
         session_duration: Date.now() - (performance.timeOrigin || 0),
       },
     },
