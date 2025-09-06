@@ -60,7 +60,7 @@ const Button: React.FC<ButtonProps> = ({
         target={target}
         rel={rel}
         className={buttonClasses}
-        {...(props as any)}
+        {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
         {content}
       </a>
