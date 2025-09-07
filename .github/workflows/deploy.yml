@@ -1,14 +1,16 @@
-name: Deploy
+name: Manual Deployment
 
 on:
-  pull_request:
-    branches: [main]
   workflow_dispatch:
     inputs:
       force_deploy:
         description: 'Force deployment'
         required: false
         default: 'false'
+      deployment_reason:
+        description: 'Reason for manual deployment'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -21,7 +23,7 @@ concurrency:
 
 jobs:
   deploy:
-    name: Build and Deploy
+    name: Manual Build and Deploy
     runs-on: ubuntu-latest
     timeout-minutes: 30
     environment:
@@ -40,9 +42,10 @@ jobs:
       - name: Deploy validation
         run: |
           echo "::notice::Manual deployment initiated"
-          echo "::notice::Trigger: ${{ github.event_name }}"
+          echo "::notice::Reason: ${{ inputs.deployment_reason }}"
           echo "::notice::Force deploy: ${{ inputs.force_deploy || 'false' }}"
           echo "::notice::Branch: ${{ github.ref }}"
+          echo "::notice::Initiated by: ${{ github.actor }}"
 
       - name: Quality checks
         run: |
@@ -119,7 +122,10 @@ jobs:
 
       - name: Summary
         run: |
-          echo "## Deployment Complete" >> $GITHUB_STEP_SUMMARY
+          echo "## Manual Deployment Complete" >> $GITHUB_STEP_SUMMARY
+          echo "- **Reason**: ${{ inputs.deployment_reason }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Initiated by**: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
           echo "- **URL**: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
           BUILD_SIZE=$(du -sh build | cut -f1)
           echo "- **Size**: $BUILD_SIZE" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deploy Time**: $(date)" >> $GITHUB_STEP_SUMMARY
