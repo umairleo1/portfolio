@@ -9,7 +9,7 @@ export const personalInfo: PersonalInfo = {
   name: 'Muhammad Umair',
   title: 'Software Engineer',
   location: 'London, United Kingdom',
-  phone: '+44 77 63836405',
+  phone: '+44 77 63836505',
   email: 'umair.leo17@gmail.com',
   linkedin: 'https://www.linkedin.com/in/muhammad-umair-amin/',
   github: 'https://github.com/umairleo1',
