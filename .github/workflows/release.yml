@@ -131,9 +131,17 @@ jobs:
         run: |
           set -e
 
-          # Run semantic release dry run and capture output
-          DRY_RUN_OUTPUT=$(npx semantic-release --dry-run 2>&1) || {
-            echo "Semantic release dry run failed"
+          # Run semantic release dry run and capture output with debug info
+          echo "Running semantic-release dry-run..."
+          echo "Current branch: $(git branch --show-current)"
+          echo "Latest commits since last tag:"
+          git log --oneline $(git describe --tags --abbrev=0 2>/dev/null || echo "HEAD~10")..HEAD || echo "No previous tags found"
+
+          DRY_RUN_OUTPUT=$(npx semantic-release --dry-run --debug 2>&1) || {
+            echo "::error::Semantic release dry run failed"
+            echo "::group::Dry run output"
+            echo "$DRY_RUN_OUTPUT"
+            echo "::endgroup::"
             echo "dry_run_failed=true" >> $GITHUB_OUTPUT
             echo "version=skip" >> $GITHUB_OUTPUT
             echo "::warning::Semantic release dry run failed - no release will be created"
@@ -227,6 +235,8 @@ jobs:
           set -e
 
           echo "Starting semantic release..."
+          echo "Commits to be released:"
+          git log --oneline $(git describe --tags --abbrev=0 2>/dev/null || echo "HEAD~5")..HEAD
 
           # Capture semantic-release output
           RELEASE_OUTPUT=$(npx semantic-release --debug 2>&1) || {
