@@ -149,9 +149,11 @@ jobs:
             echo "dry_run_failed=false" >> $GITHUB_OUTPUT
             echo "::notice::No conventional commits found - skipping release"
           else
-            echo "version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+            # Strip 'v' prefix for React environment variable (if present)
+            CLEAN_VERSION=${NEXT_VERSION#v}
+            echo "version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
             echo "dry_run_failed=false" >> $GITHUB_OUTPUT
-            echo "Next version will be: $NEXT_VERSION"
+            echo "Next version will be: $CLEAN_VERSION"
           fi
 
       - name: Build with version
@@ -225,13 +227,29 @@ jobs:
           set -e
 
           echo "Starting semantic release..."
-          if npx semantic-release; then
-            echo "release_failed=false" >> $GITHUB_OUTPUT
-            echo "::notice::Semantic release completed successfully"
-          else
+
+          # Capture semantic-release output
+          RELEASE_OUTPUT=$(npx semantic-release --debug 2>&1) || {
             echo "release_failed=true" >> $GITHUB_OUTPUT
+            echo "new_release_published=false" >> $GITHUB_OUTPUT
             echo "::error::Semantic release failed"
             exit 1
+          }
+
+          # Check if a release was published
+          if echo "$RELEASE_OUTPUT" | grep -q "Published release"; then
+            echo "new_release_published=true" >> $GITHUB_OUTPUT
+            echo "release_failed=false" >> $GITHUB_OUTPUT
+            
+            # Extract version (with v prefix for tags, clean for display)
+            RELEASE_VERSION=$(echo "$RELEASE_OUTPUT" | grep -oP 'Published release \K(v)?\d+\.\d+\.\d+' || echo "unknown")
+            CLEAN_VERSION=${RELEASE_VERSION#v}
+            echo "new_release_version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
+            echo "::notice::Semantic release completed successfully - version $CLEAN_VERSION"
+          else
+            echo "new_release_published=false" >> $GITHUB_OUTPUT
+            echo "release_failed=false" >> $GITHUB_OUTPUT
+            echo "::notice::Semantic release ran but no release was published"
           fi
         continue-on-error: false
 
