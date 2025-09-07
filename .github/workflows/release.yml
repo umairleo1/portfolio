@@ -140,8 +140,8 @@ jobs:
             exit 0
           }
 
-          # Extract version from output
-          NEXT_VERSION=$(echo "$DRY_RUN_OUTPUT" | grep -oP 'The next release version is \K\d+\.\d+\.\d+' || echo "")
+          # Extract version from output (handles both v1.0.0 and 1.0.0 formats)
+          NEXT_VERSION=$(echo "$DRY_RUN_OUTPUT" | grep -oP 'The next release version is \K(v)?\d+\.\d+\.\d+' || echo "")
 
           if [ -z "$NEXT_VERSION" ]; then
             echo "No version found - no release needed"
