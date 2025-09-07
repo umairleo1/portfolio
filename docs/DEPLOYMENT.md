@@ -62,16 +62,24 @@ For detailed release management, see [`docs/SEMANTIC_RELEASE.md`](SEMANTIC_RELEA
 
 ### CI/CD Pipeline
 
-```yaml
-# .github/workflows/deploy.yml (automatic)
-- name: Build
-  run: npm run build # Uses intelligent detection
+**Primary Deployment: Release Pipeline** (`.github/workflows/release.yml`)
 
-- name: Deploy
-  uses: peaceiris/actions-gh-pages@v3
-  with:
-    github_token: ${{ secrets.GITHUB_TOKEN }}
-    publish_dir: ./build
+```yaml
+# Semantic Release Pipeline (Automated)
+security: # CodeQL + Trivy scanning (10 min timeout)
+quality: # Matrix Node.js 20/22 testing (15 min timeout)
+build: # Semantic release + production build (20 min timeout)
+release: # Automated versioning + changelog (10 min timeout)
+deploy: # GitHub Pages deployment (15 min timeout)
+monitor: # Lighthouse performance audit (10 min timeout)
+```
+
+**Manual Deployment Options:**
+
+```yaml
+# Manual deployment with override
+deploy.yml: # Manual dispatch with force deploy option
+hotfix.yml: # Emergency deployment with test skip capability
 ```
 
 ## Custom Domain Migration
