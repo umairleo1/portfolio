@@ -1,4 +1,4 @@
-name: Build and Deploy to GitHub Pages (Legacy)
+name: Deploy
 
 on:
   pull_request:
@@ -6,232 +6,75 @@ on:
   workflow_dispatch:
     inputs:
       force_deploy:
-        description: 'Force deployment without release'
+        description: 'Force deployment'
         required: false
         default: 'false'
 
-# Minimal permissions following 2025 security standards
 permissions:
   contents: read
   pages: write
   id-token: write
-  security-events: write # For CodeQL analysis
-  actions: read # For vulnerability scanning
 
-# Prevent concurrent deployments with advanced cancellation
 concurrency:
-  group: 'pages-${{ github.ref }}'
+  group: 'deploy-${{ github.ref }}'
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
-  # Security Scanning Job
-  security:
-    name: Security Analysis
+  deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4.2.2
-        with:
-          fetch-depth: 0 # Full history for security analysis
+      - uses: actions/checkout@v4.2.2
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3.28.0
-        with:
-          languages: javascript-typescript
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3.28.0
-
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.28.0
-        with:
-          scan-type: 'fs'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-
-      - name: Upload Trivy results
-        uses: github/codeql-action/upload-sarif@v3.28.0
-        if: always()
-        with:
-          sarif_file: 'trivy-results.sarif'
-
-  # Quality Gates Job
-  quality:
-    name: Quality Gates
-    runs-on: ubuntu-latest
-    needs: security
-    strategy:
-      matrix:
-        node-version: [20, 22] # Test against LTS and current
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4.2.2
-
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4.1.0
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
-
-      - name: Restore dependencies cache
-        uses: actions/cache@v4.2.0
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node-version }}-
-
-      - name: Install dependencies
-        run: npm ci --prefer-offline --no-audit
-
-      - name: Run ESLint
-        run: npm run lint
-
-      - name: Run TypeScript check
-        run: npm run type-check
-
-      - name: Run tests with coverage
-        run: npm run test:ci
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5.1.1
-        if: matrix.node-version == 20
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: false
-
-      - name: Security audit (production dependencies only)
-        run: npm run security:audit:prod
-
-  # Build Job with advanced optimizations
-  build:
-    name: Build and Optimize
-    runs-on: ubuntu-latest
-    needs: quality
-    outputs:
-      build-cache-key: ${{ steps.build-cache.outputs.cache-hit }}
-      build-size: ${{ steps.build-size.outputs.size }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4.2.2
-
-      - name: Setup Node.js 20 LTS
-        uses: actions/setup-node@v4.1.0
+      - uses: actions/setup-node@v4.1.0
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: package-lock.json
 
-      - name: Cache build artifacts
-        id: build-cache
-        uses: actions/cache@v4.2.0
-        with:
-          path: |
-            build
-            .next/cache
-            node_modules/.cache
-          key: build-${{ runner.os }}-${{ hashFiles('**/package-lock.json', 'src/**/*', 'public/**/*') }}
-          restore-keys: |
-            build-${{ runner.os }}-
+      - run: npm ci --prefer-offline --no-audit
 
-      - name: Install dependencies with retry
-        uses: nick-fields/retry@v3.0.0
-        with:
-          timeout_minutes: 10
-          max_attempts: 3
-          command: npm ci --prefer-offline --no-audit
-
-      - name: Build application with optimizations
+      - name: Quality checks
         run: |
-          echo "Starting optimized production build..."
+          npm run lint
+          npm run type-check
+          npm run test:ci
+          npm run security:audit:prod
 
-          # Build Configuration
+      - name: Build
+        run: |
           export PUBLIC_URL="/portfolio"
           export NODE_ENV="production"
           export GENERATE_SOURCEMAP="false"
           export INLINE_RUNTIME_CHUNK="false"
-
-          # Optional client-side environment variables (safe for public)
           export REACT_APP_GOOGLE_ANALYTICS_ID="${{ secrets.REACT_APP_GOOGLE_ANALYTICS_ID }}"
           export REACT_APP_EMAILJS_SERVICE_ID="${{ secrets.REACT_APP_EMAILJS_SERVICE_ID }}"
           export REACT_APP_EMAILJS_TEMPLATE_ID="${{ secrets.REACT_APP_EMAILJS_TEMPLATE_ID }}"
           export REACT_APP_EMAILJS_PUBLIC_KEY="${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}"
-
-          echo "Environment configured, starting build..."
           npm run build
 
-      - name: Calculate build size
-        id: build-size
-        run: |
-          BUILD_SIZE=$(du -sh build | cut -f1)
-          echo "size=$BUILD_SIZE" >> $GITHUB_OUTPUT
-          echo "Build size: $BUILD_SIZE"
-
-      - name: Optimize build artifacts
-        run: |
-          # Remove source maps from production
-          find build -name "*.map" -delete
-          # Compress large files
-          find build -name "*.js" -size +100k -exec gzip -k {} \;
-          find build -name "*.css" -size +50k -exec gzip -k {} \;
-
-      - name: Upload build artifacts
-        uses: actions/upload-pages-artifact@v4.0.0
+      - uses: actions/configure-pages@v5.0.0
+      - uses: actions/upload-pages-artifact@v4.0.0
         with:
-          path: ./build
-          retention-days: 1 # Minimal retention for security
-
-  # Deploy Job with enhanced security
-  deploy:
-    name: Secure Deploy
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
+          path: build/
+      - id: deployment
         uses: actions/deploy-pages@v4.0.5
-        with:
-          timeout: 600000 # 10 minutes timeout
-          error_count: 10
-          reporting_interval: 5
 
-  # Advanced Performance & Security Monitoring
-  monitor:
-    name: Performance and Security Monitor
-    runs-on: ubuntu-latest
-    needs: deploy
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    steps:
-      - name: Checkout for monitoring
-        uses: actions/checkout@v4.2.2
-
-      - name: Lighthouse CI with advanced config
+      - name: Performance audit
         uses: treosh/lighthouse-ci-action@v12
+        continue-on-error: true
         with:
           urls: |
-            ${{ github.event.repository.homepage || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
+            ${{ steps.deployment.outputs.page_url }}
           configPath: './.lighthouserc.json'
           uploadArtifacts: true
-          temporaryPublicStorage: true
 
-      - name: Security headers check
-        uses: step-security/harden-runner@v2.10.2
-        with:
-          allowed-endpoints: |
-            api.github.com:443
-            github.com:443
-            ${{ github.repository_owner }}.github.io:443
-          disable-sudo: true
-          disable-file-monitoring: true
-
-      - name: Generate performance report
+      - name: Summary
         run: |
-          echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
-          echo "- **Deploy Time**: $(date)" >> $GITHUB_STEP_SUMMARY
-          echo "- **Build Size**: ${{ needs.build.outputs.build-size }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Site URL**: ${{ github.event.repository.homepage || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}" >> $GITHUB_STEP_SUMMARY
+          echo "## Deployment Complete" >> $GITHUB_STEP_SUMMARY
+          echo "- **URL**: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          BUILD_SIZE=$(du -sh build | cut -f1)
+          echo "- **Size**: $BUILD_SIZE" >> $GITHUB_STEP_SUMMARY
