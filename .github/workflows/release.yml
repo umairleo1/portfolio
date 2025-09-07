@@ -221,8 +221,8 @@ jobs:
   monitor:
     name: Monitor
     runs-on: ubuntu-latest
-    needs: deploy
-    if: needs.deploy.result == 'success'
+    needs: [deploy]
+    if: needs.deploy.result == 'success' && github.ref == 'refs/heads/main'
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4.2.2
@@ -234,3 +234,9 @@ jobs:
           configPath: './.lighthouserc.json'
           uploadArtifacts: true
           temporaryPublicStorage: true
+
+      - name: Performance Summary
+        run: |
+          echo "## Performance Monitoring Complete" >> $GITHUB_STEP_SUMMARY
+          echo "- **Lighthouse CI**: Analysis complete" >> $GITHUB_STEP_SUMMARY
+          echo "- **Reports**: Available in workflow artifacts" >> $GITHUB_STEP_SUMMARY
