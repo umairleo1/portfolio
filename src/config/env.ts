@@ -10,7 +10,7 @@ export const env = {
   EMAILJS_SERVICE_ID: process.env.REACT_APP_EMAILJS_SERVICE_ID || '',
   EMAILJS_TEMPLATE_ID: process.env.REACT_APP_EMAILJS_TEMPLATE_ID || '',
   EMAILJS_PUBLIC_KEY: process.env.REACT_APP_EMAILJS_PUBLIC_KEY || '',
-  GITHUB_TOKEN: process.env.REACT_APP_GITHUB_TOKEN || '',
+  // GITHUB_TOKEN removed for security - tokens should never be exposed in client builds
 
   // Development Tools
   ENABLE_ANALYTICS_DEBUG: process.env.NODE_ENV === 'development',
@@ -26,7 +26,6 @@ export const validateEnv = (): void => {
     'EMAILJS_SERVICE_ID',
     'EMAILJS_TEMPLATE_ID',
     'EMAILJS_PUBLIC_KEY',
-    'GITHUB_TOKEN',
   ];
 
   if (!env.isProduction()) {
