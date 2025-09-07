@@ -20,14 +20,71 @@ This project uses **Semantic Release** with industry-standard practices:
 Conventional Commit → Quality Gates → Build → Semantic Release → Deploy
 ```
 
+### Commit Format
+
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
 ### Commit Types & Version Impact
 
-| Commit Type                                                | Version Bump          | Example                              |
-| ---------------------------------------------------------- | --------------------- | ------------------------------------ |
-| `fix:`                                                     | Patch (1.0.0 → 1.0.1) | `fix: resolve mobile navigation bug` |
-| `feat:`                                                    | Minor (1.0.0 → 1.1.0) | `feat: add dark mode toggle`         |
-| `feat!:` or `BREAKING CHANGE:`                             | Major (1.0.0 → 2.0.0) | `feat!: redesign user interface`     |
-| `docs:`, `style:`, `refactor:`, `perf:`, `test:`, `chore:` | No release            | Documentation, maintenance           |
+| Commit Type | Version Bump              | Release + Deploy | Example                              |
+| ----------- | ------------------------- | ---------------- | ------------------------------------ |
+| `feat:`     | **Minor** (0.1.0 → 0.2.0) | ✅ Yes           | `feat: add dark mode toggle`         |
+| `fix:`      | **Patch** (0.1.0 → 0.1.1) | ✅ Yes           | `fix: resolve mobile navigation bug` |
+| `perf:`     | **Patch** (performance)   | ✅ Yes           | `perf: optimize image loading`       |
+| `feat!:`    | **Major** (1.0.0 → 2.0.0) | ✅ Yes           | `feat!: redesign user interface`     |
+| `docs:`     | No release                | ❌ No            | `docs: update installation guide`    |
+| `style:`    | No release                | ❌ No            | `style: format code with prettier`   |
+| `refactor:` | No release                | ❌ No            | `refactor: simplify component logic` |
+| `test:`     | No release                | ❌ No            | `test: add unit tests for utils`     |
+| `chore:`    | No release                | ❌ No            | `chore: update dependencies`         |
+
+### Breaking Changes
+
+**Add `!` after type:**
+
+```bash
+feat!: remove deprecated API
+```
+
+**Include BREAKING CHANGE footer:**
+
+```bash
+feat: add new authentication system
+
+BREAKING CHANGE: The old auth API has been removed. Use the new authentication hooks instead.
+```
+
+### Release Process
+
+1. **Commit** with conventional format
+2. **CI/CD Pipeline** runs quality gates
+3. **Semantic Release** determines version bump
+4. **Automated Release** creates:
+   - Git tag (e.g., `v0.2.0`)
+   - GitHub release with notes
+   - Updated `CHANGELOG.md`
+   - Deployment to GitHub Pages
+
+### Commands
+
+```bash
+# Validate release setup
+npm run release:validate
+
+# Test release (dry run)
+npm run release:dry
+
+# Check current version
+npm run version:check
+```
+
+**Current Version:** See [CHANGELOG.md](../CHANGELOG.md) for latest release notes.
 
 ## Conventional Commits
 
