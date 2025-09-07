@@ -39,27 +39,30 @@ Security Event Logging  # SARIF format compliance
 
 ## Automated Workflows
 
-### 1. **Main Deployment** ([`deploy.yml`](workflows/deploy.yml))
+### 1. **Release Pipeline** ([`release.yml`](workflows/release.yml))
 
 **Triggers:** Push to `main` branch, manual dispatch  
-**Purpose:** Production deployment to GitHub Pages
+**Purpose:** Automated semantic release with deployment to GitHub Pages
 
 ```bash
 Trigger: Push to main branch
 ├── Security Analysis (CodeQL + Trivy)
-├── Quality Gates (ESLint, TypeScript, Tests)
-├── Optimized Build (Compression, cache)
-├── GitHub Pages Deploy
-└── Performance Audit (Lighthouse)
+├── Quality Gates (ESLint, TypeScript, Tests) - Matrix Node.js 20/22
+├── Semantic Version Detection (pre-release support)
+├── Production Build (with environment injection)
+├── Semantic Release (automated changelog & tags)
+├── GitHub Pages Deploy (with artifact validation)
+└── Performance Monitor (Lighthouse CI)
 ```
 
 **Pipeline Stages:**
 
-- **Security Analysis**: CodeQL semantic analysis + Trivy vulnerability scanning
-- **Quality Gates**: Multi-Node.js testing, ESLint, TypeScript, Jest tests
-- **Optimized Build**: Production build with compression and caching
-- **Secure Deploy**: GitHub Pages deployment with environment protection
-- **Performance Monitor**: Lighthouse CI with strict quality thresholds
+- **Security Analysis**: CodeQL semantic analysis + Trivy vulnerability scanning with SARIF uploads
+- **Quality Gates**: Matrix testing (Node.js 20/22), ESLint, TypeScript, Jest with coverage
+- **Build Process**: Semantic release dry-run, production build with version injection
+- **Release Management**: Automated versioning, changelog generation, and Git tagging
+- **Secure Deploy**: GitHub Pages deployment with build artifact validation
+- **Performance Monitor**: Lighthouse CI with automated reporting
 
 **2025 Security Standards:**
 
@@ -71,44 +74,72 @@ Trigger: Push to main branch
 
 ### 2. **PR Quality Checks** ([`pr-check.yml`](workflows/pr-check.yml))
 
-**Triggers:** Pull request events  
-**Purpose:** Quality assurance for code changes
+**Triggers:** Pull request events (opened, synchronize, reopened, ready_for_review)  
+**Purpose:** Comprehensive quality assurance for code changes
 
 ```bash
-Trigger: Pull Request events
-├── Security Scan (Trivy vulnerability analysis)
-├── Multi-Node Testing (20 LTS, 22 Current)
-├── Bundle Size Analysis
-└── Automated Status Reports
+Trigger: Pull Request events (non-draft)
+├── Quality Gates (Grouped logging) - Matrix Node.js 20/22
+├── Build Validation (Production build test)
+├── Build Artifact Validation (Essential files check)
+├── Security Audit (npm audit + Trivy scan)
+└── SARIF Security Upload (CodeQL integration)
 ```
 
 **Features:**
 
-- **Security Scanning**: Trivy vulnerability analysis for all PRs
-- **Matrix Testing**: Node.js 20 LTS and 22 Current versions
-- **Bundle Analysis**: Automated bundle size monitoring
-- **Status Reporting**: Intelligent PR comments with detailed analysis
+- **Matrix Testing**: Node.js 20 LTS and 22 Current with timeout protection (25 minutes)
+- **Professional Logging**: Grouped console output with GitHub Actions groups
+- **Build Validation**: Production build test with artifact validation (15-minute timeout)
+- **Security Integration**: npm security audit + Trivy vulnerability scanning with SARIF uploads
+- **Essential File Checks**: Validates build produces required files (index.html, assets)
 - **Quality Enforcement**: All checks must pass before merge eligibility
 
-### 3. **Dependency Updates** ([`dependabot.yml`](dependabot.yml))
+### 3. **Manual Deployment** ([`deploy.yml`](workflows/deploy.yml))
 
-**Purpose:** Automated dependency updates  
-**Schedule:** Weekly on Mondays at 04:00 UTC
+**Triggers:** Manual dispatch, Pull Request to main (for testing)
+**Purpose:** On-demand deployment with manual override capability
 
 ```bash
-Schedule: Weekly on Mondays
-├── NPM Dependencies (security-focused)
-├── GitHub Actions updates
-├── Automated PR creation
-└── Maintainer assignment
+Trigger: Manual workflow dispatch
+├── Deploy Validation (Trigger info logging)
+├── Quality Gates (Grouped execution)
+├── Production Build (Environment injection + timeout)
+├── Build Validation (Essential files + size check)
+├── GitHub Pages Deploy
+└── Performance Audit (Lighthouse CI)
 ```
 
 **Features:**
 
-- **NPM Dependencies**: Automated package updates with security focus
-- **GitHub Actions**: Keep workflow actions current with latest versions
-- **Selective Updates**: Strategic filtering to prevent unnecessary noise
-- **Review Assignment**: Automatic assignment to repository maintainer
+- **Manual Control**: Workflow dispatch with force deploy option
+- **Professional Logging**: Deploy validation with trigger information and grouped output
+- **Build Validation**: Comprehensive validation including essential file checks (index.html)
+- **Environment Injection**: Full React environment variables with build metadata
+- **Timeout Protection**: 30-minute job timeout, 15-minute build timeout
+
+### 4. **Emergency Hotfix** ([`hotfix.yml`](workflows/hotfix.yml))
+
+**Triggers:** Manual dispatch only (emergency situations)
+**Purpose:** Emergency deployment with optional test skipping
+
+```bash
+Trigger: Emergency manual dispatch
+├── Emergency Validation (Reason logging)
+├── Quality Checks (Type check + conditional tests)
+├── Security Audit (Critical vulnerabilities)
+├── Emergency Build (Hotfix versioning + timeout)
+├── Build Size Validation (Large build warnings)
+└── GitHub Pages Deploy
+```
+
+**Features:**
+
+- **Emergency Controls**: Required description input, optional test skip with warnings
+- **Conditional Testing**: Tests can be skipped for emergency deployment (with manual override)
+- **Build Size Monitoring**: Warns if emergency build exceeds 10MB
+- **Professional Logging**: Emergency validation with detailed reasoning
+- **Timeout Protection**: 30-minute job timeout, 15-minute build timeout
 
 ## Configuration Details
 
