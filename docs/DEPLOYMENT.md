@@ -49,11 +49,14 @@ npm run build:sitemap        # Generate sitemap only
 
 **Deployment Process:**
 
-1. Push code to `main` branch
-2. GitHub Actions triggers build
-3. Intelligent detection → GitHub Pages build
-4. Deploy to `gh-pages` branch
-5. Site available at GitHub Pages URL
+1. **Code Push** - Push conventional commit to `main` branch
+2. **Quality Gates** - Automated testing, linting, and security checks
+3. **Semantic Release** - Automatic version bumping and changelog generation
+4. **Build Process** - Optimized production build with version injection
+5. **Deployment** - Automatic deployment to GitHub Pages
+6. **Monitoring** - Performance and security monitoring
+
+For detailed release management, see [`docs/SEMANTIC_RELEASE.md`](SEMANTIC_RELEASE.md). 4. Deploy to `gh-pages` branch 5. Site available at GitHub Pages URL
 
 **No manual steps required!**
 

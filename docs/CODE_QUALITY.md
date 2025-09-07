@@ -48,6 +48,10 @@ npm run lint:fix               # Auto-fix linting issues
 npm run format                 # Format all files with Prettier
 npm run format:check           # Verify formatting without changes
 npm run type-check             # TypeScript compilation check
+
+# Release Quality Checks (see docs/SEMANTIC_RELEASE.md)
+npm run release:validate       # Validate release setup
+npm run version:check          # Check current version
 npm run test:ci                # Tests with coverage reports
 
 # Security auditing

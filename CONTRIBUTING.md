@@ -31,6 +31,7 @@ For detailed setup instructions, see [`docs/SETUP.md`](docs/SETUP.md).
 - **Build**: react-app-rewired, Webpack
 - **Quality**: ESLint 9.33, Prettier 3.0, Husky 9.1, lint-staged 16.1
 - **Testing**: Jest, React Testing Library
+- **Releases**: Semantic Release with conventional commits
 
 ### CSS Modules Structure
 
@@ -48,7 +49,7 @@ Component/
 The project uses a centralized design system with 50+ CSS custom properties in `src/styles/base/globals.css`. Always use design tokens instead of hardcoded values:
 
 ```css
-/* ✅ Correct - Use design tokens */
+/* Correct - Use design tokens */
 .container {
   background: var(--dark-surface);
   border: 1px solid var(--border-subtle);
@@ -56,7 +57,7 @@ The project uses a centralized design system with 50+ CSS custom properties in `
   transition: var(--transition);
 }
 
-/* ❌ Incorrect - Don't hardcode values */
+/* Incorrect - Don't hardcode values */
 .container {
   background: #1a1a1a;
   border: 1px solid rgba(102, 217, 237, 0.1);
@@ -181,6 +182,14 @@ chore(deps): update dependencies to latest versions
 - `test` - Adding or updating tests
 - `chore` - Maintenance tasks, dependency updates
 - `perf` - Performance improvements
+
+**Important:** This project uses **Semantic Release** for automated versioning. Commit messages directly impact version bumps:
+
+- `feat:` → Minor version (1.0.0 → 1.1.0)
+- `fix:` → Patch version (1.0.0 → 1.0.1)
+- `feat!:` or `BREAKING CHANGE:` → Major version (1.0.0 → 2.0.0)
+
+For complete release management documentation, see [`docs/SEMANTIC_RELEASE.md`](docs/SEMANTIC_RELEASE.md).
 
 ## Pull Request Process
 

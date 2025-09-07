@@ -19,7 +19,8 @@ A modern, responsive portfolio website template for software engineers. Built wi
 - **Responsive Design** - Mobile-first with smooth animations
 - **SEO Optimized** - 95+ Lighthouse scores with structured data
 - **Analytics Ready** - Enterprise GA4 with privacy compliance
-- **CI/CD Automated** - GitHub Actions deployment
+- **Automated Releases** - Semantic versioning with conventional commits
+- **CI/CD Automated** - GitHub Actions deployment with quality gates
 
 ## Quick Start
 
@@ -71,6 +72,11 @@ npm run lint                # Check code quality
 npm run lint:fix            # Fix linting issues
 npm run type-check          # TypeScript compilation check
 npm run validate            # Run all quality checks
+
+# Release Management
+npm run release:validate    # Validate semantic release setup
+npm run release:dry         # Test release without executing
+npm run version:check       # Check current version
 
 # Utilities
 npm run format              # Format code with Prettier
@@ -287,6 +293,7 @@ portfolio/
 │   │   ├── IconWrapper.tsx    # React Icons wrapper
 │   │   ├── animations.ts      # Animation utilities
 │   │   ├── analytics.ts       # GA4 analytics with error handling & privacy
+│   │   ├── version.ts         # Dynamic version management for releases
 │   │   └── index.ts           # Utility exports
 │   ├── lib/                   # Library utilities and constants
 │   │   └── constants/         # Application constants and configuration
@@ -300,16 +307,20 @@ portfolio/
 ├── docs/                      # Documentation
 │   ├── SETUP.md               # Installation and configuration guide
 │   ├── CUSTOMIZATION.md       # Personalization instructions
-│   └── ANALYTICS.md           # Google Analytics integration guide
+│   ├── ANALYTICS.md           # Google Analytics integration guide
+│   └── SEMANTIC_RELEASE.md    # Automated release management guide
 ├── scripts/                   # Development automation
 │   ├── generate-sitemap.js    # Automatic SEO sitemap generation
-│   └── detect-domain.js       # Intelligent CI/CD domain detection
+│   ├── detect-domain.js       # Intelligent CI/CD domain detection
+│   └── validate-release-setup.sh # Release configuration validation
 ├── .env.example               # Environment template for developers
 ├── .env.production            # Production public configuration (committed)
 ├── .env.local                 # Local secrets and overrides (gitignored)
 ├── .gitignore                 # Git ignore patterns with environment setup
 ├── .lighthouserc.json         # Lighthouse CI configuration
 ├── .prettierrc                # Prettier configuration
+├── .releaserc.json            # Semantic release configuration
+├── .gitmessage                # Conventional commit template
 ├── eslint.config.js           # ESLint configuration
 ├── tsconfig.json              # TypeScript configuration
 ├── config-overrides.js        # react-app-rewired configuration
@@ -323,6 +334,7 @@ portfolio/
 - **[`docs/SETUP.md`](docs/SETUP.md)** - Complete installation and configuration guide
 - **[`docs/CUSTOMIZATION.md`](docs/CUSTOMIZATION.md)** - Personalization and content management
 - **[`docs/ANALYTICS.md`](docs/ANALYTICS.md)** - Analytics integration and business insights
+- **[`docs/SEMANTIC_RELEASE.md`](docs/SEMANTIC_RELEASE.md)** - Automated release management and versioning
 - **[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)** - Deployment and custom domain migration guide
 - **[`docs/SEO.md`](docs/SEO.md)** - Comprehensive SEO implementation guide
 - **[`docs/CODE_QUALITY.md`](docs/CODE_QUALITY.md)** - Code quality automation and standards

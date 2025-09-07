@@ -149,6 +149,11 @@ npm run lint                # ESLint check
 npm run lint:fix            # Auto-fix ESLint issues
 npm run type-check          # TypeScript compilation check
 npm run validate            # Run all quality checks
+
+# Release Management Scripts (see docs/SEMANTIC_RELEASE.md)
+npm run release:validate    # Validate semantic release setup
+npm run release:dry         # Test release without executing
+npm run version:check       # Check current version
 ```
 
 **Utilities:**
