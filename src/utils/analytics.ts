@@ -1,5 +1,6 @@
 /* eslint-disable no-console, no-unused-vars */
 import { env } from '@/config/env';
+import { getVersionForAnalytics } from './version';
 
 // Enhanced Google Analytics interface for professional implementation
 interface GtagFunction {
@@ -185,7 +186,7 @@ export const initGA = (): Promise<void> => {
         // Set user properties for better segmentation
         window.gtag('set', 'user_properties', {
           environment: env.isProduction() ? 'production' : 'development',
-          version: '1.0.0',
+          version: getVersionForAnalytics(),
           user_agent:
             typeof navigator !== 'undefined' &&
             navigator.userAgent?.includes('Mobile')
