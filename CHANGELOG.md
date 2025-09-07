@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.8](https://github.com/umairleo1/portfolio/compare/v0.0.7...v0.0.8) (2025-09-07)
+
+### Bug Fixes
+
+- **security:** remove REACT_APP_GITHUB_TOKEN from client builds ([28b72c7](https://github.com/umairleo1/portfolio/commit/28b72c78b8d43d353b8166423a31015bc4ff4f68))
+
+### Documentation
+
+- add comprehensive project structure guide ([cb2eab3](https://github.com/umairleo1/portfolio/commit/cb2eab3cb8a271b0ffb3059109b9854e42a990c5))
+- **readme:** add comprehensive versioning system documentation ([69296a7](https://github.com/umairleo1/portfolio/commit/69296a77d6d1570691018196ef4ef5095a0d3c27))
+- **readme:** update project structure to include CHANGELOG and missing files ([b478942](https://github.com/umairleo1/portfolio/commit/b47894240d8a24d9404115c64abd5905021d332f))
+- restructure README ([4c69cf7](https://github.com/umairleo1/portfolio/commit/4c69cf7042ae7bcaaf584388ca0e035caee5c236))
+- restructure README with concise overview and references ([9c5ec4b](https://github.com/umairleo1/portfolio/commit/9c5ec4bfe433afe3a075a4f60415a69fe8271a4a))
+- standardize EmailJS configuration across all workflows and add comprehensive setup guide ([3928abe](https://github.com/umairleo1/portfolio/commit/3928abe83992fabbfc6e915f315ed5474b6775a8))
+- **versioning:** enhance semantic release documentation ([59ddadb](https://github.com/umairleo1/portfolio/commit/59ddadbfc5e200eccec56e1e0c8ff84bcbea71a3))
+
 ## [0.0.7](https://github.com/umairleo1/portfolio/compare/v0.0.6...v0.0.7) (2025-09-07)
 
 ### Bug Fixes
