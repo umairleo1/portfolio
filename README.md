@@ -203,133 +203,9 @@ For complete customization instructions including personal information updates, 
 
 ## Project Structure
 
-```
-portfolio/
-├── public/                     # Static assets
-│   ├── assets/                # Organized assets
-│   │   ├── favicons/          # Favicon files (16x16 to 512x512)
-│   │   ├── images/            # Profile pictures and graphics
-│   │   └── icons/             # App icons and logos
-│   ├── index.html             # HTML template with meta tags
-│   ├── manifest.json          # PWA manifest configuration
-│   ├── robots.txt             # SEO crawler directives
-│   └── CNAME                  # Custom domain configuration (when needed)
-├── src/
-│   ├── components/            # React components with CSS Modules
-│   │   ├── common/            # Shared components
-│   │   │   ├── ErrorBoundary/ # Error handling with analytics integration
-│   │   │   ├── LoadingSpinner/# Loading states with animations
-│   │   │   ├── SectionLoader/ # Section loading component
-│   │   │   └── AnalyticsProvider/# Global analytics tracking provider
-│   │   ├── effects/           # Animation components
-│   │   │   ├── CursorTrail/   # Mouse cursor trail effect
-│   │   │   └── FloatingElements/# Background floating animations
-│   │   ├── layout/            # Layout components
-│   │   │   ├── Header/        # Navigation with scroll detection
-│   │   │   └── Footer/        # Footer with tech stack icons
-│   │   ├── sections/          # Main page sections
-│   │   │   ├── Hero/          # Landing section with animations
-│   │   │   ├── Expertise/     # Skills showcase with categories
-│   │   │   ├── Education/     # Education & certifications
-│   │   │   ├── Work/          # Work showcase with projects
-│   │   │   ├── Experience/    # Professional experience timeline
-│   │   │   └── Contact/       # Contact information
-│   │   ├── seo/               # SEO and structured data components
-│   │   │   ├── SEO.tsx        # Dynamic meta tags with Open Graph
-│   │   │   ├── StructuredData.tsx # JSON-LD schemas for rich snippets
-│   │   │   ├── WebVitalsOptimizer.tsx # Core Web Vitals optimization
-│   │   │   └── index.ts       # SEO components barrel export
-│   │   └── ui/                # Reusable UI components
-│   │       ├── Card/          # Reusable card component with variants
-│   │       ├── Button/        # Button with loading states
-│   │       ├── Badge/         # Skill badges with variants
-│   │       ├── LogoScroll/    # Animated company logos
-│   │       ├── ScrollToBottom/# Scroll indicator
-│   │       ├── Section/       # Analytics-enabled section wrapper
-│   │       ├── SectionHeader/ # Reusable section header component
-│   │       └── TrackedLink/   # External link tracking component
-│   ├── data/                  # Modular data architecture with domain separation
-│   │   ├── index.ts           # Main barrel export for all data
-│   │   ├── types/             # TypeScript type definitions
-│   │   │   └── index.ts       # Comprehensive data types
-│   │   ├── personal/          # Personal information and interests
-│   │   │   ├── index.ts       # Personal data barrel export
-│   │   │   ├── info.ts        # Personal details and contact info
-│   │   │   └── interests.ts   # Personal interests and languages
-│   │   ├── professional/      # Professional experience and skills
-│   │   │   ├── index.ts       # Professional data barrel export
-│   │   │   ├── skills.ts      # Technical skills by category
-│   │   │   ├── experience.ts  # Work experience and achievements
-│   │   │   ├── education.ts   # Educational background
-│   │   │   └── certifications.ts # Professional certifications
-│   │   ├── projects/          # Portfolio projects and categorization
-│   │   │   ├── index.ts       # Projects data barrel export
-│   │   │   ├── projects.ts    # Project details and achievements
-│   │   │   └── categories.ts  # Project categorization system
-│   │   ├── companies/         # Company information and branding
-│   │   │   ├── index.ts       # Companies data barrel export
-│   │   │   └── companies.ts   # Company logos and associated skills
-│   │   └── config/            # Application configuration
-│   │       ├── index.ts       # Configuration barrel export
-│   │       └── app.ts         # App settings, navigation, and SEO
-│   ├── styles/                # Centralized styling system
-│   │   ├── base/              # Global styles and theme
-│   │   │   ├── globals.css    # Main theme variables & base styles
-│   │   │   ├── App.css        # App-wide component styles
-│   │   │   ├── accessibility.css # Accessibility and screen reader styles
-│   │   │   ├── shared.css     # Shared utility classes for components
-│   │   │   └── index.css      # CSS imports and setup
-│   │   ├── index.css          # Main stylesheet entry point
-│   │   └── README.md          # Design system documentation
-│   ├── types/                 # TypeScript definitions
-│   │   └── index.ts           # Common type definitions
-│   ├── hooks/                 # Custom React hooks
-│   │   ├── useThrottle.ts     # Throttled event handling
-│   │   ├── useSectionSEO.ts   # Dynamic SEO meta updates per section
-│   │   ├── useAnalytics.ts    # Analytics hooks with engagement tracking
-│   │   ├── useExpandable.ts   # Reusable expand/collapse functionality
-│   │   └── index.ts           # Hook exports
-│   ├── utils/                 # Utility functions
-│   │   ├── IconWrapper.tsx    # React Icons wrapper
-│   │   ├── animations.ts      # Animation utilities
-│   │   ├── analytics.ts       # GA4 analytics with error handling & privacy
-│   │   ├── version.ts         # Dynamic version management for releases
-│   │   └── index.ts           # Utility exports
-│   ├── lib/                   # Library utilities and constants
-│   │   └── constants/         # Application constants and configuration
-│   │       ├── index.ts       # Constants barrel export
-│   │       └── paths.ts       # Asset paths and URL utilities
-│   ├── config/                # Configuration files
-│   │   ├── animations.ts      # Animation configurations
-│   │   ├── env.ts             # Environment variables with validation
-│   │   └── index.ts           # Config exports
-│   └── App.tsx                # Main application component
-├── docs/                      # Documentation
-│   ├── SETUP.md               # Installation and configuration guide
-│   ├── CUSTOMIZATION.md       # Personalization instructions
-│   ├── ANALYTICS.md           # Google Analytics integration guide
-│   └── SEMANTIC_RELEASE.md    # Automated release management guide
-├── scripts/                   # Development automation
-│   ├── generate-sitemap.js    # Automatic SEO sitemap generation
-│   ├── detect-domain.js       # Intelligent CI/CD domain detection
-│   └── validate-release-setup.sh # Release configuration validation
-├── .env.example               # Environment variables template with secrets
-├── .env.production            # Production public configuration (committed)
-├── CHANGELOG.md               # Automated release notes and version history
-├── CODE_OF_CONDUCT.md         # Community guidelines and standards
-├── .env.local                 # Local secrets and overrides (gitignored)
-├── .gitignore                 # Git ignore patterns with environment setup
-├── .gitmessage                # Conventional commit template for semantic release
-├── .lighthouserc.json         # Lighthouse CI configuration for performance
-├── .prettierrc                # Prettier code formatting configuration
-├── .releaserc.json            # Semantic release automation configuration
-├── config-overrides.js        # react-app-rewired webpack configuration
-├── eslint.config.js           # ESLint linting rules and configuration
-├── package.json               # Dependencies, scripts, and project metadata
-├── tsconfig.json              # TypeScript compiler configuration
-├── LICENSE                    # MIT License terms
-└── README.md                  # Project documentation and setup guide
-```
+Organized architecture with component-driven design, modular data structure, and comprehensive documentation.
+
+For complete project structure documentation including file organization, component hierarchy, and development patterns, see [`docs/PROJECT_STRUCTURE.md`](docs/PROJECT_STRUCTURE.md).
 
 ## Documentation
 
@@ -348,96 +224,30 @@ portfolio/
 
 ## Versioning System
 
-This project uses **Semantic Release** with **Conventional Commits** for automated versioning and releases.
+Automated versioning with Semantic Release and Conventional Commits. Push to main with conventional commit format for automatic version bumps and deployments.
 
-### How It Works
+**Quick Reference:**
 
-**Commit Format:**
-
-```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer(s)]
-```
-
-**Version Bumps:**
-
-- `feat:` → **Minor version** (0.1.0 → 0.2.0) + Release + Deploy
-- `fix:` → **Patch version** (0.1.0 → 0.1.1) + Release + Deploy
-- `perf:` → **Patch version** (performance improvements)
-- `docs:`, `style:`, `refactor:`, `test:`, `chore:` → **No release**
-
-**Breaking Changes:**
-
-- Add `!` after type: `feat!: remove deprecated API`
-- Include `BREAKING CHANGE:` footer for major version bump
-
-### Release Process
-
-1. **Commit** with conventional format
-2. **CI/CD Pipeline** runs quality gates
-3. **Semantic Release** determines version bump
-4. **Automated Release** creates:
-   - Git tag (e.g., `v0.2.0`)
-   - GitHub release with notes
-   - Updated `CHANGELOG.md`
-   - Deployment to GitHub Pages
-
-### Commands
-
-```bash
-# Validate release setup
-npm run release:validate
-
-# Test release (dry run)
-npm run release:dry
-
-# Check current version
-npm run version:check
-```
+- `feat:` → Minor version + Release
+- `fix:` → Patch version + Release
+- `feat!:` → Major version + Release
+- `docs:`, `chore:` → No release
 
 **Current Version:** See [CHANGELOG.md](CHANGELOG.md) for latest release notes.
 
+For complete versioning documentation including commit formats, release process, and commands, see [`docs/SEMANTIC_RELEASE.md`](docs/SEMANTIC_RELEASE.md).
+
 ## CI/CD Pipeline
 
-Enterprise-grade automated deployment with security scanning, quality gates, and performance monitoring.
+Enterprise-grade automated deployment with security scanning, quality gates, and performance monitoring. 95+ Lighthouse scores maintained automatically.
 
-**Features:**
-
-- Automated GitHub Pages deployment
-- Security scanning (CodeQL + Trivy)
-- Performance auditing (Lighthouse)
-- Quality validation (ESLint, TypeScript, Tests)
-- Bundle size monitoring
-
-**Performance Standards:** 95+ Lighthouse scores across all metrics
-
-For detailed workflow documentation, configuration, and troubleshooting, see [`.github/CICD.md`](.github/CICD.md).
+For complete CI/CD documentation including workflow configuration and troubleshooting, see [`.github/CICD.md`](.github/CICD.md).
 
 ## Code Quality
 
-<div align="center">
+Automated quality assurance with pre-commit hooks, ESLint, Prettier, TypeScript strict mode, and comprehensive testing.
 
-![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
-![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black)
-![Husky](https://img.shields.io/badge/Husky-000000?style=for-the-badge&logo=git&logoColor=white)
-![Jest](https://img.shields.io/badge/Jest-323330?style=for-the-badge&logo=jest&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-
-</div>
-
-**Automated Quality Assurance:**
-
-- Pre-commit hooks (Husky + lint-staged)
-- ESLint with React/TypeScript rules
-- Prettier auto-formatting
-- TypeScript strict mode
-- Jest testing with coverage reports
-- Security dependency auditing
-
-For comprehensive code quality automation details, see [`docs/CODE_QUALITY.md`](docs/CODE_QUALITY.md).
+For complete code quality documentation including automation setup and standards, see [`docs/CODE_QUALITY.md`](docs/CODE_QUALITY.md).
 
 ## Deployment
 
@@ -447,79 +257,29 @@ Fully automated GitHub Pages deployment. Simply push to main branch for automati
 
 ## Performance
 
-<div align="center">
-
-![Lighthouse](https://img.shields.io/badge/Lighthouse-F44B21?style=for-the-badge&logo=lighthouse&logoColor=white)
-![Web Vitals](https://img.shields.io/badge/Web_Vitals-4285F4?style=for-the-badge&logo=google&logoColor=white)
-![Performance](https://img.shields.io/badge/Performance-95+-00d26a?style=for-the-badge)
-
-</div>
-
-**Optimizations:**
-
-- Code splitting with lazy loading
-- CSS Modules for optimal bundling
-- Image optimization and responsive sizing
-- Web Vitals monitoring integration
-- Total initial bundle: ~148 kB (gzipped)
-
-**Lighthouse Scores:** 95+ across all metrics (Performance, Accessibility, Best Practices, SEO)
+Optimized for 95+ Lighthouse scores with code splitting, CSS Modules bundling, and Web Vitals monitoring. Initial bundle ~148 kB gzipped.
 
 ## Security
 
-<div align="center">
-
-![Security](https://img.shields.io/badge/Security-Audit_Passing-00d26a?style=for-the-badge&logo=githubactions&logoColor=white)
-![CodeQL](https://img.shields.io/badge/CodeQL-Enabled-00d26a?style=for-the-badge&logo=github&logoColor=white)
-![Dependabot](https://img.shields.io/badge/Dependabot-Enabled-00d26a?style=for-the-badge&logo=github&logoColor=white)
-
-</div>
-
-**Security Features:**
-
-- Environment variable-based secrets management
-- Automated dependency vulnerability scanning
-- GitHub CodeQL analysis
-- Dependabot auto-updates
-- CSP headers for XSS protection
+Comprehensive security with environment-based secrets management, automated vulnerability scanning, CodeQL analysis, and CSP headers.
 
 ## Deployment
 
-Fully automated GitHub Pages deployment. Simply push to main branch for automatic deployment in ~3 minutes.
-
-**Zero manual work required** - Quality validation, security audit, production build, and live deployment all happen automatically.
+Fully automated GitHub Pages deployment. Push to main branch for automatic deployment in ~3 minutes with zero manual work required.
 
 ## Contributing
 
 Contributions are welcome! Please follow these steps:
 
 1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+2. **Create** a feature branch (`git checkout -b feature/new-feature`)
 3. **Make** your changes following the code style
 4. **Test** your changes (`npm run validate`)
-5. **Commit** your changes (`git commit -m 'feat: add amazing feature'`)
-6. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Commit** your changes (`git commit -m 'feat: add new feature'`)
+6. **Push** to the branch (`git push origin feature/new-feature`)
 7. **Open** a Pull Request
 
-### Contribution Guidelines
-
-- **TypeScript** - All code must be properly typed with strict mode
-- **CSS Modules** - Use scoped styling only, no global CSS
-- **ESLint** - Follow established linting rules (auto-fixed by pre-commit)
-- **Prettier** - Code formatting is automated via pre-commit hooks
-- **Testing** - New features require appropriate test coverage
-- **Documentation** - Update documentation for significant changes
-
-### Code Review Process
-
-When you create a PR, automated checks will:
-
-- Run full test suite with coverage reports
-- Validate TypeScript compilation
-- Check code formatting and linting
-- Perform security audit for vulnerabilities
-- Analyze bundle size impact
-- Block merge if any checks fail
+All contributions require TypeScript strict mode, CSS Modules, test coverage, and pass automated quality gates including security audits and bundle analysis.
 
 ## License
 
@@ -553,35 +313,11 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - **Questions**: [Ask in discussions](https://github.com/umairleo1/portfolio/discussions/new?category=q-a)
 - **Direct Contact**: [umair.leo17@gmail.com](mailto:umair.leo17@gmail.com)
 
-## Acknowledgments
+## Support
 
-Special thanks to the open-source community and these amazing projects:
-
-- **React Team** - For the incredible React framework and ecosystem
-- **TypeScript Team** - For enhanced JavaScript development experience
-- **CSS Modules Community** - For scoped styling solution
-- **Framer Motion** - For smooth, professional animations
-- **Create React App** - For zero-configuration setup and tooling
-- **React Icons** - For comprehensive icon library
-- **ESLint & Prettier** - For code quality and consistency tools
-
-## Show Your Support
-
-If this project helped you or you found it interesting:
-
-1. **Star the repository** on GitHub
-2. **Fork it** for your own portfolio
-3. **Share it** with fellow developers
-4. **Contribute** to make it even better
-5. **Leave feedback** in discussions
-
-### Support Development
-
-If you find this template valuable and want to support its continued development:
+If this project helped you, please star the repository and consider contributing. Sponsorship helps maintain and improve this template for the developer community.
 
 [![Sponsor](https://img.shields.io/badge/Sponsor-ea4aaa?style=for-the-badge&logo=github-sponsors&logoColor=white)](https://github.com/sponsors/umairleo1)
-
-Your sponsorship helps maintain this project and create more open-source tools for developers.
 
 ---
 
