@@ -1,0 +1,306 @@
+name: Release Management
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Minimal required permissions for security
+permissions:
+  contents: write # Required for semantic-release to create tags and commits
+  pages: write # Required for GitHub Pages deployment
+  id-token: write # Required for OIDC authentication
+  actions: read # Required to read workflow artifacts
+
+# Prevent concurrent releases
+concurrency:
+  group: 'release-${{ github.ref }}'
+  cancel-in-progress: false
+
+jobs:
+  # Quality Gates - Same as your current setup
+  quality:
+    name: Quality Gates
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20, 22]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run TypeScript check
+        run: npm run type-check
+
+      - name: Run tests with coverage
+        run: npm run test:ci
+
+      - name: Security audit
+        run: npm run security:audit:prod
+
+  # Build with version injection
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    needs: quality
+    outputs:
+      build-cache-key: ${{ steps.build-cache.outputs.cache-hit }}
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js 20 LTS
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      # Dry run semantic release to get next version with error handling
+      - name: Get next version
+        id: version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+
+          # Run semantic release dry run and capture output
+          DRY_RUN_OUTPUT=$(npx semantic-release --dry-run 2>&1) || {
+            echo "Semantic release dry run failed"
+            echo "dry_run_failed=true" >> $GITHUB_OUTPUT
+            echo "version=skip" >> $GITHUB_OUTPUT
+            echo "::warning::Semantic release dry run failed - no release will be created"
+            exit 0
+          }
+
+          # Extract version from output
+          NEXT_VERSION=$(echo "$DRY_RUN_OUTPUT" | grep -oP 'The next release version is \K\d+\.\d+\.\d+' || echo "")
+
+          if [ -z "$NEXT_VERSION" ]; then
+            echo "No version found - no release needed"
+            echo "version=skip" >> $GITHUB_OUTPUT
+            echo "dry_run_failed=false" >> $GITHUB_OUTPUT
+            echo "::notice::No conventional commits found - skipping release"
+          else
+            echo "version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+            echo "dry_run_failed=false" >> $GITHUB_OUTPUT
+            echo "Next version will be: $NEXT_VERSION"
+          fi
+
+      - name: Build with version
+        if: steps.version.outputs.version != 'skip'
+        run: npm run build
+        timeout-minutes: 15
+        env:
+          PUBLIC_URL: /portfolio
+          NODE_ENV: production
+          GENERATE_SOURCEMAP: false
+          INLINE_RUNTIME_CHUNK: false
+          REACT_APP_VERSION: ${{ steps.version.outputs.version }}
+          REACT_APP_BUILD_TIME: ${{ github.run_number }}
+          REACT_APP_COMMIT_SHA: ${{ github.sha }}
+          # Your existing secrets
+          REACT_APP_GOOGLE_ANALYTICS_ID: ${{ secrets.REACT_APP_GOOGLE_ANALYTICS_ID }}
+          REACT_APP_EMAILJS_SERVICE_ID: ${{ secrets.REACT_APP_EMAILJS_SERVICE_ID }}
+          REACT_APP_EMAILJS_TEMPLATE_ID: ${{ secrets.REACT_APP_EMAILJS_TEMPLATE_ID }}
+          REACT_APP_EMAILJS_PUBLIC_KEY: ${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}
+          REACT_APP_GITHUB_TOKEN: ${{ secrets.REACT_APP_GITHUB_TOKEN }}
+
+      - name: Upload build for release
+        if: steps.version.outputs.version != 'skip'
+        uses: actions/upload-artifact@v4.4.7
+        with:
+          name: build-artifacts
+          path: build/
+          retention-days: 7
+
+  # Semantic Release
+  release:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    needs: [quality, build]
+    if: github.ref == 'refs/heads/main' && needs.build.outputs.version != 'skip'
+    timeout-minutes: 10
+    outputs:
+      new_release_published: ${{ steps.semantic.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic.outputs.new_release_version }}
+      release_failed: ${{ steps.semantic.outputs.release_failed }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: build-artifacts
+          path: build/
+
+      - name: Semantic Release
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+
+          echo "Starting semantic release..."
+          if npx semantic-release; then
+            echo "release_failed=false" >> $GITHUB_OUTPUT
+            echo "::notice::Semantic release completed successfully"
+          else
+            echo "release_failed=true" >> $GITHUB_OUTPUT
+            echo "::error::Semantic release failed"
+            exit 1
+          fi
+        continue-on-error: false
+
+  # Deploy only after successful release
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: [build, release]
+    if: needs.release.outputs.new_release_published == 'true' && needs.release.outputs.release_failed != 'true'
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: build-artifacts
+          path: build/
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5.0.0
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v4.0.0
+        with:
+          path: build/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4.0.5
+        with:
+          timeout: 600000
+          error_count: 10
+          reporting_interval: 5
+
+      - name: Deployment Summary
+        if: success()
+        run: |
+          echo "## Deployment Successful" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: ${{ needs.release.outputs.new_release_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deploy URL**: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build Time**: $(date)" >> $GITHUB_STEP_SUMMARY
+
+      - name: Deployment Failed
+        if: failure()
+        run: |
+          echo "## Deployment Failed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: ${{ needs.release.outputs.new_release_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Error**: Deployment to GitHub Pages failed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Action Required**: Check deployment logs and retry if necessary" >> $GITHUB_STEP_SUMMARY
+          echo "::error::Deployment failed for version ${{ needs.release.outputs.new_release_version }}"
+
+  # Professional monitoring and notifications
+  notify:
+    name: Release Notifications
+    runs-on: ubuntu-latest
+    needs: [quality, build, release, deploy]
+    if: always()
+    steps:
+      - name: Success Notification
+        if: needs.deploy.result == 'success'
+        run: |
+          echo "## Release Pipeline Completed Successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: All stages completed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: ${{ needs.release.outputs.new_release_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Quality Gates**: ${{ needs.quality.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build**: ${{ needs.build.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Release**: ${{ needs.release.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deployment**: ${{ needs.deploy.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "::notice::Release pipeline completed successfully"
+
+      - name: Failure Analysis
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+        run: |
+          echo "## Release Pipeline Failed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Overall Status**: Failed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Quality Gates**: ${{ needs.quality.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build**: ${{ needs.build.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Release**: ${{ needs.release.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deployment**: ${{ needs.deploy.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Failure Analysis" >> $GITHUB_STEP_SUMMARY
+
+          if [[ "${{ needs.quality.result }}" == "failure" ]]; then
+            echo "- **Quality Gates Failed**: Code quality checks did not pass" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [[ "${{ needs.build.result }}" == "failure" ]]; then
+            echo "- **Build Failed**: Application build process failed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [[ "${{ needs.release.result }}" == "failure" ]]; then
+            echo "- **Release Failed**: Semantic release process failed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [[ "${{ needs.deploy.result }}" == "failure" ]]; then
+            echo "- **Deployment Failed**: GitHub Pages deployment failed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Recovery Actions" >> $GITHUB_STEP_SUMMARY
+          echo "1. Check individual job logs for detailed error messages" >> $GITHUB_STEP_SUMMARY
+          echo "2. Fix identified issues" >> $GITHUB_STEP_SUMMARY
+          echo "3. Push new conventional commit to trigger another release" >> $GITHUB_STEP_SUMMARY
+          echo "4. For emergency fixes, use workflow_dispatch to force deployment" >> $GITHUB_STEP_SUMMARY
+
+          echo "::error::Release pipeline failed - manual intervention required"
+
+      - name: No Release Notification
+        if: needs.build.outputs.version == 'skip' && needs.quality.result == 'success'
+        run: |
+          echo "## No Release Required" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: All checks passed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Reason**: No conventional commits found that trigger a release" >> $GITHUB_STEP_SUMMARY
+          echo "- **Action**: No action required - this is normal for documentation and maintenance commits" >> $GITHUB_STEP_SUMMARY
+          echo "::notice::No release created - no conventional commits found"

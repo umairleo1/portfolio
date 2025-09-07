@@ -1,0 +1,72 @@
+# Security Configuration for Workflows
+# This file documents security best practices and configurations
+
+# Global security settings that should be applied to all workflows:
+
+security_settings:
+  # Permissions: Use minimal required permissions
+  permissions:
+    contents: read # Default - most workflows only need read
+    pages: write # Only for deployment workflows
+    id-token: write # Only for OIDC authentication
+    actions: read # Only when reading artifacts
+    security-events: write # Only for security scanning
+
+  # Timeout settings to prevent resource exhaustion
+  timeouts:
+    default_job: 30 # 30 minutes default
+    quality_gates: 15 # 15 minutes for linting/testing
+    build: 20 # 20 minutes for builds
+    deployment: 15 # 15 minutes for deployments
+    security_scan: 10 # 10 minutes for security scans
+
+  # Trusted actions (pinned to specific versions)
+  trusted_actions:
+    - actions/checkout@v4.2.2
+    - actions/setup-node@v4.1.0
+    - actions/cache@v4.2.0
+    - actions/upload-artifact@v4.4.7
+    - actions/download-artifact@v4.1.8
+    - actions/configure-pages@v5.0.0
+    - actions/upload-pages-artifact@v4.0.0
+    - actions/deploy-pages@v4.0.5
+    - github/codeql-action/init@v3.28.0
+    - github/codeql-action/analyze@v3.28.0
+    - aquasecurity/trivy-action@0.28.0
+
+  # Environment protection rules
+  environments:
+    github-pages:
+      protection_rules:
+        - required_reviewers: 0 # Portfolio doesn't need manual approval
+        - wait_timer: 0
+        - prevent_self_review: false
+
+    github-pages-emergency:
+      protection_rules:
+        - required_reviewers: 0
+        - wait_timer: 0
+        - prevent_self_review: false
+
+  # Secret management
+  required_secrets:
+    - GITHUB_TOKEN # Auto-provided by GitHub
+    - REACT_APP_GOOGLE_ANALYTICS_ID # Optional - for analytics
+    - REACT_APP_EMAILJS_SERVICE_ID # Optional - for contact form
+    - REACT_APP_EMAILJS_TEMPLATE_ID # Optional - for contact form
+    - REACT_APP_EMAILJS_PUBLIC_KEY # Optional - for contact form
+    - REACT_APP_GITHUB_TOKEN # Optional - for GitHub API
+
+# Security best practices implemented:
+security_features:
+  - Minimal permissions principle
+  - Pinned action versions (no @main or @latest)
+  - Timeout configurations to prevent hanging
+  - Input validation and sanitization
+  - Error handling with proper logging
+  - Concurrency controls to prevent race conditions
+  - Environment protection for production deployments
+  - Security scanning in all pipelines
+  - Artifact retention policies
+  - No hardcoded secrets in code
+  - OIDC authentication where possible
