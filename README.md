@@ -263,10 +263,6 @@ Optimized for 95+ Lighthouse scores with code splitting, CSS Modules bundling, a
 
 Comprehensive security with environment-based secrets management, automated vulnerability scanning, CodeQL analysis, and CSP headers.
 
-## Deployment
-
-Fully automated GitHub Pages deployment. Push to main branch for automatic deployment in ~3 minutes with zero manual work required.
-
 ## Contributing
 
 Contributions are welcome! Please follow these steps:
