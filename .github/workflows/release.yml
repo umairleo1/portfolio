@@ -129,7 +129,7 @@ jobs:
 
       - name: Upload build for release
         if: steps.version.outputs.version != 'skip'
-        uses: actions/upload-artifact@v4.4.7
+        uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
           path: build/
@@ -163,7 +163,7 @@ jobs:
         run: npm ci --prefer-offline --no-audit
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v4.1.8
+        uses: actions/download-artifact@v4
         with:
           name: build-artifacts
           path: build/
@@ -202,7 +202,7 @@ jobs:
       id-token: write
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v4.1.8
+        uses: actions/download-artifact@v4
         with:
           name: build-artifacts
           path: build/
