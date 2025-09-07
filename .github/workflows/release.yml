@@ -101,14 +101,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -e
+          echo "Running semantic-release dry-run..."
+
           DRY_RUN=$(npx semantic-release --dry-run --debug 2>&1) || {
+            echo "::warning::Semantic release dry-run failed - no release needed"
             echo "version=skip" >> $GITHUB_OUTPUT
             exit 0
           }
-          VERSION=$(echo "$DRY_RUN" | grep -oP 'The next release version is \K\d+\.\d+\.\d+' || echo "")
+
+          # More robust version extraction supporting pre-release
+          VERSION=$(echo "$DRY_RUN" | grep -oP 'The next release version is \K[v]?[\d]+\.[\d]+\.[\d]+(?:-[\w\d\.-]*)?(?:\+[\w\d\.-]*)?')
+          VERSION=${VERSION#v}  # Remove v prefix if present
+
           if [ -z "$VERSION" ]; then
+            echo "::notice::No release version found - skipping release"
             echo "version=skip" >> $GITHUB_OUTPUT
           else
+            echo "::notice::Next release version: $VERSION"
             echo "version=$VERSION" >> $GITHUB_OUTPUT
           fi
 
@@ -173,17 +183,31 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -e
+          echo "Starting semantic release..."
+
           OUTPUT=$(npx semantic-release --debug 2>&1)
           EXIT_CODE=$?
-          echo "$OUTPUT"
 
-          if [ $EXIT_CODE -eq 0 ] && echo "$OUTPUT" | grep -q "Published release"; then
-            VERSION=$(echo "$OUTPUT" | grep -oP 'Published release \K\d+\.\d+\.\d+' || echo "unknown")
-            echo "released=true" >> $GITHUB_OUTPUT
-            echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "::group::Semantic Release Output"
+          echo "$OUTPUT"
+          echo "::endgroup::"
+
+          if [ $EXIT_CODE -eq 0 ]; then
+            if echo "$OUTPUT" | grep -q "Published release"; then
+              VERSION=$(echo "$OUTPUT" | grep -oP 'Published release \K[v]?[\d]+\.[\d]+\.[\d]+(?:-[\w\d\.-]*)?(?:\+[\w\d\.-]*)?')
+              VERSION=${VERSION#v}  # Remove v prefix if present
+              echo "::notice::Release published successfully: $VERSION"
+              echo "released=true" >> $GITHUB_OUTPUT
+              echo "version=${VERSION:-unknown}" >> $GITHUB_OUTPUT
+            else
+              echo "::notice::Semantic release completed - no release needed"
+              echo "released=false" >> $GITHUB_OUTPUT
+            fi
           else
+            echo "::error::Semantic release failed with exit code $EXIT_CODE"
             echo "released=false" >> $GITHUB_OUTPUT
-            if [ $EXIT_CODE -ne 0 ]; then exit 1; fi
+            exit 1
           fi
 
   deploy:
@@ -204,6 +228,15 @@ jobs:
         with:
           name: build-artifacts
           path: build/
+
+      - name: Validate build artifacts
+        run: |
+          if [ ! -d "build" ] || [ -z "$(ls -A build)" ]; then
+            echo "::error::Build artifacts are missing or empty"
+            exit 1
+          fi
+          echo "::notice::Build artifacts validated successfully"
+          ls -la build/
 
       - uses: actions/configure-pages@v5.0.0
       - uses: actions/upload-pages-artifact@v4.0.0
