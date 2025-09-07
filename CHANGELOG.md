@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [0.0.7](https://github.com/umairleo1/portfolio/compare/v0.0.6...v0.0.7) (2025-09-07)
 
-### 🐛 Bug Fixes
+### Bug Fixes
 
 - **release:** remove build assets from GitHub releases to prevent upload conflicts ([b790e9a](https://github.com/umairleo1/portfolio/commit/b790e9a9d4fdc5e02310dd6cb3e9c8d5327a9abe))
 
