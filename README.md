@@ -313,24 +313,27 @@ portfolio/
 │   ├── generate-sitemap.js    # Automatic SEO sitemap generation
 │   ├── detect-domain.js       # Intelligent CI/CD domain detection
 │   └── validate-release-setup.sh # Release configuration validation
-├── .env.example               # Environment template for developers
+├── .env.example               # Environment variables template with secrets
 ├── .env.production            # Production public configuration (committed)
+├── CHANGELOG.md               # Automated release notes and version history
+├── CODE_OF_CONDUCT.md         # Community guidelines and standards
 ├── .env.local                 # Local secrets and overrides (gitignored)
 ├── .gitignore                 # Git ignore patterns with environment setup
-├── .lighthouserc.json         # Lighthouse CI configuration
-├── .prettierrc                # Prettier configuration
-├── .releaserc.json            # Semantic release configuration
-├── .gitmessage                # Conventional commit template
-├── eslint.config.js           # ESLint configuration
-├── tsconfig.json              # TypeScript configuration
-├── config-overrides.js        # react-app-rewired configuration
-├── package.json               # Dependencies and scripts with intelligent builds
-├── LICENSE                    # MIT License
-└── README.md                  # This documentation
+├── .gitmessage                # Conventional commit template for semantic release
+├── .lighthouserc.json         # Lighthouse CI configuration for performance
+├── .prettierrc                # Prettier code formatting configuration
+├── .releaserc.json            # Semantic release automation configuration
+├── config-overrides.js        # react-app-rewired webpack configuration
+├── eslint.config.js           # ESLint linting rules and configuration
+├── package.json               # Dependencies, scripts, and project metadata
+├── tsconfig.json              # TypeScript compiler configuration
+├── LICENSE                    # MIT License terms
+└── README.md                  # Project documentation and setup guide
 ```
 
 ## Documentation
 
+- **[`CHANGELOG.md`](CHANGELOG.md)** - Automated release notes and version history
 - **[`docs/SETUP.md`](docs/SETUP.md)** - Complete installation and configuration guide
 - **[`docs/CUSTOMIZATION.md`](docs/CUSTOMIZATION.md)** - Personalization and content management
 - **[`docs/ANALYTICS.md`](docs/ANALYTICS.md)** - Analytics integration and business insights
