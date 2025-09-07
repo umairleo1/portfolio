@@ -37,7 +37,7 @@ jobs:
         uses: github/codeql-action/analyze@v3.28.0
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.33.1
         with:
           scan-type: 'fs'
           format: 'sarif'
@@ -349,6 +349,9 @@ jobs:
       - name: Checkout for monitoring
         uses: actions/checkout@v4.2.2
 
+      - name: Install jq for JSON parsing
+        run: sudo apt-get update && sudo apt-get install -y jq
+
       - name: Lighthouse CI with advanced config
         uses: treosh/lighthouse-ci-action@v12
         with:
@@ -366,6 +369,49 @@ jobs:
           echo "- **Version**: $VERSION" >> $GITHUB_STEP_SUMMARY
           echo "- **Site URL**: ${{ github.event.repository.homepage || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Monitoring Time**: $(date)" >> $GITHUB_STEP_SUMMARY
+
+          # Extract Lighthouse performance metrics if available
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Performance Metrics" >> $GITHUB_STEP_SUMMARY
+
+          # Check multiple possible Lighthouse report locations
+          REPORT_FILE=""
+          if [ -f "lhci_reports/manifest.json" ]; then
+            REPORT_FILE="lhci_reports/manifest.json"
+          elif [ -f ".lighthouseci/manifest.json" ]; then
+            REPORT_FILE=".lighthouseci/manifest.json"
+          elif [ -f "lighthouse-results.json" ]; then
+            REPORT_FILE="lighthouse-results.json"
+          fi
+
+          if [ -n "$REPORT_FILE" ] && [ -f "$REPORT_FILE" ]; then
+            echo "Found Lighthouse report: $REPORT_FILE"
+            
+            # Parse Lighthouse results with better error handling
+            PERF_SCORE=$(jq -r 'if type == "array" then .[0].summary.performance // .[0].categories.performance.score else .categories.performance.score end | if . then (. * 100 | floor) else "N/A" end' "$REPORT_FILE" 2>/dev/null || echo "N/A")
+            ACCESSIBILITY=$(jq -r 'if type == "array" then .[0].summary.accessibility // .[0].categories.accessibility.score else .categories.accessibility.score end | if . then (. * 100 | floor) else "N/A" end' "$REPORT_FILE" 2>/dev/null || echo "N/A")
+            BEST_PRACTICES=$(jq -r 'if type == "array" then .[0].summary."best-practices" // .[0].categories."best-practices".score else .categories."best-practices".score end | if . then (. * 100 | floor) else "N/A" end' "$REPORT_FILE" 2>/dev/null || echo "N/A")
+            SEO_SCORE=$(jq -r 'if type == "array" then .[0].summary.seo // .[0].categories.seo.score else .categories.seo.score end | if . then (. * 100 | floor) else "N/A" end' "$REPORT_FILE" 2>/dev/null || echo "N/A")
+            
+            # Extract timing metrics (in milliseconds, convert to seconds)
+            FCP=$(jq -r 'if type == "array" then .[0].audits."first-contentful-paint".numericValue // .[0].audits."first-contentful-paint".displayValue else .audits."first-contentful-paint".numericValue // .audits."first-contentful-paint".displayValue end | if type == "number" then (. / 1000 | . * 100 | floor | . / 100) else "N/A" end' "$REPORT_FILE" 2>/dev/null || echo "N/A")
+            LCP=$(jq -r 'if type == "array" then .[0].audits."largest-contentful-paint".numericValue // .[0].audits."largest-contentful-paint".displayValue else .audits."largest-contentful-paint".numericValue // .audits."largest-contentful-paint".displayValue end | if type == "number" then (. / 1000 | . * 100 | floor | . / 100) else "N/A" end' "$REPORT_FILE" 2>/dev/null || echo "N/A")
+            
+            echo "- **Performance Score**: ${PERF_SCORE}/100" >> $GITHUB_STEP_SUMMARY
+            echo "- **Accessibility**: ${ACCESSIBILITY}/100" >> $GITHUB_STEP_SUMMARY
+            echo "- **Best Practices**: ${BEST_PRACTICES}/100" >> $GITHUB_STEP_SUMMARY
+            echo "- **SEO Score**: ${SEO_SCORE}/100" >> $GITHUB_STEP_SUMMARY
+            echo "- **First Contentful Paint**: ${FCP}s" >> $GITHUB_STEP_SUMMARY
+            echo "- **Largest Contentful Paint**: ${LCP}s" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No Lighthouse report found - metrics will be available in next run" >> $GITHUB_STEP_SUMMARY
+            echo "- **Performance Score**: Analyzing..." >> $GITHUB_STEP_SUMMARY
+            echo "- **Accessibility**: Analyzing..." >> $GITHUB_STEP_SUMMARY
+            echo "- **Best Practices**: Analyzing..." >> $GITHUB_STEP_SUMMARY
+            echo "- **SEO Score**: Analyzing..." >> $GITHUB_STEP_SUMMARY
+            echo "- **First Contentful Paint**: Analyzing..." >> $GITHUB_STEP_SUMMARY
+            echo "- **Largest Contentful Paint**: Analyzing..." >> $GITHUB_STEP_SUMMARY
+          fi
 
   # Notify
   notify:
