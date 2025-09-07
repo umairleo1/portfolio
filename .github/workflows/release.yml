@@ -356,7 +356,7 @@ jobs:
         uses: treosh/lighthouse-ci-action@v12
         with:
           urls: |
-            ${{ github.event.repository.homepage || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
+            ${{ github.event.repository.homepage || format('https://{0}.github.io/{1}/', github.repository_owner, github.event.repository.name) }}
           configPath: './.lighthouserc.json'
           uploadArtifacts: true
           temporaryPublicStorage: true
@@ -387,15 +387,42 @@ jobs:
           if [ -n "$REPORT_FILE" ] && [ -f "$REPORT_FILE" ]; then
             echo "Found Lighthouse report: $REPORT_FILE"
             
-            # Parse Lighthouse results with better error handling
-            PERF_SCORE=$(jq -r 'if type == "array" then .[0].summary.performance // .[0].categories.performance.score else .categories.performance.score end | if . then (. * 100 | floor) else "N/A" end' "$REPORT_FILE" 2>/dev/null || echo "N/A")
-            ACCESSIBILITY=$(jq -r 'if type == "array" then .[0].summary.accessibility // .[0].categories.accessibility.score else .categories.accessibility.score end | if . then (. * 100 | floor) else "N/A" end' "$REPORT_FILE" 2>/dev/null || echo "N/A")
-            BEST_PRACTICES=$(jq -r 'if type == "array" then .[0].summary."best-practices" // .[0].categories."best-practices".score else .categories."best-practices".score end | if . then (. * 100 | floor) else "N/A" end' "$REPORT_FILE" 2>/dev/null || echo "N/A")
-            SEO_SCORE=$(jq -r 'if type == "array" then .[0].summary.seo // .[0].categories.seo.score else .categories.seo.score end | if . then (. * 100 | floor) else "N/A" end' "$REPORT_FILE" 2>/dev/null || echo "N/A")
+            # Find median run (isRepresentativeRun=true) for accurate scores
+            MEDIAN_ENTRY=$(jq -r 'map(select(.isRepresentativeRun == true)) | .[0] // empty' "$REPORT_FILE" 2>/dev/null)
             
-            # Extract timing metrics (in milliseconds, convert to seconds)
-            FCP=$(jq -r 'if type == "array" then .[0].audits."first-contentful-paint".numericValue // .[0].audits."first-contentful-paint".displayValue else .audits."first-contentful-paint".numericValue // .audits."first-contentful-paint".displayValue end | if type == "number" then (. / 1000 | . * 100 | floor | . / 100) else "N/A" end' "$REPORT_FILE" 2>/dev/null || echo "N/A")
-            LCP=$(jq -r 'if type == "array" then .[0].audits."largest-contentful-paint".numericValue // .[0].audits."largest-contentful-paint".displayValue else .audits."largest-contentful-paint".numericValue // .audits."largest-contentful-paint".displayValue end | if type == "number" then (. / 1000 | . * 100 | floor | . / 100) else "N/A" end' "$REPORT_FILE" 2>/dev/null || echo "N/A")
+            if [ -n "$MEDIAN_ENTRY" ] && [ "$MEDIAN_ENTRY" != "null" ]; then
+              # Extract scores from median run (0-1 scale, convert to 0-100)
+              PERF_SCORE=$(echo "$MEDIAN_ENTRY" | jq -r '.summary.performance // 0 | . * 100 | round')
+              ACCESSIBILITY=$(echo "$MEDIAN_ENTRY" | jq -r '.summary.accessibility // 0 | . * 100 | round')
+              BEST_PRACTICES=$(echo "$MEDIAN_ENTRY" | jq -r '.summary."best-practices" // 0 | . * 100 | round')
+              SEO_SCORE=$(echo "$MEDIAN_ENTRY" | jq -r '.summary.seo // 0 | . * 100 | round')
+              
+              TESTED_URL=$(echo "$MEDIAN_ENTRY" | jq -r '.url // "N/A"')
+              echo "::notice::Using median run from: $TESTED_URL"
+            else
+              # Fallback to first entry if no median found
+              echo "::warning::No median run found, using first entry"
+              PERF_SCORE=$(jq -r '.[0].summary.performance // 0 | . * 100 | round' "$REPORT_FILE" 2>/dev/null || echo "N/A")
+              ACCESSIBILITY=$(jq -r '.[0].summary.accessibility // 0 | . * 100 | round' "$REPORT_FILE" 2>/dev/null || echo "N/A")
+              BEST_PRACTICES=$(jq -r '.[0].summary."best-practices" // 0 | . * 100 | round' "$REPORT_FILE" 2>/dev/null || echo "N/A")
+              SEO_SCORE=$(jq -r '.[0].summary.seo // 0 | . * 100 | round' "$REPORT_FILE" 2>/dev/null || echo "N/A")
+            fi
+            
+            # Extract timing metrics from median run's JSON report if available
+            if [ -n "$MEDIAN_ENTRY" ] && [ "$MEDIAN_ENTRY" != "null" ]; then
+              JSON_PATH=$(echo "$MEDIAN_ENTRY" | jq -r '.jsonPath // empty')
+              if [ -n "$JSON_PATH" ] && [ -f "$JSON_PATH" ]; then
+                # Extract from detailed JSON report (ms to seconds)
+                FCP=$(jq -r '.audits."first-contentful-paint".numericValue // null | if . then (. / 1000 * 100 | round | . / 100) else "N/A" end' "$JSON_PATH" 2>/dev/null || echo "N/A")
+                LCP=$(jq -r '.audits."largest-contentful-paint".numericValue // null | if . then (. / 1000 * 100 | round | . / 100) else "N/A" end' "$JSON_PATH" 2>/dev/null || echo "N/A")
+              else
+                FCP="N/A"
+                LCP="N/A"
+              fi
+            else
+              FCP="N/A"
+              LCP="N/A"
+            fi
             
             echo "- **Performance Score**: ${PERF_SCORE}/100" >> $GITHUB_STEP_SUMMARY
             echo "- **Accessibility**: ${ACCESSIBILITY}/100" >> $GITHUB_STEP_SUMMARY
