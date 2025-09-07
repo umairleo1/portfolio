@@ -346,6 +346,60 @@ portfolio/
 - **[`SECURITY.md`](SECURITY.md)** - Security policy and vulnerability reporting
 - **[`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)** - Community standards and behavior guidelines
 
+## Versioning System
+
+This project uses **Semantic Release** with **Conventional Commits** for automated versioning and releases.
+
+### How It Works
+
+**Commit Format:**
+
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**Version Bumps:**
+
+- `feat:` → **Minor version** (0.1.0 → 0.2.0) + Release + Deploy
+- `fix:` → **Patch version** (0.1.0 → 0.1.1) + Release + Deploy
+- `perf:` → **Patch version** (performance improvements)
+- `docs:`, `style:`, `refactor:`, `test:`, `chore:` → **No release**
+
+**Breaking Changes:**
+
+- Add `!` after type: `feat!: remove deprecated API`
+- Include `BREAKING CHANGE:` footer for major version bump
+
+### Release Process
+
+1. **Commit** with conventional format
+2. **CI/CD Pipeline** runs quality gates
+3. **Semantic Release** determines version bump
+4. **Automated Release** creates:
+   - Git tag (e.g., `v0.2.0`)
+   - GitHub release with notes
+   - Updated `CHANGELOG.md`
+   - Deployment to GitHub Pages
+
+### Commands
+
+```bash
+# Validate release setup
+npm run release:validate
+
+# Test release (dry run)
+npm run release:dry
+
+# Check current version
+npm run version:check
+```
+
+**Current Version:** See [CHANGELOG.md](CHANGELOG.md) for latest release notes.
+
 ## CI/CD Pipeline
 
 Enterprise-grade automated deployment with security scanning, quality gates, and performance monitoring.
