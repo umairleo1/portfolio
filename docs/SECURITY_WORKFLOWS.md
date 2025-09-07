@@ -22,31 +22,43 @@ permissions:
 Prevent resource exhaustion with appropriate timeouts:
 
 ```yaml
-# Professional timeout configurations by job type:
-security: 10 # 10 minutes for security scanning (CodeQL + Trivy)
-quality: 15 # 15 minutes for quality gates (lint + test + audit)
-build: 20 # 20 minutes for builds (with semantic release dry-run)
-release: 10 # 10 minutes for semantic release
-deployment: 15 # 15 minutes for GitHub Pages deployment
-monitoring: 10 # 10 minutes for performance monitoring
+# Professional timeout configurations by job type (implemented):
+security: 10 # Security scanning (CodeQL + Trivy) - release.yml
+quality: 15 # Quality gates (lint + test + audit) - release.yml
+build: 20 # Builds with semantic release dry-run - release.yml
+release: 10 # Semantic release execution - release.yml
+deploy: 15 # GitHub Pages deployment - release.yml, deploy.yml
+monitor: 10 # Performance monitoring - release.yml
+pr-check: 25 # PR quality checks - pr-check.yml
+hotfix: 30 # Emergency hotfix deployment - hotfix.yml
+manual-deploy: 30 # Manual deployment - deploy.yml
 ```
 
 ### Trusted Actions
 
-Always pin actions to specific versions for security:
+Always pin actions to specific versions for security (current implementations):
 
 ```yaml
+# Core actions (used across all workflows)
 - actions/checkout@v4.2.2
 - actions/setup-node@v4.1.0
-- actions/cache@v4.2.0
 - actions/upload-artifact@v4
 - actions/download-artifact@v4
+
+# GitHub Pages deployment (deploy.yml, release.yml, hotfix.yml)
 - actions/configure-pages@v5.0.0
 - actions/upload-pages-artifact@v4.0.0
 - actions/deploy-pages@v4.0.5
+
+# Security scanning (release.yml, pr-check.yml)
 - github/codeql-action/init@v3.28.0
 - github/codeql-action/analyze@v3.28.0
+- github/codeql-action/upload-sarif@v3.28.0
 - aquasecurity/trivy-action@0.28.0
+
+# Quality & performance monitoring (release.yml, deploy.yml)
+- codecov/codecov-action@v5.1.1
+- treosh/lighthouse-ci-action@v12
 ```
 
 ## Environment Protection Rules
