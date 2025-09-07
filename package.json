@@ -77,7 +77,12 @@
     "security:audit:prod": "npm audit --omit=dev --audit-level=high || echo 'Known build-tool vulnerabilities - runtime not affected'",
     "security:audit:ci": "npm audit --audit-level=critical",
     "security:fix": "npm audit fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "release": "semantic-release",
+    "release:dry": "semantic-release --dry-run",
+    "release:local": "semantic-release --no-ci",
+    "release:validate": "./scripts/validate-release-setup.sh",
+    "version:check": "node -p \"'v' + require('./package.json').version\""
   },
   "browserslist": {
     "production": [
@@ -93,6 +98,9 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.5",
     "@typescript-eslint/eslint-plugin": "^8.40.0",
     "@typescript-eslint/parser": "^8.40.0",
     "ajv": "^8.17.1",
@@ -106,7 +114,8 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.1.5",
     "prettier": "^3.0.0",
-    "react-app-rewired": "^2.2.1"
+    "react-app-rewired": "^2.2.1",
+    "semantic-release": "^24.2.7"
   },
   "engines": {
     "node": ">=20.9.0",
