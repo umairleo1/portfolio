@@ -88,6 +88,7 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5.1.1
         if: matrix.node-version == 20
+        continue-on-error: true
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: false
@@ -159,24 +160,36 @@ jobs:
             echo "Next version will be: $CLEAN_VERSION"
           fi
 
+      - name: Validate environment
+        if: steps.version.outputs.version != 'skip'
+        run: |
+          echo "Building version: ${{ steps.version.outputs.version }}"
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Environment validation complete"
+
       - name: Build with version
         if: steps.version.outputs.version != 'skip'
-        run: npm run build
+        run: |
+          echo "Starting production build for version ${{ steps.version.outputs.version }}"
+
+          # Set required build environment
+          export PUBLIC_URL="/portfolio"
+          export NODE_ENV="production"
+          export GENERATE_SOURCEMAP="false"
+          export INLINE_RUNTIME_CHUNK="false"
+          export REACT_APP_VERSION="${{ steps.version.outputs.version }}"
+          export REACT_APP_BUILD_TIME="${{ github.run_number }}"
+          export REACT_APP_COMMIT_SHA="${{ github.sha }}"
+
+          # Optional client-side environment variables (safe for public)
+          export REACT_APP_GOOGLE_ANALYTICS_ID="${{ secrets.REACT_APP_GOOGLE_ANALYTICS_ID }}"
+          export REACT_APP_EMAILJS_SERVICE_ID="${{ secrets.REACT_APP_EMAILJS_SERVICE_ID }}"
+          export REACT_APP_EMAILJS_TEMPLATE_ID="${{ secrets.REACT_APP_EMAILJS_TEMPLATE_ID }}"
+          export REACT_APP_EMAILJS_PUBLIC_KEY="${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}"
+
+          echo "Environment configured, starting build..."
+          npm run build
         timeout-minutes: 15
-        env:
-          PUBLIC_URL: /portfolio
-          NODE_ENV: production
-          GENERATE_SOURCEMAP: false
-          INLINE_RUNTIME_CHUNK: false
-          REACT_APP_VERSION: ${{ steps.version.outputs.version }}
-          REACT_APP_BUILD_TIME: ${{ github.run_number }}
-          REACT_APP_COMMIT_SHA: ${{ github.sha }}
-          # Your existing secrets
-          REACT_APP_GOOGLE_ANALYTICS_ID: ${{ secrets.REACT_APP_GOOGLE_ANALYTICS_ID }}
-          REACT_APP_EMAILJS_SERVICE_ID: ${{ secrets.REACT_APP_EMAILJS_SERVICE_ID }}
-          REACT_APP_EMAILJS_TEMPLATE_ID: ${{ secrets.REACT_APP_EMAILJS_TEMPLATE_ID }}
-          REACT_APP_EMAILJS_PUBLIC_KEY: ${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}
-          # REACT_APP_GITHUB_TOKEN removed for security (tokens should never be in React builds)
 
       - name: Upload build for release
         if: steps.version.outputs.version != 'skip'

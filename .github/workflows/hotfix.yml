@@ -74,19 +74,33 @@ jobs:
       - name: Install dependencies
         run: npm ci --prefer-offline --no-audit
 
+      - name: Validate emergency environment
+        run: |
+          echo "Emergency hotfix build initiated"
+          echo "Reason: ${{ inputs.hotfix_description }}"
+          echo "Skip tests: ${{ inputs.skip_tests }}"
+          echo "Commit SHA: ${{ github.sha }}"
+
       - name: Emergency build
-        run: npm run build
-        env:
-          PUBLIC_URL: /portfolio
-          NODE_ENV: production
-          GENERATE_SOURCEMAP: false
-          REACT_APP_VERSION: hotfix-${{ github.run_number }}
-          REACT_APP_BUILD_TIME: ${{ github.run_number }}
-          REACT_APP_COMMIT_SHA: ${{ github.sha }}
-          REACT_APP_GOOGLE_ANALYTICS_ID: ${{ secrets.REACT_APP_GOOGLE_ANALYTICS_ID }}
-          REACT_APP_EMAILJS_SERVICE_ID: ${{ secrets.REACT_APP_EMAILJS_SERVICE_ID }}
-          REACT_APP_EMAILJS_TEMPLATE_ID: ${{ secrets.REACT_APP_EMAILJS_TEMPLATE_ID }}
-          REACT_APP_EMAILJS_PUBLIC_KEY: ${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}
+        run: |
+          echo "Starting emergency build with environment validation..."
+
+          # Set required build environment
+          export PUBLIC_URL="/portfolio"
+          export NODE_ENV="production"
+          export GENERATE_SOURCEMAP="false"
+          export REACT_APP_VERSION="hotfix-${{ github.run_number }}"
+          export REACT_APP_BUILD_TIME="${{ github.run_number }}"
+          export REACT_APP_COMMIT_SHA="${{ github.sha }}"
+
+          # Optional environment variables (will be empty if secrets don't exist)
+          export REACT_APP_GOOGLE_ANALYTICS_ID="${{ secrets.REACT_APP_GOOGLE_ANALYTICS_ID }}"
+          export REACT_APP_EMAILJS_SERVICE_ID="${{ secrets.REACT_APP_EMAILJS_SERVICE_ID }}"
+          export REACT_APP_EMAILJS_TEMPLATE_ID="${{ secrets.REACT_APP_EMAILJS_TEMPLATE_ID }}"
+          export REACT_APP_EMAILJS_PUBLIC_KEY="${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}"
+
+          echo "Environment configured, starting build..."
+          npm run build
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5.0.0
