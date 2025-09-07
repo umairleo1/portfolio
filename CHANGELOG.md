@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.11](https://github.com/umairleo1/portfolio/compare/v0.0.10...v0.0.11) (2025-09-07)
+
+### Performance Improvements
+
+- **ci:** increase performance threshold to 90% ([27a1e17](https://github.com/umairleo1/portfolio/commit/27a1e17216fb76452fb13039cd15adb1c618f04f))
+
+### Documentation
+
+- **ci:** update manual deployment documentation for security changes ([6286ac4](https://github.com/umairleo1/portfolio/commit/6286ac4d41e39cbb09448d16c350f8bb9f0f8c13))
+
 ## [0.0.10](https://github.com/umairleo1/portfolio/compare/v0.0.9...v0.0.10) (2025-09-07)
 
 ### ⚠ BREAKING CHANGES
