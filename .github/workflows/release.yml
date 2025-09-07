@@ -5,9 +5,8 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# Professional granular permissions - only what's needed at workflow level
 permissions:
-  contents: read # Default read access for all jobs
+  contents: read
 
 # Prevent concurrent releases
 concurrency:
@@ -96,7 +95,7 @@ jobs:
       - name: Security audit
         run: npm run security:audit:prod
 
-  # Build with version injection
+  # Build
   build:
     name: Build and Test
     runs-on: ubuntu-latest
@@ -123,7 +122,6 @@ jobs:
       - name: Install dependencies
         run: npm ci --prefer-offline --no-audit
 
-      # Dry run semantic release to get next version with error handling
       - name: Get next version
         id: version
         env:
@@ -131,11 +129,9 @@ jobs:
         run: |
           set -e
 
-          # Run semantic release dry run and capture output with debug info
           echo "Running semantic-release dry-run..."
-          echo "Current branch: $(git branch --show-current)"
-          echo "Latest commits since last tag:"
-          git log --oneline $(git describe --tags --abbrev=0 2>/dev/null || echo "HEAD~10")..HEAD || echo "No previous tags found"
+          echo "Commits since last tag:"
+          git log --oneline $(git describe --tags --abbrev=0 2>/dev/null || echo "HEAD~10")..HEAD
 
           DRY_RUN_OUTPUT=$(npx semantic-release --dry-run --debug 2>&1) || {
             echo "::error::Semantic release dry run failed"
@@ -148,7 +144,6 @@ jobs:
             exit 0
           }
 
-          # Extract version from output (handles both v1.0.0 and 1.0.0 formats)
           NEXT_VERSION=$(echo "$DRY_RUN_OUTPUT" | grep -oP 'The next release version is \K(v)?\d+\.\d+\.\d+' || echo "")
 
           if [ -z "$NEXT_VERSION" ]; then
@@ -157,7 +152,6 @@ jobs:
             echo "dry_run_failed=false" >> $GITHUB_OUTPUT
             echo "::notice::No conventional commits found - skipping release"
           else
-            # Strip 'v' prefix for React environment variable (if present)
             CLEAN_VERSION=${NEXT_VERSION#v}
             echo "version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
             echo "dry_run_failed=false" >> $GITHUB_OUTPUT
@@ -238,7 +232,6 @@ jobs:
           echo "Commits to be released:"
           git log --oneline $(git describe --tags --abbrev=0 2>/dev/null || echo "HEAD~5")..HEAD
 
-          # Capture semantic-release output
           RELEASE_OUTPUT=$(npx semantic-release --debug 2>&1) || {
             echo "release_failed=true" >> $GITHUB_OUTPUT
             echo "new_release_published=false" >> $GITHUB_OUTPUT
@@ -246,12 +239,10 @@ jobs:
             exit 1
           }
 
-          # Check if a release was published
           if echo "$RELEASE_OUTPUT" | grep -q "Published release"; then
             echo "new_release_published=true" >> $GITHUB_OUTPUT
             echo "release_failed=false" >> $GITHUB_OUTPUT
             
-            # Extract version (with v prefix for tags, clean for display)
             RELEASE_VERSION=$(echo "$RELEASE_OUTPUT" | grep -oP 'Published release \K(v)?\d+\.\d+\.\d+' || echo "unknown")
             CLEAN_VERSION=${RELEASE_VERSION#v}
             echo "new_release_version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
@@ -261,9 +252,8 @@ jobs:
             echo "release_failed=false" >> $GITHUB_OUTPUT
             echo "::notice::Semantic release ran but no release was published"
           fi
-        continue-on-error: false
 
-  # Deploy only after successful release
+  # Deploy
   deploy:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
@@ -318,7 +308,7 @@ jobs:
           echo "- **Action Required**: Check deployment logs and retry if necessary" >> $GITHUB_STEP_SUMMARY
           echo "::error::Deployment failed for version ${{ needs.release.outputs.new_release_version }}"
 
-  # Advanced Performance & Security Monitoring
+  # Monitor
   monitor:
     name: Performance and Security Monitor
     runs-on: ubuntu-latest
@@ -357,7 +347,7 @@ jobs:
           echo "- **Site URL**: ${{ github.event.repository.homepage || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Monitoring Time**: $(date)" >> $GITHUB_STEP_SUMMARY
 
-  # Professional monitoring and notifications
+  # Notify
   notify:
     name: Release Notifications
     runs-on: ubuntu-latest
