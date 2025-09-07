@@ -1,11 +1,14 @@
-name: Build and Deploy to GitHub Pages
+name: Build and Deploy to GitHub Pages (Legacy)
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deployment without release'
+        required: false
+        default: 'false'
 
 # Minimal permissions following 2025 security standards
 permissions:
