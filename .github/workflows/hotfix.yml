@@ -26,6 +26,7 @@ jobs:
   hotfix-deploy:
     name: Emergency Hotfix Deploy
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -39,16 +40,39 @@ jobs:
 
       - run: npm ci --prefer-offline --no-audit
 
+      - name: Emergency validation
+        run: |
+          echo "::notice::Emergency hotfix initiated"
+          echo "::notice::Reason: ${{ inputs.description }}"
+          echo "::notice::Skip tests: ${{ inputs.skip_tests }}"
+          echo "::notice::Commit: ${{ github.sha }}"
+
       - name: Quality checks
         run: |
+          set -e
+          echo "::group::Type Checking"
           npm run type-check
-          if [[ "${{ inputs.skip_tests }}" != "true" ]]; then
-            timeout 5m npm run test:ci || exit 1
+          echo "::endgroup::"
+
+          if [[ "${{ inputs.skip_tests }}" == "true" ]]; then
+            echo "::warning::Tests skipped for emergency deployment"
+          else
+            echo "::group::Running Tests"
+            timeout 5m npm run test:ci || {
+              echo "::error::Tests failed - emergency deployment requires manual override"
+              exit 1
+            }
+            echo "::endgroup::"
           fi
+
+          echo "::group::Security Audit"
           npm run security:audit:ci
+          echo "::endgroup::"
 
       - name: Build
         run: |
+          set -e
+          echo "::group::Emergency Build"
           export PUBLIC_URL="/portfolio"
           export NODE_ENV="production"
           export GENERATE_SOURCEMAP="false"
@@ -59,7 +83,26 @@ jobs:
           export REACT_APP_EMAILJS_SERVICE_ID="${{ secrets.REACT_APP_EMAILJS_SERVICE_ID }}"
           export REACT_APP_EMAILJS_TEMPLATE_ID="${{ secrets.REACT_APP_EMAILJS_TEMPLATE_ID }}"
           export REACT_APP_EMAILJS_PUBLIC_KEY="${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}"
+
           npm run build
+          echo "::endgroup::"
+        timeout-minutes: 15
+
+      - name: Validate build
+        run: |
+          if [ ! -d "build" ] || [ -z "$(ls -A build)" ]; then
+            echo "::error::Emergency build failed - no artifacts produced"
+            exit 1
+          fi
+
+          BUILD_SIZE=$(du -sh build | cut -f1)
+          echo "::notice::Emergency build size: $BUILD_SIZE"
+
+          # Warn if build is unusually large (>10MB)
+          BUILD_SIZE_BYTES=$(du -sb build | cut -f1)
+          if [ "$BUILD_SIZE_BYTES" -gt 10485760 ]; then
+            echo "::warning::Emergency build is large ($BUILD_SIZE) - review before production"
+          fi
 
       - uses: actions/configure-pages@v5.0.0
       - uses: actions/upload-pages-artifact@v4.0.0
