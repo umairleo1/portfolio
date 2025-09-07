@@ -285,7 +285,7 @@ jobs:
     name: Performance and Security Monitor
     runs-on: ubuntu-latest
     needs: deploy
-    if: needs.deploy.result == 'success' && needs.release.outputs.new_release_published == 'true'
+    if: needs.deploy.result == 'success' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout for monitoring
         uses: actions/checkout@v4.2.2
@@ -320,7 +320,7 @@ jobs:
   notify:
     name: Release Notifications
     runs-on: ubuntu-latest
-    needs: [security, quality, build, release, deploy, monitor]
+    needs: [security, quality, build, release, deploy]
     if: always()
     steps:
       - name: Success Notification
