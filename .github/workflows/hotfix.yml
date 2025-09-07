@@ -1,10 +1,10 @@
-name: Emergency Hotfix Release
+name: Emergency Hotfix
 
 on:
   workflow_dispatch:
     inputs:
-      hotfix_description:
-        description: 'Description of the emergency fix'
+      description:
+        description: 'Emergency fix description'
         required: true
         type: string
       skip_tests:
@@ -13,119 +13,65 @@ on:
         default: false
         type: boolean
 
-# Minimal permissions for emergency hotfix
 permissions:
   contents: write
   pages: write
   id-token: write
 
-# Prevent concurrent emergency releases
 concurrency:
-  group: 'hotfix-release'
+  group: 'hotfix'
   cancel-in-progress: false
 
 jobs:
-  # Emergency quality check (reduced but still essential)
-  emergency-quality:
-    name: Emergency Quality Check
+  hotfix-deploy:
+    name: Emergency Hotfix Deploy
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4.2.2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4.1.0
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci --prefer-offline --no-audit
-
-      - name: Type check (required)
-        run: npm run type-check
-
-      - name: Critical tests only
-        if: inputs.skip_tests != true
-        run: npm run test:ci
-        timeout-minutes: 5
-
-      - name: Security audit (critical only)
-        run: npm run security:audit:ci
-
-  # Emergency build and deploy
-  emergency-deploy:
-    name: Emergency Deploy
-    runs-on: ubuntu-latest
-    needs: emergency-quality
     environment:
-      name: github-pages-emergency
+      name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v4.2.2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4.1.0
+      - uses: actions/setup-node@v4.1.0
         with:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci --prefer-offline --no-audit
+      - run: npm ci --prefer-offline --no-audit
 
-      - name: Validate emergency environment
+      - name: Quality checks
         run: |
-          echo "Emergency hotfix build initiated"
-          echo "Reason: ${{ inputs.hotfix_description }}"
-          echo "Skip tests: ${{ inputs.skip_tests }}"
-          echo "Commit SHA: ${{ github.sha }}"
+          npm run type-check
+          if [[ "${{ inputs.skip_tests }}" != "true" ]]; then
+            timeout 5m npm run test:ci || exit 1
+          fi
+          npm run security:audit:ci
 
-      - name: Emergency build
+      - name: Build
         run: |
-          echo "Starting emergency build with environment validation..."
-
-          # Set required build environment
           export PUBLIC_URL="/portfolio"
           export NODE_ENV="production"
           export GENERATE_SOURCEMAP="false"
           export REACT_APP_VERSION="hotfix-${{ github.run_number }}"
           export REACT_APP_BUILD_TIME="${{ github.run_number }}"
           export REACT_APP_COMMIT_SHA="${{ github.sha }}"
-
-          # Optional environment variables (will be empty if secrets don't exist)
           export REACT_APP_GOOGLE_ANALYTICS_ID="${{ secrets.REACT_APP_GOOGLE_ANALYTICS_ID }}"
           export REACT_APP_EMAILJS_SERVICE_ID="${{ secrets.REACT_APP_EMAILJS_SERVICE_ID }}"
           export REACT_APP_EMAILJS_TEMPLATE_ID="${{ secrets.REACT_APP_EMAILJS_TEMPLATE_ID }}"
           export REACT_APP_EMAILJS_PUBLIC_KEY="${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}"
-
-          echo "Environment configured, starting build..."
           npm run build
 
-      - name: Setup GitHub Pages
-        uses: actions/configure-pages@v5.0.0
-
-      - name: Upload to GitHub Pages
-        uses: actions/upload-pages-artifact@v4.0.0
+      - uses: actions/configure-pages@v5.0.0
+      - uses: actions/upload-pages-artifact@v4.0.0
         with:
           path: build/
-
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4.0.5
 
-      - name: Emergency Deploy Summary
+      - name: Summary
         run: |
           echo "## Emergency Hotfix Deployed" >> $GITHUB_STEP_SUMMARY
-          echo "- **Reason**: ${{ inputs.hotfix_description }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Reason**: ${{ inputs.description }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Version**: hotfix-${{ github.run_number }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Deploy URL**: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Tests Skipped**: ${{ inputs.skip_tests }}" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Post-Hotfix Actions Required" >> $GITHUB_STEP_SUMMARY
-          echo "1. Create proper release with semantic-release after hotfix" >> $GITHUB_STEP_SUMMARY
-          echo "2. Update documentation if necessary" >> $GITHUB_STEP_SUMMARY
-          echo "3. Notify team of emergency deployment" >> $GITHUB_STEP_SUMMARY
-
-          echo "::warning::Emergency hotfix deployed - follow up with proper release process"
+          echo "- **URL**: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "::warning::Follow up with proper semantic release"
