@@ -97,12 +97,12 @@ Trigger: Pull Request events (non-draft)
 
 ### 3. **Manual Deployment** ([`deploy.yml`](workflows/deploy.yml))
 
-**Triggers:** Manual dispatch, Pull Request to main (for testing)
-**Purpose:** On-demand deployment with manual override capability
+**Triggers:** Manual workflow dispatch ONLY (security-first design)
+**Purpose:** Controlled override deployment with full accountability
 
 ```bash
-Trigger: Manual workflow dispatch
-├── Deploy Validation (Trigger info logging)
+Trigger: Manual workflow dispatch (with required reason)
+├── Deploy Validation (Reason + initiator logging)
 ├── Quality Gates (Grouped execution)
 ├── Production Build (Environment injection + timeout)
 ├── Build Validation (Essential files + size check)
@@ -112,11 +112,13 @@ Trigger: Manual workflow dispatch
 
 **Features:**
 
-- **Manual Control**: Workflow dispatch with force deploy option
-- **Professional Logging**: Deploy validation with trigger information and grouped output
+- **Manual Control**: Workflow dispatch with force deploy option and required deployment reason
+- **Accountability**: Required deployment reason input and initiator tracking
+- **Professional Logging**: Deploy validation with reason, initiator, and grouped output
 - **Build Validation**: Comprehensive validation including essential file checks (index.html)
 - **Environment Injection**: Full React environment variables with build metadata
 - **Timeout Protection**: 30-minute job timeout, 15-minute build timeout
+- **Security**: NO automatic triggers - prevents accidental production deployments
 
 ### 4. **Emergency Hotfix** ([`hotfix.yml`](workflows/hotfix.yml))
 
