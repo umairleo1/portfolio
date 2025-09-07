@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.9](https://github.com/umairleo1/portfolio/compare/v0.0.8...v0.0.9) (2025-09-07)
+
+### Bug Fixes
+
+- **ci:** add build validation and deployment logging ([c33f20b](https://github.com/umairleo1/portfolio/commit/c33f20b5aaac0c6b942e1fa82113120b19bc3fa4))
+- **ci:** add timeout and validation to PR checks ([83b2147](https://github.com/umairleo1/portfolio/commit/83b2147cb9293fc42016fda4be479ef87c341d18))
+- **ci:** enhance version detection and error handling ([e11d4a2](https://github.com/umairleo1/portfolio/commit/e11d4a2ff30e8a19db78e4be80f7bc92f5303f2a))
+- **ci:** ensure performance monitoring runs after deployment ([98a3c69](https://github.com/umairleo1/portfolio/commit/98a3c6958222dcb49e159e952ceb2f8b1cd3f5f1))
+- **ci:** improve emergency hotfix validation and timeouts ([b983753](https://github.com/umairleo1/portfolio/commit/b9837534fcb5702c1faa91b8ccfb1cbb8f54827f))
+
 ## [0.0.8](https://github.com/umairleo1/portfolio/compare/v0.0.7...v0.0.8) (2025-09-07)
 
 ### Bug Fixes
