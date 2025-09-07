@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.6](https://github.com/umairleo1/portfolio/compare/v0.0.5...v0.0.6) (2025-09-07)
+
+### 🐛 Bug Fixes
+
+- **ci:** fetch semantic-release git notes to prevent JSON parsing errors ([e865447](https://github.com/umairleo1/portfolio/commit/e865447b5bafcee42e7a1d604c5428f25c239d30))
+
 ## [0.0.5](https://github.com/umairleo1/portfolio/compare/v0.0.4...v0.0.5) (2025-09-07)
 
 ### 🐛 Bug Fixes
