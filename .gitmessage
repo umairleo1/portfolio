@@ -1,24 +1,39 @@
-# Conventional Commits Template
+# Conventional Commits Template - Semantic Release Enabled
 # 
 # Format: <type>(<scope>): <description>
 #
 # Example: feat(auth): add user login functionality
 #
+# SEMANTIC RELEASE VERSION IMPACT:
+# - feat:     Minor version bump (1.0.0 → 1.1.0) + Release + Deploy
+# - fix:      Patch version bump (1.0.0 → 1.0.1) + Release + Deploy
+# - feat!:    Major version bump (1.0.0 → 2.0.0) + Release + Deploy
+# - docs:     No version bump, no release
+# - style:    No version bump, no release
+# - refactor: No version bump, no release
+# - perf:     Patch version bump (1.0.0 → 1.0.1) + Release + Deploy
+# - test:     No version bump, no release
+# - chore:    No version bump, no release
+#
+# WORKFLOW TRIGGERS:
+# Push to main → Full Release Workflow (security → quality → build → release → deploy → monitor)
+# PR to main → Deploy Workflow (security → quality → build only, no release/deploy)
+#
 # Types:
-# - feat:     A new feature
-# - fix:      A bug fix
-# - docs:     Documentation changes
-# - style:    Changes that don't affect code meaning
-# - refactor: Code changes that neither fix a bug nor add a feature
-# - perf:     Performance improvements
-# - test:     Adding or correcting tests
-# - chore:    Maintenance tasks, dependencies
+# - feat:     A new feature (triggers MINOR release)
+# - fix:      A bug fix (triggers PATCH release)
+# - docs:     Documentation changes (no release)
+# - style:    Changes that don't affect code meaning (no release)
+# - refactor: Code changes that neither fix a bug nor add a feature (no release)
+# - perf:     Performance improvements (triggers PATCH release)
+# - test:     Adding or correcting tests (no release)
+# - chore:    Maintenance tasks, dependencies (no release)
 #
 # Scopes (optional):
 # - ui, auth, api, docs, config, deps, ci
 #
 # Breaking changes: Add "!" after type/scope
-# Example: feat!: remove deprecated API
+# Example: feat!: remove deprecated API (triggers MAJOR release)
 #
 # Footer for breaking changes:
 # BREAKING CHANGE: description of the breaking change
