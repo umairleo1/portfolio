@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.4](https://github.com/umairleo1/portfolio/compare/v0.0.3...v0.0.4) (2025-09-07)
+
+### 🐛 Bug Fixes
+
+- **ci:** test full deployment pipeline ([d427b3f](https://github.com/umairleo1/portfolio/commit/d427b3fbd6d08f9af81dadabb42273e5b626d155))
+
 ## [0.0.3](https://github.com/umairleo1/portfolio/compare/v0.0.2...v0.0.3) (2025-09-07)
 
 ### 🐛 Bug Fixes
