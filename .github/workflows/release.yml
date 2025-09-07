@@ -227,15 +227,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -e
+          # Note: Not using 'set -e' here to properly handle semantic-release exit codes
 
           echo "Starting semantic release..."
           echo "Commits to be released:"
           git log --oneline $(git describe --tags --abbrev=0 2>/dev/null || echo "HEAD~5")..HEAD
 
           # Run semantic release and capture both output and exit code
+          set +e  # Temporarily disable exit on error
           RELEASE_OUTPUT=$(npx semantic-release --debug 2>&1) 
           RELEASE_EXIT_CODE=$?
+          set -e  # Re-enable exit on error for remaining commands
 
           echo "::group::Semantic Release Output"
           echo "$RELEASE_OUTPUT"
