@@ -230,8 +230,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Note: Not using 'set -e' here to properly handle semantic-release exit codes
-
           echo "Starting semantic release..."
           echo "Commits to be released:"
           git log --oneline $(git describe --tags --abbrev=0 2>/dev/null || echo "HEAD~5")..HEAD
