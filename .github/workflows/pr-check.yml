@@ -77,7 +77,7 @@ jobs:
           npm run security:audit:ci
           echo "::endgroup::"
 
-      - uses: aquasecurity/trivy-action@0.28.0
+      - uses: aquasecurity/trivy-action@0.33.1
         if: matrix.node-version == 20
         with:
           scan-type: 'fs'
