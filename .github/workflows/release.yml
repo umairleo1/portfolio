@@ -233,25 +233,37 @@ jobs:
           echo "Commits to be released:"
           git log --oneline $(git describe --tags --abbrev=0 2>/dev/null || echo "HEAD~5")..HEAD
 
-          RELEASE_OUTPUT=$(npx semantic-release --debug 2>&1) || {
-            echo "release_failed=true" >> $GITHUB_OUTPUT
-            echo "new_release_published=false" >> $GITHUB_OUTPUT
-            echo "::error::Semantic release failed"
-            exit 1
-          }
+          # Run semantic release and capture both output and exit code
+          RELEASE_OUTPUT=$(npx semantic-release --debug 2>&1) 
+          RELEASE_EXIT_CODE=$?
 
-          if echo "$RELEASE_OUTPUT" | grep -q "Published release"; then
-            echo "new_release_published=true" >> $GITHUB_OUTPUT
-            echo "release_failed=false" >> $GITHUB_OUTPUT
-            
-            RELEASE_VERSION=$(echo "$RELEASE_OUTPUT" | grep -oP 'Published release \K(v)?\d+\.\d+\.\d+' || echo "unknown")
-            CLEAN_VERSION=${RELEASE_VERSION#v}
-            echo "new_release_version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
-            echo "::notice::Semantic release completed successfully - version $CLEAN_VERSION"
+          echo "::group::Semantic Release Output"
+          echo "$RELEASE_OUTPUT"
+          echo "::endgroup::"
+
+          # Handle different scenarios
+          if [ $RELEASE_EXIT_CODE -eq 0 ]; then
+            if echo "$RELEASE_OUTPUT" | grep -q "Published release"; then
+              # Success: Release was published
+              echo "new_release_published=true" >> $GITHUB_OUTPUT
+              echo "release_failed=false" >> $GITHUB_OUTPUT
+              
+              RELEASE_VERSION=$(echo "$RELEASE_OUTPUT" | grep -oP 'Published release \K(v)?\d+\.\d+\.\d+' || echo "unknown")
+              CLEAN_VERSION=${RELEASE_VERSION#v}
+              echo "new_release_version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
+              echo "::notice::Semantic release completed successfully - version $CLEAN_VERSION"
+            else
+              # Success: No release needed (no qualifying commits)
+              echo "new_release_published=false" >> $GITHUB_OUTPUT
+              echo "release_failed=false" >> $GITHUB_OUTPUT
+              echo "::notice::Semantic release completed - no release needed"
+            fi
           else
+            # Failure: Semantic release encountered an error
             echo "new_release_published=false" >> $GITHUB_OUTPUT
-            echo "release_failed=false" >> $GITHUB_OUTPUT
-            echo "::notice::Semantic release ran but no release was published"
+            echo "release_failed=true" >> $GITHUB_OUTPUT
+            echo "::error::Semantic release failed with exit code $RELEASE_EXIT_CODE"
+            exit 1
           fi
 
   # Deploy
