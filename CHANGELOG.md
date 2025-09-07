@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.2](https://github.com/umairleo1/portfolio/compare/v0.0.1...v0.0.2) (2025-09-07)
+
+### 🐛 Bug Fixes
+
+- **ci:** ensure proper semantic release workflow handling ([48ad159](https://github.com/umairleo1/portfolio/commit/48ad1597f2e1c59d73f101a3ee92bd0669e6844e))
+- **ci:** improve semantic release error handling for seamless workflow ([780dc95](https://github.com/umairleo1/portfolio/commit/780dc957369de5056ca4f394b7d7a3f78eebaee1))
+
 ## [0.0.1](https://github.com/umairleo1/portfolio/compare/v0.0.0...v0.0.1) (2025-09-07)
 
 ### 🐛 Bug Fixes
