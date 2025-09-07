@@ -143,19 +143,23 @@ jobs:
           command: npm ci --prefer-offline --no-audit
 
       - name: Build application with optimizations
-        run: npm run build
-        env:
-          # Build Configuration
-          PUBLIC_URL: /portfolio
-          NODE_ENV: production
-          GENERATE_SOURCEMAP: false # Reduce build size
-          INLINE_RUNTIME_CHUNK: false # Better caching
+        run: |
+          echo "Starting optimized production build..."
 
-          # Secrets from GitHub repository secrets
-          REACT_APP_GOOGLE_ANALYTICS_ID: ${{ secrets.REACT_APP_GOOGLE_ANALYTICS_ID }}
-          REACT_APP_EMAILJS_SERVICE_ID: ${{ secrets.REACT_APP_EMAILJS_SERVICE_ID }}
-          REACT_APP_EMAILJS_TEMPLATE_ID: ${{ secrets.REACT_APP_EMAILJS_TEMPLATE_ID }}
-          REACT_APP_EMAILJS_PUBLIC_KEY: ${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}
+          # Build Configuration
+          export PUBLIC_URL="/portfolio"
+          export NODE_ENV="production"
+          export GENERATE_SOURCEMAP="false"
+          export INLINE_RUNTIME_CHUNK="false"
+
+          # Optional client-side environment variables (safe for public)
+          export REACT_APP_GOOGLE_ANALYTICS_ID="${{ secrets.REACT_APP_GOOGLE_ANALYTICS_ID }}"
+          export REACT_APP_EMAILJS_SERVICE_ID="${{ secrets.REACT_APP_EMAILJS_SERVICE_ID }}"
+          export REACT_APP_EMAILJS_TEMPLATE_ID="${{ secrets.REACT_APP_EMAILJS_TEMPLATE_ID }}"
+          export REACT_APP_EMAILJS_PUBLIC_KEY="${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}"
+
+          echo "Environment configured, starting build..."
+          npm run build
 
       - name: Calculate build size
         id: build-size
