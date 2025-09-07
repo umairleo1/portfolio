@@ -13,6 +13,7 @@ jobs:
   check:
     name: Quality Check
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     if: github.event.pull_request.draft == false
     strategy:
       matrix:
@@ -28,18 +29,53 @@ jobs:
           cache: 'npm'
 
       - run: npm ci --prefer-offline --no-audit
-      - run: npm run lint
-      - run: npm run type-check
-      - run: npm run test:ci
+
+      - name: Quality checks
+        run: |
+          set -e
+          echo "::group::Linting"
+          npm run lint
+          echo "::endgroup::"
+
+          echo "::group::Type Checking"
+          npm run type-check
+          echo "::endgroup::"
+
+          echo "::group::Testing"
+          npm run test:ci
+          echo "::endgroup::"
 
       - name: Build test
         run: |
+          set -e
+          echo "::group::Production Build Test"
           export PUBLIC_URL="/portfolio"
           export NODE_ENV="production"
           export GENERATE_SOURCEMAP="false"
           npm run build
+          echo "::endgroup::"
+        timeout-minutes: 15
 
-      - run: npm run security:audit:ci
+      - name: Validate build
+        run: |
+          if [ ! -d "build" ] || [ -z "$(ls -A build)" ]; then
+            echo "::error::Build test failed - no artifacts produced"
+            exit 1
+          fi
+
+          if [ ! -f "build/index.html" ]; then
+            echo "::error::Build missing index.html"
+            exit 1
+          fi
+
+          BUILD_SIZE=$(du -sh build | cut -f1)
+          echo "::notice::Build test size: $BUILD_SIZE"
+
+      - name: Security audit
+        run: |
+          echo "::group::Security Audit"
+          npm run security:audit:ci
+          echo "::endgroup::"
 
       - uses: aquasecurity/trivy-action@0.28.0
         if: matrix.node-version == 20
