@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.3](https://github.com/umairleo1/portfolio/compare/v0.0.2...v0.0.3) (2025-09-07)
+
+### 🐛 Bug Fixes
+
+- **ci:** add defensive programming and fix dependency chains ([39558fb](https://github.com/umairleo1/portfolio/commit/39558fbbea20cc93664b291c18843dc9849a6500))
+
 ## [0.0.2](https://github.com/umairleo1/portfolio/compare/v0.0.1...v0.0.2) (2025-09-07)
 
 ### 🐛 Bug Fixes
