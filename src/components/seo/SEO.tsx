@@ -84,7 +84,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta property='article:author' content={personalInfo.name} />
       <meta
         property='article:published_time'
-        content={new Date().toISOString()}
+        content='2025-08-13T00:00:00.000Z'
       />
 
       {/* Twitter/X Optimization */}
