@@ -22,12 +22,13 @@ permissions:
 Prevent resource exhaustion with appropriate timeouts:
 
 ```yaml
-timeout-minutes: 30 # 30 minutes default
-# Specific timeouts:
-# quality_gates: 15        # 15 minutes for linting/testing
-# build: 20                # 20 minutes for builds
-# deployment: 15           # 15 minutes for deployments
-# security_scan: 10        # 10 minutes for security scans
+# Professional timeout configurations by job type:
+security: 10 # 10 minutes for security scanning (CodeQL + Trivy)
+quality: 15 # 15 minutes for quality gates (lint + test + audit)
+build: 20 # 20 minutes for builds (with semantic release dry-run)
+release: 10 # 10 minutes for semantic release
+deployment: 15 # 15 minutes for GitHub Pages deployment
+monitoring: 10 # 10 minutes for performance monitoring
 ```
 
 ### Trusted Actions
@@ -117,40 +118,77 @@ secrets:
 
 ## Implementation Examples
 
-### Secure Workflow Template
+### Professional Granular Permissions Template
 
 ```yaml
-name: Secure Workflow
+name: Professional Release Workflow
 
 on:
   push:
     branches: [main]
 
+# Workflow-level minimal permissions
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read # Default read access for all jobs
 
 concurrency:
-  group: 'workflow-${{ github.ref }}'
+  group: 'release-${{ github.ref }}'
   cancel-in-progress: false
 
 jobs:
-  secure-job:
-    name: Secure Job
+  security:
+    name: Security Analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read # Required to checkout code
+      security-events: write # Required for CodeQL and SARIF uploads
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+  quality:
+    name: Quality Gates
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    needs: security
+    permissions:
+      contents: read # Required to checkout code
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4.1.0
-        with:
-          node-version: '20'
-          cache: 'npm'
+  release:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [quality, build]
+    permissions:
+      contents: write # Required to create tags and release commits
+      actions: read # Required to download build artifacts
+    steps:
+      - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
 
-      # Additional secure steps...
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [build, release]
+    permissions:
+      contents: read # Required for basic access
+      pages: write # Required for GitHub Pages deployment
+      id-token: write # Required for OIDC authentication
+      actions: read # Required to download build artifacts
+    environment:
+      name: github-pages
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4.0.5
 ```
 
 This configuration ensures all workflows follow enterprise security standards while maintaining functionality and performance.
