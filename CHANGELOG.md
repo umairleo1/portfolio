@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.10](https://github.com/umairleo1/portfolio/compare/v0.0.9...v0.0.10) (2025-09-07)
+
+### ⚠ BREAKING CHANGES
+
+- **ci:** deploy.yml no longer triggers on pull requests
+
+### Bug Fixes
+
+- **ci:** rebuild release workflow with professional standards ([38fa97a](https://github.com/umairleo1/portfolio/commit/38fa97ac72b27bfa2c635cbf6a3cdab8fe034161))
+- **ci:** remove dangerous PR deployment trigger from deploy workflow ([ffe89eb](https://github.com/umairleo1/portfolio/commit/ffe89eb83a1f01c66521d8e6e4acde834f93c000))
+- **ci:** replace failing semantic-release with git-based version detection ([a385e13](https://github.com/umairleo1/portfolio/commit/a385e138e3bb500db5bfcc048e4b0a7c69c61e2f))
+
+### Documentation
+
+- **ci:** update workflow documentation for accuracy ([3e2acd7](https://github.com/umairleo1/portfolio/commit/3e2acd76d7a3ec3264a0721a55fa1a027d6104e7))
+- **deploy:** fix outdated pipeline references ([906d14b](https://github.com/umairleo1/portfolio/commit/906d14b6e277bc0005ee3452944a9f21cf5089b7))
+- **security:** update timeout and action configurations ([e6ab840](https://github.com/umairleo1/portfolio/commit/e6ab840a5a60482976f42756404682dfce749dba))
+
 ## [0.0.9](https://github.com/umairleo1/portfolio/compare/v0.0.8...v0.0.9) (2025-09-07)
 
 ### Bug Fixes
