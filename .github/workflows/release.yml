@@ -102,25 +102,46 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
-          echo "Running semantic-release dry-run..."
+          echo "Analyzing commits for version detection..."
 
-          DRY_RUN=$(npx semantic-release --dry-run --debug 2>&1) || {
-            echo "::warning::Semantic release dry-run failed - no release needed"
+          # Get commits since last release
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LAST_TAG" ]; then
+            echo "::notice::No previous tags found - will create initial release"
+            echo "version=1.0.0" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Check for conventional commits since last tag
+          COMMITS=$(git log "${LAST_TAG}..HEAD" --oneline | grep -E "^[a-f0-9]+ (feat|fix|perf)(\([^)]*\))?(!)?:" || true)
+
+          if [ -z "$COMMITS" ]; then
+            echo "::notice::No release-worthy commits found since $LAST_TAG - skipping release"
             echo "version=skip" >> $GITHUB_OUTPUT
             exit 0
-          }
-
-          # More robust version extraction supporting pre-release
-          VERSION=$(echo "$DRY_RUN" | grep -oP 'The next release version is \K[v]?[\d]+\.[\d]+\.[\d]+(?:-[\w\d\.-]*)?(?:\+[\w\d\.-]*)?')
-          VERSION=${VERSION#v}  # Remove v prefix if present
-
-          if [ -z "$VERSION" ]; then
-            echo "::notice::No release version found - skipping release"
-            echo "version=skip" >> $GITHUB_OUTPUT
-          else
-            echo "::notice::Next release version: $VERSION"
-            echo "version=$VERSION" >> $GITHUB_OUTPUT
           fi
+
+          # Determine version bump type
+          if echo "$COMMITS" | grep -qE "(feat|fix|perf)(\([^)]*\))?!:"; then
+            BUMP="major"
+          elif echo "$COMMITS" | grep -qE "feat(\([^)]*\))?:"; then
+            BUMP="minor" 
+          else
+            BUMP="patch"
+          fi
+
+          # Calculate next version
+          CURRENT_VERSION=${LAST_TAG#v}
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
+
+          case "$BUMP" in
+            major) NEXT_VERSION="$((MAJOR + 1)).0.0" ;;
+            minor) NEXT_VERSION="${MAJOR}.$((MINOR + 1)).0" ;;
+            patch) NEXT_VERSION="${MAJOR}.${MINOR}.$((PATCH + 1))" ;;
+          esac
+
+          echo "::notice::Next release version: $NEXT_VERSION (${BUMP} bump from ${CURRENT_VERSION})"
+          echo "version=$NEXT_VERSION" >> $GITHUB_OUTPUT
 
       - name: Build
         if: steps.version.outputs.version != 'skip'
