@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.12](https://github.com/umairleo1/portfolio/compare/v0.0.11...v0.0.12) (2025-09-07)
+
+### Bug Fixes
+
+- **ci:** improve Lighthouse monitoring accuracy ([7f81fac](https://github.com/umairleo1/portfolio/commit/7f81fac8e17808b2da4fe57587839d9fe6b513bc))
+
 ## [0.0.11](https://github.com/umairleo1/portfolio/compare/v0.0.10...v0.0.11) (2025-09-07)
 
 ### Performance Improvements
