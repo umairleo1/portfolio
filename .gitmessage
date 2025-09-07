@@ -1,0 +1,24 @@
+# Conventional Commits Template
+# 
+# Format: <type>(<scope>): <description>
+#
+# Example: feat(auth): add user login functionality
+#
+# Types:
+# - feat:     A new feature
+# - fix:      A bug fix
+# - docs:     Documentation changes
+# - style:    Changes that don't affect code meaning
+# - refactor: Code changes that neither fix a bug nor add a feature
+# - perf:     Performance improvements
+# - test:     Adding or correcting tests
+# - chore:    Maintenance tasks, dependencies
+#
+# Scopes (optional):
+# - ui, auth, api, docs, config, deps, ci
+#
+# Breaking changes: Add "!" after type/scope
+# Example: feat!: remove deprecated API
+#
+# Footer for breaking changes:
+# BREAKING CHANGE: description of the breaking change
