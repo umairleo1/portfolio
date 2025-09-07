@@ -207,6 +207,9 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Fetch semantic-release notes
+        run: git fetch origin refs/notes/semantic-release*:refs/notes/semantic-release* || true
+
       - name: Setup Node.js
         uses: actions/setup-node@v4.1.0
         with:
