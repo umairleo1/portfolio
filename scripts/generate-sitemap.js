@@ -3,7 +3,7 @@ const path = require('path');
 
 // Use environment variable - fallback is acceptable here since this is a build script
 const baseUrl =
-  process.env.REACT_APP_SITE_URL || 'https://umairleo1.github.io/portfolio';
+  process.env.REACT_APP_SITE_URL || 'https://umairleo1.github.io/portfolio/';
 const buildDir = path.join(__dirname, '..', 'build');
 const sitemapPath = path.join(buildDir, 'sitemap.xml');
 
@@ -16,31 +16,31 @@ const urls = [
     lastmod: new Date().toISOString().split('T')[0],
   },
   {
-    loc: `${baseUrl}/#skills`,
+    loc: `${baseUrl.replace(/\/$/, '')}/#skills`,
     changefreq: 'monthly',
     priority: '0.8',
     lastmod: new Date().toISOString().split('T')[0],
   },
   {
-    loc: `${baseUrl}/#education`,
+    loc: `${baseUrl.replace(/\/$/, '')}/#education`,
     changefreq: 'yearly',
     priority: '0.7',
     lastmod: new Date().toISOString().split('T')[0],
   },
   {
-    loc: `${baseUrl}/#projects`,
+    loc: `${baseUrl.replace(/\/$/, '')}/#projects`,
     changefreq: 'monthly',
     priority: '0.9',
     lastmod: new Date().toISOString().split('T')[0],
   },
   {
-    loc: `${baseUrl}/#experience`,
+    loc: `${baseUrl.replace(/\/$/, '')}/#experience`,
     changefreq: 'monthly',
     priority: '0.8',
     lastmod: new Date().toISOString().split('T')[0],
   },
   {
-    loc: `${baseUrl}/#contact`,
+    loc: `${baseUrl.replace(/\/$/, '')}/#contact`,
     changefreq: 'yearly',
     priority: '0.6',
     lastmod: new Date().toISOString().split('T')[0],
