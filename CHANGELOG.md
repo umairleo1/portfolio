@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1](https://github.com/umairleo1/portfolio/compare/v0.1.0...v0.1.1) (2025-09-08)
+
+### Bug Fixes
+
+- **seo:** resolve canonical URL conflicts and path duplication ([92da01a](https://github.com/umairleo1/portfolio/commit/92da01a71cdaf075136e59176dbef6e7ec59b56e))
+
+### Performance Improvements
+
+- **seo:** remove unnecessary image preload to fix console warnings ([d6df442](https://github.com/umairleo1/portfolio/commit/d6df442331ac2686ce08ed12dcebe7a7e38c29aa))
+
 ## [0.1.0](https://github.com/umairleo1/portfolio/compare/v0.0.13...v0.1.0) (2025-09-08)
 
 ### Features
