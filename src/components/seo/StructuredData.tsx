@@ -193,7 +193,7 @@ const StructuredData: React.FC = () => {
 
   const workExperienceSchema = experience.slice(0, 2).map((exp, index) => ({
     '@context': 'https://schema.org',
-    '@type': 'EmploymentRole',
+    '@type': 'OrganizationRole',
     '@id': `${appConfig.seo.url}#work-${index}`,
     name: exp.title,
     description: exp.achievements.slice(0, 3).join(' '),
