@@ -61,13 +61,9 @@ const StructuredData: React.FC = () => {
       '@type': 'Occupation',
       name: personalInfo.title,
       description: `Professional ${personalInfo.title} specializing in full-stack development and cloud architecture`,
-      occupationLocation: {
-        '@type': 'Place',
-        name: 'London, UK',
-      },
       estimatedSalary: {
         '@type': 'MonetaryAmountDistribution',
-        name: 'UK Software Engineer Salary Range',
+        name: 'Software Engineer Salary Range',
         currency: 'GBP',
         duration: 'P1Y',
         median: 75000,
