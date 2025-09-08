@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.3](https://github.com/umairleo1/portfolio/compare/v0.2.2...v0.2.3) (2025-09-08)
+
+### Bug Fixes
+
+- **seo:** calculate actual years of experience instead of job count ([721a0d1](https://github.com/umairleo1/portfolio/commit/721a0d14420003483f273b73126cf12b7bec7451))
+
 ## [0.2.2](https://github.com/umairleo1/portfolio/compare/v0.2.1...v0.2.2) (2025-09-08)
 
 ### Bug Fixes
