@@ -58,7 +58,7 @@ const StructuredData: React.FC = () => {
     hasCredential: education.map((edu) => ({
       '@type': 'EducationalOccupationalCredential',
       name: edu.degree,
-      educationalCredentialAwarded: edu.degree,
+      credentialCategory: edu.degree,
       recognizedBy: {
         '@type': 'EducationalOrganization',
         name: edu.institution,
@@ -217,7 +217,7 @@ const StructuredData: React.FC = () => {
     '@type': 'EducationalOccupationalCredential',
     name: edu.degree,
     description: edu.specialization,
-    educationalCredentialAwarded: edu.degree,
+    credentialCategory: edu.degree,
     provider: {
       '@type': 'EducationalOrganization',
       name: edu.institution,
