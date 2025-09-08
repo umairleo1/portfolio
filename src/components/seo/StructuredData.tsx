@@ -23,12 +23,16 @@ const StructuredData: React.FC = () => {
     address: {
       '@type': 'PostalAddress',
       addressLocality: personalInfo.location?.split(',')[0]?.trim() || 'London',
-      addressCountry: personalInfo.location?.includes('UK') ? 'GB' : 'US',
+      addressCountry: personalInfo.location?.includes('UK')
+        ? 'GB'
+        : personalInfo.location?.includes('US')
+          ? 'US'
+          : 'GB',
       addressRegion: personalInfo.location?.includes('UK')
         ? 'England'
         : personalInfo.location?.includes('US')
           ? 'California'
-          : 'London',
+          : 'England',
     },
     nationality: {
       '@type': 'Country',
@@ -37,7 +41,7 @@ const StructuredData: React.FC = () => {
     url: appConfig.seo.url,
     image: {
       '@type': 'ImageObject',
-      url: `${appConfig.seo.url}/assets/images/social-preview-1200x630.jpg`,
+      url: `${appConfig.seo.url.replace(/\/$/, '')}/assets/images/social-preview-1200x630.jpg`,
       width: 1200,
       height: 630,
     },
