@@ -118,7 +118,7 @@ const StructuredData: React.FC = () => {
       height: 630,
     },
     datePublished: '2025-08-13T00:00:00.000Z',
-    dateModified: new Date().toISOString(),
+    dateModified: '2025-09-08T00:00:00.000Z',
     author: {
       '@type': 'Person',
       '@id': `${appConfig.seo.url}#person`,
@@ -152,7 +152,7 @@ const StructuredData: React.FC = () => {
       '@id': `${appConfig.seo.url}#person`,
     },
     inLanguage: 'en-US',
-    copyrightYear: new Date().getFullYear(),
+    copyrightYear: 2025,
     copyrightHolder: {
       '@type': 'Person',
       '@id': `${appConfig.seo.url}#person`,
@@ -217,7 +217,7 @@ const StructuredData: React.FC = () => {
     location: exp.location,
     startDate: exp.period.split(' - ')[0],
     endDate: exp.period.includes('Present')
-      ? new Date().toISOString().split('T')[0]
+      ? '2025-09-08'
       : exp.period.split(' - ')[1],
   }));
 
