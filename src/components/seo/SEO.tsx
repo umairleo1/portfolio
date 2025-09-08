@@ -98,8 +98,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta name='theme-color' content='#1a1a1a' />
       <meta name='msapplication-TileColor' content='#1a1a1a' />
 
-      {/* Image Optimization and Caching */}
-      <link rel='preload' href={imageUrl} as='image' />
+      {/* Performance and Caching */}
       <meta
         httpEquiv='Cache-Control'
         content='public, max-age=31536000, immutable'
