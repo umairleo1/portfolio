@@ -238,37 +238,31 @@ const StructuredData: React.FC = () => {
     areaServed: 'Worldwide',
     serviceType: 'Software Development',
     category: 'Software Development',
-    offers: [
-      {
-        '@type': 'Offer',
-        itemOffered: {
+    makesOffer: {
+      '@type': 'Offer',
+      itemOffered: [
+        {
           '@type': 'Service',
           name: 'Full-Stack Development',
           description:
             'End-to-end web application development with modern frameworks and best practices',
           serviceType: 'Software Development',
         },
-      },
-      {
-        '@type': 'Offer',
-        itemOffered: {
+        {
           '@type': 'Service',
           name: 'Cloud Architecture & DevOps',
           description:
             'Scalable cloud infrastructure design and implementation with CI/CD pipelines',
           serviceType: 'Cloud Computing',
         },
-      },
-      {
-        '@type': 'Offer',
-        itemOffered: {
+        {
           '@type': 'Service',
           name: 'Technical Consulting',
           description: 'Strategic technology guidance and code review services',
           serviceType: 'Consulting',
         },
-      },
-    ],
+      ],
+    },
   };
 
   // Education Schema
