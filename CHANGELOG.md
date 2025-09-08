@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.6](https://github.com/umairleo1/portfolio/compare/v0.1.5...v0.1.6) (2025-09-08)
+
+### Bug Fixes
+
+- **seo:** resolve schema validation errors ([623de8d](https://github.com/umairleo1/portfolio/commit/623de8d8cd7d81ce37938d8e55899fbcb8eea17a))
+
 ## [0.1.5](https://github.com/umairleo1/portfolio/compare/v0.1.4...v0.1.5) (2025-09-08)
 
 ### Bug Fixes
