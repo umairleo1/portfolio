@@ -62,7 +62,11 @@ const SEO: React.FC<SEOProps> = ({
       return `${baseUrl}${currentPath}${searchParams}`;
     } catch (error) {
       // Fallback to configured URL if window access fails
-      console.warn('Canonical URL generation failed:', error);
+      // Only log in development environment for debugging
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.warn('Canonical URL generation failed:', error);
+      }
       return url;
     }
   })();
