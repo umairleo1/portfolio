@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3](https://github.com/umairleo1/portfolio/compare/v0.1.2...v0.1.3) (2025-09-08)
+
+### Bug Fixes
+
+- **seo:** remove malformed JobPosting schema for clean validation ([faeae2e](https://github.com/umairleo1/portfolio/commit/faeae2e976c5d3276097db53a033cbfeadc2c6af))
+- **seo:** replace invalid educationalCredentialAwarded with credentialCategory ([fc2d521](https://github.com/umairleo1/portfolio/commit/fc2d5212ebf4909938aa4046e3855ed1499a407c))
+- **seo:** replace invalid WorkRole with valid EmploymentRole schema type ([39cb208](https://github.com/umairleo1/portfolio/commit/39cb208dc4bbbe55a2a216a911690cbd80e85425))
+- **seo:** replace ProfessionalService with Service for schema compliance ([6752c6f](https://github.com/umairleo1/portfolio/commit/6752c6f9994f39cdf6d6106091f3795dbeff2c80))
+- **seo:** replace SoftwareApplication with CreativeWork for professional portfolio projects ([2c4d400](https://github.com/umairleo1/portfolio/commit/2c4d4001f796e303e02a558e680c0ec30595ea0e))
+- **seo:** resolve console statement quality gate violations ([5b8eeb8](https://github.com/umairleo1/portfolio/commit/5b8eeb855c279ca310932d475367e6aa4fd0211c))
+
 ## [0.1.2](https://github.com/umairleo1/portfolio/compare/v0.1.1...v0.1.2) (2025-09-08)
 
 ### Performance Improvements
