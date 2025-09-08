@@ -61,14 +61,18 @@ const StructuredData: React.FC = () => {
       '@type': 'Occupation',
       name: personalInfo.title,
       description: `Professional ${personalInfo.title} specializing in full-stack development and cloud architecture`,
+      occupationLocation: {
+        '@type': 'AdministrativeArea',
+        name: 'London, UK',
+      },
       estimatedSalary: {
         '@type': 'MonetaryAmountDistribution',
-        name: 'Competitive Software Engineer Salary',
+        name: 'UK Software Engineer Salary Range',
         currency: 'GBP',
-      },
-      mainEntityOfPage: {
-        '@type': 'WebPage',
-        '@id': `${appConfig.seo.url}#webpage`,
+        duration: 'P1Y',
+        minValue: 50000,
+        maxValue: 120000,
+        median: 75000,
       },
     },
     worksFor: {
@@ -143,10 +147,7 @@ const StructuredData: React.FC = () => {
       '@type': 'Person',
       '@id': `${appConfig.seo.url}#person`,
     },
-    mainEntityOfPage: {
-      '@type': 'Person',
-      '@id': `${appConfig.seo.url}#person`,
-    },
+    mainEntityOfPage: `${appConfig.seo.url}#webpage`,
     primaryImageOfPage: {
       '@type': 'ImageObject',
       url: `${appConfig.seo.url}/assets/images/social-preview-1200x630.jpg`,
