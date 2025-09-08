@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2](https://github.com/umairleo1/portfolio/compare/v0.2.1...v0.2.2) (2025-09-08)
+
+### Bug Fixes
+
+- **seo:** resolve address country and image URL issues ([3ab6074](https://github.com/umairleo1/portfolio/commit/3ab6074810e2581521bed47748f02cd8c1c01ed3))
+- **seo:** restructure service offers and resolve validation issues ([6159be9](https://github.com/umairleo1/portfolio/commit/6159be95943d2d718c2b12b97ee5f332234d7ac4))
+
 ## [0.2.1](https://github.com/umairleo1/portfolio/compare/v0.2.0...v0.2.1) (2025-09-08)
 
 ### Bug Fixes
