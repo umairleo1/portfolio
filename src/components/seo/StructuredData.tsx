@@ -62,8 +62,77 @@ const StructuredData: React.FC = () => {
       recognizedBy: {
         '@type': 'EducationalOrganization',
         name: edu.institution,
+        location: {
+          '@type': 'Place',
+          name: edu.location,
+        },
       },
+      dateCreated: edu.period || '2020',
     })),
+    makesOffer: {
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: 'Software Engineering Services',
+        description:
+          'Full-stack development, cloud architecture, and technical consulting services',
+        serviceType: 'Professional Software Development',
+        areaServed: 'Worldwide',
+      },
+    },
+    seeks: {
+      '@type': 'Demand',
+      itemOffered: {
+        '@type': 'JobPosting',
+        title: 'Software Engineer Opportunities',
+        description: 'Seeking challenging software engineering positions',
+        employmentType: 'FULL_TIME',
+        experienceRequirements: 'Senior Level',
+      },
+    },
+  };
+
+  const webPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${appConfig.seo.url}#webpage`,
+    name: appConfig.seo.title,
+    description: appConfig.seo.description,
+    url: appConfig.seo.url,
+    isPartOf: {
+      '@type': 'WebSite',
+      '@id': `${appConfig.seo.url}#website`,
+    },
+    about: {
+      '@type': 'Person',
+      '@id': `${appConfig.seo.url}#person`,
+    },
+    mainEntity: {
+      '@type': 'Person',
+      '@id': `${appConfig.seo.url}#person`,
+    },
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: `${appConfig.seo.url}/assets/images/social-preview-1200x630.jpg`,
+      width: 1200,
+      height: 630,
+    },
+    datePublished: '2025-08-13T00:00:00.000Z',
+    dateModified: new Date().toISOString(),
+    author: {
+      '@type': 'Person',
+      '@id': `${appConfig.seo.url}#person`,
+    },
+    inLanguage: 'en-US',
+    audience: {
+      '@type': 'Audience',
+      audienceType: [
+        'Recruiters',
+        'Hiring Managers',
+        'Software Engineers',
+        'Technology Professionals',
+      ],
+    },
   };
 
   const websiteSchema = {
@@ -193,9 +262,79 @@ const StructuredData: React.FC = () => {
     })),
   };
 
+  // Breadcrumb Schema for better navigation SEO
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: appConfig.seo.url,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Portfolio',
+        item: `${appConfig.seo.url}#projects`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: 'Experience',
+        item: `${appConfig.seo.url}#experience`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 4,
+        name: 'Contact',
+        item: `${appConfig.seo.url}#contact`,
+      },
+    ],
+  };
+
+  // FAQ Schema for better search visibility
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What technologies does Muhammad Umair specialize in?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `${personalInfo.name} specializes in ${skills.frontEnd.slice(0, 3).join(', ')}, ${skills.backEnd.slice(0, 3).join(', ')}, and ${skills.cloudAndIaC.slice(0, 3).join(', ')} with expertise in full-stack development and cloud architecture.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: "What is Muhammad Umair's professional experience?",
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `${personalInfo.name} has ${experience.length}+ years of professional experience as a ${personalInfo.title}, having worked at companies like ${experience
+            .slice(0, 2)
+            .map((exp) => exp.company)
+            .join(' and ')}.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How can I contact Muhammad Umair for collaboration?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `You can contact ${personalInfo.name} via email at ${personalInfo.email}, through LinkedIn, or visit the contact section of this portfolio for more details.`,
+        },
+      },
+    ],
+  };
+
   return (
     <Helmet>
       <script type='application/ld+json'>{JSON.stringify(personSchema)}</script>
+      <script type='application/ld+json'>
+        {JSON.stringify(webPageSchema)}
+      </script>
       <script type='application/ld+json'>
         {JSON.stringify(websiteSchema)}
       </script>
@@ -215,6 +354,10 @@ const StructuredData: React.FC = () => {
           {JSON.stringify(edu)}
         </script>
       ))}
+      <script type='application/ld+json'>
+        {JSON.stringify(breadcrumbSchema)}
+      </script>
+      <script type='application/ld+json'>{JSON.stringify(faqSchema)}</script>
     </Helmet>
   );
 };
