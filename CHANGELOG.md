@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.13](https://github.com/umairleo1/portfolio/compare/v0.0.12...v0.0.13) (2025-09-08)
+
+### Bug Fixes
+
+- **build:** prevent double slashes in sitemap URLs ([5b6b9ff](https://github.com/umairleo1/portfolio/commit/5b6b9ff4d954c71b51e99d64f3c66de3f2fba839))
+- **config:** add trailing slash to base URLs ([1f97efa](https://github.com/umairleo1/portfolio/commit/1f97efaaaf911be1152bcde21aaf80dcf73bc7da))
+- **seo:** enhance canonical URL construction logic ([eedcb9d](https://github.com/umairleo1/portfolio/commit/eedcb9de966d073ffdb7ed046294714732206375))
+- **seo:** update Open Graph URL with trailing slash ([e755e1e](https://github.com/umairleo1/portfolio/commit/e755e1e2dc028dd555158655b094d4d94cff2f78))
+
+### Documentation
+
+- update URLs for trailing slash consistency ([c94e83f](https://github.com/umairleo1/portfolio/commit/c94e83f2f8b848de4d86136b4f1b5de3eb94ea4a))
+
 ## [0.0.12](https://github.com/umairleo1/portfolio/compare/v0.0.11...v0.0.12) (2025-09-07)
 
 ### Bug Fixes
