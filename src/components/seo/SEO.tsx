@@ -21,10 +21,26 @@ const SEO: React.FC<SEOProps> = ({
 }) => {
   const fullTitle =
     title === appConfig.seo.title ? title : `${title} | ${appConfig.seo.title}`;
-  const canonicalUrl =
-    typeof window !== 'undefined'
-      ? `${url.replace(/\/$/, '')}${window.location.pathname}`
-      : url;
+  const canonicalUrl = (() => {
+    if (typeof window === 'undefined') return url;
+
+    const baseUrl = url.replace(/\/$/, '');
+    const pathname = window.location.pathname;
+
+    // Handle GitHub Pages path duplication
+    if (baseUrl.includes('/portfolio') && pathname.includes('/portfolio')) {
+      // If base URL already contains /portfolio and pathname also has it, use base URL only
+      return `${baseUrl}/`;
+    }
+
+    // For root path, use base URL directly
+    if (pathname === '/' || pathname === '') {
+      return `${baseUrl}/`;
+    }
+
+    // For other paths, append pathname
+    return baseUrl + pathname;
+  })();
   const imageUrl = image.startsWith('http')
     ? image
     : `${url.replace(/\/$/, '')}${image}`;
