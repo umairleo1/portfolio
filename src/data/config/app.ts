@@ -31,7 +31,8 @@ export const appConfig: AppConfig = {
       process.env.REACT_APP_SITE_NAME ||
       `${personalInfo.name} - ${personalInfo.title}`,
     url:
-      process.env.REACT_APP_SITE_URL || 'https://umairleo1.github.io/portfolio',
+      process.env.REACT_APP_SITE_URL ||
+      'https://umairleo1.github.io/portfolio/',
     domain: process.env.REACT_APP_SITE_DOMAIN || 'umairleo1.github.io',
     description:
       'Full-Stack Software Engineer | React • Python • AWS. Delivered 50+ high-performance applications, reduced load times by 60%, and architected systems serving 1M+ users. Available for exciting opportunities.',
