@@ -15,6 +15,7 @@ export interface PersonalInfo {
   twitter: string;
   profileImage: string;
   objective: string;
+  yearsOfExperience: number;
 }
 
 export interface PersonalInterests {
