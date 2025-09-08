@@ -60,12 +60,14 @@ const StructuredData: React.FC = () => {
     hasOccupation: {
       '@type': 'Occupation',
       name: personalInfo.title,
-      description: `Professional ${personalInfo.title} specializing in full-stack development and cloud architecture`,
-      occupationLocation:
-        personalInfo.location?.split(',')[0]?.trim() || 'London, UK',
+      description: `${personalInfo.title} who has built 50+ high-performance applications, reduced system load times by 60%, and architected solutions serving 1M+ users.`,
+      occupationLocation: {
+        '@type': 'City',
+        name: 'London, UK',
+      },
       estimatedSalary: {
         '@type': 'MonetaryAmountDistribution',
-        name: 'Software Engineer Salary Range',
+        name: 'base',
         currency: 'GBP',
         duration: 'P1Y',
         median: 75000,
@@ -74,10 +76,15 @@ const StructuredData: React.FC = () => {
         percentile75: 90000,
         percentile90: 110000,
       },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': `${appConfig.seo.url}#webpage`,
+        lastReviewed: '2025-09-08',
+      },
     },
     worksFor: {
       '@type': 'Organization',
-      name: experience[0]?.company || 'Available for Opportunities',
+      name: experience[0]?.company || 'Open to New Opportunities',
       address: {
         '@type': 'PostalAddress',
         addressLocality:
