@@ -207,12 +207,15 @@ const StructuredData: React.FC = () => {
     },
     location: exp.location,
     startDate: (() => {
-      const start = exp.period.split(' - ')[0].trim();
+      const start = exp.period.split(' - ')[0]?.trim();
+      if (!start) return '';
       // Convert "Feb 2025" to "2025-02-01"
       if (start.includes(' ')) {
         const [month, year] = start.split(' ');
-        const monthNum = new Date(`${month} 1, ${year}`).getMonth() + 1;
-        return `${year}-${monthNum.toString().padStart(2, '0')}-01`;
+        if (month && year) {
+          const monthNum = new Date(`${month} 1, ${year}`).getMonth() + 1;
+          return `${year}-${monthNum.toString().padStart(2, '0')}-01`;
+        }
       }
       return start;
     })(),
