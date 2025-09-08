@@ -42,7 +42,7 @@
     "typescript": "^5.9.2",
     "web-vitals": "^5.1.0"
   },
-  "homepage": "https://umairleo1.github.io/portfolio",
+  "homepage": "https://umairleo1.github.io/portfolio/",
   "scripts": {
     "start": "react-app-rewired start",
     "build": "npm run build:auto",
