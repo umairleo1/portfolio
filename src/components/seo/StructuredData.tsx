@@ -167,15 +167,16 @@ const StructuredData: React.FC = () => {
     '@type': 'Service',
     name: `${personalInfo.name} - Software Engineering Services`,
     description: 'Professional software development and engineering services',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: personalInfo.location?.split(',')[0]?.trim() || 'London',
-      addressCountry: personalInfo.location?.includes('UK') ? 'GB' : 'US',
-    },
     provider: {
       '@type': 'Person',
       name: personalInfo.name,
       jobTitle: personalInfo.title,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality:
+          personalInfo.location?.split(',')[0]?.trim() || 'London',
+        addressCountry: personalInfo.location?.includes('UK') ? 'GB' : 'US',
+      },
     },
     areaServed: 'Worldwide',
     serviceType: 'Software Development',
