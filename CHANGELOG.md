@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.7](https://github.com/umairleo1/portfolio/compare/v0.1.6...v0.1.7) (2025-09-08)
+
+### Bug Fixes
+
+- **seo:** complete occupation schema with required fields ([13fd78d](https://github.com/umairleo1/portfolio/commit/13fd78d3451b9e5a5c22c3ba31342331c3d15eee))
+
 ## [0.1.6](https://github.com/umairleo1/portfolio/compare/v0.1.5...v0.1.6) (2025-09-08)
 
 ### Bug Fixes
