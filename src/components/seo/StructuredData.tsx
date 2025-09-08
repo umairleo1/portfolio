@@ -23,16 +23,22 @@ const StructuredData: React.FC = () => {
     address: {
       '@type': 'PostalAddress',
       addressLocality: personalInfo.location?.split(',')[0]?.trim() || 'London',
-      addressCountry: personalInfo.location?.includes('UK')
-        ? 'GB'
-        : personalInfo.location?.includes('US')
-          ? 'US'
-          : 'GB',
-      addressRegion: personalInfo.location?.includes('UK')
-        ? 'England'
-        : personalInfo.location?.includes('US')
-          ? 'California'
-          : 'England',
+      addressCountry:
+        personalInfo.location?.toLowerCase().includes('uk') ||
+        personalInfo.location?.toLowerCase().includes('united kingdom')
+          ? 'GB'
+          : personalInfo.location?.toLowerCase().includes('us') ||
+              personalInfo.location?.toLowerCase().includes('united states')
+            ? 'US'
+            : 'GB',
+      addressRegion:
+        personalInfo.location?.toLowerCase().includes('uk') ||
+        personalInfo.location?.toLowerCase().includes('united kingdom')
+          ? 'England'
+          : personalInfo.location?.toLowerCase().includes('us') ||
+              personalInfo.location?.toLowerCase().includes('united states')
+            ? 'California'
+            : 'England',
     },
     nationality: {
       '@type': 'Country',
@@ -80,11 +86,6 @@ const StructuredData: React.FC = () => {
         percentile75: 90000,
         percentile90: 110000,
       },
-      mainEntityOfPage: {
-        '@type': 'WebPage',
-        '@id': `${appConfig.seo.url}#webpage`,
-        lastReviewed: '2025-09-08',
-      },
     },
     worksFor: {
       '@type': 'Organization',
@@ -94,11 +95,14 @@ const StructuredData: React.FC = () => {
         addressLocality:
           experience[0]?.location ||
           personalInfo.location?.split(',')[0]?.trim(),
-        addressCountry: experience[0]?.location?.includes('UK')
-          ? 'GB'
-          : experience[0]?.location?.includes('US')
-            ? 'US'
-            : 'GB',
+        addressCountry:
+          experience[0]?.location?.toLowerCase().includes('uk') ||
+          experience[0]?.location?.toLowerCase().includes('united kingdom')
+            ? 'GB'
+            : experience[0]?.location?.toLowerCase().includes('us') ||
+                experience[0]?.location?.toLowerCase().includes('united states')
+              ? 'US'
+              : 'GB',
       },
     },
     hasCredential: [
@@ -126,6 +130,21 @@ const StructuredData: React.FC = () => {
             }
           }
           return start;
+        })(),
+        endDate: (() => {
+          if (!edu.period) return '2024-12-31';
+          const parts = edu.period.split(/\s*[–-]\s*/);
+          const end = parts[1]?.trim();
+          if (!end || end.toLowerCase() === 'present')
+            return new Date().toISOString().split('T')[0];
+          if (end.includes(' ')) {
+            const [month, year] = end.split(' ');
+            if (month && year) {
+              const monthNum = new Date(`${month} 1, ${year}`).getMonth() + 1;
+              return `${year}-${monthNum.toString().padStart(2, '0')}-28`;
+            }
+          }
+          return end;
         })(),
       })),
       {
@@ -265,23 +284,6 @@ const StructuredData: React.FC = () => {
     },
   };
 
-  // Education Schema
-  const educationSchema = education.map((edu) => ({
-    '@context': 'https://schema.org',
-    '@type': 'EducationalOccupationalCredential',
-    name: edu.degree,
-    description: edu.specialization || 'Advanced academic credential',
-    credentialCategory: edu.degree,
-    recognizedBy: {
-      '@type': 'EducationalOrganization',
-      name: edu.institution,
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: edu.location,
-      },
-    },
-  }));
-
   const projectsSchema = {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
@@ -292,7 +294,7 @@ const StructuredData: React.FC = () => {
       '@type': 'Person',
       '@id': `${appConfig.seo.url}#person`,
     },
-    workExample: projects.slice(0, 3).map((project, index) => ({
+    workExample: projects.map((project, index) => ({
       '@type': 'CreativeWork',
       '@id': `${appConfig.seo.url}#project-${index}`,
       name: project.title,
@@ -304,6 +306,59 @@ const StructuredData: React.FC = () => {
         '@id': `${appConfig.seo.url}#person`,
       },
     })),
+  };
+
+  // Consolidated Schema: Person + Education + Services
+  const consolidatedSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      personSchema,
+      professionalServiceSchema,
+      ...education.map((edu) => ({
+        '@type': 'EducationalOccupationalCredential',
+        '@id': `${appConfig.seo.url}#education-${edu.institution.toLowerCase().replace(/\s+/g, '-')}`,
+        name: edu.degree,
+        description: edu.specialization || 'Advanced academic credential',
+        credentialCategory: edu.degree,
+        recognizedBy: {
+          '@type': 'EducationalOrganization',
+          name: edu.institution,
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: edu.location,
+          },
+        },
+        dateCreated: (() => {
+          if (!edu.period) return '2020-01-01';
+          const start = edu.period.split(/\s*[–-]\s*/)[0]?.trim();
+          if (!start) return '2020-01-01';
+          if (start.includes(' ')) {
+            const [month, year] = start.split(' ');
+            if (month && year) {
+              const monthNum = new Date(`${month} 1, ${year}`).getMonth() + 1;
+              return `${year}-${monthNum.toString().padStart(2, '0')}-01`;
+            }
+          }
+          return start;
+        })(),
+        endDate: (() => {
+          if (!edu.period) return '2024-12-31';
+          const parts = edu.period.split(/\s*[–-]\s*/);
+          const end = parts[1]?.trim();
+          if (!end || end.toLowerCase() === 'present')
+            return new Date().toISOString().split('T')[0];
+          if (end.includes(' ')) {
+            const [month, year] = end.split(' ');
+            if (month && year) {
+              const monthNum = new Date(`${month} 1, ${year}`).getMonth() + 1;
+              return `${year}-${monthNum.toString().padStart(2, '0')}-28`;
+            }
+          }
+          return end;
+        })(),
+      })),
+      projectsSchema,
+    ],
   };
 
   // Breadcrumb Schema for better navigation SEO
@@ -377,24 +432,17 @@ const StructuredData: React.FC = () => {
 
   return (
     <Helmet>
-      <script type='application/ld+json'>{JSON.stringify(personSchema)}</script>
+      {/* Consolidated Schema: Person + Education + Services + Projects */}
+      <script type='application/ld+json'>
+        {JSON.stringify(consolidatedSchema)}
+      </script>
+      {/* Separate schemas for better organization */}
       <script type='application/ld+json'>
         {JSON.stringify(webPageSchema)}
       </script>
       <script type='application/ld+json'>
         {JSON.stringify(websiteSchema)}
       </script>
-      <script type='application/ld+json'>
-        {JSON.stringify(professionalServiceSchema)}
-      </script>
-      <script type='application/ld+json'>
-        {JSON.stringify(projectsSchema)}
-      </script>
-      {educationSchema.map((edu, index) => (
-        <script key={`edu-${index}`} type='application/ld+json'>
-          {JSON.stringify(edu)}
-        </script>
-      ))}
       <script type='application/ld+json'>
         {JSON.stringify(breadcrumbSchema)}
       </script>
