@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.0](https://github.com/umairleo1/portfolio/compare/v0.0.13...v0.1.0) (2025-09-08)
+
+### Features
+
+- **seo:** add comprehensive JSON-LD schemas with FAQ and breadcrumb ([6977f0a](https://github.com/umairleo1/portfolio/commit/6977f0ae7e60c37e9c0f7d3fc911de082fe486e5))
+- **seo:** add professional meta tags and image optimization ([33318f0](https://github.com/umairleo1/portfolio/commit/33318f035a6a7f7fa4a1081cf666558a5e8f0dbf))
+- **seo:** enhance static meta tags with professional profile schema ([81abb80](https://github.com/umairleo1/portfolio/commit/81abb80982d45b7f4a92c9c71e29860eebd806e9))
+
+### Performance Improvements
+
+- **seo:** add apache server configuration for HTTP 206 prevention ([47bf238](https://github.com/umairleo1/portfolio/commit/47bf23861b4059d50951529059358a88e8ed7304))
+
+### Documentation
+
+- **structure:** update architecture with SEO enhancements ([388a7c3](https://github.com/umairleo1/portfolio/commit/388a7c3f60a080b1e12425791cf4ca3b55b651d4))
+
 ## [0.0.13](https://github.com/umairleo1/portfolio/compare/v0.0.12...v0.0.13) (2025-09-08)
 
 ### Bug Fixes
