@@ -210,6 +210,8 @@ const StructuredData: React.FC = () => {
       audienceType: [
         'Recruiters',
         'Hiring Managers',
+        'Employers',
+        'Clients',
         'Software Engineers',
         'Technology Professionals',
       ],
