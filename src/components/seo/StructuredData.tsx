@@ -67,7 +67,20 @@ const StructuredData: React.FC = () => {
           name: edu.location,
         },
       },
-      dateCreated: edu.period || '2020',
+      dateCreated: (() => {
+        if (!edu.period) return '2020-01-01';
+        const start = edu.period.split(/\s*[–-]\s*/)[0]?.trim();
+        if (!start) return '2020-01-01';
+        // Convert "Jan 2023" to "2023-01-01"
+        if (start.includes(' ')) {
+          const [month, year] = start.split(' ');
+          if (month && year) {
+            const monthNum = new Date(`${month} 1, ${year}`).getMonth() + 1;
+            return `${year}-${monthNum.toString().padStart(2, '0')}-01`;
+          }
+        }
+        return start;
+      })(),
     })),
     makesOffer: {
       '@type': 'Offer',
@@ -207,7 +220,7 @@ const StructuredData: React.FC = () => {
     },
     location: exp.location,
     startDate: (() => {
-      const start = exp.period.split(' - ')[0]?.trim();
+      const start = exp.period.split(/\s*[–-]\s*/)[0]?.trim();
       if (!start) return '';
       // Convert "Feb 2025" to "2025-02-01"
       if (start.includes(' ')) {
@@ -223,7 +236,7 @@ const StructuredData: React.FC = () => {
       ? {} // Omit endDate for current positions
       : {
           endDate: (() => {
-            const end = exp.period.split(' - ')[1]?.trim();
+            const end = exp.period.split(/\s*[–-]\s*/)[1]?.trim();
             if (end && end.includes(' ')) {
               const [month, year] = end.split(' ');
               const monthNum = new Date(`${month} 1, ${year}`).getMonth() + 1;
