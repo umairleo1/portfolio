@@ -37,10 +37,10 @@ The workflows will automatically create a `github-pages` environment.
 
 The pipeline enforces these Lighthouse thresholds:
 
-- Performance: ≥90
+- Performance: ≥95
 - Accessibility: ≥95
-- Best Practices: ≥90
-- SEO: ≥90
+- Best Practices: ≥95
+- SEO: ≥95
 
 ## Troubleshooting
 

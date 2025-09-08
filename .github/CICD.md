@@ -193,10 +193,10 @@ INLINE_RUNTIME_CHUNK: false # Performance - better caching strategy
 ### Quality Standards Enforced
 
 ```yaml
-Performance Score: ≥90 # Core Web Vitals compliance
+Performance Score: ≥95 # Core Web Vitals compliance
 Accessibility: ≥95 # WCAG AA+ compliance
-Best Practices: ≥90 # Industry standards
-SEO Score: ≥90 # Search optimization
+Best Practices: ≥95 # Industry standards
+SEO Score: ≥95 # Search optimization
 First Contentful Paint: <2s # Loading performance
 Cumulative Layout Shift: <0.1 # Visual stability
 ```
