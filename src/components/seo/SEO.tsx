@@ -21,8 +21,13 @@ const SEO: React.FC<SEOProps> = ({
 }) => {
   const fullTitle =
     title === appConfig.seo.title ? title : `${title} | ${appConfig.seo.title}`;
-  const canonicalUrl = `${url}${typeof window !== 'undefined' ? window.location.pathname : ''}`;
-  const imageUrl = image.startsWith('http') ? image : `${url}${image}`;
+  const canonicalUrl =
+    typeof window !== 'undefined'
+      ? `${url.replace(/\/$/, '')}${window.location.pathname}`
+      : url;
+  const imageUrl = image.startsWith('http')
+    ? image
+    : `${url.replace(/\/$/, '')}${image}`;
   const siteName = appConfig.seo.title;
 
   return (
