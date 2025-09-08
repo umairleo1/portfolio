@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.4](https://github.com/umairleo1/portfolio/compare/v0.1.3...v0.1.4) (2025-09-08)
+
+### Bug Fixes
+
+- **seo:** implement professional ISO date formatting for work experience ([999f276](https://github.com/umairleo1/portfolio/commit/999f27691fa0e6d75852f66d5426a949fcf22ccd))
+- **seo:** move address from Service to provider for schema compliance ([e92916a](https://github.com/umairleo1/portfolio/commit/e92916a7618dc9bf0744fedeb9cbe2f67f163bfe))
+- **seo:** replace EmploymentRole with valid OrganizationRole schema type ([e30d312](https://github.com/umairleo1/portfolio/commit/e30d31211c426a4728fadc0566b91d9b8e3676a5))
+- **seo:** resolve TypeScript safety issues in date parsing ([4a1031e](https://github.com/umairleo1/portfolio/commit/4a1031ebb3926af16fc8ca16292d3b83bb867126))
+- **seo:** standardize date parsing and handle dash character variations ([e82ac04](https://github.com/umairleo1/portfolio/commit/e82ac0417624f302c76f2576482b931d03f15658))
+
+### Performance Improvements
+
+- **seo:** deduplicate service references and optimize FAQ answers for rich results ([ca8e521](https://github.com/umairleo1/portfolio/commit/ca8e5219f0da735aedb5e187b55806b5dcf2bc3a))
+
 ## [0.1.3](https://github.com/umairleo1/portfolio/compare/v0.1.2...v0.1.3) (2025-09-08)
 
 ### Bug Fixes
