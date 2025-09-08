@@ -239,12 +239,12 @@ const StructuredData: React.FC = () => {
       '@id': `${appConfig.seo.url}#person`,
     },
     workExample: projects.slice(0, 3).map((project, index) => ({
-      '@type': 'SoftwareApplication',
+      '@type': 'CreativeWork',
       '@id': `${appConfig.seo.url}#project-${index}`,
       name: project.title,
       description: project.description,
-      applicationCategory: 'WebApplication',
-      programmingLanguage: project.technologies.slice(0, 3),
+      genre: 'Software Development',
+      keywords: project.technologies.slice(0, 3).join(', '),
       author: {
         '@type': 'Person',
         '@id': `${appConfig.seo.url}#person`,
