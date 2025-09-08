@@ -15,9 +15,7 @@ const StructuredData: React.FC = () => {
     '@type': 'Person',
     '@id': `${appConfig.seo.url}#person`,
     name: personalInfo.name,
-    alternateName: personalInfo.name.includes(' ')
-      ? [personalInfo.name.split(' ')[0], personalInfo.name.split(' ')[1]]
-      : [personalInfo.name],
+    alternateName: personalInfo.name.split(' '),
     jobTitle: personalInfo.title,
     description: personalInfo.objective,
     email: personalInfo.email,
@@ -28,7 +26,9 @@ const StructuredData: React.FC = () => {
       addressCountry: personalInfo.location?.includes('UK') ? 'GB' : 'US',
       addressRegion: personalInfo.location?.includes('UK')
         ? 'England'
-        : 'London',
+        : personalInfo.location?.includes('US')
+          ? 'California'
+          : 'London',
     },
     nationality: {
       '@type': 'Country',
@@ -60,7 +60,7 @@ const StructuredData: React.FC = () => {
     hasOccupation: {
       '@type': 'Occupation',
       name: personalInfo.title,
-      description: `${personalInfo.title} who has built 50+ high-performance applications, reduced system load times by 60%, and architected solutions serving 1M+ users.`,
+      description: `Experienced ${personalInfo.title} specializing in scalable web applications, cloud infrastructure, and enterprise software solutions with proven expertise in modern development practices.`,
       occupationLocation: {
         '@type': 'City',
         name: 'London, UK',
@@ -90,7 +90,11 @@ const StructuredData: React.FC = () => {
         addressLocality:
           experience[0]?.location ||
           personalInfo.location?.split(',')[0]?.trim(),
-        addressCountry: experience[0]?.location?.includes('UK') ? 'GB' : 'GB',
+        addressCountry: experience[0]?.location?.includes('UK')
+          ? 'GB'
+          : experience[0]?.location?.includes('US')
+            ? 'US'
+            : 'GB',
       },
     },
     hasCredential: [
