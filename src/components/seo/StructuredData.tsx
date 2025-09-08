@@ -164,7 +164,7 @@ const StructuredData: React.FC = () => {
   // Professional Service Schema
   const professionalServiceSchema = {
     '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
+    '@type': 'Service',
     name: `${personalInfo.name} - Software Engineering Services`,
     description: 'Professional software development and engineering services',
     address: {
