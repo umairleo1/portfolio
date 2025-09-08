@@ -15,7 +15,9 @@ const StructuredData: React.FC = () => {
     '@type': 'Person',
     '@id': `${appConfig.seo.url}#person`,
     name: personalInfo.name,
-    alternateName: ['Umair', personalInfo.name.split(' ')[1]],
+    alternateName: personalInfo.name.includes(' ')
+      ? [personalInfo.name.split(' ')[0], personalInfo.name.split(' ')[1]]
+      : [personalInfo.name],
     jobTitle: personalInfo.title,
     description: personalInfo.objective,
     email: personalInfo.email,
@@ -45,43 +47,70 @@ const StructuredData: React.FC = () => {
       personalInfo.twitter,
     ].filter(Boolean),
     knowsAbout: [
-      ...skills.languages,
-      ...skills.frontEnd,
-      ...skills.backEnd,
-      ...skills.cloudAndIaC,
-    ].slice(0, 15),
+      'Full-Stack Development',
+      'Cloud Architecture',
+      'DevOps Engineering',
+      'Data Engineering',
+      ...skills.languages.slice(0, 3),
+      ...skills.frontEnd.slice(0, 4),
+      ...skills.backEnd.slice(0, 4),
+      ...skills.cloudAndIaC.slice(0, 3),
+    ].slice(0, 18),
     knowsLanguage: ['en', 'ur'],
+    hasOccupation: {
+      '@type': 'Occupation',
+      name: personalInfo.title,
+      description: `Professional ${personalInfo.title} specializing in full-stack development and cloud architecture`,
+      occupationLocation: {
+        '@type': 'Place',
+        name: personalInfo.location?.split(',')[0]?.trim() || 'London, UK',
+      },
+    },
     worksFor: {
       '@type': 'Organization',
-      name: experience[0]?.company || 'Freelance Software Engineer',
-    },
-    hasCredential: education.map((edu) => ({
-      '@type': 'EducationalOccupationalCredential',
-      name: edu.degree,
-      credentialCategory: edu.degree,
-      recognizedBy: {
-        '@type': 'EducationalOrganization',
-        name: edu.institution,
-        location: {
-          '@type': 'Place',
-          name: edu.location,
-        },
+      name: experience[0]?.company || 'Available for Opportunities',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality:
+          experience[0]?.location ||
+          personalInfo.location?.split(',')[0]?.trim(),
+        addressCountry: experience[0]?.location?.includes('UK') ? 'GB' : 'US',
       },
-      dateCreated: (() => {
-        if (!edu.period) return '2020-01-01';
-        const start = edu.period.split(/\s*[–-]\s*/)[0]?.trim();
-        if (!start) return '2020-01-01';
-        // Convert "Jan 2023" to "2023-01-01"
-        if (start.includes(' ')) {
-          const [month, year] = start.split(' ');
-          if (month && year) {
-            const monthNum = new Date(`${month} 1, ${year}`).getMonth() + 1;
-            return `${year}-${monthNum.toString().padStart(2, '0')}-01`;
+    },
+    hasCredential: [
+      ...education.map((edu) => ({
+        '@type': 'EducationalOccupationalCredential',
+        name: edu.degree,
+        credentialCategory: edu.degree,
+        recognizedBy: {
+          '@type': 'EducationalOrganization',
+          name: edu.institution,
+          location: {
+            '@type': 'Place',
+            name: edu.location,
+          },
+        },
+        dateCreated: (() => {
+          if (!edu.period) return '2020-01-01';
+          const start = edu.period.split(/\s*[–-]\s*/)[0]?.trim();
+          if (!start) return '2020-01-01';
+          if (start.includes(' ')) {
+            const [month, year] = start.split(' ');
+            if (month && year) {
+              const monthNum = new Date(`${month} 1, ${year}`).getMonth() + 1;
+              return `${year}-${monthNum.toString().padStart(2, '0')}-01`;
+            }
           }
-        }
-        return start;
-      })(),
-    })),
+          return start;
+        })(),
+      })),
+      {
+        '@type': 'EducationalOccupationalCredential',
+        name: 'Professional Software Engineering Experience',
+        credentialCategory: 'Work Experience',
+        description: `${experience.length}+ years of professional software development experience`,
+      },
+    ],
     makesOffer: {
       '@type': 'Offer',
       itemOffered: {
@@ -174,83 +203,57 @@ const StructuredData: React.FC = () => {
     '@context': 'https://schema.org',
     '@type': 'Service',
     '@id': `${appConfig.seo.url}#service`,
-    name: `${personalInfo.name} - Software Engineering Services`,
-    description: 'Professional software development and engineering services',
+    name: `${personalInfo.name} - Professional Software Engineering`,
+    description:
+      'Enterprise-grade software development, cloud architecture, and technical consulting services',
     provider: {
       '@type': 'Person',
-      name: personalInfo.name,
-      jobTitle: personalInfo.title,
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality:
-          personalInfo.location?.split(',')[0]?.trim() || 'London',
-        addressCountry: personalInfo.location?.includes('UK') ? 'GB' : 'US',
-      },
+      '@id': `${appConfig.seo.url}#person`,
     },
     areaServed: 'Worldwide',
     serviceType: 'Software Development',
-    offers: {
-      '@type': 'Offer',
-      itemOffered: {
-        '@type': 'Service',
-        name: 'Software Engineering Consultation',
-        description:
-          'Full-stack development, cloud architecture, and technical consulting',
+    category: 'Software Development',
+    offers: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Full-Stack Development',
+          description:
+            'End-to-end web application development with modern frameworks and best practices',
+          serviceType: 'Software Development',
+        },
       },
-    },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Cloud Architecture & DevOps',
+          description:
+            'Scalable cloud infrastructure design and implementation with CI/CD pipelines',
+          serviceType: 'Cloud Computing',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Technical Consulting',
+          description: 'Strategic technology guidance and code review services',
+          serviceType: 'Consulting',
+        },
+      },
+    ],
   };
-
-  const workExperienceSchema = experience.slice(0, 2).map((exp, index) => ({
-    '@context': 'https://schema.org',
-    '@type': 'OrganizationRole',
-    '@id': `${appConfig.seo.url}#work-${index}`,
-    name: exp.title,
-    description: exp.achievements.slice(0, 3).join(' '),
-    employer: {
-      '@type': 'Organization',
-      name: exp.company,
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: exp.location,
-      },
-    },
-    location: exp.location,
-    startDate: (() => {
-      const start = exp.period.split(/\s*[–-]\s*/)[0]?.trim();
-      if (!start) return '';
-      // Convert "Feb 2025" to "2025-02-01"
-      if (start.includes(' ')) {
-        const [month, year] = start.split(' ');
-        if (month && year) {
-          const monthNum = new Date(`${month} 1, ${year}`).getMonth() + 1;
-          return `${year}-${monthNum.toString().padStart(2, '0')}-01`;
-        }
-      }
-      return start;
-    })(),
-    ...(exp.period.includes('Present')
-      ? {} // Omit endDate for current positions
-      : {
-          endDate: (() => {
-            const end = exp.period.split(/\s*[–-]\s*/)[1]?.trim();
-            if (end && end.includes(' ')) {
-              const [month, year] = end.split(' ');
-              const monthNum = new Date(`${month} 1, ${year}`).getMonth() + 1;
-              return `${year}-${monthNum.toString().padStart(2, '0')}-01`;
-            }
-            return end;
-          })(),
-        }),
-  }));
 
   // Education Schema
   const educationSchema = education.map((edu) => ({
     '@context': 'https://schema.org',
     '@type': 'EducationalOccupationalCredential',
     name: edu.degree,
-    description: edu.specialization,
+    description: edu.specialization || 'Advanced academic credential',
     credentialCategory: edu.degree,
-    provider: {
+    recognizedBy: {
       '@type': 'EducationalOrganization',
       name: edu.institution,
       address: {
@@ -323,29 +326,31 @@ const StructuredData: React.FC = () => {
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'What technologies does Muhammad Umair specialize in?',
+        name: 'What technical expertise does Muhammad Umair offer?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `${personalInfo.name} specializes in ${skills.frontEnd.slice(0, 2).join(', ')}, ${skills.backEnd.slice(0, 2).join(', ')}, and ${skills.cloudAndIaC.slice(0, 2).join(', ')}. He has expertise in full-stack development and cloud architecture.`,
+          text: `${personalInfo.name} is a seasoned ${personalInfo.title} with expertise in ${skills.frontEnd.slice(0, 3).join(', ')}, ${skills.backEnd.slice(0, 3).join(', ')}, and ${skills.cloudAndIaC.slice(0, 3).join(', ')}. He specializes in enterprise-grade full-stack development, scalable cloud architecture, and modern DevOps practices.`,
         },
       },
       {
         '@type': 'Question',
-        name: "What is Muhammad Umair's professional experience?",
+        name: "What is Muhammad Umair's professional background?",
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `${personalInfo.name} has ${experience.length}+ years of professional experience as a ${personalInfo.title}. He has worked at companies like ${experience
+          text: `${personalInfo.name} brings ${experience.length}+ years of professional software engineering experience, having delivered impactful solutions at organizations including ${experience
             .slice(0, 2)
             .map((exp) => exp.company)
-            .join(' and ')}.`,
+            .join(
+              ' and '
+            )}. His track record includes optimizing system performance, implementing robust ETL pipelines, and maintaining 99.8%+ accuracy in critical data operations.`,
         },
       },
       {
         '@type': 'Question',
-        name: 'How can I contact Muhammad Umair for collaboration?',
+        name: 'How can I engage Muhammad Umair for professional services?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `Contact ${personalInfo.name} via email at ${personalInfo.email} or through LinkedIn. Visit the contact section for additional details.`,
+          text: `For professional inquiries, contact ${personalInfo.name} directly at ${personalInfo.email} or connect via LinkedIn. He offers comprehensive software engineering consulting, from technical architecture design to full-scale implementation.`,
         },
       },
     ],
@@ -366,11 +371,6 @@ const StructuredData: React.FC = () => {
       <script type='application/ld+json'>
         {JSON.stringify(projectsSchema)}
       </script>
-      {workExperienceSchema.map((work, index) => (
-        <script key={`work-${index}`} type='application/ld+json'>
-          {JSON.stringify(work)}
-        </script>
-      ))}
       {educationSchema.map((edu, index) => (
         <script key={`edu-${index}`} type='application/ld+json'>
           {JSON.stringify(edu)}
