@@ -85,12 +85,7 @@ const StructuredData: React.FC = () => {
     makesOffer: {
       '@type': 'Offer',
       itemOffered: {
-        '@type': 'Service',
-        name: 'Software Engineering Services',
-        description:
-          'Full-stack development, cloud architecture, and technical consulting services',
-        serviceType: 'Professional Software Development',
-        areaServed: 'Worldwide',
+        '@id': `${appConfig.seo.url}#service`,
       },
     },
   };
@@ -178,6 +173,7 @@ const StructuredData: React.FC = () => {
   const professionalServiceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
+    '@id': `${appConfig.seo.url}#service`,
     name: `${personalInfo.name} - Software Engineering Services`,
     description: 'Professional software development and engineering services',
     provider: {
@@ -330,7 +326,7 @@ const StructuredData: React.FC = () => {
         name: 'What technologies does Muhammad Umair specialize in?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `${personalInfo.name} specializes in ${skills.frontEnd.slice(0, 3).join(', ')}, ${skills.backEnd.slice(0, 3).join(', ')}, and ${skills.cloudAndIaC.slice(0, 3).join(', ')} with expertise in full-stack development and cloud architecture.`,
+          text: `${personalInfo.name} specializes in ${skills.frontEnd.slice(0, 2).join(', ')}, ${skills.backEnd.slice(0, 2).join(', ')}, and ${skills.cloudAndIaC.slice(0, 2).join(', ')}. He has expertise in full-stack development and cloud architecture.`,
         },
       },
       {
@@ -338,7 +334,7 @@ const StructuredData: React.FC = () => {
         name: "What is Muhammad Umair's professional experience?",
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `${personalInfo.name} has ${experience.length}+ years of professional experience as a ${personalInfo.title}, having worked at companies like ${experience
+          text: `${personalInfo.name} has ${experience.length}+ years of professional experience as a ${personalInfo.title}. He has worked at companies like ${experience
             .slice(0, 2)
             .map((exp) => exp.company)
             .join(' and ')}.`,
@@ -349,7 +345,7 @@ const StructuredData: React.FC = () => {
         name: 'How can I contact Muhammad Umair for collaboration?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `You can contact ${personalInfo.name} via email at ${personalInfo.email}, through LinkedIn, or visit the contact section of this portfolio for more details.`,
+          text: `Contact ${personalInfo.name} via email at ${personalInfo.email} or through LinkedIn. Visit the contact section for additional details.`,
         },
       },
     ],
