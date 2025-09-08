@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.5](https://github.com/umairleo1/portfolio/compare/v0.1.4...v0.1.5) (2025-09-08)
+
+### Bug Fixes
+
+- **seo:** remove invalid OrganizationRole schema properties ([87249b6](https://github.com/umairleo1/portfolio/commit/87249b62787daddec8fe9bab6bdecd2e92d47a37))
+
 ## [0.1.4](https://github.com/umairleo1/portfolio/compare/v0.1.3...v0.1.4) (2025-09-08)
 
 ### Bug Fixes
