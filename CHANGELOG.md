@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2](https://github.com/umairleo1/portfolio/compare/v0.1.1...v0.1.2) (2025-09-08)
+
+### Performance Improvements
+
+- **seo:** add canonical URL and professional meta tags ([189c52e](https://github.com/umairleo1/portfolio/commit/189c52e877c3dbe4b62f35c449c4a2e1834792b3))
+- **seo:** enhance canonical URL with professional error handling ([ceb48fd](https://github.com/umairleo1/portfolio/commit/ceb48fdb52dfdf61ec308de4038a7d4cdc45b598))
+- **seo:** replace dynamic dates with static professional values ([1c60f24](https://github.com/umairleo1/portfolio/commit/1c60f243ffb36cdc57b05635870107baa9b39831))
+
+### Documentation
+
+- **ci:** update lighthouse thresholds to 95+ ([2b3995c](https://github.com/umairleo1/portfolio/commit/2b3995ce0c29bbc000a83c2f84a0f01a00467a7a))
+- **seo:** update with enterprise-grade implementation details ([4fb3b89](https://github.com/umairleo1/portfolio/commit/4fb3b8948269f591dab6cdcd80bab4acf6dcc152))
+
 ## [0.1.1](https://github.com/umairleo1/portfolio/compare/v0.1.0...v0.1.1) (2025-09-08)
 
 ### Bug Fixes
