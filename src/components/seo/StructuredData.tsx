@@ -80,16 +80,6 @@ const StructuredData: React.FC = () => {
         areaServed: 'Worldwide',
       },
     },
-    seeks: {
-      '@type': 'Demand',
-      itemOffered: {
-        '@type': 'JobPosting',
-        title: 'Software Engineer Opportunities',
-        description: 'Seeking challenging software engineering positions',
-        employmentType: 'FULL_TIME',
-        experienceRequirements: 'Senior Level',
-      },
-    },
   };
 
   const webPageSchema = {
