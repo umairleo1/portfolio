@@ -55,6 +55,9 @@ const StructuredData: React.FC = () => {
       personalInfo.linkedin,
       personalInfo.github,
       personalInfo.twitter,
+      'https://umairleo1.github.io/portfolio/',
+      'https://dev.to/umairleo1',
+      'https://medium.com/@umairleo17',
     ].filter(Boolean),
     knowsAbout: [
       'Full-Stack Development',
@@ -161,6 +164,11 @@ const StructuredData: React.FC = () => {
     ],
     makesOffer: {
       '@id': `${appConfig.seo.url}#service`,
+    },
+    potentialAction: {
+      '@type': 'ContactAction',
+      target: `mailto:${personalInfo.email}`,
+      name: 'Contact Muhammad Umair for Professional Opportunities',
     },
   };
 
@@ -397,7 +405,7 @@ const StructuredData: React.FC = () => {
         name: 'What technical expertise does Muhammad Umair offer?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `${personalInfo.name} is a seasoned ${personalInfo.title} with expertise in ${skills.frontEnd.slice(0, 3).join(', ')}, ${skills.backEnd.slice(0, 3).join(', ')}, and ${skills.cloudAndIaC.slice(0, 3).join(', ')}. He specializes in enterprise-grade full-stack development, scalable cloud architecture, and modern DevOps practices.`,
+          text: `${personalInfo.name} is a seasoned ${personalInfo.title} with expertise in ${skills.frontEnd.slice(0, 3).join(', ')}, ${skills.backEnd.slice(0, 3).join(', ')}, and cloud technologies. He specializes in building scalable applications and modern development practices.`,
         },
       },
       {
@@ -405,12 +413,7 @@ const StructuredData: React.FC = () => {
         name: "What is Muhammad Umair's professional background?",
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `${personalInfo.name} brings ${experience.length}+ years of professional software engineering experience, having delivered impactful solutions at organizations including ${experience
-            .slice(0, 2)
-            .map((exp) => exp.company)
-            .join(
-              ' and '
-            )}. His track record includes optimizing system performance, implementing robust ETL pipelines, and maintaining 99.8%+ accuracy in critical data operations.`,
+          text: `${personalInfo.name} brings ${experience.length}+ years of professional software engineering experience at leading organizations. His track record includes optimizing system performance and implementing robust data solutions with proven results.`,
         },
       },
       {
@@ -418,7 +421,7 @@ const StructuredData: React.FC = () => {
         name: 'How can I engage Muhammad Umair for professional services?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `For professional inquiries, contact ${personalInfo.name} directly at ${personalInfo.email} or connect via LinkedIn. He offers comprehensive software engineering consulting, from technical architecture design to full-scale implementation.`,
+          text: `For professional inquiries, contact ${personalInfo.name} directly at ${personalInfo.email} or connect via LinkedIn for comprehensive software engineering solutions.`,
         },
       },
     ],
