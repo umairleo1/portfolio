@@ -65,7 +65,7 @@ Optimizes Core Web Vitals for better rankings:
 ```typescript
 seo: {
   title: process.env.REACT_APP_SITE_NAME || "Muhammad Umair - Software Engineer",
-  url: process.env.REACT_APP_SITE_URL || 'https://umairleo1.github.io/portfolio',
+  url: process.env.REACT_APP_SITE_URL || 'https://umairleo1.github.io/portfolio/',
   domain: process.env.REACT_APP_SITE_DOMAIN || 'umairleo1.github.io',
   description: "Experienced Software Engineer based in London, UK...",
   keywords: [
@@ -95,7 +95,7 @@ REACT_APP_GOOGLE_ANALYTICS_ID="G-XXXXXXXXXX"
 
 ```javascript
 const baseUrl =
-  process.env.REACT_APP_SITE_URL || 'https://umairleo1.github.io/portfolio';
+  process.env.REACT_APP_SITE_URL || 'https://umairleo1.github.io/portfolio/';
 ```
 
 Automatically generates `sitemap.xml` with:
@@ -151,7 +151,7 @@ Automatically generates `sitemap.xml` with:
   "@type": "Person",
   "name": "Muhammad Umair",
   "jobTitle": "Software Engineer",
-  "url": "https://umairleo1.github.io/portfolio",
+  "url": "https://umairleo1.github.io/portfolio/",
   "sameAs": ["linkedin-url", "github-url", "twitter-url"],
   "knowsAbout": ["JavaScript", "React", "Python", "AWS"]
 }

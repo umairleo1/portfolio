@@ -45,7 +45,7 @@ npm run build:sitemap        # Generate sitemap only
 - Repository: `umairleo1/portfolio`
 - Branch: `main`
 - Path: `/portfolio`
-- URL: `https://umairleo1.github.io/portfolio`
+- URL: `https://umairleo1.github.io/portfolio/`
 
 **Deployment Process:**
 
