@@ -10,6 +10,32 @@ import {
 } from '@/data';
 
 const StructuredData: React.FC = () => {
+  // Calculate actual years of experience from work periods
+  const calculateExperience = () => {
+    const currentDate = new Date();
+    let totalMonths = 0;
+
+    experience.forEach((job) => {
+      const parts = job.period.split(' – ');
+      const start = parts[0]?.trim();
+      const end = parts[1]?.trim();
+
+      if (!start) return;
+
+      const startDate = new Date(start);
+      const endDate = end === 'Present' || !end ? currentDate : new Date(end);
+
+      if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) return;
+
+      const diffTime = endDate.getTime() - startDate.getTime();
+      const diffMonths = diffTime / (1000 * 60 * 60 * 24 * 30.44); // Average days per month
+      totalMonths += diffMonths;
+    });
+
+    return Math.floor(totalMonths / 12);
+  };
+
+  const experienceYears = calculateExperience();
   const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -159,7 +185,7 @@ const StructuredData: React.FC = () => {
         '@type': 'EducationalOccupationalCredential',
         name: 'Professional Software Engineering Experience',
         credentialCategory: 'Work Experience',
-        description: `${experience.length}+ years of professional software development experience`,
+        description: `${experienceYears}+ years of professional software development experience`,
       },
     ],
     makesOffer: {
@@ -413,7 +439,7 @@ const StructuredData: React.FC = () => {
         name: "What is Muhammad Umair's professional background?",
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `${personalInfo.name} brings ${experience.length}+ years of professional software engineering experience at leading organizations. His track record includes optimizing system performance and implementing robust data solutions with proven results.`,
+          text: `${personalInfo.name} brings ${experienceYears}+ years of professional software engineering experience at leading organizations. His track record includes optimizing system performance and implementing robust data solutions with proven results.`,
         },
       },
       {
