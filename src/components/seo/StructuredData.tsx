@@ -28,7 +28,7 @@ const StructuredData: React.FC = () => {
       addressCountry: personalInfo.location?.includes('UK') ? 'GB' : 'US',
       addressRegion: personalInfo.location?.includes('UK')
         ? 'England'
-        : 'California',
+        : 'London',
     },
     nationality: {
       '@type': 'Country',
@@ -61,9 +61,14 @@ const StructuredData: React.FC = () => {
       '@type': 'Occupation',
       name: personalInfo.title,
       description: `Professional ${personalInfo.title} specializing in full-stack development and cloud architecture`,
-      occupationLocation: {
-        '@type': 'Place',
-        name: personalInfo.location?.split(',')[0]?.trim() || 'London, UK',
+      estimatedSalary: {
+        '@type': 'MonetaryAmountDistribution',
+        name: 'Competitive Software Engineer Salary',
+        currency: 'GBP',
+      },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': `${appConfig.seo.url}#webpage`,
       },
     },
     worksFor: {
@@ -74,7 +79,7 @@ const StructuredData: React.FC = () => {
         addressLocality:
           experience[0]?.location ||
           personalInfo.location?.split(',')[0]?.trim(),
-        addressCountry: experience[0]?.location?.includes('UK') ? 'GB' : 'US',
+        addressCountry: experience[0]?.location?.includes('UK') ? 'GB' : 'GB',
       },
     },
     hasCredential: [
@@ -135,6 +140,10 @@ const StructuredData: React.FC = () => {
       '@id': `${appConfig.seo.url}#person`,
     },
     mainEntity: {
+      '@type': 'Person',
+      '@id': `${appConfig.seo.url}#person`,
+    },
+    mainEntityOfPage: {
       '@type': 'Person',
       '@id': `${appConfig.seo.url}#person`,
     },
