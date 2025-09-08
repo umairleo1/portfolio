@@ -22,24 +22,49 @@ const SEO: React.FC<SEOProps> = ({
   const fullTitle =
     title === appConfig.seo.title ? title : `${title} | ${appConfig.seo.title}`;
   const canonicalUrl = (() => {
-    if (typeof window === 'undefined') return url;
-
-    const baseUrl = url.replace(/\/$/, '');
-    const pathname = window.location.pathname;
-
-    // Handle GitHub Pages path duplication
-    if (baseUrl.includes('/portfolio') && pathname.includes('/portfolio')) {
-      // If base URL already contains /portfolio and pathname also has it, use base URL only
-      return `${baseUrl}/`;
+    // Server-side rendering: always return configured URL
+    if (typeof window === 'undefined') {
+      return url;
     }
 
-    // For root path, use base URL directly
-    if (pathname === '/' || pathname === '') {
-      return `${baseUrl}/`;
-    }
+    try {
+      const currentPath = window.location.pathname;
+      const searchParams = window.location.search;
+      const baseUrl = url.replace(/\/$/, ''); // Remove trailing slash for consistency
 
-    // For other paths, append pathname
-    return baseUrl + pathname;
+      // Handle GitHub Pages deployment path
+      if (baseUrl.includes('/portfolio')) {
+        // For GitHub Pages, the configured URL is the canonical URL
+        // Only append additional paths if they exist beyond the base portfolio path
+        if (currentPath === '/portfolio' || currentPath === '/portfolio/') {
+          return `${baseUrl}/`; // Ensure trailing slash for consistency
+        }
+
+        // For sub-paths (if any), append them to the base URL
+        if (
+          currentPath.startsWith('/portfolio/') &&
+          currentPath.length > '/portfolio/'.length
+        ) {
+          const subPath = currentPath.substring('/portfolio'.length);
+          return `${baseUrl}${subPath}${searchParams}`;
+        }
+
+        // Default to base URL with trailing slash
+        return `${baseUrl}/`;
+      }
+
+      // For non-GitHub Pages deployments
+      if (currentPath === '/' || currentPath === '') {
+        return `${baseUrl}/`;
+      }
+
+      // For other paths, maintain consistent URL structure
+      return `${baseUrl}${currentPath}${searchParams}`;
+    } catch (error) {
+      // Fallback to configured URL if window access fails
+      console.warn('Canonical URL generation failed:', error);
+      return url;
+    }
   })();
   const imageUrl = image.startsWith('http')
     ? image
@@ -53,6 +78,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta name='description' content={description} />
       <meta name='keywords' content={keywords.join(', ')} />
       <meta name='author' content={personalInfo.name} />
+      {/* Canonical URL - only override if different from index.html */}
       <link rel='canonical' href={canonicalUrl} />
 
       {/* Open Graph Meta Tags */}
@@ -107,7 +133,7 @@ const SEO: React.FC<SEOProps> = ({
 
       {/* WhatsApp Optimization */}
       <meta property='og:image:secure_url' content={imageUrl} />
-      <meta property='og:updated_time' content={new Date().toISOString()} />
+      <meta property='og:updated_time' content='2025-09-08T00:00:00.000Z' />
 
       {/* Professional Portfolio Optimization */}
       <meta
