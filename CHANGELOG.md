@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0](https://github.com/umairleo1/portfolio/compare/v0.1.9...v0.2.0) (2025-09-08)
+
+### Features
+
+- **seo:** enhance occupation schema for job search visibility ([83958fd](https://github.com/umairleo1/portfolio/commit/83958fd9f33fd68bf6f9bc1a2ec46f27730d31a2))
+
 ## [0.1.9](https://github.com/umairleo1/portfolio/compare/v0.1.8...v0.1.9) (2025-09-08)
 
 ### Bug Fixes
