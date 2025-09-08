@@ -206,10 +206,29 @@ const StructuredData: React.FC = () => {
       },
     },
     location: exp.location,
-    startDate: exp.period.split(' - ')[0],
-    endDate: exp.period.includes('Present')
-      ? '2025-09-08'
-      : exp.period.split(' - ')[1],
+    startDate: (() => {
+      const start = exp.period.split(' - ')[0].trim();
+      // Convert "Feb 2025" to "2025-02-01"
+      if (start.includes(' ')) {
+        const [month, year] = start.split(' ');
+        const monthNum = new Date(`${month} 1, ${year}`).getMonth() + 1;
+        return `${year}-${monthNum.toString().padStart(2, '0')}-01`;
+      }
+      return start;
+    })(),
+    ...(exp.period.includes('Present')
+      ? {} // Omit endDate for current positions
+      : {
+          endDate: (() => {
+            const end = exp.period.split(' - ')[1]?.trim();
+            if (end && end.includes(' ')) {
+              const [month, year] = end.split(' ');
+              const monthNum = new Date(`${month} 1, ${year}`).getMonth() + 1;
+              return `${year}-${monthNum.toString().padStart(2, '0')}-01`;
+            }
+            return end;
+          })(),
+        }),
   }));
 
   // Education Schema
