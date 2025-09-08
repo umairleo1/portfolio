@@ -15,7 +15,7 @@ const StructuredData: React.FC = () => {
     '@type': 'Person',
     '@id': `${appConfig.seo.url}#person`,
     name: personalInfo.name,
-    alternateName: personalInfo.name.split(' '),
+    alternateName: ['Umair', 'Muhammad Umair', 'Umair Leo'],
     jobTitle: personalInfo.title,
     description: personalInfo.objective,
     email: personalInfo.email,
@@ -72,8 +72,13 @@ const StructuredData: React.FC = () => {
       name: personalInfo.title,
       description: `Experienced ${personalInfo.title} specializing in scalable web applications, cloud infrastructure, and enterprise software solutions with proven expertise in modern development practices.`,
       occupationLocation: {
-        '@type': 'City',
+        '@type': 'Place',
         name: 'London, UK',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'London',
+          addressCountry: 'GB',
+        },
       },
       estimatedSalary: {
         '@type': 'MonetaryAmountDistribution',
@@ -155,10 +160,7 @@ const StructuredData: React.FC = () => {
       },
     ],
     makesOffer: {
-      '@type': 'Offer',
-      itemOffered: {
-        '@id': `${appConfig.seo.url}#service`,
-      },
+      '@id': `${appConfig.seo.url}#service`,
     },
   };
 
@@ -231,14 +233,6 @@ const StructuredData: React.FC = () => {
     mainEntity: {
       '@type': 'Person',
       '@id': `${appConfig.seo.url}#person`,
-    },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${appConfig.seo.url}?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
     },
   };
 
