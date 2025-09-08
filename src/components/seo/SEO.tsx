@@ -54,6 +54,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta property='og:url' content={canonicalUrl} />
       <meta property='og:site_name' content={siteName} />
       <meta property='og:locale' content='en_US' />
+      <meta property='og:locale:alternate' content='en_GB' />
 
       {/* Twitter Card Meta Tags */}
       <meta name='twitter:card' content='summary_large_image' />
@@ -81,15 +82,30 @@ const SEO: React.FC<SEOProps> = ({
       <meta name='theme-color' content='#1a1a1a' />
       <meta name='msapplication-TileColor' content='#1a1a1a' />
 
+      {/* Image Optimization and Caching */}
+      <link rel='preload' href={imageUrl} as='image' />
+      <meta
+        httpEquiv='Cache-Control'
+        content='public, max-age=31536000, immutable'
+      />
+      <meta name='format-detection' content='telephone=no' />
+
       {/* WhatsApp Optimization */}
       <meta property='og:image:secure_url' content={imageUrl} />
       <meta property='og:updated_time' content={new Date().toISOString()} />
 
-      {/* LinkedIn Optimization */}
-      <meta property='article:author' content={personalInfo.name} />
+      {/* Professional Portfolio Optimization */}
       <meta
-        property='article:published_time'
-        content='2025-08-13T00:00:00.000Z'
+        property='profile:first_name'
+        content={personalInfo.name.split(' ')[0]}
+      />
+      <meta
+        property='profile:last_name'
+        content={personalInfo.name.split(' ')[1]}
+      />
+      <meta
+        property='profile:username'
+        content={personalInfo.github.split('/').pop() || 'portfolio'}
       />
 
       {/* Twitter/X Optimization */}
@@ -97,6 +113,34 @@ const SEO: React.FC<SEOProps> = ({
       <meta name='twitter:url' content={canonicalUrl} />
       <meta name='twitter:label1' content='Technologies' />
       <meta name='twitter:data1' content='React, TypeScript, Python, AWS' />
+      <meta name='twitter:label2' content='Location' />
+      <meta name='twitter:data2' content='London, UK' />
+
+      {/* Additional Professional SEO Tags */}
+      <meta name='application-name' content={siteName} />
+      <meta name='apple-mobile-web-app-title' content={siteName} />
+      <meta name='apple-mobile-web-app-capable' content='yes' />
+      <meta
+        name='apple-mobile-web-app-status-bar-style'
+        content='black-translucent'
+      />
+      <meta name='mobile-web-app-capable' content='yes' />
+      <meta name='HandheldFriendly' content='true' />
+      <meta name='MobileOptimized' content='width' />
+
+      {/* Search Engine Verification */}
+      <meta name='google-site-verification' content='verification-pending' />
+      <meta name='msvalidate.01' content='verification-pending' />
+
+      {/* Professional Portfolio Specific */}
+      <meta name='classification' content='Business' />
+      <meta
+        name='category'
+        content='Technology, Software Engineering, Portfolio'
+      />
+      <meta name='coverage' content='Worldwide' />
+      <meta name='distribution' content='Global' />
+      <meta name='rating' content='General' />
     </Helmet>
   );
 };
