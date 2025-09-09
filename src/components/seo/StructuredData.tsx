@@ -40,10 +40,7 @@ const StructuredData: React.FC = () => {
             ? 'California'
             : 'England',
     },
-    nationality: {
-      '@type': 'Country',
-      name: 'Pakistan',
-    },
+    nationality: { '@type': 'Country', name: 'Pakistan' },
     url: appConfig.seo.url,
     image: {
       '@type': 'ImageObject',
@@ -73,7 +70,7 @@ const StructuredData: React.FC = () => {
     hasOccupation: {
       '@type': 'Occupation',
       name: personalInfo.title,
-      description: `Experienced ${personalInfo.title} specializing in scalable web applications, cloud infrastructure, and enterprise software solutions with proven expertise in modern development practices.`,
+      description: `Experienced ${personalInfo.title} specializing in scalable web applications, cloud infrastructure, and enterprise software solutions.`,
       occupationLocation: {
         '@type': 'City',
         name: personalInfo.location?.split(',')[0]?.trim() || 'London',
@@ -96,15 +93,20 @@ const StructuredData: React.FC = () => {
           '@type': 'MonetaryAmountDistribution',
           name: 'base',
           currency: 'GBP',
-          duration: 'P1Y', // yearly salary
+          duration: 'P1Y',
           minValue: 50000,
           maxValue: 100000,
           median: 75000,
+          percentile10: 52000,
+          percentile25: 60000,
+          percentile75: 90000,
+          percentile90: 98000,
         },
       ],
       mainEntityOfPage: {
         '@type': 'WebPage',
         '@id': `${appConfig.seo.url}#webpage`,
+        lastReviewed: '2025-09-08T00:00:00Z',
       },
     },
     worksFor: {
@@ -174,9 +176,7 @@ const StructuredData: React.FC = () => {
         description: `${personalInfo.yearsOfExperience}+ years of professional software development experience`,
       },
     ],
-    makesOffer: {
-      '@id': `${appConfig.seo.url}#service`,
-    },
+    makesOffer: { '@id': `${appConfig.seo.url}#service` },
     potentialAction: {
       '@type': 'ContactAction',
       target: `mailto:${personalInfo.email}`,
@@ -191,22 +191,9 @@ const StructuredData: React.FC = () => {
     name: appConfig.seo.title,
     description: appConfig.seo.description,
     url: appConfig.seo.url,
-    isPartOf: {
-      '@type': 'WebSite',
-      '@id': `${appConfig.seo.url}#website`,
-    },
-    about: {
-      '@type': 'Person',
-      '@id': `${appConfig.seo.url}#person`,
-    },
-    mainEntity: {
-      '@type': 'Person',
-      '@id': `${appConfig.seo.url}#person`,
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `${appConfig.seo.url}#webpage`,
-    },
+    isPartOf: { '@type': 'WebSite', '@id': `${appConfig.seo.url}#website` },
+    about: { '@type': 'Person', '@id': `${appConfig.seo.url}#person` },
+    mainEntity: { '@type': 'Person', '@id': `${appConfig.seo.url}#person` },
     primaryImageOfPage: {
       '@type': 'ImageObject',
       url: `${appConfig.seo.url}/assets/images/social-preview-1200x630.jpg`,
@@ -215,10 +202,7 @@ const StructuredData: React.FC = () => {
     },
     datePublished: '2025-08-13T00:00:00.000Z',
     dateModified: '2025-09-08T00:00:00.000Z',
-    author: {
-      '@type': 'Person',
-      '@id': `${appConfig.seo.url}#person`,
-    },
+    author: { '@type': 'Person', '@id': `${appConfig.seo.url}#person` },
     inLanguage: 'en-US',
     audience: {
       '@type': 'Audience',
@@ -241,27 +225,17 @@ const StructuredData: React.FC = () => {
     alternateName: `${personalInfo.name} Portfolio`,
     description: appConfig.seo.description,
     url: appConfig.seo.url,
-    author: {
-      '@type': 'Person',
-      '@id': `${appConfig.seo.url}#person`,
-    },
-    publisher: {
-      '@type': 'Person',
-      '@id': `${appConfig.seo.url}#person`,
-    },
+    author: { '@type': 'Person', '@id': `${appConfig.seo.url}#person` },
+    publisher: { '@type': 'Person', '@id': `${appConfig.seo.url}#person` },
     inLanguage: 'en-US',
     copyrightYear: 2025,
     copyrightHolder: {
       '@type': 'Person',
       '@id': `${appConfig.seo.url}#person`,
     },
-    mainEntity: {
-      '@type': 'Person',
-      '@id': `${appConfig.seo.url}#person`,
-    },
+    mainEntity: { '@type': 'Person', '@id': `${appConfig.seo.url}#person` },
   };
 
-  // Professional Service Schema
   const professionalServiceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -269,10 +243,7 @@ const StructuredData: React.FC = () => {
     name: `${personalInfo.name} - Professional Software Engineering`,
     description:
       'Enterprise-grade software development, cloud architecture, and technical consulting services',
-    provider: {
-      '@type': 'Person',
-      '@id': `${appConfig.seo.url}#person`,
-    },
+    provider: { '@type': 'Person', '@id': `${appConfig.seo.url}#person` },
     areaServed: 'Worldwide',
     serviceType: 'Software Development',
     category: 'Software Development',
@@ -309,10 +280,7 @@ const StructuredData: React.FC = () => {
     '@id': `${appConfig.seo.url}#portfolio`,
     name: 'Software Development Portfolio',
     description: 'Collection of professional software development projects',
-    creator: {
-      '@type': 'Person',
-      '@id': `${appConfig.seo.url}#person`,
-    },
+    creator: { '@type': 'Person', '@id': `${appConfig.seo.url}#person` },
     workExample: projects.map((project, index) => ({
       '@type': 'CreativeWork',
       '@id': `${appConfig.seo.url}#project-${index}`,
@@ -320,14 +288,10 @@ const StructuredData: React.FC = () => {
       description: project.description,
       genre: 'Software Development',
       keywords: project.technologies.slice(0, 3).join(', '),
-      author: {
-        '@type': 'Person',
-        '@id': `${appConfig.seo.url}#person`,
-      },
+      author: { '@type': 'Person', '@id': `${appConfig.seo.url}#person` },
     })),
   };
 
-  // Consolidated Schema: Person + Education + Services
   const consolidatedSchema = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -342,10 +306,7 @@ const StructuredData: React.FC = () => {
         recognizedBy: {
           '@type': 'EducationalOrganization',
           name: edu.institution,
-          address: {
-            '@type': 'PostalAddress',
-            addressLocality: edu.location,
-          },
+          address: { '@type': 'PostalAddress', addressLocality: edu.location },
         },
         dateCreated: (() => {
           if (!edu.period) return '2020-01-01';
@@ -380,7 +341,6 @@ const StructuredData: React.FC = () => {
     ],
   };
 
-  // Breadcrumb Schema for better navigation SEO
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -412,7 +372,6 @@ const StructuredData: React.FC = () => {
     ],
   };
 
-  // FAQ Schema for better search visibility
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -446,11 +405,9 @@ const StructuredData: React.FC = () => {
 
   return (
     <Helmet>
-      {/* Consolidated Schema: Person + Education + Services + Projects */}
       <script type='application/ld+json'>
         {JSON.stringify(consolidatedSchema)}
       </script>
-      {/* Separate schemas for better organization */}
       <script type='application/ld+json'>
         {JSON.stringify(webPageSchema)}
       </script>
