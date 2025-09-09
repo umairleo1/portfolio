@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.4](https://github.com/umairleo1/portfolio/compare/v0.2.3...v0.2.4) (2025-09-09)
+
+### Bug Fixes
+
+- **seo:** occupationLocation issue resolve ([47656f1](https://github.com/umairleo1/portfolio/commit/47656f1308034e14763e65f9d8b2f7b4476d7201))
+- **seo:** occupationLocation issue resolve ([7a53995](https://github.com/umairleo1/portfolio/commit/7a53995a62194a7adef77c852683b305fadfcbea))
+
 ## [0.2.3](https://github.com/umairleo1/portfolio/compare/v0.2.2...v0.2.3) (2025-09-08)
 
 ### Bug Fixes
