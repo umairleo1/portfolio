@@ -74,31 +74,37 @@ const StructuredData: React.FC = () => {
       '@type': 'Occupation',
       name: personalInfo.title,
       description: `Experienced ${personalInfo.title} specializing in scalable web applications, cloud infrastructure, and enterprise software solutions with proven expertise in modern development practices.`,
-      occupationLocation: [
-        {
-          '@type': 'City',
-          name: 'London',
+      occupationLocation: {
+        '@type': 'City',
+        name: personalInfo.location?.split(',')[0]?.trim() || 'London',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality:
+            personalInfo.location?.split(',')[0]?.trim() || 'London',
+          addressCountry:
+            personalInfo.location?.toLowerCase().includes('uk') ||
+            personalInfo.location?.toLowerCase().includes('united kingdom')
+              ? 'GB'
+              : personalInfo.location?.toLowerCase().includes('us') ||
+                  personalInfo.location?.toLowerCase().includes('united states')
+                ? 'US'
+                : 'GB',
         },
+      },
+      estimatedSalary: [
         {
-          '@type': 'Country',
-          name: 'GB',
+          '@type': 'MonetaryAmountDistribution',
+          name: 'base',
+          currency: 'GBP',
+          duration: 'P1Y', // yearly salary
+          minValue: 50000,
+          maxValue: 100000,
+          median: 75000,
         },
       ],
-      estimatedSalary: {
-        '@type': 'MonetaryAmountDistribution',
-        name: 'base',
-        currency: 'GBP',
-        duration: 'P1Y',
-        median: 75000,
-        percentile10: 45000,
-        percentile25: 55000,
-        percentile75: 90000,
-        percentile90: 110000,
-      },
       mainEntityOfPage: {
         '@type': 'WebPage',
         '@id': `${appConfig.seo.url}#webpage`,
-        lastReviewed: '2025-09-08T00:00:00.000Z',
       },
     },
     worksFor: {
@@ -197,7 +203,10 @@ const StructuredData: React.FC = () => {
       '@type': 'Person',
       '@id': `${appConfig.seo.url}#person`,
     },
-    mainEntityOfPage: `${appConfig.seo.url}#webpage`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${appConfig.seo.url}#webpage`,
+    },
     primaryImageOfPage: {
       '@type': 'ImageObject',
       url: `${appConfig.seo.url}/assets/images/social-preview-1200x630.jpg`,
