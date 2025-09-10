@@ -8,6 +8,10 @@ import {
   education,
   appConfig,
 } from '@/data';
+import {
+  getStructuredDataDate,
+  getPortfolioLastModified,
+} from '@/utils/dateUtils';
 
 const StructuredData: React.FC = () => {
   const personSchema = {
@@ -106,7 +110,7 @@ const StructuredData: React.FC = () => {
       mainEntityOfPage: {
         '@type': 'WebPage',
         '@id': `${appConfig.seo.url}#webpage`,
-        lastReviewed: '2025-09-08T00:00:00Z',
+        lastReviewed: getStructuredDataDate(),
       },
     },
     worksFor: {
@@ -201,7 +205,7 @@ const StructuredData: React.FC = () => {
       height: 630,
     },
     datePublished: '2025-08-13T00:00:00.000Z',
-    dateModified: '2025-09-08T00:00:00.000Z',
+    dateModified: getPortfolioLastModified(),
     author: { '@type': 'Person', '@id': `${appConfig.seo.url}#person` },
     inLanguage: 'en-US',
     audience: {

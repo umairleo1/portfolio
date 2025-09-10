@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { appConfig, personalInfo } from '@/data';
+import { getOpenGraphDate } from '@/utils/dateUtils';
 
 interface SEOProps {
   title?: string;
@@ -137,7 +138,7 @@ const SEO: React.FC<SEOProps> = ({
 
       {/* WhatsApp Optimization */}
       <meta property='og:image:secure_url' content={imageUrl} />
-      <meta property='og:updated_time' content='2025-09-08T00:00:00.000Z' />
+      <meta property='og:updated_time' content={getOpenGraphDate()} />
 
       {/* Professional Portfolio Optimization */}
       <meta
