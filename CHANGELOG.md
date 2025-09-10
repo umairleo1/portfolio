@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0](https://github.com/umairleo1/portfolio/compare/v0.2.7...v0.3.0) (2025-09-10)
+
+### Features
+
+- **seo:** add dynamic date utilities for professional SEO timestamps ([578a126](https://github.com/umairleo1/portfolio/commit/578a126846fae58ac6c62425b69fe5df12be7329))
+
+### Bug Fixes
+
+- **seo:** remove fragment URLs from sitemap for Google indexing ([66c876d](https://github.com/umairleo1/portfolio/commit/66c876dc4178cf62c69eba523980482016e3ea41))
+
+### Documentation
+
+- **analytics:** add GA4 portfolio dashboard setup guide ([1c7ac5b](https://github.com/umairleo1/portfolio/commit/1c7ac5b2abb9f5cf9c19d633af88e68359ae410e))
+
 ## [0.2.7](https://github.com/umairleo1/portfolio/compare/v0.2.6...v0.2.7) (2025-09-10)
 
 ### Performance Improvements
