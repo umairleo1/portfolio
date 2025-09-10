@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.7](https://github.com/umairleo1/portfolio/compare/v0.2.6...v0.2.7) (2025-09-10)
+
+### Performance Improvements
+
+- verify release automation ([5dadc66](https://github.com/umairleo1/portfolio/commit/5dadc66b039a751d902848b8d313299927d3b299))
+
 ## [0.2.5](https://github.com/umairleo1/portfolio/compare/v0.2.4...v0.2.5) (2025-09-09)
 
 ### Bug Fixes
