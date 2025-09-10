@@ -35,8 +35,9 @@ export const appConfig: AppConfig = {
       'https://umairleo1.github.io/portfolio/',
     domain: process.env.REACT_APP_SITE_DOMAIN || 'umairleo1.github.io',
     description:
-      'Full-Stack Software Engineer | React • Python • AWS. Delivered 50+ high-performance applications, reduced load times by 60%, and architected systems serving 1M+ users. Available for exciting opportunities.',
+      'Full-Stack AI Software Engineer | React • Python • AWS. Delivered 50+ high-performance applications, reduced load times by 60%, and architected systems serving 1M+ users. Available for exciting opportunities.',
     keywords: [
+      'AI Software Engineer',
       'Software Engineer',
       'React Native Developer',
       'React Developer',
