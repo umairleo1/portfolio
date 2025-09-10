@@ -7,7 +7,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![CSS Modules](https://img.shields.io/badge/CSS_Modules-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://github.com/css-modules/css-modules)
 
-A modern, responsive portfolio website template for software engineers. Built with React 19, TypeScript, and CSS Modules featuring professional design, enterprise-grade analytics, and optimized performance.
+A modern, responsive portfolio website template for AI software engineers. Built with React 19, TypeScript, and CSS Modules featuring professional design, enterprise-grade analytics, and optimized performance.
 
 ## Live Demo
 
@@ -291,7 +291,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## Contact & Support
 
-**Muhammad Umair** - Software Engineer
+**Muhammad Umair** - AI Software Engineer
 
 <div align="center">
 
@@ -321,7 +321,7 @@ If this project helped you, please star the repository and consider contributing
 
 **Built with React 19, TypeScript & CSS Modules**
 
-_Professional portfolio template for software engineers_
+_Professional portfolio template for AI software engineers_
 
 [⬆ Back to Top](#professional-portfolio-template)
 

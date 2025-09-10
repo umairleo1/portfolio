@@ -1,7 +1,7 @@
 {
   "name": "muhammad-umair-portfolio",
   "version": "1.0.0",
-  "description": "Professional portfolio website showcasing software engineering expertise with modern design and optimized performance",
+  "description": "Professional portfolio website showcasing AI software engineering expertise with modern design and optimized performance",
   "author": {
     "name": "Muhammad Umair",
     "email": "umair.leo17@gmail.com",
@@ -19,7 +19,7 @@
     "portfolio",
     "react",
     "typescript",
-    "software-engineer",
+    "ai-software-engineer",
     "responsive",
     "modern-design",
     "animations",
