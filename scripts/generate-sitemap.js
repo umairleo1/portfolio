@@ -15,36 +15,6 @@ const urls = [
     priority: '1.0',
     lastmod: new Date().toISOString().split('T')[0],
   },
-  {
-    loc: `${baseUrl.replace(/\/$/, '')}/#skills`,
-    changefreq: 'monthly',
-    priority: '0.8',
-    lastmod: new Date().toISOString().split('T')[0],
-  },
-  {
-    loc: `${baseUrl.replace(/\/$/, '')}/#education`,
-    changefreq: 'yearly',
-    priority: '0.7',
-    lastmod: new Date().toISOString().split('T')[0],
-  },
-  {
-    loc: `${baseUrl.replace(/\/$/, '')}/#projects`,
-    changefreq: 'monthly',
-    priority: '0.9',
-    lastmod: new Date().toISOString().split('T')[0],
-  },
-  {
-    loc: `${baseUrl.replace(/\/$/, '')}/#experience`,
-    changefreq: 'monthly',
-    priority: '0.8',
-    lastmod: new Date().toISOString().split('T')[0],
-  },
-  {
-    loc: `${baseUrl.replace(/\/$/, '')}/#contact`,
-    changefreq: 'yearly',
-    priority: '0.6',
-    lastmod: new Date().toISOString().split('T')[0],
-  },
 ];
 
 // Generate XML sitemap
