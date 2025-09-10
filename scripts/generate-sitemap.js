@@ -7,13 +7,18 @@ const baseUrl =
 const buildDir = path.join(__dirname, '..', 'build');
 const sitemapPath = path.join(buildDir, 'sitemap.xml');
 
+// Get current date in YYYY-MM-DD format (Google's recommended format)
+const getCurrentDate = () => {
+  return new Date().toISOString().split('T')[0];
+};
+
 // Define all portfolio sections/pages
 const urls = [
   {
     loc: baseUrl,
     changefreq: 'monthly',
     priority: '1.0',
-    lastmod: new Date().toISOString().split('T')[0],
+    lastmod: getCurrentDate(),
   },
 ];
 
