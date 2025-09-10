@@ -171,7 +171,7 @@ const StructuredData: React.FC = () => {
       })),
       {
         '@type': 'EducationalOccupationalCredential',
-        name: 'Professional Software Engineering Experience',
+        name: 'Professional AI Software Engineering Experience',
         credentialCategory: 'Work Experience',
         description: `${personalInfo.yearsOfExperience}+ years of professional software development experience`,
       },
@@ -211,6 +211,7 @@ const StructuredData: React.FC = () => {
         'Hiring Managers',
         'Employers',
         'Clients',
+        'AI Software Engineers',
         'Software Engineers',
         'Technology Professionals',
       ],
@@ -240,7 +241,7 @@ const StructuredData: React.FC = () => {
     '@context': 'https://schema.org',
     '@type': 'Service',
     '@id': `${appConfig.seo.url}#service`,
-    name: `${personalInfo.name} - Professional Software Engineering`,
+    name: `${personalInfo.name} - Professional AI Software Engineering`,
     description:
       'Enterprise-grade software development, cloud architecture, and technical consulting services',
     provider: { '@type': 'Person', '@id': `${appConfig.seo.url}#person` },

@@ -181,7 +181,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta name='classification' content='Business' />
       <meta
         name='category'
-        content='Technology, Software Engineering, Portfolio'
+        content='Technology, AI Software Engineering, Portfolio'
       />
       <meta name='coverage' content='Worldwide' />
       <meta name='distribution' content='Global' />

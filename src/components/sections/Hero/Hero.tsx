@@ -62,7 +62,7 @@ const Hero: React.FC = () => {
               {personalInfo.title}
             </p>
             <span id='hero-description' className='sr-only'>
-              Professional software engineer specializing in full-stack
+              Professional AI software engineer specializing in full-stack
               development
             </span>
           </motion.div>
@@ -71,7 +71,7 @@ const Hero: React.FC = () => {
             <div className={styles.imageContainer}>
               <img
                 src={ASSET_PATHS.PROFILE_MAIN}
-                alt={`Professional headshot of ${personalInfo.name}, Software Engineer`}
+                alt={`Professional headshot of ${personalInfo.name}, AI Software Engineer`}
                 className={styles.profileImage}
                 width='400'
                 height='400'
