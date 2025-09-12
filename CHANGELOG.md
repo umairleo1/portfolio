@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0](https://github.com/umairleo1/portfolio/compare/v0.3.1...v0.4.0) (2025-09-12)
+
+### Features
+
+- **analytics:** add centralized blocking helper ([7ba84d7](https://github.com/umairleo1/portfolio/commit/7ba84d71584584beaac9e7aaa74d60b3297517f5))
+
+### Bug Fixes
+
+- **analytics:** block Web Vitals in development ([cf7c48d](https://github.com/umairleo1/portfolio/commit/cf7c48d9f783f3a68163888b840f80169748ed8e))
+
 ## [0.3.1](https://github.com/umairleo1/portfolio/compare/v0.3.0...v0.3.1) (2025-09-12)
 
 ### Bug Fixes
