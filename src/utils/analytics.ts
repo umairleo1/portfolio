@@ -1,8 +1,8 @@
 /* eslint-disable no-console, no-unused-vars */
 import { env } from '@/config/env';
 import { getVersionForAnalytics } from './version';
+import { shouldInitializeAnalytics } from './analyticsHelpers';
 
-// Enhanced Google Analytics interface for professional implementation
 interface GtagFunction {
   (..._args: unknown[]): void;
 }
@@ -70,6 +70,7 @@ export const setConsentSettings = (
   analytics: boolean = true,
   marketing: boolean = false
 ): void => {
+  if (!shouldInitializeAnalytics()) return;
   if (typeof window === 'undefined' || !window.gtag) return;
 
   window.gtag('consent', 'default', {
@@ -91,6 +92,7 @@ export const updateConsentSettings = (
   analytics: boolean,
   marketing: boolean = false
 ): void => {
+  if (!shouldInitializeAnalytics()) return;
   if (typeof window === 'undefined' || !window.gtag) return;
 
   window.gtag('consent', 'update', {
@@ -119,14 +121,9 @@ export const initGA = (): Promise<void> => {
   initializationPromise = new Promise<void>((resolve, reject) => {
     let scriptLoadTimeout: NodeJS.Timeout | null = null;
     try {
-      // Block development and test environments entirely
-      if (env.isDevelopment()) {
-        console.log('Analytics disabled in development mode');
-        return resolve();
-      }
-
-      if (env.isTest()) {
-        console.log('Analytics disabled in test environment');
+      // Centralized blocking handled by shouldInitializeAnalytics()
+      if (!shouldInitializeAnalytics()) {
+        console.log('Analytics disabled');
         return resolve();
       }
 
@@ -300,6 +297,8 @@ export const trackPageView = (
   title?: string,
   referrer?: string
 ): void => {
+  if (!shouldInitializeAnalytics()) return;
+
   if (!isTrackingEnabled()) return;
 
   const pagePath =
@@ -355,6 +354,8 @@ export const trackEvent = (
   parameters: EventParameters = {},
   options: TrackingOptions = {}
 ): void => {
+  if (!shouldInitializeAnalytics()) return;
+
   // Handle offline events by queueing
   if (
     typeof navigator !== 'undefined' &&
@@ -431,11 +432,13 @@ export const trackEvent = (
 
 // FIX: Enhanced tracking validation with bot detection and offline handling
 const isTrackingEnabled = (): boolean => {
+  if (!shouldInitializeAnalytics()) {
+    return false;
+  }
+
   // Basic environment checks
   if (
     !env.GOOGLE_ANALYTICS_ID ||
-    env.isTest() ||
-    env.isDevelopment() || // Block localhost analytics
     typeof window === 'undefined' ||
     !window.gtag
   ) {
@@ -485,6 +488,8 @@ export const trackInteraction = (
   value?: number,
   customData?: Record<string, unknown>
 ): void => {
+  if (!shouldInitializeAnalytics()) return;
+
   trackEvent(action, {
     event_category: category,
     event_label: label,
@@ -597,6 +602,8 @@ export const trackProjectInteraction = (
     interactionDuration?: number;
   }
 ): void => {
+  if (!shouldInitializeAnalytics()) return;
+
   trackEvent('project_engagement', {
     event_category: 'portfolio_interaction',
     event_label: projectName,
