@@ -387,6 +387,43 @@ const customSchema = {
 <script type='application/ld+json'>{JSON.stringify(customSchema)}</script>;
 ```
 
+## Google Search Issues
+
+### GitHub.io Domain in Search Results
+
+**Issue:** Google shows `umairleo1.github.io/portfolio` instead of a custom domain.
+
+**Root Cause:** You're currently using GitHub Pages with the default URL structure. Google correctly indexes your actual deployed URL.
+
+**Solutions:**
+
+**Option 1: Custom Domain (Professional)**
+
+1. Purchase a domain (e.g., `muhammadumair.dev`, `umairleo.com`)
+2. Configure DNS with your provider:
+   - CNAME: `www` → `umairleo1.github.io`
+   - A records: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+3. Add `public/CNAME` file with your domain
+4. Update environment variables in `.env.production`
+5. Enable custom domain in GitHub Pages settings
+
+**Option 2: Cleaner GitHub URL**
+
+- Rename repository to `umairleo1.github.io` (removes `/portfolio` path)
+- Update all meta tags accordingly
+
+### Missing Profile Image in Search
+
+**Issue:** Google search results don't show your profile image.
+
+**Solution:** ✅ Already implemented enhanced meta tags including:
+
+- Google-specific `itemprop="image"` tags
+- Updated Open Graph timestamps
+- Improved structured data schemas
+
+Results should appear within 24-48 hours after Google recrawls your site.
+
 ## Troubleshooting
 
 ### Common Issues
