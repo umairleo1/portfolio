@@ -119,20 +119,22 @@ export const initGA = (): Promise<void> => {
   initializationPromise = new Promise<void>((resolve, reject) => {
     let scriptLoadTimeout: NodeJS.Timeout | null = null;
     try {
-      // Validation checks
-      if (!env.GOOGLE_ANALYTICS_ID) {
-        if (env.isDevelopment()) {
-          console.warn('Google Analytics ID not configured');
-          return resolve();
-        }
-        throw new Error(
-          'GA_ID_MISSING: Google Analytics ID is required in production'
-        );
+      // Block development and test environments entirely
+      if (env.isDevelopment()) {
+        console.log('Analytics disabled in development mode');
+        return resolve();
       }
 
       if (env.isTest()) {
         console.log('Analytics disabled in test environment');
         return resolve();
+      }
+
+      // Validation checks
+      if (!env.GOOGLE_ANALYTICS_ID) {
+        throw new Error(
+          'GA_ID_MISSING: Google Analytics ID is required in production'
+        );
       }
 
       // Initialize dataLayer before script loads
@@ -433,6 +435,7 @@ const isTrackingEnabled = (): boolean => {
   if (
     !env.GOOGLE_ANALYTICS_ID ||
     env.isTest() ||
+    env.isDevelopment() || // Block localhost analytics
     typeof window === 'undefined' ||
     !window.gtag
   ) {
