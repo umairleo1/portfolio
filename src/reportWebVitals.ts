@@ -2,6 +2,7 @@
 import type { ReportCallback, Metric } from 'web-vitals';
 import { trackWebVitals } from './utils/analytics';
 import { env } from './config/env';
+import { shouldInitializeAnalytics } from './utils/analyticsHelpers';
 
 // Enhanced Web Vitals reporting with Google Analytics integration
 const reportWebVitals = (onPerfEntry?: ReportCallback) => {
@@ -26,8 +27,8 @@ const reportWebVitals = (onPerfEntry?: ReportCallback) => {
       return 'poor';
     };
 
-    // Send to Google Analytics (always enabled if GA is configured)
-    if (env.GOOGLE_ANALYTICS_ID) {
+    // Send to Google Analytics (only in production)
+    if (shouldInitializeAnalytics() && env.GOOGLE_ANALYTICS_ID) {
       // Map INP to FID for GA4 compatibility since trackWebVitals expects FID
       const metricName = metric.name === 'INP' ? 'FID' : metric.name;
       trackWebVitals(
