@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1](https://github.com/umairleo1/portfolio/compare/v0.3.0...v0.3.1) (2025-09-12)
+
+### Bug Fixes
+
+- **analytics:** block localhost development tracking ([307bfec](https://github.com/umairleo1/portfolio/commit/307bfec4e798509d903938f31466f2ceec8c5ae1))
+- **seo:** update meta timestamps and verification ([1a6150b](https://github.com/umairleo1/portfolio/commit/1a6150b8a0d42c73c933a9fb369a4370ce41acf0))
+
+### Documentation
+
+- **seo:** add Google search troubleshooting ([d1b07c7](https://github.com/umairleo1/portfolio/commit/d1b07c7461c1e477618ea40870f4e6ef9ebfb4e5))
+
 ## [0.3.0](https://github.com/umairleo1/portfolio/compare/v0.2.7...v0.3.0) (2025-09-10)
 
 ### Features
