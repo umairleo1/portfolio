@@ -179,7 +179,7 @@ jobs:
 
       - name: Upload build for release
         if: steps.version.outputs.version != 'skip'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: build-artifacts
           path: build/
