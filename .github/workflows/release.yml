@@ -219,7 +219,7 @@ jobs:
         run: npm ci --prefer-offline --no-audit
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: build-artifacts
           path: build/
@@ -285,7 +285,7 @@ jobs:
       actions: read # Required to download build artifacts
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: build-artifacts
           path: build/
