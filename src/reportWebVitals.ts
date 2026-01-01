@@ -3,9 +3,15 @@ import type { ReportCallback, Metric } from 'web-vitals';
 import { trackWebVitals } from './utils/analytics';
 import { env } from './config/env';
 import { shouldInitializeAnalytics } from './utils/analyticsHelpers';
+import { isReactSnapRunning } from './utils/reactSnap';
 
 // Enhanced Web Vitals reporting with Google Analytics integration
 const reportWebVitals = (onPerfEntry?: ReportCallback) => {
+  // Skip web-vitals during react-snap pre-rendering (uses old Chrome without Array.at support)
+  if (isReactSnapRunning()) {
+    return;
+  }
+
   // Custom callback to send vitals to Google Analytics
   const analyticsCallback = (metric: Metric) => {
     // Determine rating based on thresholds

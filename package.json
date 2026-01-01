@@ -46,10 +46,10 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "npm run build:auto",
-    "build:auto": "node scripts/detect-domain.js && react-app-rewired build && npm run postbuild && npm run build:optimize && npm run build:sitemap",
-    "build:github-pages": "PUBLIC_URL=/portfolio react-app-rewired build && npm run postbuild && npm run build:optimize && npm run build:sitemap",
-    "build:custom-domain": "react-app-rewired build && npm run postbuild && npm run build:optimize && npm run build:sitemap",
-    "postbuild": "react-snap",
+    "build:auto": "node scripts/detect-domain.js && react-app-rewired build && npm run snap && npm run build:optimize && npm run build:sitemap",
+    "build:github-pages": "PUBLIC_URL=/portfolio react-app-rewired build && npm run snap && npm run build:optimize && npm run build:sitemap",
+    "build:custom-domain": "react-app-rewired build && npm run snap && npm run build:optimize && npm run build:sitemap",
+    "snap": "react-snap",
     "build:analyze": "npm run build && npx bundle-analyzer build/static/js/*.js",
     "build:optimize": "npm run compress:gzip",
     "build:sitemap": "node scripts/generate-sitemap.js",
@@ -137,7 +137,7 @@
     ]
   },
   "reactSnap": {
-    "inlineCss": true,
+    "inlineCss": false,
     "minifyHtml": {
       "collapseWhitespace": false,
       "removeComments": false
@@ -158,7 +158,7 @@
     "removeScriptTags": false,
     "preconnectThirdParty": false,
     "fixWebpackChunksIssue": "CRA2",
-    "asyncScriptTags": true,
+    "asyncScriptTags": false,
     "waitFor": 2000,
     "headless": true,
     "viewport": {
