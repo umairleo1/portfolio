@@ -175,7 +175,10 @@ const SEO: React.FC<SEOProps> = ({
       <meta name='MobileOptimized' content='width' />
 
       {/* Search Engine Verification */}
-      <meta name='google-site-verification' content='verification-pending' />
+      <meta
+        name='google-site-verification'
+        content='skA8-7HLWl1U-rDcv7nR9Km2iM5mhUG1-penyn3jVQ4'
+      />
       <meta name='msvalidate.01' content='verification-pending' />
 
       {/* Professional Portfolio Specific */}
