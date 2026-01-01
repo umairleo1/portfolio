@@ -233,7 +233,7 @@ const StructuredData: React.FC = () => {
     author: { '@type': 'Person', '@id': `${appConfig.seo.url}#person` },
     publisher: { '@type': 'Person', '@id': `${appConfig.seo.url}#person` },
     inLanguage: 'en-US',
-    copyrightYear: 2025,
+    copyrightYear: 2026,
     copyrightHolder: {
       '@type': 'Person',
       '@id': `${appConfig.seo.url}#person`,
