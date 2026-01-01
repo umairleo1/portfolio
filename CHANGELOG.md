@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0](https://github.com/umairleo1/portfolio/compare/v0.4.0...v0.5.0) (2026-01-01)
+
+### Features
+
+- **seo:** add Google Search Console verification ([05e813a](https://github.com/umairleo1/portfolio/commit/05e813a8856a94ac7fd00b715424f0a6470640ad))
+- **seo:** implement react-snap pre-rendering ([7c0cd6a](https://github.com/umairleo1/portfolio/commit/7c0cd6af7da83f60bdf971e930010aa6c5119de9))
+
+### Bug Fixes
+
+- **build:** resolve react-snap compatibility issues ([c971804](https://github.com/umairleo1/portfolio/commit/c971804893dad2425b88b530a98d0b2bb3c278d9))
+- **seo:** update copyright to 2026 ([c37c349](https://github.com/umairleo1/portfolio/commit/c37c349c3f02ffd972bb3382136b30accac95229))
+
+### Documentation
+
+- **seo:** document react-snap setup ([ed9782b](https://github.com/umairleo1/portfolio/commit/ed9782b1c51d3c0c1dec25d9e1b4766e3133b287))
+
 ## [0.4.0](https://github.com/umairleo1/portfolio/compare/v0.3.1...v0.4.0) (2025-09-12)
 
 ### Features
