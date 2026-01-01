@@ -46,9 +46,10 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "npm run build:auto",
-    "build:auto": "node scripts/detect-domain.js && npm run build:optimize && npm run build:sitemap",
-    "build:github-pages": "PUBLIC_URL=/portfolio react-app-rewired build && npm run build:optimize && npm run build:sitemap",
-    "build:custom-domain": "react-app-rewired build && npm run build:optimize && npm run build:sitemap",
+    "build:auto": "node scripts/detect-domain.js && react-app-rewired build && npm run postbuild && npm run build:optimize && npm run build:sitemap",
+    "build:github-pages": "PUBLIC_URL=/portfolio react-app-rewired build && npm run postbuild && npm run build:optimize && npm run build:sitemap",
+    "build:custom-domain": "react-app-rewired build && npm run postbuild && npm run build:optimize && npm run build:sitemap",
+    "postbuild": "react-snap",
     "build:analyze": "npm run build && npx bundle-analyzer build/static/js/*.js",
     "build:optimize": "npm run compress:gzip",
     "build:sitemap": "node scripts/generate-sitemap.js",
@@ -116,6 +117,7 @@
     "lint-staged": "^16.1.5",
     "prettier": "^3.0.0",
     "react-app-rewired": "^2.2.1",
+    "react-snap": "^1.23.0",
     "semantic-release": "^24.2.7"
   },
   "engines": {
@@ -133,5 +135,35 @@
     "*.{json,md,yml,yaml}": [
       "prettier --write"
     ]
+  },
+  "reactSnap": {
+    "inlineCss": true,
+    "minifyHtml": {
+      "collapseWhitespace": false,
+      "removeComments": false
+    },
+    "skipThirdPartyRequests": true,
+    "cacheAjaxRequests": false,
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage"
+    ],
+    "crawl": false,
+    "include": [
+      "/"
+    ],
+    "publicPath": "/portfolio",
+    "removeStyleTags": false,
+    "removeScriptTags": false,
+    "preconnectThirdParty": false,
+    "fixWebpackChunksIssue": "CRA2",
+    "asyncScriptTags": true,
+    "waitFor": 2000,
+    "headless": true,
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    }
   }
 }

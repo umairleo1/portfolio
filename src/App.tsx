@@ -10,6 +10,7 @@ import {
   AnalyticsProvider,
 } from '@/components';
 import { SEO, StructuredData, WebVitalsOptimizer } from '@/components/seo';
+import { getContentLoadDelay, isReactSnapRunning } from '@/utils/reactSnap';
 // Lazy load analytics to improve initial bundle size
 import '@/styles/base/globals.css';
 import '@/styles/base/App.css';
@@ -23,7 +24,9 @@ const Experience = lazy(() => import('@/components/sections/Experience'));
 const Contact = lazy(() => import('@/components/sections/Contact'));
 
 function App() {
-  const [sectionsReady, setSectionsReady] = useState(false);
+  // For SEO pre-rendering, load sections immediately
+  // For regular users, delay for performance optimization
+  const [sectionsReady, setSectionsReady] = useState(isReactSnapRunning());
 
   // Defer analytics initialization for better performance
   useEffect(() => {
@@ -49,10 +52,12 @@ function App() {
 
   // Load sections after Hero is ready
   useEffect(() => {
-    // Start loading sections after Hero is stable
+    // For SEO pre-rendering, load immediately
+    // For regular users, delay after Hero is stable
+    const delay = getContentLoadDelay(800);
     const timer = setTimeout(() => {
       setSectionsReady(true);
-    }, 800);
+    }, delay);
 
     return () => clearTimeout(timer);
   }, []);
