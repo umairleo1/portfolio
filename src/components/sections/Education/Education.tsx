@@ -6,8 +6,12 @@ import SectionHeader from '@/components/ui/SectionHeader';
 import Section from '@/components/ui/Section';
 import {
   HiAcademicCap,
+  HiArrowUpRight,
+  HiCheckBadge,
   HiOutlineCalendarDays,
+  HiOutlineCheckBadge,
   HiOutlineMapPin,
+  HiOutlineSparkles,
   HiOutlineTrophy,
 } from 'react-icons/hi2';
 import { renderIcon } from '@/utils/IconWrapper';
@@ -113,46 +117,58 @@ const Education: React.FC = () => {
 
           <div className={styles.certificationsGrid}>
             {certifications.map((cert, index) => (
-              <div key={index} className={styles.certificationWrapper}>
-                {cert.link && (
-                  <div className={styles.verifiedBadge}>VERIFIED</div>
+              <div
+                key={index}
+                className={`${styles.certificationItem} card`}
+                style={{
+                  animationDelay: `${index * 0.1}s`,
+                }}
+              >
+                {cert.link ? (
+                  <div className={styles.verifiedBadge}>
+                    {renderIcon(HiCheckBadge)}
+                    verified
+                  </div>
+                ) : (
+                  <div className={styles.awardBadge}>
+                    {renderIcon(HiOutlineSparkles)}
+                    award
+                  </div>
                 )}
-                <div
-                  className={`${styles.certificationItem} card`}
-                  style={{
-                    animationDelay: `${index * 0.1}s`,
-                  }}
-                >
-                  <div className={styles.certificationItemHeader}>
-                    <div className={styles.certificationIcon}>
-                      {renderIcon(HiOutlineTrophy)}
-                    </div>
-                    <div className={styles.certificationInfo}>
-                      {cert.link ? (
-                        <TrackedLink
-                          href={cert.link}
-                          linkName={cert.title}
-                          section='education_section'
-                          category='certification_link'
-                        >
-                          <h4 className={styles.certificationItemTitle}>
-                            {cert.title}
-                          </h4>
-                        </TrackedLink>
-                      ) : (
-                        <h4 className={styles.certificationItemTitle}>
-                          {cert.title}
-                        </h4>
-                      )}
-                      <p className={styles.certificationItemIssuer}>
+                <div className={styles.certificationItemHeader}>
+                  <div className={styles.certificationIcon}>
+                    {renderIcon(
+                      cert.link ? HiOutlineCheckBadge : HiOutlineTrophy
+                    )}
+                  </div>
+                  <div className={styles.certificationInfo}>
+                    <h4 className={styles.certificationItemTitle}>
+                      {cert.title}
+                    </h4>
+                    <div className={styles.certificationMeta}>
+                      <span className={styles.certificationItemIssuer}>
                         {cert.issuer}
-                      </p>
+                      </span>
                       {cert.date && (
-                        <p className={styles.certificationItemDate}>
+                        <span className={styles.certificationItemDate}>
                           {cert.date}
-                        </p>
+                        </span>
                       )}
                     </div>
+                    {cert.link && (
+                      <TrackedLink
+                        href={cert.link}
+                        linkName={cert.title}
+                        section='education_section'
+                        category='certification_link'
+                        className={styles.certificationLink}
+                      >
+                        view credential
+                        {renderIcon(HiArrowUpRight, {
+                          className: styles.certificationLinkIcon,
+                        })}
+                      </TrackedLink>
+                    )}
                   </div>
                 </div>
               </div>

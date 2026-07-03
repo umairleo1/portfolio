@@ -515,44 +515,30 @@
 /* Certifications - Modern Grid */
 .certificationsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 1.5rem;
   max-width: 900px;
   margin: 0 auto;
-  /* Maximum spacing to ensure badge overflow visibility */
-  padding: 50px 40px 40px 40px;
-  /* Ensure badges are never clipped */
-  overflow: visible;
   position: relative;
-}
-
-.certificationWrapper {
-  position: relative;
-  /* Allow badges to overflow naturally */
-  overflow: visible;
-  padding: 20px 20px 0 0;
 }
 
 .certificationItem {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
   padding: 1.5rem;
-  margin: 5px 0;
   background: var(--dark-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--border-radius-lg);
   transition: var(--transition-slow);
+  overflow: hidden;
 
   /* CSS entrance animation to replace Framer Motion */
   opacity: 0;
   transform: translateY(30px);
   animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   will-change: transform;
-  cursor: pointer;
-  /* No overflow hidden to prevent badge clipping */
-  overflow: visible;
 }
 
 .certificationItem::before {
@@ -575,41 +561,51 @@
   box-shadow: 0 0 15px var(--primary-cyan-30);
 }
 
-.verifiedBadge {
-  /* Absolute positioning relative to wrapper */
+.verifiedBadge,
+.awardBadge {
   position: absolute;
-  top: 0;
-  right: 0;
-
-  /* Visual styling */
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-  font-size: 0.7rem;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.62rem;
   font-weight: 700;
-  padding: 8px 12px;
-  border-radius: var(--border-radius-sm);
-  letter-spacing: 0.5px;
+  padding: 0.28rem 0.65rem;
+  border-radius: var(--border-radius-pill);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
   pointer-events: none;
+  z-index: 3;
+  transition: var(--transition);
+}
 
-  /* Professional z-index management */
-  z-index: 1000;
+.verifiedBadge {
+  background: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
 
-  /* Production-stable rendering */
-  transform: translate3d(0, 0, 0);
+.awardBadge {
+  background: rgba(245, 158, 11, 0.1);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
 
-  /* Slower, smoother animation */
-  transition:
-    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+.verifiedBadge svg,
+.awardBadge svg {
+  font-size: 0.8rem;
+}
 
-  /* Enhanced visibility with strong shadow and border */
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.6),
-    0 0 20px rgba(16, 185, 129, 0.4),
-    0 0 0 2px rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+.certificationItem:hover .verifiedBadge {
+  background: rgba(16, 185, 129, 0.18);
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
+}
+
+.certificationItem:hover .awardBadge {
+  background: rgba(245, 158, 11, 0.18);
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.25);
 }
 
 .certificationItemContent {
@@ -619,7 +615,7 @@
 
 .certificationItemHeader {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
   flex: 1;
 }
@@ -648,23 +644,61 @@
   font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 0.5rem 0;
-  line-height: 1.2;
+  line-height: 1.35;
+  /* Keep clear of the corner badge */
+  padding-right: 4.5rem;
+}
+
+.certificationMeta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .certificationItemIssuer {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--primary-cyan);
-  margin: 0 0 0.25rem 0;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .certificationItemDate {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
-  margin: 0;
-  font-style: italic;
+}
+
+.certificationItemDate::before {
+  content: '•';
+  margin-right: 0.5rem;
+  color: var(--text-muted);
+}
+
+.certificationLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary-cyan);
+  letter-spacing: 0.03em;
+  transition: var(--transition);
+}
+
+.certificationLinkIcon {
+  font-size: 0.7rem;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.certificationLink:hover {
+  opacity: 1;
+  text-shadow: 0 0 12px var(--primary-cyan-50);
+}
+
+.certificationLink:hover .certificationLinkIcon {
+  transform: translate(2px, -2px);
 }
 
 /* Compact Expandable Hover Effects */
@@ -807,7 +841,7 @@
   }
 
   .certificationsGrid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   }
 }
 
@@ -985,6 +1019,21 @@
 @media (max-width: 480px) {
   .educationItem {
     padding: 1rem;
+  }
+
+  .certificationItem {
+    padding: 1.25rem 1rem;
+  }
+
+  .certificationItemTitle {
+    padding-right: 3.75rem;
+    font-size: 0.9rem;
+  }
+
+  .verifiedBadge,
+  .awardBadge {
+    top: 0.75rem;
+    right: 0.75rem;
   }
 
   .sectionHeading {
