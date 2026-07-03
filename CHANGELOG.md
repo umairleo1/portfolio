@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.1](https://github.com/umairleo1/portfolio/compare/v0.6.0...v0.6.1) (2026-07-03)
+
+### Bug Fixes
+
+- **ci:** align pr audit gate with release ([ca3ab76](https://github.com/umairleo1/portfolio/commit/ca3ab765a10887756bb36666655e8c65898c9cc8))
+- **hooks:** avoid impure calls during render ([4f5f1b5](https://github.com/umairleo1/portfolio/commit/4f5f1b5e711d6b4d45763310f939ccb1739f6172))
+
 ## [0.6.0](https://github.com/umairleo1/portfolio/compare/v0.5.2...v0.6.0) (2026-07-03)
 
 ### Features
