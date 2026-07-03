@@ -186,15 +186,16 @@ export const useScrollDepthTracking = () => {
 
 // Hook for time-based engagement tracking
 export const useTimeTracking = () => {
-  const startTimeRef = useRef<number>(Date.now());
+  const startTimeRef = useRef<number | null>(null);
   const { trackEngagement } = useAnalytics();
 
   useEffect(() => {
+    startTimeRef.current = Date.now();
     const intervals = [30000, 60000, 180000, 300000]; // 30s, 1m, 3m, 5m
     const trackedIntervals = new Set<number>();
 
     const checkTimeEngagement = () => {
-      const timeOnPage = Date.now() - startTimeRef.current;
+      const timeOnPage = Date.now() - (startTimeRef.current ?? Date.now());
 
       intervals.forEach((interval) => {
         if (timeOnPage >= interval && !trackedIntervals.has(interval)) {

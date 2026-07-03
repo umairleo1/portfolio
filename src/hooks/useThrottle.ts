@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 // eslint-disable-next-line no-unused-vars
 export const useThrottle = <T extends (...args: any[]) => any>(
@@ -10,7 +10,9 @@ export const useThrottle = <T extends (...args: any[]) => any>(
   const callbackRef = useRef(callback);
 
   // Keep callback reference up to date
-  callbackRef.current = callback;
+  useEffect(() => {
+    callbackRef.current = callback;
+  });
 
   const throttledFunction = useCallback(
     (...args: Parameters<T>) => {
