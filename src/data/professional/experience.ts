@@ -6,27 +6,34 @@ import type { Experience } from '../types';
  */
 export const experience: Experience[] = [
   {
+    title: 'Software Engineer',
+    company: 'NIHR IO at Newcastle University',
+    location: 'Newcastle, United Kingdom',
+    period: 'May 2026 – Present',
+    achievements: ['Currently Achieving'],
+  },
+  {
     title: 'Data Integrations Developer',
     company: 'UNICEF UK',
     location: 'London, United Kingdom',
-    period: 'Feb 2025 – Present',
+    period: 'Feb 2025 – Aug 2025',
     achievements: [
       'Built GitLab CI gated Salesforce to Snowflake ETL (Python, SQL, AWS Lambda), cutting nightly load time 45%.',
       'Optimized SQL (CTEs, window functions) to reconcile 5M rows with 99.8% accuracy and zero critical Sonar findings.',
     ],
   },
   {
-    title: 'Software Developer – Data Mining',
+    title: 'Software Developer AI',
     company: 'University of Greenwich',
     location: 'London, United Kingdom',
-    period: 'Jul 2023 – Sep 2023',
+    period: 'Jul 2023 – Jan 2025',
     achievements: [
       'Developed LangGraph ML pipeline (Python) on 100GB data, throughput +30% with secure-coding.',
       'Authored SQL analytics scripts that improve accuracy of reconciliation 30%, results adopted by the AML research team.',
     ],
   },
   {
-    title: 'Software Engineer',
+    title: 'AI Software Engineer',
     company: 'SprintX',
     location: 'Lahore, Pakistan',
     period: 'Jan 2022 – Dec 2022',
@@ -37,7 +44,7 @@ export const experience: Experience[] = [
     ],
   },
   {
-    title: 'Software Engineer',
+    title: 'AI Software Engineer',
     company: 'Frizhub',
     location: 'Lahore, Pakistan',
     period: 'Jan 2020 – Dec 2021',

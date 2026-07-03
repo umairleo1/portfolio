@@ -6,6 +6,14 @@ import type { Company } from '../types';
  */
 export const companies: Company[] = [
   {
+    name: 'NIHR IO at Newcastle University',
+    logo: '/assets/images/work/nihr-logo.png',
+    alt: 'NIHR IO',
+    website:
+      'https://www.ncl.ac.uk/translational-research/our-network/network-directory/directory/nihr-innovation-observatory/',
+    skills: ['Python', 'SQL', 'AWS Lambda', 'React', 'JavaScript', 'GitLab CI'],
+  },
+  {
     name: 'UNICEF UK',
     logo: '/assets/images/work/unicef-uk.png',
     alt: 'UNICEF UK Logo',
