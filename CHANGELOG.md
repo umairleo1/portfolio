@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0](https://github.com/umairleo1/portfolio/compare/v0.5.2...v0.6.0) (2026-07-03)
+
+### Features
+
+- **experience:** add NIHR role ([a09c069](https://github.com/umairleo1/portfolio/commit/a09c06977f0f09d83a10e0f2dcca208e6464e155))
+- **ui:** redesign certification cards ([5c95a9f](https://github.com/umairleo1/portfolio/commit/5c95a9f7b2e8b9bd5b37a21e83255a6f5fc599ac))
+- **ui:** two-line hero name ([15acb21](https://github.com/umairleo1/portfolio/commit/15acb21796d33218866c6ae51559fc3838ff3d82))
+
 ## [0.5.2](https://github.com/umairleo1/portfolio/compare/v0.5.1...v0.5.2) (2026-07-03)
 
 ### Bug Fixes
