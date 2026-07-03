@@ -77,15 +77,20 @@ jobs:
           npm run security:audit:ci
           echo "::endgroup::"
 
-      - uses: aquasecurity/trivy-action@v0.33.1
+      - name: Setup Trivy
+        if: matrix.node-version == 20
+        uses: aquasecurity/setup-trivy@v0.3.1
+        with:
+          version: v0.64.1
+          cache: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Trivy vulnerability scanner
         if: matrix.node-version == 20
         env:
           TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
           TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db:1
-        with:
-          scan-type: 'fs'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
+        run: trivy fs . --format sarif --output trivy-results.sarif --exit-code 0
 
       - uses: github/codeql-action/upload-sarif@v3.28.0
         if: matrix.node-version == 20 && always()
