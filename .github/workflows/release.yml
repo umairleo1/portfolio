@@ -36,12 +36,20 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3.28.0
 
-      - name: Setup Trivy
-        uses: aquasecurity/setup-trivy@v0.3.1
-        with:
-          version: v0.64.1
-          cache: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Trivy
+        env:
+          TRIVY_VERSION: 0.72.0
+        run: |
+          set -euo pipefail
+          ASSET="trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"
+          BASE="https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}"
+          curl -fsSL -o "$ASSET" "$BASE/$ASSET"
+          curl -fsSL -o checksums.txt "$BASE/trivy_${TRIVY_VERSION}_checksums.txt"
+          grep " ${ASSET}\$" checksums.txt | sha256sum -c -
+          tar -xzf "$ASSET" trivy
+          sudo mv trivy /usr/local/bin/trivy
+          rm -f "$ASSET" checksums.txt
+          trivy --version
 
       - name: Run Trivy vulnerability scanner
         env:
