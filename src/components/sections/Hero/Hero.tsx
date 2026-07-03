@@ -55,8 +55,16 @@ const Hero: React.FC = () => {
           className={styles.heroMain}
         >
           <motion.div className={styles.heroContent} variants={itemVariants}>
-            <h1 className={styles.heroName} role='banner'>
-              {personalInfo.name}
+            <h1
+              className={styles.heroName}
+              role='banner'
+              aria-label={personalInfo.name}
+            >
+              {personalInfo.name.split(' ').map((word, index) => (
+                <span key={index} className={styles.nameLine}>
+                  {word}
+                </span>
+              ))}
             </h1>
             <p className={styles.heroTitle} aria-describedby='hero-description'>
               {personalInfo.title}
