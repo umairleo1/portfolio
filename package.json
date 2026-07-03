@@ -118,7 +118,7 @@
     "prettier": "^3.0.0",
     "react-app-rewired": "^2.2.1",
     "react-snap": "^1.23.0",
-    "semantic-release": "^24.2.7"
+    "semantic-release": "^25.0.5"
   },
   "engines": {
     "node": ">=20.9.0",
