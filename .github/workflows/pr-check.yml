@@ -74,7 +74,7 @@ jobs:
       - name: Security audit
         run: |
           echo "::group::Security Audit"
-          npm run security:audit:ci
+          npm run security:audit:prod
           echo "::endgroup::"
 
       - name: Install Trivy
