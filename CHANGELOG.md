@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.2](https://github.com/umairleo1/portfolio/compare/v0.5.1...v0.5.2) (2026-07-03)
+
+### Bug Fixes
+
+- **ci:** make lighthouse monitor non-blocking ([9214f84](https://github.com/umairleo1/portfolio/commit/9214f84fd402d55f6fec35e145ff58a623d8af2c))
+
 ## [0.5.1](https://github.com/umairleo1/portfolio/compare/v0.5.0...v0.5.1) (2026-07-03)
 
 ### Bug Fixes
