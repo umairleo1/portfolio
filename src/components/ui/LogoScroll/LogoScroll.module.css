@@ -187,9 +187,9 @@
   }
 
   .item {
-    width: 160px;
-    height: 80px;
-    padding: 1rem;
+    width: 104px;
+    height: 68px;
+    padding: 0.75rem;
   }
 }
 
@@ -203,9 +203,9 @@
   }
 
   .item {
-    width: 140px;
-    height: 70px;
-    padding: 0.75rem;
+    width: 88px;
+    height: 60px;
+    padding: 0.5rem;
   }
 
   .title::before,
