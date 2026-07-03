@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.1](https://github.com/umairleo1/portfolio/compare/v0.5.0...v0.5.1) (2026-07-03)
+
+### Bug Fixes
+
+- **ci:** correct trivy-action version tag ([6b6af82](https://github.com/umairleo1/portfolio/commit/6b6af829a61f21bf3226178bc08cab057c9c59f8))
+- **ci:** install trivy from release binary ([f14bdb9](https://github.com/umairleo1/portfolio/commit/f14bdb940233f3728abd3e0eef0c440e1e32ed00))
+- **ci:** install trivy via setup-trivy ([b620939](https://github.com/umairleo1/portfolio/commit/b620939888b4b3c2e72d4b8f747f9d947d985b40))
+- **ci:** use ECR mirror for trivy db ([88e05c9](https://github.com/umairleo1/portfolio/commit/88e05c9560f40d76d99f4f292b60f638150682ef))
+- **ui:** logo sizing on mobile ([1a1ccff](https://github.com/umairleo1/portfolio/commit/1a1ccffe51bc5ea6b7da114c6a18a80819a8bc4c))
+- **ui:** responsive container layout ([727f259](https://github.com/umairleo1/portfolio/commit/727f2590facad3fac2179c87a39ddbc169419fc9))
+- **ui:** responsive hero layout ([9108942](https://github.com/umairleo1/portfolio/commit/9108942a35614181c79e8d79d778ec0140665da9))
+
 ## [0.5.0](https://github.com/umairleo1/portfolio/compare/v0.4.0...v0.5.0) (2026-01-01)
 
 ### Features
