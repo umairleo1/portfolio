@@ -27,7 +27,7 @@
   ],
   "private": false,
   "dependencies": {
-    "@testing-library/jest-dom": "^6.7.0",
+    "@testing-library/jest-dom": "^7.0.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.1.0",
     "@types/react": "^19.1.10",
